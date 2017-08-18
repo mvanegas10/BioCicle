@@ -1,0 +1,24 @@
+ID	NAME	ORGANISM	SCORE	TAXID	KINGDOM	PHYLUM	CLASS	ORDER	FAMILY	GENUS	SPECIES
+AHB19525.1	capsid triplex subunit 1 	Human herpesvirus 5	100.5	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+AKI23682.1	capsid triplex subunit 1 	Human herpesvirus 5	100.5	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+AKI25032.1	capsid triplex subunit 1 	Human herpesvirus 5	100.5	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+YP_081504.1	capsid triplex subunit 1 	Human herpesvirus 5	100.5	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+AFR55540.1	capsid triplex subunit 1 	Human herpesvirus 5	100.5	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+AKI08773.1	capsid triplex subunit 1 	Human herpesvirus 5	100.5	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+AFR55709.1	capsid triplex subunit 1 	Human herpesvirus 5	100.5	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+AHJ82944.1	capsid triplex subunit 1 	Human herpesvirus 5	100.5	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+AKI14793.1	capsid triplex subunit 1 	Human herpesvirus 5	100.5	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+AKI25877.1	capsid triplex subunit 1 	Human herpesvirus 5	100.5	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+AKI18298.1	capsid triplex subunit 1 	Human herpesvirus 5	98.3	10359	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Human betaherpesvirus 5
+NP_612689.1	capsid triplex subunit 1 	Panine herpesvirus 2	96.6	188763	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Panine betaherpesvirus 2
+AAC67535.1	putative capsid assembly and DNA maturation protein UL46, partial 	Macacine herpesvirus 3	89.7	47929	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Macacine betaherpesvirus 3
+YP_068169.1	rh75 	Macacine herpesvirus 3	88.2	47929	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Macacine betaherpesvirus 3
+AEQ32152.1	protein UL46 	Cynomolgus macaque cytomegalovirus strain Ottawa	88.2	944969	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Macacine betaherpesvirus 3
+AKT72718.1	protein UL46 	Cynomolgus macaque cytomegalovirus strain Mauritius	86.8	1690255	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Macacine betaherpesvirus 3
+AEV80592.1	capsid triplex subunit 1 	Cercopithecine herpesvirus 5	84.2	50292	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Cercopithecine betaherpesvirus 5
+AKI29785.1	capsid triplex subunit 1 	Mandrillus leucophaeus cytomegalovirus	82.7	1654930	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Cercopithecine betaherpesvirus 5
+YP_009137486.1	UL46 	Papio ursinus cytomegalovirus	82.7	1667587	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Cercopithecine betaherpesvirus 5
+YP_004936021.1	capsid triplex subunit 1 	Cercopithecine herpesvirus 5	82.0	50292	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Cercopithecine betaherpesvirus 5
+YP_004940072.1	capsid triplex subunit 1 	Aotine herpesvirus 1	75.2	50290	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Aotine betaherpesvirus 1
+YP_004940218.1	capsid triplex subunit 1 	Saimiriine herpesvirus 4	69.7	1535247	NA	NA	NA	Herpesvirales	Herpesviridae	Cytomegalovirus	Saimiriine betaherpesvirus 4
+XP_018154155.1	Grampositive signal ysirk family 	Colletotrichum higginsianum IMI 349063	38.2	759273	Fungi	Ascomycota	Sordariomycetes	Glomerellales	Glomerellaceae	Colletotrichum	Colletotrichum higginsianum
