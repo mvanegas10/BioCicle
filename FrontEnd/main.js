@@ -290,14 +290,21 @@ function drawWordCloud(mData) {
 }
 
 function start() {
-	$.get( "http://localhost:8080/datos", function( data ) {
+
+	sequences = [1,2,3,4,5,6,7];
+	
+	post_data = {
+		sequences:JSON.stringify(sequences)
+	};
+
+
+	$.post( "http://localhost:8080/post_compare_sequence", post_data , function( data ) {
 		allData = data;
 		var first = allData.pop();
-		console.log(allData);
 		if(allData) {
 			redraw(first);
 			d3v4.interval(function(){
-				return redraw(allData.pop());
+				if(allData.length > 0) return redraw(allData.pop());
 			}, 100)	
 		}
 	});	
