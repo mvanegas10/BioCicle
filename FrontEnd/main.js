@@ -88,7 +88,8 @@ function redraw(data) {
 
 	data.forEach(function (d) {
 		if (typeCount === "splitWords") {
-			d[attribute].split(" ").forEach(countAttr(d.SCORE));
+			if(d[attribute])
+				d[attribute].split(" ").forEach(countAttr(d.SCORE));
 		} else if (typeCount === "firstWord") {
 			d.first = d[attribute].split(" ")[0];
 			countAttr(d.SCORE)(d.first);
@@ -291,7 +292,7 @@ function drawWordCloud(mData) {
 
 function start() {
 
-	sequences = [1,2,3,4,5,6,7];
+	sequences = [1];
 	
 	post_data = {
 		sequences:JSON.stringify(sequences)
@@ -300,12 +301,16 @@ function start() {
 
 	$.post( "http://localhost:8080/post_compare_sequence", post_data , function( data ) {
 		allData = data;
-		var first = allData.pop();
+		console.log(allData)
+		var first = allData.shift();
+		allData.push(first);
 		if(allData) {
 			redraw(first);
 			d3v4.interval(function(){
-				if(allData.length > 0) return redraw(allData.pop());
-			}, 100)	
+				next = allData.shift();
+				allData.push(next);
+				if(allData.length > 0) return redraw(next);
+			}, 10000)	
 		}
 	});	
 }
