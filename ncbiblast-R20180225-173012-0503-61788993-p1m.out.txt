@@ -1,0 +1,3252 @@
+BLASTP 2.2.29+
+
+
+Reference: Stephen F. Altschul, Thomas L. Madden, Alejandro A.
+Schaffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J.
+Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of
+protein database search programs", Nucleic Acids Res. 25:3389-3402.
+
+
+Reference for composition-based statistics: Alejandro A. Schaffer,
+L. Aravind, Thomas L. Madden, Sergei Shavirin, John L. Spouge, Yuri
+I. Wolf, Eugene V. Koonin, and Stephen F. Altschul (2001),
+"Improving the accuracy of PSI-BLAST protein database searches with
+composition-based statistics and other refinements", Nucleic Acids
+Res. 29:2994-3005.
+
+
+
+Database: uniprotkb_swissprot
+           556,388 sequences; 199,430,408 total letters
+
+
+
+Query= sp|P01174|WAP_RAT Whey acidic protein OS=Rattus norvegicus GN=Wap
+PE=1 SV=2
+
+Length=137
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+lcl|SP:WAP_RAT  P01174 Whey acidic protein OS=Rattus norvegicus G...    355   1e-97
+lcl|SP:WAP_MOUSE  P01173 Whey acidic protein OS=Mus musculus GN=W...    163   7e-40
+lcl|SP:WAP_RABIT  P09412 Whey acidic protein OS=Oryctolagus cunic...  62.6    2e-09
+lcl|SP:WAP_PIG  O46655 Whey acidic protein OS=Sus scrofa GN=WAP P...  52.4    3e-06
+lcl|SP:UROL1_HUMAN  Q5DID0 Uromodulin-like 1 OS=Homo sapiens GN=U...  52.4    3e-06
+lcl|SP:WAP_CAMDR  P09837 Whey acidic protein OS=Camelus dromedari...  49.2    2e-05
+lcl|SP:WFDC2_MOUSE  Q9DAU7 WAP four-disulfide core domain protein...  46.4    2e-04
+lcl|SP:WFD18_MOUSE  P62810 WAP four-disulfide core domain protein...  45.9    2e-04
+lcl|SP:WFD18_BOVIN  P62811 WAP four-disulfide core domain protein...  45.9    2e-04
+lcl|SP:WFDC2_RAT  Q8CHN3 WAP four-disulfide core domain protein 2...  45.5    3e-04
+lcl|SP:KALM_HUMAN  P23352 Anosmin-1 OS=Homo sapiens GN=ANOS1 PE=1...  45.5    3e-04
+lcl|SP:KALM_COTJA  Q90369 Anosmin-1 OS=Coturnix japonica GN=ANOS1...  45.0    4e-04
+lcl|SP:KALM_CHICK  P33005 Anosmin-1 OS=Gallus gallus GN=ANOS1 PE=...  45.0    4e-04
+lcl|SP:WFDC5_LEMCA  A4K2S3 WAP four-disulfide core domain protein...  44.5    6e-04
+lcl|SP:WAP2_PHIOL  A7X4K7 Waprin-Phi2 OS=Philodryas olfersii PE=2...  44.5    6e-04
+lcl|SP:WAP1_PHIOL  A7X4K1 Waprin-Phi1 OS=Philodryas olfersii PE=2...  44.5    6e-04
+lcl|SP:WFDC5_CHLAE  A4K2Y3 WAP four-disulfide core domain protein...  44.1    8e-04
+lcl|SP:ELAF_HUMAN  P19957 Elafin OS=Homo sapiens GN=PI3 PE=1 SV=3     44.1    8e-04
+lcl|SP:WFDC5_PONAB  A4K2V3 WAP four-disulfide core domain protein...  43.6    0.001
+lcl|SP:WFDC5_PAPAN  A4K2M5 WAP four-disulfide core domain protein...  43.6    0.001
+lcl|SP:WFDC5_PANTR  A4K2N9 WAP four-disulfide core domain protein...  43.6    0.001
+lcl|SP:WFDC5_MACMU  A4K2T2 WAP four-disulfide core domain protein...  43.6    0.001
+lcl|SP:WFDC5_HUMAN  Q8TCV5 WAP four-disulfide core domain protein...  43.6    0.001
+lcl|SP:WFDC5_GORGO  A4K2R4 WAP four-disulfide core domain protein...  43.6    0.001
+lcl|SP:WFDC5_COLGU  A4K2P7 WAP four-disulfide core domain protein...  43.6    0.001
+lcl|SP:WAP_MACEU  Q9N0L8 Whey acidic protein OS=Macropus eugenii ...  43.6    0.001
+lcl|SP:WFDC2_PIG  Q8MI69 WAP four-disulfide core domain protein 2...  43.1    0.002
+lcl|SP:WFDC5_AOTNA  A4K2W7 WAP four-disulfide core domain protein...  42.7    0.002
+lcl|SP:WFDC2_HUMAN  Q14508 WAP four-disulfide core domain protein...  42.7    0.002
+lcl|SP:WFDC5_SAIBB  A4K2X5 WAP four-disulfide core domain protein...  42.2    0.003
+lcl|SP:WFDC5_CALJA  A4K2U0 WAP four-disulfide core domain protein...  42.2    0.003
+lcl|SP:WAPB_PSEAU  B5L5N1 Auswaprin-b OS=Pseudechis australis PE=...  42.2    0.003
+lcl|SP:WAPB_AUSSU  B5L5P2 Supwaprin-b OS=Austrelaps superbus PE=3...  42.2    0.003
+lcl|SP:WAPA_PSEAU  B5G6G9 Auswaprin-a OS=Pseudechis australis PE=...  42.2    0.003
+lcl|SP:WAPA_HOPST  B5G6H3 Stewaprin-a OS=Hoplocephalus stephensii...  42.2    0.003
+lcl|SP:WAPA_AUSSU  B5KGY9 Supwaprin-a OS=Austrelaps superbus PE=2...  42.2    0.003
+lcl|SP:WFDC1_MOUSE  Q9ESH5 WAP four-disulfide core domain protein...  41.8    0.004
+lcl|SP:WFDC1_HUMAN  Q9HC57 WAP four-disulfide core domain protein...  41.8    0.004
+lcl|SP:WAPD_DEMVE  B5L5P7 Veswaprin-d OS=Demansia vestigiata PE=3...  41.8    0.004
+lcl|SP:WAPA_CRYNI  B5G6H1 Nigwaprin-a OS=Cryptophis nigrescens PE...  41.8    0.004
+lcl|SP:WFDC5_OTOGA  A4K2Q7 WAP four-disulfide core domain protein...  41.3    0.006
+lcl|SP:WFDC1_RAT  O70280 WAP four-disulfide core domain protein 1...  41.3    0.006
+lcl|SP:WFDC2_RABIT  Q28631 WAP four-disulfide core domain protein...  40.8    0.008
+lcl|SP:WAPD_PSEPO  B5L5N4 Porwaprin-d OS=Pseudechis porphyriacus ...  40.8    0.008
+lcl|SP:WAPC_PSEPO  B5L5N3 Porwaprin-c OS=Pseudechis porphyriacus ...  40.8    0.008
+lcl|SP:WAPB_TROCA  B5L5P0 Carwaprin-b OS=Tropidechis carinatus PE...  40.8    0.008
+lcl|SP:WAPB_DEMVE  B5L5P5 Veswaprin-b OS=Demansia vestigiata PE=3...  40.8    0.008
+lcl|SP:WAPA_TROCA  B5G6H2 Carwaprin-a OS=Tropidechis carinatus PE...  40.8    0.008
+lcl|SP:WAPA_NOTSC  B5G6H4 Notewaprin-a OS=Notechis scutatus scuta...  40.8    0.008
+lcl|SP:WAP3_PHIOL  A7X4M7 Waprin-Phi3 OS=Philodryas olfersii PE=2...  40.8    0.008
+lcl|SP:ELAF_PIG  Q29125 Elafin OS=Sus scrofa PE=2 SV=1                40.8    0.008
+lcl|SP:WAPC_DEMVE  B5L5P6 Veswaprin-c OS=Demansia vestigiata PE=3...  40.4    0.011
+lcl|SP:WAPC_AUSSU  B5L5P3 Supwaprin-c OS=Austrelaps superbus PE=3...  40.4    0.011
+lcl|SP:WAPB_PSEPO  B5L5N2 Porwaprin-b OS=Pseudechis porphyriacus ...  40.4    0.011
+lcl|SP:WAPB_NOTSC  B5G6H5 Notewaprin-b OS=Notechis scutatus scuta...  40.4    0.011
+lcl|SP:SLPI_PIG  P22298 Antileukoproteinase (Fragment) OS=Sus scr...  40.4    0.011
+lcl|SP:WFDC1_CHICK  Q8JG33 WAP four-disulfide core domain protein...  39.9    0.015
+lcl|SP:WAPD_AUSSU  B5L5P4 Supwaprin-d OS=Austrelaps superbus PE=3...  39.9    0.015
+lcl|SP:WAPC_OXYMI  B5L5M9 Omwaprin-c OS=Oxyuranus microlepidotus ...  39.9    0.015
+lcl|SP:WAPB_OXYMI  B5G6G7 Omwaprin-b OS=Oxyuranus microlepidotus ...  39.9    0.015
+lcl|SP:WAPA_PSETE  B5L5P9 Textwaprin-a OS=Pseudonaja textilis PE=...  39.9    0.015
+lcl|SP:WAPA_PSEPO  B5G6H0 Porwaprin-a OS=Pseudechis porphyriacus ...  39.9    0.015
+lcl|SP:WAPA_OXYSC  B5G6G8 Scuwaprin-a OS=Oxyuranus scutellatus sc...  39.9    0.015
+lcl|SP:WAPA_DEMVE  B5L5P8 Veswaprin-a OS=Demansia vestigiata PE=2...  39.9    0.015
+lcl|SP:WFDC3_HUMAN  Q8IUB2 WAP four-disulfide core domain protein...  39.4    0.020
+lcl|SP:UROL1_MOUSE  Q5DID3 Uromodulin-like 1 OS=Mus musculus GN=U...  39.4    0.020
+lcl|SP:PPN_DROME  Q868Z9 Papilin OS=Drosophila melanogaster GN=Pp...  39.4    0.020
+lcl|SP:WFDC2_CANLF  Q28894 WAP four-disulfide core domain protein...  39.0    0.028
+lcl|SP:WF15A_MOUSE  Q8BH89 WAP four-disulfide core domain protein...  39.0    0.028
+lcl|SP:WAPB_CRYNI  B5L5N6 Nigwaprin-b OS=Cryptophis nigrescens PE...  39.0    0.028
+lcl|SP:WAPA_OXYMI  P83952 Omwaprin-a OS=Oxyuranus microlepidotus ...  38.1    0.053
+lcl|SP:SLPI_SHEEP  Q6V9X0 Antileukoproteinase OS=Ovis aries GN=SL...  38.1    0.053
+lcl|SP:WFD12_LEMCA  A4K2S4 WAP four-disulfide core domain protein...  37.6    0.073
+lcl|SP:WAP3_PIG  Q29126 Protein WAP-3 OS=Sus scrofa PE=2 SV=1         37.6    0.073
+lcl|SP:WAP1_THRJA  A7X4I7 Waprin-Thr1 OS=Thrasops jacksonii PE=2 ...  37.6    0.073
+lcl|SP:WAP1_RHATT  A7X4J4 Waprin-Rha1 OS=Rhabdophis tigrinus tigr...  37.6    0.073
+lcl|SP:SLPI_MOUSE  P97430 Antileukoproteinase OS=Mus musculus GN=...  37.6    0.073
+lcl|SP:SLPI_HUMAN  P03973 Antileukoproteinase OS=Homo sapiens GN=...  37.6    0.073
+lcl|SP:PWAP_HALLA  P84811 Perlwapin OS=Haliotis laevigata PE=1 SV=1   37.6    0.073
+lcl|SP:WFDC3_MOUSE  Q14AE4 WAP four-disulfide core domain protein...  37.1    0.10 
+lcl|SP:WAPN_NAJNG  P60589 Nawaprin OS=Naja nigricollis PE=1 SV=1      37.1    0.10 
+lcl|SP:KRA15_HUMAN  Q9BYS1 Keratin-associated protein 1-5 OS=Homo...  37.1    0.10 
+lcl|SP:WFDC8_HUMAN  Q8IUA0 WAP four-disulfide core domain protein...  36.7    0.14 
+lcl|SP:WFD18_RAT  P14730 WAP four-disulfide core domain protein 1...  36.7    0.14 
+lcl|SP:WFDC8_MOUSE  Q4KUS1 WAP four-disulfide core domain protein...  36.2    0.19 
+lcl|SP:SPAI_PIG  P16225 Sodium/potassium ATPase inhibitor SPAI-2 ...  36.2    0.19 
+lcl|SP:MIPR_LYMST  Q25410 Putative molluscan insulin-related pept...  35.7    0.26 
+lcl|SP:IBP_CARCR  P00993 Chelonianin OS=Caretta caretta PE=1 SV=1     35.7    0.26 
+lcl|SP:CALU_CAVPO  P22075 Caltrin-like protein 2 OS=Cavia porcell...  35.7    0.26 
+lcl|SP:WFKN2_MOUSE  Q7TQN3 WAP, Kazal, immunoglobulin, Kunitz and...  34.8    0.50 
+lcl|SP:WFKN2_HUMAN  Q8TEU8 WAP, Kazal, immunoglobulin, Kunitz and...  34.8    0.50 
+lcl|SP:WFKN2_BOVIN  Q08E66 WAP, Kazal, immunoglobulin, Kunitz and...  34.8    0.50 
+lcl|SP:WAP1_PSEPL  A7X4M1 Waprin-Enh1 OS=Pseudoferania polylepis ...  34.8    0.50 
+lcl|SP:WAP1_ERYPO  A7X4L4 Waprin-Lio1 (Fragment) OS=Erythrolampru...  34.8    0.50 
+lcl|SP:WFD12_PAPAN  A4K2M6 WAP four-disulfide core domain protein...  34.4    0.69 
+lcl|SP:WF10A_HUMAN  Q9H1F0 WAP four-disulfide core domain protein...  34.4    0.69 
+lcl|SP:SLIT_DROME  P24014 Protein slit OS=Drosophila melanogaster...  34.4    0.69 
+lcl|SP:SET2_NEUCR  Q7RZU4 Histone-lysine N-methyltransferase, H3 ...  34.4    0.69 
+lcl|SP:EPPI_RAT  D4A2Z2 Eppin OS=Rattus norvegicus GN=Eppin PE=3 ...  34.4    0.69 
+lcl|SP:WFD12_SAIBB  A4K2X6 WAP four-disulfide core domain protein...  33.9    0.95 
+lcl|SP:WFD12_MACMU  A4K2T3 WAP four-disulfide core domain protein...  33.9    0.95 
+lcl|SP:WFD12_COLGU  A4K2P8 WAP four-disulfide core domain protein...  33.9    0.95 
+lcl|SP:WFD12_CHLAE  A4K2Y4 WAP four-disulfide core domain protein...  33.9    0.95 
+lcl|SP:WFD12_CALJA  A4K2U1 WAP four-disulfide core domain protein...  33.9    0.95 
+lcl|SP:WFD12_AOTNA  A4K2W8 WAP four-disulfide core domain protein...  33.9    0.95 
+lcl|SP:WF15B_MOUSE  Q9JHY4 WAP four-disulfide core domain protein...  33.9    0.95 
+lcl|SP:TXF18_LYCSI  B6DD51 U15-lycotoxin-Ls1h OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:TXF17_LYCSI  B6DD50 U15-lycotoxin-Ls1g OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:TXF16_LYCSI  B6DD49 U15-lycotoxin-Ls1d OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:TXF15_LYCSI  B6DD48 U15-lycotoxin-Ls1f OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:TXF14_LYCSI  B6DD47 U15-lycotoxin-Ls1e OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:TXF13_LYCSI  B6DD46 U15-lycotoxin-Ls1d OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:TXF12_LYCSI  B6DD45 U15-lycotoxin-Ls1c OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:TXF10_LYCSI  B6DD43 U15-lycotoxin-Ls1a OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:TXF09_LYCSI  B6DD42 U15-lycotoxin-Ls1d OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:TXF08_LYCSI  B6DD41 U15-lycotoxin-Ls1d OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:TXF07_LYCSI  B6DD40 U15-lycotoxin-Ls1f OS=Lycosa singorien...  33.9    0.95 
+lcl|SP:PWAPL_LOTGI  B3A0S1 Perlwapin-like protein (Fragment) OS=L...  33.9    0.95 
+lcl|SP:TXAG7_AGEOR  Q5Y4V9 U7-agatoxin-Ao1a OS=Agelena orientalis...  33.4    1.3  
+lcl|SP:KRA98_HUMAN  Q9BYQ0 Keratin-associated protein 9-8 OS=Homo...  33.4    1.3  
+lcl|SP:EPPI_MOUSE  Q9DA01 Eppin OS=Mus musculus GN=Eppin PE=1 SV=1    33.4    1.3  
+lcl|SP:EPPI_MACMU  Q9BDL1 Eppin OS=Macaca mulatta GN=EPPIN PE=2 SV=1  33.4    1.3  
+lcl|SP:EPPI_HUMAN  O95925 Eppin OS=Homo sapiens GN=EPPIN PE=1 SV=1    33.4    1.3  
+lcl|SP:WFKN_DANRE  Q6NUX0 WAP, Kazal, immunoglobulin, Kunitz and ...  33.0    1.8  
+lcl|SP:WFD12_PONAB  A4K2V4 WAP four-disulfide core domain protein...  33.0    1.8  
+lcl|SP:WFD12_PANTR  A4K2P0 WAP four-disulfide core domain protein...  33.0    1.8  
+lcl|SP:WFD12_HUMAN  Q8WWY7 WAP four-disulfide core domain protein...  33.0    1.8  
+lcl|SP:WFD12_GORGO  A4K2R5 WAP four-disulfide core domain protein...  33.0    1.8  
+lcl|SP:TXE06_LYCSI  B6DD39 U14-lycotoxin-Ls1c OS=Lycosa singorien...  33.0    1.8  
+lcl|SP:TXE05_LYCSI  B6DD38 U14-lycotoxin-Ls1a OS=Lycosa singorien...  33.0    1.8  
+lcl|SP:TXE04_LYCSI  B6DD37 U14-lycotoxin-Ls1b OS=Lycosa singorien...  33.0    1.8  
+lcl|SP:TXE03_LYCSI  B6DD36 U14-lycotoxin-Ls1b OS=Lycosa singorien...  33.0    1.8  
+lcl|SP:TXE02_LYCSI  B6DD35 U14-lycotoxin-Ls1a OS=Lycosa singorien...  33.0    1.8  
+lcl|SP:TXE01_LYCSI  B6DD34 U14-lycotoxin-Ls1a OS=Lycosa singorien...  33.0    1.8  
+lcl|SP:SP3_CHICK  Q90WR8 Transcription factor Sp3 OS=Gallus gallu...  33.0    1.8  
+lcl|SP:KRA52_MOUSE  Q9D5Z7 Keratin-associated protein 5-2 OS=Mus ...  33.0    1.8  
+lcl|SP:YL264_MIMIV  Q5UPU7 Uncharacterized WD repeat-containing p...  32.5    2.5  
+lcl|SP:WFD12_MOUSE  Q9JHY3 WAP four-disulfide core domain protein...  32.5    2.5  
+lcl|SP:SAE1_XENTR  Q28DS0 SUMO-activating enzyme subunit 1 OS=Xen...  32.5    2.5  
+lcl|SP:PWAP_HALAI  P86730 Perlwapin (Fragment) OS=Haliotis asinin...  32.5    2.5  
+lcl|SP:LET23_CAEEL  P24348 Receptor tyrosine-protein kinase let-2...  32.5    2.5  
+lcl|SP:KRA46_HUMAN  Q9BYQ5 Keratin-associated protein 4-6 OS=Homo...  32.5    2.5  
+lcl|SP:CHIT_PHAVU  P06215 Endochitinase OS=Phaseolus vulgaris PE=...  32.5    2.5  
+lcl|SP:CASA2_BOVIN  P02663 Alpha-S2-casein OS=Bos taurus GN=CSN1S...  32.5    2.5  
+lcl|SP:WFKN1_RAT  P0C5J5 WAP, Kazal, immunoglobulin, Kunitz and N...  32.0    3.4  
+lcl|SP:WFKN1_HUMAN  Q96NZ8 WAP, Kazal, immunoglobulin, Kunitz and...  32.0    3.4  
+lcl|SP:SPHR_AMEPV  P29815 Spheroidin OS=Amsacta moorei entomopoxv...  32.0    3.4  
+lcl|SP:SET2_CHAGB  Q2H988 Histone-lysine N-methyltransferase, H3 ...  32.0    3.4  
+lcl|SP:KRA92_PANTR  A5A6P5 Keratin-associated protein 9-2 OS=Pan ...  32.0    3.4  
+lcl|SP:INSRR_MOUSE  Q9WTL4 Insulin receptor-related protein OS=Mu...  32.0    3.4  
+lcl|SP:WFKN1_MOUSE  Q8R0S6 WAP, Kazal, immunoglobulin, Kunitz and...  31.6    4.7  
+lcl|SP:WFDC6_HUMAN  Q9BQY6 WAP four-disulfide core domain protein...  31.6    4.7  
+lcl|SP:WFC6B_MOUSE  F6ULY1 WAP four-disulfide core domain protein...  31.6    4.7  
+lcl|SP:LECB_PHYAM  Q9AVB0 Lectin-B OS=Phytolacca americana PE=1 SV=1  31.6    4.7  
+lcl|SP:KRA48_HUMAN  Q9BYQ9 Keratin-associated protein 4-8 OS=Homo...  31.6    4.7  
+lcl|SP:INSRR_HUMAN  P14616 Insulin receptor-related protein OS=Ho...  31.6    4.7  
+lcl|SP:ACN1_CAEEL  Q18581 Inactive angiotensin-converting enzyme-...  31.6    4.7  
+lcl|SP:SP3_MOUSE  O70494 Transcription factor Sp3 OS=Mus musculus...  31.1    6.5  
+lcl|SP:SEM6C_HUMAN  Q9H3T2 Semaphorin-6C OS=Homo sapiens GN=SEMA6...  31.1    6.5  
+lcl|SP:SAE1_XENLA  Q8JGT5 SUMO-activating enzyme subunit 1 OS=Xen...  31.1    6.5  
+lcl|SP:KRA97_HUMAN  A8MTY7 Keratin-associated protein 9-7 OS=Homo...  31.1    6.5  
+lcl|SP:KRA45_HUMAN  Q9BYR2 Keratin-associated protein 4-5 OS=Homo...  31.1    6.5  
+lcl|SP:KRA44_HUMAN  Q9BYR3 Keratin-associated protein 4-4 OS=Homo...  31.1    6.5  
+lcl|SP:KRA24_HUMAN  Q9BYR9 Keratin-associated protein 2-4 OS=Homo...  31.1    6.5  
+lcl|SP:KRA23_HUMAN  P0C7H8 Keratin-associated protein 2-3 OS=Homo...  31.1    6.5  
+lcl|SP:KRA22_HUMAN  Q9BYT5 Keratin-associated protein 2-2 OS=Homo...  31.1    6.5  
+lcl|SP:KRA21_HUMAN  Q9BYU5 Keratin-associated protein 2-1 OS=Homo...  31.1    6.5  
+lcl|SP:CHI8_POPTR  P16061 Endochitinase WIN8 OS=Populus trichocar...  31.1    6.5  
+lcl|SP:WFD12_RAT  Q6IE40 WAP four-disulfide core domain protein 1...  30.7    8.9  
+lcl|SP:RUTD_ECO44  D3H122 Putative aminoacrylate hydrolase RutD O...  30.7    8.9  
+lcl|SP:PGBM_MOUSE  Q05793 Basement membrane-specific heparan sulf...  30.7    8.9  
+lcl|SP:MCSP_RAT  Q64298 Sperm mitochondrial-associated cysteine-r...  30.7    8.9  
+lcl|SP:KCP_XENLA  Q9IBG7 Kielin/chordin-like protein OS=Xenopus l...  30.7    8.9  
+lcl|SP:K1H1_HUMAN  Q15323 Keratin, type I cuticular Ha1 OS=Homo s...  30.7    8.9  
+lcl|SP:FBN2_MOUSE  Q61555 Fibrillin-2 OS=Mus musculus GN=Fbn2 PE=...  30.7    8.9  
+lcl|SP:FBN2_HUMAN  P35556 Fibrillin-2 OS=Homo sapiens GN=FBN2 PE=...  30.7    8.9  
+lcl|SP:EZ1_MAIZE  Q8S4P6 Histone-lysine N-methyltransferase EZ1 O...  30.7    8.9  
+lcl|SP:DF254_ARATH  Q2V318 Putative defensin-like protein 254 OS=...  30.7    8.9  
+lcl|SP:BAR3_CHITE  Q03376 Balbiani ring protein 3 OS=Chironomus t...  30.7    8.9  
+
+
+>lcl|SP:WAP_RAT P01174 Whey acidic protein OS=Rattus norvegicus GN=Wap PE=1 SV=2
+Length=137
+
+ Score =   355 bits (763),  Expect = 1e-97
+ Identities = 137/137 (100%), Positives = 137/137 (100%), Gaps = 0/137 (0%)
+
+Query  1    MRCSISLVLGLLALEVALARNLQEHVFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMC  60
+            MRCSISLVLGLLALEVALARNLQEHVFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMC
+Sbjct  1    MRCSISLVLGLLALEVALARNLQEHVFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMC  60
+
+Query  61   CPSSCGRSCKTPVNIEVQKAGRCPWNPIQMIAAGPCPKDNPCSIDSDCSGTMKCCKNGCI  120
+            CPSSCGRSCKTPVNIEVQKAGRCPWNPIQMIAAGPCPKDNPCSIDSDCSGTMKCCKNGCI
+Sbjct  61   CPSSCGRSCKTPVNIEVQKAGRCPWNPIQMIAAGPCPKDNPCSIDSDCSGTMKCCKNGCI  120
+
+Query  121  MSCMDPEPKSPTVISFQ  137
+            MSCMDPEPKSPTVISFQ
+Sbjct  121  MSCMDPEPKSPTVISFQ  137
+
+
+>lcl|SP:WAP_MOUSE P01173 Whey acidic protein OS=Mus musculus GN=Wap PE=1 SV=3
+Length=134
+
+ Score =   163 bits (348),  Expect = 7e-40
+ Identities = 69/93 (74%), Positives = 75/93 (81%), Gaps = 0/93 (0%)
+
+Query  1   MRCSISLVLGLLALEVALARNLQEHVFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMC  60
+           MRC ISLVLGLLALEVALA+NL+E VFNSVQSM    S  E TECI CQTNEECAQN MC
+Sbjct  1   MRCLISLVLGLLALEVALAQNLEEQVFNSVQSMFQKASPIEGTECIICQTNEECAQNAMC  60
+
+Query  61  CPSSCGRSCKTPVNIEVQKAGRCPWNPIQMIAA  93
+           CP SCGR+ KTPVNI V KAG CPWN +Q I++
+Sbjct  61  CPGSCGRTRKTPVNIGVPKAGFCPWNLLQTISS  93
+
+
+ Score = 59.3 bits (122),  Expect = 2e-08
+ Identities = 19/37 (51%), Positives = 23/37 (62%), Gaps = 0/37 (0%)
+
+Query  92   AAGPCPKDNPCSIDSDCSGTMKCCKNGCIMSCMDPEP  128
+            + GPCP    CS D +CSG MKCC   C+M+C  P P
+Sbjct  93   STGPCPMKIECSSDRECSGNMKCCNVDCVMTCTPPVP  129
+
+
+ Score = 34.8 bits (69),  Expect = 0.50
+ Identities = 11/30 (37%), Positives = 16/30 (53%), Gaps = 0/30 (0%)
+
+Query  46   INCQTNEECAQNDMCCPSSCGRSCKTPVNI  75
+            I C ++ EC+ N  CC   C  +C  PV +
+Sbjct  101  IECSSDRECSGNMKCCNVDCVMTCTPPVPV  130
+
+
+>lcl|SP:WAP_RABIT P09412 Whey acidic protein OS=Oryctolagus cuniculus GN=WAP PE=2 
+SV=1
+Length=127
+
+ Score = 62.6 bits (129),  Expect = 2e-09
+ Identities = 19/45 (42%), Positives = 30/45 (67%), Gaps = 0/45 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPVNIEVQKAGRCPWNPIQMIA  92
+           C ++ +C  + +CCPS+ G SC+TP+ +   KAGRCPW    M++
+Sbjct  43  CLSDNDCLGSTVCCPSAAGGSCRTPIIVPTPKAGRCPWVQAPMLS  87
+
+
+ Score = 36.2 bits (72),  Expect = 0.19
+ Identities = 16/19 (84%), Positives = 16/19 (84%), Gaps = 0/19 (0%)
+
+Query  1   MRCSISLVLGLLALEVALA  19
+           MRC ISL LGLLALE ALA
+Sbjct  1   MRCLISLALGLLALEAALA  19
+
+
+ Score = 35.3 bits (70),  Expect = 0.36
+ Identities = 11/31 (35%), Positives = 18/31 (58%), Gaps = 0/31 (0%)
+
+Query  96   CPKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C + + C+ D +C G  KCC + C M  ++P
+Sbjct  90   CEELSDCANDIECRGDKKCCFSRCAMRYLEP  120
+
+
+>lcl|SP:WAP_PIG O46655 Whey acidic protein OS=Sus scrofa GN=WAP PE=1 SV=1
+Length=132
+
+ Score = 52.4 bits (107),  Expect = 3e-06
+ Identities = 16/36 (44%), Positives = 22/36 (61%), Gaps = 0/36 (0%)
+
+Query  96   CPKDNPCSIDSDCSGTMKCCKNGCIMSCMDPEPKSP  131
+            C + N CS D  C G  KCC + C M C+DP+ ++P
+Sbjct  95   CLEKNECSRDDQCRGNKKCCFSSCAMRCLDPDTEAP  130
+
+
+ Score = 47.8 bits (97),  Expect = 6e-05
+ Identities = 16/28 (57%), Positives = 18/28 (64%), Gaps = 0/28 (0%)
+
+Query  60  CCPSSCGRSCKTPVNIEVQKAGRCPWNP  87
+           C  S C RSC  P+ + V KAGRCPW P
+Sbjct  60  CARSPCSRSCTVPLLVPVPKAGRCPWVP  87
+
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 10/25 (40%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  +++C  N  CC SSC   C  P
+Sbjct  101  CSRDDQCRGNKKCCFSSCAMRCLDP  125
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 12/27 (44%), Positives = 14/27 (52%), Gaps = 0/27 (0%)
+
+Query  38  SFSEDTECINCQTNEECAQNDMCCPSS  64
+           S SED   I+C  +E C Q   CC  S
+Sbjct  37  SSSEDPCVISCVNDESCPQGTKCCARS  63
+
+
+>lcl|SP:UROL1_HUMAN Q5DID0 Uromodulin-like 1 OS=Homo sapiens GN=UMODL1 PE=2 SV=2
+Length=1318
+
+ Score = 52.4 bits (107),  Expect = 3e-06
+ Identities = 21/57 (37%), Positives = 30/57 (53%), Gaps = 0/57 (0%)
+
+Query  75   IEVQKAGRCPWNPIQMIAAGPCPKDNPCSIDSDCSGTMKCCKNGCIMSCMDPEPKSP  131
+            + + ++G+    P    A GP P  +PCS+D DC G  KCC       CM P P++P
+Sbjct  106  LPLNQSGQFTSRPGACPAEGPEPSTSPCSLDIDCPGLEKCCPWSGGRYCMAPAPQAP  162
+
+
+>lcl|SP:WAP_CAMDR P09837 Whey acidic protein OS=Camelus dromedarius GN=WAP PE=1 
+SV=1
+Length=117
+
+ Score = 49.2 bits (100),  Expect = 2e-05
+ Identities = 16/36 (44%), Positives = 20/36 (56%), Gaps = 0/36 (0%)
+
+Query  91   IAAGPCPKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            + A  C + N CS D  C G  KCC + C M C+DP
+Sbjct  75   LTAKHCLEKNDCSRDDQCEGNKKCCFSSCAMRCLDP  110
+
+
+ Score = 35.3 bits (70),  Expect = 0.36
+ Identities = 11/27 (41%), Positives = 15/27 (56%), Gaps = 0/27 (0%)
+
+Query  47   NCQTNEECAQNDMCCPSSCGRSCKTPV  73
+            +C  +++C  N  CC SSC   C  PV
+Sbjct  85   DCSRDDQCEGNKKCCFSSCAMRCLDPV  111
+
+
+>lcl|SP:WFDC2_MOUSE Q9DAU7 WAP four-disulfide core domain protein 2 OS=Mus musculus 
+GN=Wfdc2 PE=1 SV=1
+Length=174
+
+ Score = 46.4 bits (94),  Expect = 2e-04
+ Identities = 13/21 (62%), Positives = 17/21 (81%), Gaps = 0/21 (0%)
+
+Query  99   DNPCSIDSDCSGTMKCCKNGC  119
+            ++ C +DS CSG MKCC+NGC
+Sbjct  144  EDQCQVDSQCSGNMKCCRNGC  164
+
+
+ Score = 39.9 bits (80),  Expect = 0.015
+ Identities = 13/34 (38%), Positives = 18/34 (53%), Gaps = 0/34 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPKSPTVIS  135
+            C++D DC+   KCC+ GC   C  P   S   +S
+Sbjct  49   CTLDKDCADNRKCCQAGCSSVCSKPNGPSEGELS  82
+
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 9/27 (33%), Positives = 14/27 (52%), Gaps = 0/27 (0%)
+
+Query  46  INCQTNEECAQNDMCCPSSCGRSCKTP  72
+           + C  +++CA N  CC + C   C  P
+Sbjct  47  LECTLDKDCADNRKCCQAGCSSVCSKP  73
+
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 9/24 (38%), Positives = 14/24 (58%), Gaps = 0/24 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKT  71
+            CQ + +C+ N  CC + CG+   T
+Sbjct  147  CQVDSQCSGNMKCCRNGCGKMACT  170
+
+
+>lcl|SP:WFD18_MOUSE P62810 WAP four-disulfide core domain protein 18 OS=Mus musculus 
+GN=Wfdc18 PE=3 SV=1
+Length=74
+
+ Score = 45.9 bits (93),  Expect = 2e-04
+ Identities = 15/28 (54%), Positives = 17/28 (61%), Gaps = 0/28 (0%)
+
+Query  99   DNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            D  C+ D  CSG MKCC NGC  +C  P
+Sbjct  45   DERCTGDGSCSGNMKCCSNGCGHACKPP  72
+
+
+ Score = 36.7 bits (73),  Expect = 0.14
+ Identities = 11/26 (42%), Positives = 15/26 (58%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C  +  C+ N  CC + CG +CK PV
+Sbjct  48  CTGDGSCSGNMKCCSNGCGHACKPPV  73
+
+
+>lcl|SP:WFD18_BOVIN P62811 WAP four-disulfide core domain protein 18 OS=Bos taurus 
+GN=WFDC18 PE=3 SV=1
+Length=74
+
+ Score = 45.9 bits (93),  Expect = 2e-04
+ Identities = 15/28 (54%), Positives = 17/28 (61%), Gaps = 0/28 (0%)
+
+Query  99   DNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            D  C+ D  CSG MKCC NGC  +C  P
+Sbjct  45   DERCTGDGSCSGNMKCCSNGCGHACKPP  72
+
+
+ Score = 36.7 bits (73),  Expect = 0.14
+ Identities = 11/26 (42%), Positives = 15/26 (58%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C  +  C+ N  CC + CG +CK PV
+Sbjct  48  CTGDGSCSGNMKCCSNGCGHACKPPV  73
+
+
+>lcl|SP:WFDC2_RAT Q8CHN3 WAP four-disulfide core domain protein 2 OS=Rattus norvegicus 
+GN=Wfdc2 PE=2 SV=1
+Length=168
+
+ Score = 45.5 bits (92),  Expect = 3e-04
+ Identities = 13/21 (62%), Positives = 17/21 (81%), Gaps = 0/21 (0%)
+
+Query  99   DNPCSIDSDCSGTMKCCKNGC  119
+            ++ C +DS CSG MKCC+NGC
+Sbjct  138  EDQCQMDSQCSGNMKCCRNGC  158
+
+
+ Score = 37.1 bits (74),  Expect = 0.10
+ Identities = 13/34 (38%), Positives = 17/34 (50%), Gaps = 0/34 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPKSPTVIS  135
+            C +D+DC    KCC+ GC   C  P   S   +S
+Sbjct  49   CILDNDCQDNYKCCQAGCGSVCSKPNGLSEGKLS  82
+
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 11/35 (31%), Positives = 15/35 (43%), Gaps = 0/35 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPVNIEVQKAGR  82
+           C  + +C  N  CC + CG  C  P  +   K  R
+Sbjct  49  CILDNDCQDNYKCCQAGCGSVCSKPNGLSEGKLSR  83
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 8/20 (40%), Positives = 13/20 (65%), Gaps = 0/20 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGR  67
+            CQ + +C+ N  CC + CG+
+Sbjct  141  CQMDSQCSGNMKCCRNGCGK  160
+
+
+>lcl|SP:KALM_HUMAN P23352 Anosmin-1 OS=Homo sapiens GN=ANOS1 PE=1 SV=3
+Length=680
+
+ Score = 45.5 bits (92),  Expect = 3e-04
+ Identities = 13/26 (50%), Positives = 18/26 (69%), Gaps = 0/26 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            C +D++CSG  KCC NGC  +C  P+
+Sbjct  151  CEVDNECSGVKKCCSNGCGHTCQVPK  176
+
+
+ Score = 36.2 bits (72),  Expect = 0.19
+ Identities = 9/26 (35%), Positives = 16/26 (62%), Gaps = 0/26 (0%)
+
+Query  47   NCQTNEECAQNDMCCPSSCGRSCKTP  72
+            +C+ + EC+    CC + CG +C+ P
+Sbjct  150  SCEVDNECSGVKKCCSNGCGHTCQVP  175
+
+
+>lcl|SP:KALM_COTJA Q90369 Anosmin-1 OS=Coturnix japonica GN=ANOS1 PE=2 SV=1
+Length=674
+
+ Score = 45.0 bits (91),  Expect = 4e-04
+ Identities = 14/26 (54%), Positives = 17/26 (65%), Gaps = 0/26 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            C  DS+CSG  KCC NGC  +C  P+
+Sbjct  145  CEADSECSGVKKCCSNGCGHTCQVPK  170
+
+
+ Score = 39.0 bits (78),  Expect = 0.028
+ Identities = 10/29 (34%), Positives = 18/29 (62%), Gaps = 0/29 (0%)
+
+Query  47   NCQTNEECAQNDMCCPSSCGRSCKTPVNI  75
+            +C+ + EC+    CC + CG +C+ P N+
+Sbjct  144  SCEADSECSGVKKCCSNGCGHTCQVPKNL  172
+
+
+>lcl|SP:KALM_CHICK P33005 Anosmin-1 OS=Gallus gallus GN=ANOS1 PE=2 SV=2
+Length=675
+
+ Score = 45.0 bits (91),  Expect = 4e-04
+ Identities = 14/26 (54%), Positives = 17/26 (65%), Gaps = 0/26 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            C  DS+CSG  KCC NGC  +C  P+
+Sbjct  145  CEADSECSGVKKCCSNGCGHTCQVPK  170
+
+
+ Score = 39.0 bits (78),  Expect = 0.028
+ Identities = 10/29 (34%), Positives = 18/29 (62%), Gaps = 0/29 (0%)
+
+Query  47   NCQTNEECAQNDMCCPSSCGRSCKTPVNI  75
+            +C+ + EC+    CC + CG +C+ P N+
+Sbjct  144  SCEADSECSGVKKCCSNGCGHTCQVPKNL  172
+
+
+>lcl|SP:WFDC5_LEMCA A4K2S3 WAP four-disulfide core domain protein 5 OS=Lemur catta 
+GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 44.5 bits (90),  Expect = 6e-04
+ Identities = 14/30 (47%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C+ DSDCSG  +CC   C   C DP
+Sbjct  91   PTEHLCNKDSDCSGKKRCCHTSCGRECRDP  120
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 10/25 (40%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CC +SCGR C+ P
+Sbjct  96   CNKDSDCSGKKRCCHTSCGRECRDP  120
+
+
+ Score = 35.7 bits (71),  Expect = 0.26
+ Identities = 11/23 (48%), Positives = 12/23 (52%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  TMKCC   C   C+
+Sbjct  49   CQEDSQCPSTMKCCFQACFRHCV  71
+
+
+>lcl|SP:WAP2_PHIOL A7X4K7 Waprin-Phi2 OS=Philodryas olfersii PE=2 SV=1
+Length=73
+
+ Score = 44.5 bits (90),  Expect = 6e-04
+ Identities = 15/18 (83%), Positives = 15/18 (83%), Gaps = 0/18 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGC  119
+            CS DSDCS T KCCKNGC
+Sbjct  46   CSKDSDCSETKKCCKNGC  63
+
+
+>lcl|SP:WAP1_PHIOL A7X4K1 Waprin-Phi1 OS=Philodryas olfersii PE=2 SV=1
+Length=134
+
+ Score = 44.5 bits (90),  Expect = 6e-04
+ Identities = 15/18 (83%), Positives = 15/18 (83%), Gaps = 0/18 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGC  119
+            CS DSDCS T KCCKNGC
+Sbjct  107  CSKDSDCSETKKCCKNGC  124
+
+
+ Score = 39.0 bits (78),  Expect = 0.028
+ Identities = 11/25 (44%), Positives = 16/25 (64%), Gaps = 0/25 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTP  72
+           CQ++  C +N  CC + CG SC+ P
+Sbjct  59  CQSDAGCEENKKCCRTGCGTSCQIP  83
+
+
+ Score = 38.5 bits (77),  Expect = 0.038
+ Identities = 12/28 (43%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  D+ C    KCC+ GC  SC  P+ K
+Sbjct  59   CQSDAGCEENKKCCRTGCGTSCQIPDEK  86
+
+
+>lcl|SP:WFDC5_CHLAE A4K2Y3 WAP four-disulfide core domain protein 5 OS=Chlorocebus 
+aethiops GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 44.1 bits (89),  Expect = 8e-04
+ Identities = 14/30 (47%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  DSDCSG  +CC + C   C DP
+Sbjct  91   PVNHQCHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 10/25 (40%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CC S+CGR C+ P
+Sbjct  96   CHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/23 (43%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  T KCC   C   C+
+Sbjct  49   CVEDSQCPLTRKCCYRACFRQCV  71
+
+
+>lcl|SP:ELAF_HUMAN P19957 Elafin OS=Homo sapiens GN=PI3 PE=1 SV=3
+Length=117
+
+ Score = 44.1 bits (89),  Expect = 8e-04
+ Identities = 16/41 (39%), Positives = 21/41 (51%), Gaps = 0/41 (0%)
+
+Query  87   PIQMIAAGPCPKDNPCSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            PI +I        N C  D+DC G  KCC+  C M+C  P+
+Sbjct  77   PIILIRCAMLNPPNRCLKDTDCPGIKKCCEGSCGMACFVPQ  117
+
+
+>lcl|SP:WFDC5_PONAB A4K2V3 WAP four-disulfide core domain protein 5 OS=Pongo abelii 
+GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 43.6 bits (88),  Expect = 0.001
+ Identities = 14/30 (47%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  DSDCSG  +CC + C   C DP
+Sbjct  91   PMNHLCHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 10/25 (40%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CC S+CGR C+ P
+Sbjct  96   CHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/23 (43%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  T KCC   C   C+
+Sbjct  49   CVEDSQCPLTRKCCYRACFRQCV  71
+
+
+>lcl|SP:WFDC5_PAPAN A4K2M5 WAP four-disulfide core domain protein 5 OS=Papio anubis 
+GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 43.6 bits (88),  Expect = 0.001
+ Identities = 14/30 (47%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  DSDCSG  +CC + C   C DP
+Sbjct  91   PMNHLCHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 10/25 (40%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CC S+CGR C+ P
+Sbjct  96   CHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/23 (43%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  T KCC   C   C+
+Sbjct  49   CVEDSQCPLTRKCCYRACFRQCV  71
+
+
+>lcl|SP:WFDC5_PANTR A4K2N9 WAP four-disulfide core domain protein 5 OS=Pan troglodytes 
+GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 43.6 bits (88),  Expect = 0.001
+ Identities = 14/30 (47%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  DSDCSG  +CC + C   C DP
+Sbjct  91   PMNHLCHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 10/25 (40%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CC S+CGR C+ P
+Sbjct  96   CHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/23 (43%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  T KCC   C   C+
+Sbjct  49   CVEDSQCPLTRKCCYRACFRQCV  71
+
+
+>lcl|SP:WFDC5_MACMU A4K2T2 WAP four-disulfide core domain protein 5 OS=Macaca mulatta 
+GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 43.6 bits (88),  Expect = 0.001
+ Identities = 14/30 (47%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  DSDCSG  +CC + C   C DP
+Sbjct  91   PMNHLCHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 10/25 (40%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CC S+CGR C+ P
+Sbjct  96   CHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/23 (43%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  T KCC   C   C+
+Sbjct  49   CVEDSQCPLTRKCCYRACFRQCI  71
+
+
+>lcl|SP:WFDC5_HUMAN Q8TCV5 WAP four-disulfide core domain protein 5 OS=Homo sapiens 
+GN=WFDC5 PE=2 SV=1
+Length=224
+
+ Score = 43.6 bits (88),  Expect = 0.001
+ Identities = 14/30 (47%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  DSDCSG  +CC + C   C DP
+Sbjct  91   PMNHLCHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 10/25 (40%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CC S+CGR C+ P
+Sbjct  96   CHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/23 (43%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  T KCC   C   C+
+Sbjct  49   CVEDSQCPLTRKCCYRACFRQCV  71
+
+
+>lcl|SP:WFDC5_GORGO A4K2R4 WAP four-disulfide core domain protein 5 OS=Gorilla gorilla 
+gorilla GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 43.6 bits (88),  Expect = 0.001
+ Identities = 14/30 (47%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  DSDCSG  +CC + C   C DP
+Sbjct  91   PMNHLCHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 10/25 (40%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CC S+CGR C+ P
+Sbjct  96   CHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/23 (43%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  T KCC   C   C+
+Sbjct  49   CVEDSQCPLTRKCCYRACFRQCV  71
+
+
+>lcl|SP:WFDC5_COLGU A4K2P7 WAP four-disulfide core domain protein 5 OS=Colobus guereza 
+GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 43.6 bits (88),  Expect = 0.001
+ Identities = 14/30 (47%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  DSDCSG  +CC + C   C DP
+Sbjct  91   PMNHLCHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 10/25 (40%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CC S+CGR C+ P
+Sbjct  96   CHKDSDCSGKKRCCHSACGRDCRDP  120
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/23 (43%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  T KCC   C   C+
+Sbjct  49   CVEDSQCPLTRKCCYRACFRQCV  71
+
+
+>lcl|SP:WAP_MACEU Q9N0L8 Whey acidic protein OS=Macropus eugenii GN=WAP PE=1 SV=1
+Length=191
+
+ Score = 43.6 bits (88),  Expect = 0.001
+ Identities = 12/25 (48%), Positives = 17/25 (68%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            CQ +++C +N  CC S+CGR C  P
+Sbjct  150  CQRDDQCKENKKCCSSACGRRCTNP  174
+
+
+ Score = 37.1 bits (74),  Expect = 0.10
+ Identities = 12/33 (36%), Positives = 14/33 (42%), Gaps = 0/33 (0%)
+
+Query  99   DNPCSIDSDCSGTMKCCKNGCIMSCMDPEPKSP  131
+            D  C  D  C G  KCC + C  +C  P    P
+Sbjct  98   DKTCKTDLGCEGKAKCCASSCGQTCFMPVKAKP  130
+
+
+ Score = 36.2 bits (72),  Expect = 0.19
+ Identities = 12/26 (46%), Positives = 16/26 (62%), Gaps = 0/26 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTPV  73
+            C+T+  C     CC SSCG++C  PV
+Sbjct  101  CKTDLGCEGKAKCCASSCGQTCFMPV  126
+
+
+ Score = 35.7 bits (71),  Expect = 0.26
+ Identities = 10/24 (42%), Positives = 15/24 (63%), Gaps = 0/24 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMD  125
+            C+ D+ C   M+CC+ GC   CM+
+Sbjct  46   CNDDASCPQNMRCCQRGCSWLCMN  69
+
+
+ Score = 33.4 bits (66),  Expect = 1.3
+ Identities = 10/28 (36%), Positives = 13/28 (46%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  D  C    KCC + C   C +P P+
+Sbjct  150  CQRDDQCKENKKCCSSACGRRCTNPFPE  177
+
+
+>lcl|SP:WFDC2_PIG Q8MI69 WAP four-disulfide core domain protein 2 OS=Sus scrofa 
+GN=WFDC2 PE=2 SV=1
+Length=123
+
+ Score = 43.1 bits (87),  Expect = 0.002
+ Identities = 13/28 (46%), Positives = 17/28 (61%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  D+DC+  +KCCK GC+  C  P  K
+Sbjct  48   CLSDADCADNLKCCKAGCVTICQMPNEK  75
+
+
+ Score = 41.3 bits (83),  Expect = 0.006
+ Identities = 11/18 (61%), Positives = 14/18 (78%), Gaps = 0/18 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGC  119
+            C +DS C G +KCC+NGC
+Sbjct  96   CQVDSQCPGQLKCCRNGC  113
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 9/25 (36%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTP  72
+           C ++ +CA N  CC + C   C+ P
+Sbjct  48  CLSDADCADNLKCCKAGCVTICQMP  72
+
+
+>lcl|SP:WFDC5_AOTNA A4K2W7 WAP four-disulfide core domain protein 5 OS=Aotus nancymaae 
+GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 42.7 bits (86),  Expect = 0.002
+ Identities = 13/30 (43%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  D+DCSG  +CC + C   C DP
+Sbjct  91   PMNHLCHKDADCSGKKRCCSSACGRDCRDP  120
+
+
+ Score = 39.4 bits (79),  Expect = 0.020
+ Identities = 11/26 (42%), Positives = 16/26 (62%), Gaps = 0/26 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTPV  73
+            C  + +C+    CC S+CGR C+ PV
+Sbjct  96   CHKDADCSGKKRCCSSACGRDCRDPV  121
+
+
+>lcl|SP:WFDC2_HUMAN Q14508 WAP four-disulfide core domain protein 2 OS=Homo sapiens 
+GN=WFDC2 PE=1 SV=2
+Length=124
+
+ Score = 42.7 bits (86),  Expect = 0.002
+ Identities = 12/18 (67%), Positives = 14/18 (78%), Gaps = 0/18 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGC  119
+            C +DS C G MKCC+NGC
+Sbjct  97   CQVDSQCPGQMKCCRNGC  114
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 12/28 (43%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  DS+C+  +KCC  GC   C  P  K
+Sbjct  49   CVSDSECADNLKCCSAGCATFCSLPNDK  76
+
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 10/25 (40%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTP  72
+           C ++ ECA N  CC + C   C  P
+Sbjct  49  CVSDSECADNLKCCSAGCATFCSLP  73
+
+
+>lcl|SP:WFDC5_SAIBB A4K2X5 WAP four-disulfide core domain protein 5 OS=Saimiri boliviensis 
+boliviensis GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 42.2 bits (85),  Expect = 0.003
+ Identities = 13/30 (43%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  D+DCSG  +CC + C   C DP
+Sbjct  91   PMNHLCHKDADCSGKKRCCPSACGRDCRDP  120
+
+
+ Score = 41.3 bits (83),  Expect = 0.006
+ Identities = 11/25 (44%), Positives = 16/25 (64%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CCPS+CGR C+ P
+Sbjct  96   CHKDADCSGKKRCCPSACGRDCRDP  120
+
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 10/23 (43%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  T KCC   C   C+
+Sbjct  49   CMEDSQCPWTRKCCYKACFRQCV  71
+
+
+>lcl|SP:WFDC5_CALJA A4K2U0 WAP four-disulfide core domain protein 5 OS=Callithrix 
+jacchus GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 42.2 bits (85),  Expect = 0.003
+ Identities = 13/30 (43%), Positives = 18/30 (60%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P ++ C  D+DCSG  +CC + C   C DP
+Sbjct  91   PMNHLCHKDADCSGKKRCCPSACGRDCRDP  120
+
+
+ Score = 41.3 bits (83),  Expect = 0.006
+ Identities = 11/25 (44%), Positives = 16/25 (64%), Gaps = 0/25 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTP  72
+            C  + +C+    CCPS+CGR C+ P
+Sbjct  96   CHKDADCSGKKRCCPSACGRDCRDP  120
+
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 10/23 (43%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  DS C  T KCC   C   C+
+Sbjct  49   CMEDSQCPFTRKCCYRACFRQCV  71
+
+
+>lcl|SP:WAPB_PSEAU B5L5N1 Auswaprin-b OS=Pseudechis australis PE=3 SV=1
+Length=75
+
+ Score = 42.2 bits (85),  Expect = 0.003
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWSCPGEQKCCRYGCIFECRDP  71
+
+
+>lcl|SP:WAPB_AUSSU B5L5P2 Supwaprin-b OS=Austrelaps superbus PE=3 SV=1
+Length=75
+
+ Score = 42.2 bits (85),  Expect = 0.003
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWSCPGEQKCCRYGCIFECRDP  71
+
+
+>lcl|SP:WAPA_PSEAU B5G6G9 Auswaprin-a OS=Pseudechis australis PE=2 SV=1
+Length=74
+
+ Score = 42.2 bits (85),  Expect = 0.003
+ Identities = 14/25 (56%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  CSG  KCC  GCI  C DP
+Sbjct  46   CKNDWSCSGQQKCCNYGCIDECRDP  70
+
+
+>lcl|SP:WAPA_HOPST B5G6H3 Stewaprin-a OS=Hoplocephalus stephensii PE=2 SV=1
+Length=75
+
+ Score = 42.2 bits (85),  Expect = 0.003
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWSCPGEQKCCRYGCIFECRDP  71
+
+
+>lcl|SP:WAPA_AUSSU B5KGY9 Supwaprin-a OS=Austrelaps superbus PE=2 SV=1
+Length=75
+
+ Score = 42.2 bits (85),  Expect = 0.003
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWSCPGEQKCCRYGCIFECRDP  71
+
+
+>lcl|SP:WFDC1_MOUSE Q9ESH5 WAP four-disulfide core domain protein 1 OS=Mus musculus 
+GN=Wfdc1 PE=2 SV=1
+Length=211
+
+ Score = 41.8 bits (84),  Expect = 0.004
+ Identities = 12/32 (38%), Positives = 18/32 (56%), Gaps = 0/32 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPKSPTV  133
+            C  DS+C    +CC NGC  +C++  P  P +
+Sbjct  74   CQADSECPRHRRCCYNGCAYACLEAVPPPPVL  105
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 8/26 (31%), Positives = 14/26 (54%), Gaps = 0/26 (0%)
+
+Query  44  ECINCQTNEECAQNDMCCPSSCGRSC  69
+           +   CQ + EC ++  CC + C  +C
+Sbjct  70  QATRCQADSECPRHRRCCYNGCAYAC  95
+
+
+>lcl|SP:WFDC1_HUMAN Q9HC57 WAP four-disulfide core domain protein 1 OS=Homo sapiens 
+GN=WFDC1 PE=2 SV=2
+Length=220
+
+ Score = 41.8 bits (84),  Expect = 0.004
+ Identities = 12/32 (38%), Positives = 18/32 (56%), Gaps = 0/32 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPKSPTV  133
+            C  DS+C    +CC NGC  +C++  P  P +
+Sbjct  83   CQADSECPRHRRCCYNGCAYACLEAVPPPPVL  114
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 8/26 (31%), Positives = 14/26 (54%), Gaps = 0/26 (0%)
+
+Query  44   ECINCQTNEECAQNDMCCPSSCGRSC  69
+            +   CQ + EC ++  CC + C  +C
+Sbjct  79   QAARCQADSECPRHRRCCYNGCAYAC  104
+
+
+>lcl|SP:WAPD_DEMVE B5L5P7 Veswaprin-d OS=Demansia vestigiata PE=3 SV=1
+Length=75
+
+ Score = 41.8 bits (84),  Expect = 0.004
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWSCRGEQKCCRYGCIYECRDP  71
+
+
+>lcl|SP:WAPA_CRYNI B5G6H1 Nigwaprin-a OS=Cryptophis nigrescens PE=2 SV=1
+Length=75
+
+ Score = 41.8 bits (84),  Expect = 0.004
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWSCRGEQKCCRYGCIYECRDP  71
+
+
+>lcl|SP:WFDC5_OTOGA A4K2Q7 WAP four-disulfide core domain protein 5 OS=Otolemur garnettii 
+GN=WFDC5 PE=3 SV=1
+Length=123
+
+ Score = 41.3 bits (83),  Expect = 0.006
+ Identities = 11/26 (42%), Positives = 16/26 (62%), Gaps = 0/26 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTPV  73
+            C  +  C+    CCP++CGR C+ PV
+Sbjct  96   CHQDSNCSGKKRCCPTACGRDCRDPV  121
+
+
+ Score = 39.9 bits (80),  Expect = 0.015
+ Identities = 13/30 (43%), Positives = 16/30 (53%), Gaps = 0/30 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            P  + C  DS+CSG  +CC   C   C DP
+Sbjct  91   PTKHLCHQDSNCSGKKRCCPTACGRDCRDP  120
+
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 11/23 (48%), Positives = 13/23 (57%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C+ DS C  TMKCC   C   C+
+Sbjct  49   CTDDSQCPSTMKCCPRACFRQCI  71
+
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 9/30 (30%), Positives = 16/30 (53%), Gaps = 0/30 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPVNIEV  77
+           C  + +C     CCP +C R C   V++++
+Sbjct  49  CTDDSQCPSTMKCCPRACFRQCIPRVSVKL  78
+
+
+>lcl|SP:WFDC1_RAT O70280 WAP four-disulfide core domain protein 1 OS=Rattus norvegicus 
+GN=Wfdc1 PE=1 SV=1
+Length=212
+
+ Score = 41.3 bits (83),  Expect = 0.006
+ Identities = 12/32 (38%), Positives = 18/32 (56%), Gaps = 0/32 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPKSPTV  133
+            C  DS+C    +CC NGC  +C++  P  P +
+Sbjct  75   CQSDSECPRHRRCCYNGCAYACLEAVPPPPVL  106
+
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 8/26 (31%), Positives = 15/26 (58%), Gaps = 0/26 (0%)
+
+Query  44  ECINCQTNEECAQNDMCCPSSCGRSC  69
+           +   CQ++ EC ++  CC + C  +C
+Sbjct  71  QATRCQSDSECPRHRRCCYNGCAYAC  96
+
+
+>lcl|SP:WFDC2_RABIT Q28631 WAP four-disulfide core domain protein 2 OS=Oryctolagus 
+cuniculus GN=WFDC2 PE=1 SV=2
+Length=123
+
+ Score = 40.8 bits (82),  Expect = 0.008
+ Identities = 12/18 (67%), Positives = 13/18 (72%), Gaps = 0/18 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGC  119
+            C +DS C G MKCC NGC
+Sbjct  96   CQVDSQCPGKMKCCLNGC  113
+
+
+ Score = 39.0 bits (78),  Expect = 0.028
+ Identities = 12/28 (43%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  D DC+  +KCC+ GC   C  P  K
+Sbjct  50   CRADQDCAENLKCCRAGCSAICSIPNEK  77
+
+
+ Score = 35.3 bits (70),  Expect = 0.36
+ Identities = 9/26 (35%), Positives = 16/26 (62%), Gaps = 0/26 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTP  72
+           +C+ +++CA+N  CC + C   C  P
+Sbjct  49  DCRADQDCAENLKCCRAGCSAICSIP  74
+
+
+>lcl|SP:WAPD_PSEPO B5L5N4 Porwaprin-d OS=Pseudechis porphyriacus PE=3 SV=1
+Length=75
+
+ Score = 40.8 bits (82),  Expect = 0.008
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWRCPGEQKCCRYGCIYECRDP  71
+
+
+>lcl|SP:WAPC_PSEPO B5L5N3 Porwaprin-c OS=Pseudechis porphyriacus PE=3 SV=1
+Length=75
+
+ Score = 40.8 bits (82),  Expect = 0.008
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWRCPGEQKCCRYGCIYECRDP  71
+
+
+>lcl|SP:WAPB_TROCA B5L5P0 Carwaprin-b OS=Tropidechis carinatus PE=3 SV=1
+Length=75
+
+ Score = 40.8 bits (82),  Expect = 0.008
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWRCPGEQKCCRYGCIYECRDP  71
+
+
+>lcl|SP:WAPB_DEMVE B5L5P5 Veswaprin-b OS=Demansia vestigiata PE=3 SV=1
+Length=75
+
+ Score = 40.8 bits (82),  Expect = 0.008
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWRCPGEQKCCRYGCIYECRDP  71
+
+
+>lcl|SP:WAPA_TROCA B5G6H2 Carwaprin-a OS=Tropidechis carinatus PE=2 SV=1
+Length=75
+
+ Score = 40.8 bits (82),  Expect = 0.008
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWRCPGEQKCCRYGCIYECRDP  71
+
+
+>lcl|SP:WAPA_NOTSC B5G6H4 Notewaprin-a OS=Notechis scutatus scutatus PE=2 SV=1
+Length=75
+
+ Score = 40.8 bits (82),  Expect = 0.008
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWRCPGEQKCCRYGCIYECRDP  71
+
+
+>lcl|SP:WAP3_PHIOL A7X4M7 Waprin-Phi3 OS=Philodryas olfersii PE=2 SV=1
+Length=80
+
+ Score = 40.8 bits (82),  Expect = 0.008
+ Identities = 14/32 (44%), Positives = 15/32 (47%), Gaps = 0/32 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDPEP  128
+            P +  C  D DC G  KCC  GC   C  P P
+Sbjct  48   PCNQYCVWDFDCEGNKKCCPVGCAKECFPPGP  79
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 9/25 (36%), Positives = 12/25 (48%), Gaps = 0/25 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTP  72
+           C  + +C  N  CCP  C + C  P
+Sbjct  53  CVWDFDCEGNKKCCPVGCAKECFPP  77
+
+
+>lcl|SP:ELAF_PIG Q29125 Elafin OS=Sus scrofa PE=2 SV=1
+Length=167
+
+ Score = 40.8 bits (82),  Expect = 0.008
+ Identities = 13/28 (46%), Positives = 17/28 (61%), Gaps = 0/28 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            N C  D+ C G  KCC+  C  +CMDP+
+Sbjct  140  NRCLSDAQCPGLKKCCEGFCGKACMDPK  167
+
+
+>lcl|SP:WAPC_DEMVE B5L5P6 Veswaprin-c OS=Demansia vestigiata PE=3 SV=1
+Length=75
+
+ Score = 40.4 bits (81),  Expect = 0.011
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWRCPGERKCCRYGCIYECRDP  71
+
+
+>lcl|SP:WAPC_AUSSU B5L5P3 Supwaprin-c OS=Austrelaps superbus PE=3 SV=1
+Length=75
+
+ Score = 40.4 bits (81),  Expect = 0.011
+ Identities = 13/25 (52%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC  GCI  C DP
+Sbjct  47   CKNDWSCRGEQKCCHYGCIYECRDP  71
+
+
+>lcl|SP:WAPB_PSEPO B5L5N2 Porwaprin-b OS=Pseudechis porphyriacus PE=3 SV=1
+Length=75
+
+ Score = 40.4 bits (81),  Expect = 0.011
+ Identities = 13/25 (52%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC  GCI  C DP
+Sbjct  47   CKNDWSCRGEQKCCHYGCIYECRDP  71
+
+
+>lcl|SP:WAPB_NOTSC B5G6H5 Notewaprin-b OS=Notechis scutatus scutatus PE=2 SV=1
+Length=75
+
+ Score = 40.4 bits (81),  Expect = 0.011
+ Identities = 13/25 (52%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC+ GCI  C DP
+Sbjct  47   CKNDWICPGEQKCCRYGCIYECRDP  71
+
+
+>lcl|SP:SLPI_PIG P22298 Antileukoproteinase (Fragment) OS=Sus scrofa GN=SLPI PE=1 
+SV=2
+Length=129
+
+ Score = 40.4 bits (81),  Expect = 0.011
+ Identities = 13/27 (48%), Positives = 16/27 (59%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  DS C G +KCCK+ C   C+ P
+Sbjct  100  NHCKTDSQCLGDLKCCKSMCGKVCLTP  126
+
+
+ Score = 39.4 bits (79),  Expect = 0.020
+ Identities = 12/27 (44%), Positives = 18/27 (67%), Gaps = 0/27 (0%)
+
+Query  47   NCQTNEECAQNDMCCPSSCGRSCKTPV  73
+            +C+T+ +C  +  CC S CG+ C TPV
+Sbjct  101  HCKTDSQCLGDLKCCKSMCGKVCLTPV  127
+
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 9/25 (36%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C+ D  C    KCC++ C + C++P
+Sbjct  48   CTSDWQCPDKKKCCRDTCAIKCLNP  72
+
+
+>lcl|SP:WFDC1_CHICK Q8JG33 WAP four-disulfide core domain protein 1 OS=Gallus gallus 
+GN=WFDC1 PE=2 SV=1
+Length=222
+
+ Score = 39.9 bits (80),  Expect = 0.015
+ Identities = 12/32 (38%), Positives = 18/32 (56%), Gaps = 0/32 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPKSPTV  133
+            C  DS+C    +CC NGCI +C++     P +
+Sbjct  85   CRSDSECERHKRCCYNGCIYACLESVQPPPVL  116
+
+
+>lcl|SP:WAPD_AUSSU B5L5P4 Supwaprin-d OS=Austrelaps superbus PE=3 SV=1
+Length=74
+
+ Score = 39.9 bits (80),  Expect = 0.015
+ Identities = 13/25 (52%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC  GCI  C DP
+Sbjct  46   CKNDWSCPGQQKCCNYGCIDECRDP  70
+
+
+>lcl|SP:WAPC_OXYMI B5L5M9 Omwaprin-c OS=Oxyuranus microlepidotus PE=3 SV=1
+Length=74
+
+ Score = 39.9 bits (80),  Expect = 0.015
+ Identities = 13/25 (52%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC  GCI  C DP
+Sbjct  46   CKNDWSCPGQQKCCNYGCIDECRDP  70
+
+
+>lcl|SP:WAPB_OXYMI B5G6G7 Omwaprin-b OS=Oxyuranus microlepidotus PE=2 SV=1
+Length=74
+
+ Score = 39.9 bits (80),  Expect = 0.015
+ Identities = 13/25 (52%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC  GCI  C DP
+Sbjct  46   CKNDWSCPGQQKCCNYGCIDECRDP  70
+
+
+>lcl|SP:WAPA_PSETE B5L5P9 Textwaprin-a OS=Pseudonaja textilis PE=3 SV=1
+Length=75
+
+ Score = 39.9 bits (80),  Expect = 0.015
+ Identities = 13/25 (52%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC  GCI  C DP
+Sbjct  47   CKNDWSCPGQQKCCSYGCIDECRDP  71
+
+
+>lcl|SP:WAPA_PSEPO B5G6H0 Porwaprin-a OS=Pseudechis porphyriacus PE=2 SV=1
+Length=74
+
+ Score = 39.9 bits (80),  Expect = 0.015
+ Identities = 13/25 (52%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC  GCI  C DP
+Sbjct  46   CKNDWSCPGQQKCCNYGCIDECRDP  70
+
+
+>lcl|SP:WAPA_OXYSC B5G6G8 Scuwaprin-a OS=Oxyuranus scutellatus scutellatus PE=2 
+SV=1
+Length=75
+
+ Score = 39.9 bits (80),  Expect = 0.015
+ Identities = 13/25 (52%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC  GCI  C DP
+Sbjct  47   CKNDWSCPGQQKCCSYGCIDECRDP  71
+
+
+>lcl|SP:WAPA_DEMVE B5L5P8 Veswaprin-a OS=Demansia vestigiata PE=2 SV=1
+Length=74
+
+ Score = 39.9 bits (80),  Expect = 0.015
+ Identities = 13/25 (52%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC  GCI  C DP
+Sbjct  46   CKNDWSCPGQQKCCNYGCIDECRDP  70
+
+
+>lcl|SP:WFDC3_HUMAN Q8IUB2 WAP four-disulfide core domain protein 3 OS=Homo sapiens 
+GN=WFDC3 PE=2 SV=1
+Length=231
+
+ Score = 39.4 bits (79),  Expect = 0.020
+ Identities = 12/28 (43%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  46   INCQTNEECAQNDMCCPSSCGRSCKTPV  73
+            + C  +E C   + CC S CGR C  PV
+Sbjct  180  VGCVMDENCQAGEKCCKSGCGRFCVPPV  207
+
+
+ Score = 36.7 bits (73),  Expect = 0.14
+ Identities = 13/28 (46%), Positives = 14/28 (50%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  D  C G  KCC  GC  SC+ P  K
+Sbjct  89   CITDETCPGVKKCCTLGCNKSCVVPISK  116
+
+
+ Score = 36.7 bits (73),  Expect = 0.14
+ Identities = 11/25 (44%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C +D +C    KCCK+GC   C+ P
+Sbjct  182  CVMDENCQAGEKCCKSGCGRFCVPP  206
+
+
+ Score = 35.7 bits (71),  Expect = 0.26
+ Identities = 12/32 (38%), Positives = 16/32 (50%), Gaps = 0/32 (0%)
+
+Query  93   AGPCPKDNPCSIDSDCSGTMKCCKNGCIMSCM  124
+            A P P +  C  D+ C    KCC  GC  +C+
+Sbjct  128  ADPLPCEELCDGDASCPQGHKCCSTGCGRTCL  159
+
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 10/23 (43%), Positives = 13/23 (57%), Gaps = 0/23 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCK  70
+           CQ +E C     CC + CGR C+
+Sbjct  44  CQGDELCPAEQKCCTTGCGRICR  66
+
+
+ Score = 33.4 bits (66),  Expect = 1.3
+ Identities = 9/22 (41%), Positives = 12/22 (55%), Gaps = 0/22 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSC  69
+            C  +  C Q   CC + CGR+C
+Sbjct  137  CDGDASCPQGHKCCSTGCGRTC  158
+
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 10/27 (37%), Positives = 14/27 (52%), Gaps = 0/27 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTPVN  74
+            C T+E C     CC   C +SC  P++
+Sbjct  89   CITDETCPGVKKCCTLGCNKSCVVPIS  115
+
+
+>lcl|SP:UROL1_MOUSE Q5DID3 Uromodulin-like 1 OS=Mus musculus GN=Umodl1 PE=1 SV=1
+Length=1319
+
+ Score = 39.4 bits (79),  Expect = 0.020
+ Identities = 14/32 (44%), Positives = 17/32 (53%), Gaps = 0/32 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDPEP  128
+            P    CS+D+DCSG  KCC       C+ P P
+Sbjct  129  PLSPSCSLDTDCSGLQKCCSWPGGRHCVSPTP  160
+
+
+>lcl|SP:PPN_DROME Q868Z9 Papilin OS=Drosophila melanogaster GN=Ppn PE=1 SV=2
+Length=2898
+
+ Score = 39.4 bits (79),  Expect = 0.020
+ Identities = 12/25 (48%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  102   CSIDSDCSGTMKCCKNGCIMSCMDP  126
+             C  D+DC G  KCC +GC   C+ P
+Sbjct  2473  CYTDADCRGDNKCCSDGCGQLCVHP  2497
+
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 9/25 (36%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  48    CQTNEECAQNDMCCPSSCGRSCKTP  72
+             C T+ +C  ++ CC   CG+ C  P
+Sbjct  2473  CYTDADCRGDNKCCSDGCGQLCVHP  2497
+
+
+>lcl|SP:WFDC2_CANLF Q28894 WAP four-disulfide core domain protein 2 OS=Canis lupus 
+familiaris GN=WFDC2 PE=2 SV=1
+Length=124
+
+ Score = 39.0 bits (78),  Expect = 0.028
+ Identities = 11/18 (61%), Positives = 13/18 (72%), Gaps = 0/18 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGC  119
+            C +DS C G +KCC NGC
+Sbjct  97   CQVDSHCPGLLKCCYNGC  114
+
+
+ Score = 35.3 bits (70),  Expect = 0.36
+ Identities = 11/28 (39%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  D+ C+  +KCC+ GC   C  P  K
+Sbjct  49   CVSDAQCADNLKCCQAGCATICHLPNEK  76
+
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 9/25 (36%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTP  72
+           C ++ +CA N  CC + C   C  P
+Sbjct  49  CVSDAQCADNLKCCQAGCATICHLP  73
+
+
+>lcl|SP:WF15A_MOUSE Q8BH89 WAP four-disulfide core domain protein 15A OS=Mus musculus 
+GN=Wfdc15a PE=3 SV=1
+Length=80
+
+ Score = 39.0 bits (78),  Expect = 0.028
+ Identities = 13/25 (52%), Positives = 15/25 (60%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            CS D  C GT KCC   C M C++P
+Sbjct  51   CSRDKGCKGTKKCCFYYCQMRCVEP  75
+
+
+>lcl|SP:WAPB_CRYNI B5L5N6 Nigwaprin-b OS=Cryptophis nigrescens PE=3 SV=1
+Length=75
+
+ Score = 39.0 bits (78),  Expect = 0.028
+ Identities = 12/25 (48%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C    KCC+ GCI  C DP
+Sbjct  47   CKNDRSCPREQKCCRYGCIYECRDP  71
+
+
+>lcl|SP:WAPA_OXYMI P83952 Omwaprin-a OS=Oxyuranus microlepidotus PE=1 SV=1
+Length=50
+
+ Score = 38.1 bits (76),  Expect = 0.053
+ Identities = 12/25 (48%), Positives = 12/25 (48%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C G  KCC  GC   C DP
+Sbjct  22   CKNDDSCPGQQKCCNYGCKDECRDP  46
+
+
+>lcl|SP:SLPI_SHEEP Q6V9X0 Antileukoproteinase OS=Ovis aries GN=SLPI PE=1 SV=1
+Length=132
+
+ Score = 38.1 bits (76),  Expect = 0.053
+ Identities = 12/27 (44%), Positives = 14/27 (52%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D  C G +KCCK  C   C+ P
+Sbjct  103  NHCETDDQCIGALKCCKAMCGKVCLSP  129
+
+
+ Score = 36.7 bits (73),  Expect = 0.14
+ Identities = 11/28 (39%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPVNI  75
+           C ++ +C     CC  +CG  C  PVNI
+Sbjct  51  CSSDWQCPHKKKCCLDTCGTECLDPVNI  78
+
+
+ Score = 36.2 bits (72),  Expect = 0.19
+ Identities = 10/27 (37%), Positives = 18/27 (67%), Gaps = 0/27 (0%)
+
+Query  47   NCQTNEECAQNDMCCPSSCGRSCKTPV  73
+            +C+T+++C     CC + CG+ C +PV
+Sbjct  104  HCETDDQCIGALKCCKAMCGKVCLSPV  130
+
+
+ Score = 33.4 bits (66),  Expect = 1.3
+ Identities = 11/25 (44%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            CS D  C    KCC + C   C+DP
+Sbjct  51   CSSDWQCPHKKKCCLDTCGTECLDP  75
+
+
+>lcl|SP:WFD12_LEMCA A4K2S4 WAP four-disulfide core domain protein 12 OS=Lemur catta 
+GN=WFDC12 PE=3 SV=1
+Length=148
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 11/26 (42%), Positives = 14/26 (54%), Gaps = 0/26 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            C  D+DC G  KCC   C   C+ P+
+Sbjct  49   CHADNDCPGDKKCCFLSCSFKCVSPD  74
+
+
+>lcl|SP:WAP3_PIG Q29126 Protein WAP-3 OS=Sus scrofa PE=2 SV=1
+Length=144
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 12/27 (44%), Positives = 14/27 (52%), Gaps = 0/27 (0%)
+
+Query  46   INCQTNEECAQNDMCCPSSCGRSCKTP  72
+            I C  +  C     CCPS CG+ C TP
+Sbjct  117  IKCWRDSHCPGVKKCCPSLCGKGCVTP  143
+
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 11/25 (44%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  DS C G  KCC + C   C+ P
+Sbjct  119  CWRDSHCPGVKKCCPSLCGKGCVTP  143
+
+
+>lcl|SP:WAP1_THRJA A7X4I7 Waprin-Thr1 OS=Thrasops jacksonii PE=2 SV=1
+Length=70
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 12/20 (60%), Positives = 12/20 (60%), Gaps = 0/20 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGC  119
+            N C  DS C    KCCKNGC
+Sbjct  42   NMCESDSGCPNNEKCCKNGC  61
+
+
+>lcl|SP:WAP1_RHATT A7X4J4 Waprin-Rha1 OS=Rhabdophis tigrinus tigrinus PE=2 SV=1
+Length=76
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 11/18 (61%), Positives = 13/18 (72%), Gaps = 0/18 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGC  119
+            C+ DS+C    KCCKNGC
+Sbjct  49   CATDSNCPDIQKCCKNGC  66
+
+
+>lcl|SP:SLPI_MOUSE P97430 Antileukoproteinase OS=Mus musculus GN=Slpi PE=1 SV=1
+Length=131
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 12/28 (43%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPVNI  75
+           C+T+ EC     CC  +CG  C  PV I
+Sbjct  52  CRTDWECPGKQRCCQDACGSKCVNPVPI  79
+
+
+ Score = 37.1 bits (74),  Expect = 0.10
+ Identities = 10/27 (37%), Positives = 16/27 (59%), Gaps = 0/27 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEP  128
+            C  D +C G  +CC++ C   C++P P
+Sbjct  52   CRTDWECPGKQRCCQDACGSKCVNPVP  78
+
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 11/27 (41%), Positives = 13/27 (48%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D  C G  KCC+  C   C+ P
+Sbjct  104  NVCQRDGQCDGKYKCCEGICGKVCLPP  130
+
+
+>lcl|SP:SLPI_HUMAN P03973 Antileukoproteinase OS=Homo sapiens GN=SLPI PE=1 SV=2
+Length=132
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 11/27 (41%), Positives = 16/27 (59%), Gaps = 0/27 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           CQ++ +C     CCP +CG  C  PV+
+Sbjct  51  CQSDWQCPGKKRCCPDTCGIKCLDPVD  77
+
+
+ Score = 35.7 bits (71),  Expect = 0.26
+ Identities = 11/29 (38%), Positives = 15/29 (52%), Gaps = 0/29 (0%)
+
+Query  98   KDNPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            K   C  D  C G  +CC + C + C+DP
+Sbjct  47   KKPECQSDWQCPGKKRCCPDTCGIKCLDP  75
+
+
+ Score = 35.7 bits (71),  Expect = 0.26
+ Identities = 10/26 (38%), Positives = 17/26 (65%), Gaps = 0/26 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTPV  73
+            C+ + +C ++  CC   CG+SC +PV
+Sbjct  105  CEMDGQCKRDLKCCMGMCGKSCVSPV  130
+
+
+ Score = 35.3 bits (70),  Expect = 0.36
+ Identities = 11/27 (41%), Positives = 14/27 (52%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C +D  C   +KCC   C  SC+ P
+Sbjct  103  NFCEMDGQCKRDLKCCMGMCGKSCVSP  129
+
+
+>lcl|SP:PWAP_HALLA P84811 Perlwapin OS=Haliotis laevigata PE=1 SV=1
+Length=134
+
+ Score = 37.6 bits (75),  Expect = 0.073
+ Identities = 14/30 (47%), Positives = 14/30 (47%), Gaps = 0/30 (0%)
+
+Query  98   KDNPCSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            K N CS D DC G  KCC       C  PE
+Sbjct  60   KGNVCSNDQDCPGNQKCCGKPGCRRCYRPE  89
+
+
+>lcl|SP:WFDC3_MOUSE Q14AE4 WAP four-disulfide core domain protein 3 OS=Mus musculus 
+GN=Wfdc3 PE=2 SV=1
+Length=130
+
+ Score = 37.1 bits (74),  Expect = 0.10
+ Identities = 10/24 (42%), Positives = 13/24 (54%), Gaps = 0/24 (0%)
+
+Query  46   INCQTNEECAQNDMCCPSSCGRSC  69
+            + C  +E C   + CC S CGR C
+Sbjct  79   VQCMMDENCQSGERCCKSGCGRFC  102
+
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 9/23 (39%), Positives = 13/23 (57%), Gaps = 0/23 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCK  70
+           C  +E C Q   CC + CG +C+
+Sbjct  36  CTGDESCPQGHKCCSTGCGHACR  58
+
+
+ Score = 33.4 bits (66),  Expect = 1.3
+ Identities = 12/31 (39%), Positives = 14/31 (45%), Gaps = 0/31 (0%)
+
+Query  93   AGPCPKDNPCSIDSDCSGTMKCCKNGCIMSC  123
+            A P P    C+ D  C    KCC  GC  +C
+Sbjct  27   ADPLPCQELCTGDESCPQGHKCCSTGCGHAC  57
+
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 9/23 (39%), Positives = 14/23 (61%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C +D +C    +CCK+GC   C+
+Sbjct  81   CMMDENCQSGERCCKSGCGRFCI  103
+
+
+>lcl|SP:WAPN_NAJNG P60589 Nawaprin OS=Naja nigricollis PE=1 SV=1
+Length=51
+
+ Score = 37.1 bits (74),  Expect = 0.10
+ Identities = 11/18 (61%), Positives = 12/18 (67%), Gaps = 0/18 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGC  119
+            C+ DS C    KCCKNGC
+Sbjct  24   CNSDSGCPNVQKCCKNGC  41
+
+
+>lcl|SP:KRA15_HUMAN Q9BYS1 Keratin-associated protein 1-5 OS=Homo sapiens GN=KRTAP1-5 
+PE=1 SV=1
+Length=174
+
+ Score = 37.1 bits (74),  Expect = 0.10
+ Identities = 15/50 (30%), Positives = 19/50 (38%), Gaps = 0/50 (0%)
+
+Query  32  SMCSDDSFSEDTECINCQTNEECAQNDMCCPSSCGRSCKTPVNIEVQKAG  81
+           S C   SFS    C +      C +   C PS C  SC  P   ++   G
+Sbjct  43  SFCGFPSFSTSGTCSSSCCQPSCCETSCCQPSCCETSCCQPSCCQISSCG  92
+
+
+>lcl|SP:WFDC8_HUMAN Q8IUA0 WAP four-disulfide core domain protein 8 OS=Homo sapiens 
+GN=WFDC8 PE=2 SV=2
+Length=241
+
+ Score = 36.7 bits (73),  Expect = 0.14
+ Identities = 12/25 (48%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C+ D DC    KCC   C   CMDP
+Sbjct  66   CNTDFDCKEYQKCCFFACQKKCMDP  90
+
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 10/23 (43%), Positives = 14/23 (61%), Gaps = 0/23 (0%)
+
+Query  47   NCQTNEECAQNDMCCPSSCGRSC  69
+            +C ++ +C Q D CC S CG  C
+Sbjct  168  SCHSDIDCPQTDKCCESRCGFVC  190
+
+
+>lcl|SP:WFD18_RAT P14730 WAP four-disulfide core domain protein 18 (Fragment) OS=Rattus 
+norvegicus GN=Wfdc18 PE=2 SV=2
+Length=74
+
+ Score = 36.7 bits (73),  Expect = 0.14
+ Identities = 12/25 (48%), Positives = 12/25 (48%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            CS D  C    KCC NGC   C  P
+Sbjct  48   CSGDQSCPNIQKCCSNGCGHVCKSP  72
+
+
+ Score = 35.7 bits (71),  Expect = 0.26
+ Identities = 10/26 (38%), Positives = 14/26 (54%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C  ++ C     CC + CG  CK+PV
+Sbjct  48  CSGDQSCPNIQKCCSNGCGHVCKSPV  73
+
+
+>lcl|SP:WFDC8_MOUSE Q4KUS1 WAP four-disulfide core domain protein 8 OS=Mus musculus 
+GN=Wfdc8 PE=2 SV=1
+Length=273
+
+ Score = 36.2 bits (72),  Expect = 0.19
+ Identities = 11/25 (44%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D +C    KCC+  C   CMDP
+Sbjct  98   CKTDFNCKAHFKCCQFACGRKCMDP  122
+
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 10/26 (38%), Positives = 15/26 (58%), Gaps = 0/26 (0%)
+
+Query  47   NCQTNEECAQNDMCCPSSCGRSCKTP  72
+            +C+T+  C  +  CC  +CGR C  P
+Sbjct  97   SCKTDFNCKAHFKCCQFACGRKCMDP  122
+
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 8/23 (35%), Positives = 14/23 (61%), Gaps = 0/23 (0%)
+
+Query  47   NCQTNEECAQNDMCCPSSCGRSC  69
+            +C+ + +C + + CC S CG  C
+Sbjct  200  SCKNDMDCPEKEKCCESRCGFIC  222
+
+
+>lcl|SP:SPAI_PIG P16225 Sodium/potassium ATPase inhibitor SPAI-2 OS=Sus scrofa 
+PE=1 SV=2
+Length=187
+
+ Score = 36.2 bits (72),  Expect = 0.19
+ Identities = 12/28 (43%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            N C  D DC G  KCC+  C   C+ P+
+Sbjct  160  NKCWRDYDCPGVKKCCEGFCGKDCLYPK  187
+
+
+>lcl|SP:MIPR_LYMST Q25410 Putative molluscan insulin-related peptide(s) receptor 
+OS=Lymnaea stagnalis PE=2 SV=1
+Length=1607
+
+ Score = 35.7 bits (71),  Expect = 0.26
+ Identities = 11/27 (41%), Positives = 14/27 (52%), Gaps = 0/27 (0%)
+
+Query  48   CQTNEECAQNDMCCPSSCGRSCKTPVN  74
+            C+ N  C +N  CC   C   CK P+N
+Sbjct  236  CKENTYCMENGSCCHDYCLGGCKVPMN  262
+
+
+>lcl|SP:IBP_CARCR P00993 Chelonianin OS=Caretta caretta PE=1 SV=1
+Length=110
+
+ Score = 35.7 bits (71),  Expect = 0.26
+ Identities = 12/27 (44%), Positives = 14/27 (52%), Gaps = 0/27 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEP  128
+            C  DSDC    KCC +GC   C+   P
+Sbjct  80   CDSDSDCKEGQKCCFDGCGYICLTVAP  106
+
+
+>lcl|SP:CALU_CAVPO P22075 Caltrin-like protein 2 OS=Cavia porcellus PE=1 SV=1
+Length=55
+
+ Score = 35.7 bits (71),  Expect = 0.26
+ Identities = 12/28 (43%), Positives = 13/28 (46%), Gaps = 0/28 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            N C+ D DC    KCC   C   C  PE
+Sbjct  28   NKCTSDYDCPKPQKCCPGYCGKQCYQPE  55
+
+
+ Score = 34.8 bits (69),  Expect = 0.50
+ Identities = 9/25 (36%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTP  72
+           C ++ +C +   CCP  CG+ C  P
+Sbjct  30  CTSDYDCPKPQKCCPGYCGKQCYQP  54
+
+
+>lcl|SP:WFKN2_MOUSE Q7TQN3 WAP, Kazal, immunoglobulin, Kunitz and NTR domain-containing 
+protein 2 OS=Mus musculus GN=Wfikkn2 PE=1 SV=2
+Length=571
+
+ Score = 34.8 bits (69),  Expect = 0.50
+ Identities = 9/19 (47%), Positives = 14/19 (74%), Gaps = 0/19 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCG  66
+           C+T++EC   + CCP+ CG
+Sbjct  61  CETDQECETYEKCCPNVCG  79
+
+
+>lcl|SP:WFKN2_HUMAN Q8TEU8 WAP, Kazal, immunoglobulin, Kunitz and NTR domain-containing 
+protein 2 OS=Homo sapiens GN=WFIKKN2 PE=1 SV=1
+Length=576
+
+ Score = 34.8 bits (69),  Expect = 0.50
+ Identities = 9/19 (47%), Positives = 14/19 (74%), Gaps = 0/19 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCG  66
+           C+T++EC   + CCP+ CG
+Sbjct  66  CETDQECETYEKCCPNVCG  84
+
+
+>lcl|SP:WFKN2_BOVIN Q08E66 WAP, Kazal, immunoglobulin, Kunitz and NTR domain-containing 
+protein 2 OS=Bos taurus GN=WFIKKN2 PE=2 SV=1
+Length=574
+
+ Score = 34.8 bits (69),  Expect = 0.50
+ Identities = 9/19 (47%), Positives = 14/19 (74%), Gaps = 0/19 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCG  66
+           C+T++EC   + CCP+ CG
+Sbjct  64  CETDQECETYEKCCPNVCG  82
+
+
+>lcl|SP:WAP1_PSEPL A7X4M1 Waprin-Enh1 OS=Pseudoferania polylepis PE=2 SV=1
+Length=118
+
+ Score = 34.8 bits (69),  Expect = 0.50
+ Identities = 12/27 (44%), Positives = 14/27 (52%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC  T++CC   C  SC  P
+Sbjct  48   NRCRRDYDCPQTLRCCNFRCSRSCRIP  74
+
+
+ Score = 33.4 bits (66),  Expect = 1.3
+ Identities = 10/25 (40%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTP  72
+           C+ + +C Q   CC   C RSC+ P
+Sbjct  50  CRRDYDCPQTLRCCNFRCSRSCRIP  74
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 10/27 (37%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSC  123
+            P  + C  D DC G  +CC   C   C
+Sbjct  91   PGIDRCRYDYDCPGRQRCCYYSCSRIC  117
+
+
+>lcl|SP:WAP1_ERYPO A7X4L4 Waprin-Lio1 (Fragment) OS=Erythrolamprus poecilogyrus 
+PE=2 SV=1
+Length=60
+
+ Score = 34.8 bits (69),  Expect = 0.50
+ Identities = 10/18 (56%), Positives = 12/18 (67%), Gaps = 0/18 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGC  119
+            C  D++C    KCCKNGC
+Sbjct  33   CQTDANCQEGRKCCKNGC  50
+
+
+>lcl|SP:WFD12_PAPAN A4K2M6 WAP four-disulfide core domain protein 12 OS=Papio anubis 
+GN=WFDC12 PE=3 SV=1
+Length=111
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 12/28 (43%), Positives = 13/28 (46%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  D DC G  KCC   C   C+ P  K
+Sbjct  49   CHTDQDCLGARKCCYLHCGFKCVIPVKK  76
+
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCLGARKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:WF10A_HUMAN Q9H1F0 WAP four-disulfide core domain protein 10A OS=Homo sapiens 
+GN=WFDC10A PE=3 SV=2
+Length=79
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 8/22 (36%), Positives = 15/22 (68%), Gaps = 0/22 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSC  69
+           C+++ +C  N++CC + CG  C
+Sbjct  54  CESHRDCQANNICCSTYCGNVC  75
+
+
+>lcl|SP:SLIT_DROME P24014 Protein slit OS=Drosophila melanogaster GN=sli PE=1 SV=2
+Length=1504
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 11/34 (32%), Positives = 17/34 (50%), Gaps = 0/34 (0%)
+
+Query  82   RCPWNPIQMIAAGPCPKDNPCSIDSDCSGTMKCC  115
+            +C W+ ++M  +G C  D+ C     C GT   C
+Sbjct  523  KCSWDELRMKLSGECRMDSDCPAMCHCEGTTVDC  556
+
+
+>lcl|SP:SET2_NEUCR Q7RZU4 Histone-lysine N-methyltransferase, H3 lysine-36 specific 
+OS=Neurospora crassa (strain ATCC 24698 / 74-OR23-1A / CBS 
+708.71 / DSM 1257 / FGSC 987) GN=set-2 PE=3 SV=1
+Length=954
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 12/25 (48%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  41   EDTECINCQTNEECAQNDMCCPSSC  65
+            ED++CIN  T  EC   D  C S C
+Sbjct  147  EDSDCINRATKMECVDGDCNCGSGC  171
+
+
+>lcl|SP:EPPI_RAT D4A2Z2 Eppin OS=Rattus norvegicus GN=Eppin PE=3 SV=1
+Length=134
+
+ Score = 34.4 bits (68),  Expect = 0.69
+ Identities = 9/25 (36%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTP  72
+           C  + +C + + CC  SCG+ C  P
+Sbjct  48  CTRDRDCQKREKCCIFSCGKKCLNP  72
+
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 10/26 (38%), Positives = 14/26 (54%), Gaps = 0/26 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            C+ D DC    KCC   C   C++P+
+Sbjct  48   CTRDRDCQKREKCCIFSCGKKCLNPQ  73
+
+
+>lcl|SP:WFD12_SAIBB A4K2X6 WAP four-disulfide core domain protein 12 OS=Saimiri boliviensis 
+boliviensis GN=WFDC12 PE=3 SV=1
+Length=111
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 11/25 (44%), Positives = 12/25 (48%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D DC G  KCC   C   C+ P
+Sbjct  49   CHTDQDCQGIRKCCYLHCGFKCVIP  73
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCQGIRKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:WFD12_MACMU A4K2T3 WAP four-disulfide core domain protein 12 OS=Macaca mulatta 
+GN=WFDC12 PE=3 SV=1
+Length=111
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 12/28 (43%), Positives = 13/28 (46%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  D DC G  KCC   C   C+ P  K
+Sbjct  49   CHTDQDCLGERKCCYLHCGFKCVIPVKK  76
+
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCLGERKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:WFD12_COLGU A4K2P8 WAP four-disulfide core domain protein 12 OS=Colobus guereza 
+GN=WFDC12 PE=3 SV=1
+Length=111
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 12/28 (43%), Positives = 13/28 (46%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  D DC G  KCC   C   C+ P  K
+Sbjct  49   CHTDQDCLGERKCCYLHCGFKCVIPVKK  76
+
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCLGERKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:WFD12_CHLAE A4K2Y4 WAP four-disulfide core domain protein 12 OS=Chlorocebus 
+aethiops GN=WFDC12 PE=3 SV=1
+Length=111
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 12/28 (43%), Positives = 13/28 (46%), Gaps = 0/28 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEPK  129
+            C  D DC G  KCC   C   C+ P  K
+Sbjct  49   CHTDQDCLGERKCCYLHCGFKCVIPVKK  76
+
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCLGERKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:WFD12_CALJA A4K2U1 WAP four-disulfide core domain protein 12 OS=Callithrix 
+jacchus GN=WFDC12 PE=3 SV=1
+Length=111
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 11/25 (44%), Positives = 12/25 (48%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D DC G  KCC   C   C+ P
+Sbjct  49   CHTDQDCQGIRKCCYLHCGFKCVIP  73
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCQGIRKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:WFD12_AOTNA A4K2W8 WAP four-disulfide core domain protein 12 OS=Aotus nancymaae 
+GN=WFDC12 PE=3 SV=1
+Length=92
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 11/25 (44%), Positives = 12/25 (48%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D DC G  KCC   C   C+ P
+Sbjct  49   CHTDQDCQGIRKCCYLHCGFKCVIP  73
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCQGIRKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:WF15B_MOUSE Q9JHY4 WAP four-disulfide core domain protein 15B OS=Mus musculus 
+GN=Wfdc15b PE=2 SV=1
+Length=80
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 11/25 (44%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D  C   +KCC   C M C+DP
+Sbjct  51   CRRDKGCKDALKCCFFYCQMRCVDP  75
+
+
+>lcl|SP:TXF18_LYCSI B6DD51 U15-lycotoxin-Ls1h OS=Lycosa singoriensis PE=2 SV=1
+Length=87
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNFCKYPTD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNFCKYP  65
+
+
+>lcl|SP:TXF17_LYCSI B6DD50 U15-lycotoxin-Ls1g OS=Lycosa singoriensis PE=2 SV=1
+Length=86
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNFCKYPAD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNFCKYP  65
+
+
+>lcl|SP:TXF16_LYCSI B6DD49 U15-lycotoxin-Ls1d OS=Lycosa singoriensis PE=2 SV=1
+Length=86
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNFCKYPTD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNFCKYP  65
+
+
+>lcl|SP:TXF15_LYCSI B6DD48 U15-lycotoxin-Ls1f OS=Lycosa singoriensis PE=2 SV=1
+Length=87
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNFCKYPTD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNFCKYP  65
+
+
+>lcl|SP:TXF14_LYCSI B6DD47 U15-lycotoxin-Ls1e OS=Lycosa singoriensis PE=2 SV=1
+Length=86
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNFCKYPTD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNFCKYP  65
+
+
+>lcl|SP:TXF13_LYCSI B6DD46 U15-lycotoxin-Ls1d OS=Lycosa singoriensis PE=2 SV=1
+Length=86
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNFCKYPTD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNFCKYP  65
+
+
+>lcl|SP:TXF12_LYCSI B6DD45 U15-lycotoxin-Ls1c OS=Lycosa singoriensis PE=2 SV=1
+Length=86
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNICKYPTD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNICKYP  65
+
+
+>lcl|SP:TXF10_LYCSI B6DD43 U15-lycotoxin-Ls1a OS=Lycosa singoriensis PE=2 SV=1
+Length=86
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNFCKYPTD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNFCKYP  65
+
+
+>lcl|SP:TXF09_LYCSI B6DD42 U15-lycotoxin-Ls1d OS=Lycosa singoriensis PE=2 SV=1
+Length=86
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNFCKYPTD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNFCKYP  65
+
+
+>lcl|SP:TXF08_LYCSI B6DD41 U15-lycotoxin-Ls1d OS=Lycosa singoriensis PE=2 SV=1
+Length=86
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNFCKYPTD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNFCKYP  65
+
+
+>lcl|SP:TXF07_LYCSI B6DD40 U15-lycotoxin-Ls1f OS=Lycosa singoriensis PE=2 SV=1
+Length=87
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/28 (32%), Positives = 15/28 (54%), Gaps = 0/28 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+           +C  +++C     CC + CG  CK P +
+Sbjct  40  DCCKDDDCTGGSWCCATPCGNFCKYPTD  67
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDP  126
+            N C  D DC+G   CC   C   C  P
+Sbjct  39   NDCCKDDDCTGGSWCCATPCGNFCKYP  65
+
+
+>lcl|SP:PWAPL_LOTGI B3A0S1 Perlwapin-like protein (Fragment) OS=Lottia gigantea PE=1 
+SV=1
+Length=225
+
+ Score = 33.9 bits (67),  Expect = 0.95
+ Identities = 9/15 (60%), Positives = 11/15 (73%), Gaps = 0/15 (0%)
+
+Query  60   CCPSSCGRSCKTPVN  74
+            CCP  CG+ CK P+N
+Sbjct  156  CCPDVCGKRCKFPIN  170
+
+
+>lcl|SP:TXAG7_AGEOR Q5Y4V9 U7-agatoxin-Ao1a OS=Agelena orientalis PE=2 SV=1
+Length=102
+
+ Score = 33.4 bits (66),  Expect = 1.3
+ Identities = 9/23 (39%), Positives = 14/23 (61%), Gaps = 0/23 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCK  70
+           C +++EC   +MCC   CG  C+
+Sbjct  42  CCSSKECRFGEMCCSEPCGNVCR  64
+
+
+>lcl|SP:KRA98_HUMAN Q9BYQ0 Keratin-associated protein 9-8 OS=Homo sapiens GN=KRTAP9-8 
+PE=1 SV=2
+Length=159
+
+ Score = 33.4 bits (66),  Expect = 1.3
+ Identities = 13/50 (26%), Positives = 18/50 (36%), Gaps = 0/50 (0%)
+
+Query  26   VFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMCCPSSCGRSCKTPVNI  75
+            V +  Q  C      + T C        C Q+  C P  C R+C  P  +
+Sbjct  62   VTSCCQPSCCSTPCCQPTCCGQTSCGSSCGQSSSCAPVYCRRTCYHPTTV  111
+
+
+>lcl|SP:EPPI_MOUSE Q9DA01 Eppin OS=Mus musculus GN=Eppin PE=1 SV=1
+Length=134
+
+ Score = 33.4 bits (66),  Expect = 1.3
+ Identities = 8/25 (32%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTP  72
+           C  + +C + + CC  +CG+ C  P
+Sbjct  48  CTRDRDCPKKEKCCVFNCGKKCLNP  72
+
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 10/26 (38%), Positives = 14/26 (54%), Gaps = 0/26 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            C+ D DC    KCC   C   C++P+
+Sbjct  48   CTRDRDCPKKEKCCVFNCGKKCLNPQ  73
+
+
+>lcl|SP:EPPI_MACMU Q9BDL1 Eppin OS=Macaca mulatta GN=EPPIN PE=2 SV=1
+Length=133
+
+ Score = 33.4 bits (66),  Expect = 1.3
+ Identities = 9/22 (41%), Positives = 12/22 (55%), Gaps = 0/22 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSC  69
+           C  + +C  N  CC  SCG+ C
+Sbjct  48  CTRHRQCPDNKKCCVFSCGKKC  69
+
+
+>lcl|SP:EPPI_HUMAN O95925 Eppin OS=Homo sapiens GN=EPPIN PE=1 SV=1
+Length=133
+
+ Score = 33.4 bits (66),  Expect = 1.3
+ Identities = 9/22 (41%), Positives = 12/22 (55%), Gaps = 0/22 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSC  69
+           C  + +C  N  CC  SCG+ C
+Sbjct  48  CTKDRQCQDNKKCCVFSCGKKC  69
+
+
+>lcl|SP:WFKN_DANRE Q6NUX0 WAP, Kazal, immunoglobulin, Kunitz and NTR domain-containing 
+protein OS=Danio rerio GN=wfikkn PE=2 SV=1
+Length=558
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 10/21 (48%), Positives = 12/21 (57%), Gaps = 0/21 (0%)
+
+Query  99   DNPCSIDSDCSGTMKCCKNGC  119
+            +  C  D DCS + KCC N C
+Sbjct  46   ERECHSDQDCSSSEKCCTNVC  66
+
+
+>lcl|SP:WFD12_PONAB A4K2V4 WAP four-disulfide core domain protein 12 OS=Pongo abelii 
+GN=WFDC12 PE=3 SV=1
+Length=90
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 11/25 (44%), Positives = 12/25 (48%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D DC G  KCC   C   C+ P
+Sbjct  49   CHTDQDCLGERKCCYLHCGFKCVIP  73
+
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCLGERKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:WFD12_PANTR A4K2P0 WAP four-disulfide core domain protein 12 OS=Pan troglodytes 
+GN=WFDC12 PE=3 SV=1
+Length=111
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 11/25 (44%), Positives = 12/25 (48%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D DC G  KCC   C   C+ P
+Sbjct  49   CHTDQDCLGERKCCYLHCGFKCVIP  73
+
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCLGERKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:WFD12_HUMAN Q8WWY7 WAP four-disulfide core domain protein 12 OS=Homo sapiens 
+GN=WFDC12 PE=1 SV=1
+Length=111
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 11/25 (44%), Positives = 12/25 (48%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D DC G  KCC   C   C+ P
+Sbjct  49   CHTDQDCLGERKCCYLHCGFKCVIP  73
+
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCLGERKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:WFD12_GORGO A4K2R5 WAP four-disulfide core domain protein 12 OS=Gorilla gorilla 
+gorilla GN=WFDC12 PE=3 SV=1
+Length=90
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 11/25 (44%), Positives = 12/25 (48%), Gaps = 0/25 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDP  126
+            C  D DC G  KCC   C   C+ P
+Sbjct  49   CHTDQDCLGERKCCYLHCGFKCVIP  73
+
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 10/26 (38%), Positives = 13/26 (50%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C T+++C     CC   CG  C  PV
+Sbjct  49  CHTDQDCLGERKCCYLHCGFKCVIPV  74
+
+
+>lcl|SP:TXE06_LYCSI B6DD39 U14-lycotoxin-Ls1c OS=Lycosa singoriensis PE=2 SV=1
+Length=87
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 9/23 (39%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSC  69
+           NC  + +C  N  CC   CG  C
+Sbjct  40  NCCRDSDCTSNAFCCAEPCGNFC  62
+
+
+>lcl|SP:TXE05_LYCSI B6DD38 U14-lycotoxin-Ls1a OS=Lycosa singoriensis PE=2 SV=1
+Length=87
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 9/23 (39%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSC  69
+           NC  + +C  N  CC   CG  C
+Sbjct  40  NCCRDSDCTSNAFCCAEPCGNFC  62
+
+
+>lcl|SP:TXE04_LYCSI B6DD37 U14-lycotoxin-Ls1b OS=Lycosa singoriensis PE=2 SV=1
+Length=87
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 9/23 (39%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSC  69
+           NC  + +C  N  CC   CG  C
+Sbjct  40  NCCRDSDCTSNAFCCAEPCGNFC  62
+
+
+>lcl|SP:TXE03_LYCSI B6DD36 U14-lycotoxin-Ls1b OS=Lycosa singoriensis PE=2 SV=1
+Length=87
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 9/23 (39%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSC  69
+           NC  + +C  N  CC   CG  C
+Sbjct  40  NCCRDSDCTSNAFCCAEPCGNFC  62
+
+
+>lcl|SP:TXE02_LYCSI B6DD35 U14-lycotoxin-Ls1a OS=Lycosa singoriensis PE=2 SV=1
+Length=87
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 9/23 (39%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSC  69
+           NC  + +C  N  CC   CG  C
+Sbjct  40  NCCRDSDCTSNAFCCAEPCGNFC  62
+
+
+>lcl|SP:TXE01_LYCSI B6DD34 U14-lycotoxin-Ls1a OS=Lycosa singoriensis PE=2 SV=1
+Length=87
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 9/23 (39%), Positives = 11/23 (48%), Gaps = 0/23 (0%)
+
+Query  47  NCQTNEECAQNDMCCPSSCGRSC  69
+           NC  + +C  N  CC   CG  C
+Sbjct  40  NCCRDSDCTSNAFCCAEPCGNFC  62
+
+
+>lcl|SP:SP3_CHICK Q90WR8 Transcription factor Sp3 OS=Gallus gallus GN=SP3 PE=1 
+SV=1
+Length=771
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 17/59 (29%), Positives = 28/59 (47%), Gaps = 0/59 (0%)
+
+Query  6    SLVLGLLALEVALARNLQEHVFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMCCPSS  64
+            SL LG  +  +    N   H+ N+ Q+M S D+     E ++ +  E    ND+  P+S
+Sbjct  267  SLGLGSGSQTMTAGINADGHLINTGQAMDSSDNSERTGEQVSPEITETATDNDLFVPTS  325
+
+
+>lcl|SP:KRA52_MOUSE Q9D5Z7 Keratin-associated protein 5-2 OS=Mus musculus GN=Krtap5-2 
+PE=2 SV=1
+Length=189
+
+ Score = 33.0 bits (65),  Expect = 1.8
+ Identities = 13/42 (31%), Positives = 16/42 (38%), Gaps = 0/42 (0%)
+
+Query  31   QSMCSDDSFSEDTECINCQTNEECAQNDMCCPSSCGRSCKTP  72
+            QS C      + + C  C     C Q+  C P  C  SC  P
+Sbjct  131  QSSCCKPCCCQSSCCKPCCCQSSCCQSSCCKPCCCQSSCCKP  172
+
+
+>lcl|SP:YL264_MIMIV Q5UPU7 Uncharacterized WD repeat-containing protein L264 OS=Acanthamoeba 
+polyphaga mimivirus GN=MIMI_L264 PE=1 SV=1
+Length=1389
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 13/45 (29%), Positives = 20/45 (44%), Gaps = 0/45 (0%)
+
+Query  22   LQEHVFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMCCPSSCG  66
+            L++ V     +   D   SE +EC       +C  N  CC ++CG
+Sbjct  80   LEKTVKKKKSNCSDDSECSECSECSERSCCSKCNSNKCCCNNTCG  124
+
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 10/26 (38%), Positives = 14/26 (54%), Gaps = 0/26 (0%)
+
+Query  98   KDNPCSIDSDCSGTMKCCKNGCIMSC  123
+            K + CS DS+CS   +C +  C   C
+Sbjct  87   KKSNCSDDSECSECSECSERSCCSKC  112
+
+
+>lcl|SP:WFD12_MOUSE Q9JHY3 WAP four-disulfide core domain protein 12 OS=Mus musculus 
+GN=Wfdc12 PE=2 SV=1
+Length=85
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 9/26 (35%), Positives = 14/26 (54%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C ++ +C   ++CC   CG  C  PV
+Sbjct  47  CYSDNDCGDQEICCFWQCGFKCVLPV  72
+
+
+>lcl|SP:SAE1_XENTR Q28DS0 SUMO-activating enzyme subunit 1 OS=Xenopus tropicalis 
+GN=sae1 PE=2 SV=1
+Length=347
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 16/51 (31%), Positives = 27/51 (53%), Gaps = 0/51 (0%)
+
+Query  17   ALARNLQEHVFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMCCPSSCGR  67
+            +L +N  E   N  +++    S   DTE IN ++++   Q D+ C +SC R
+Sbjct  84   SLGQNRAEASLNRARNLNPMVSVEADTENINQKSDDFFTQFDVVCLTSCSR  134
+
+
+>lcl|SP:PWAP_HALAI P86730 Perlwapin (Fragment) OS=Haliotis asinina PE=1 SV=1
+Length=152
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 11/30 (37%), Positives = 14/30 (47%), Gaps = 0/30 (0%)
+
+Query  98   KDNPCSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            + N C+ D DC G  KCC       C  P+
+Sbjct  78   RGNVCNNDQDCPGNRKCCGKPGCKRCYRPK  107
+
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 9/23 (39%), Positives = 12/23 (52%), Gaps = 0/23 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCM  124
+            C  D DC+    CC  GC+  C+
+Sbjct  39   CYSDRDCASGYYCCNTGCLNICV  61
+
+
+>lcl|SP:LET23_CAEEL P24348 Receptor tyrosine-protein kinase let-23 OS=Caenorhabditis 
+elegans GN=let-23 PE=1 SV=3
+Length=1323
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 12/45 (27%), Positives = 20/45 (44%), Gaps = 0/45 (0%)
+
+Query  86   NPIQMIAAGPCPKDNPCSIDSDCSGTMKCCKNGCIMSCMDPEPKS  130
+            N  Q +    CPK       S+ + + +CC + C+  C    PK+
+Sbjct  234  NDCQRVYRSVCPKSCSQCFYSNSTSSYECCDSACLGGCTGHGPKN  278
+
+
+>lcl|SP:KRA46_HUMAN Q9BYQ5 Keratin-associated protein 4-6 OS=Homo sapiens GN=KRTAP4-6 
+PE=2 SV=4
+Length=205
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 14/41 (34%), Positives = 17/41 (41%), Gaps = 0/41 (0%)
+
+Query  32  SMCSDDSFSEDTECINCQTNEECAQNDMCCPSSCGRSCKTP  72
+           S+CSD     +T C        C +   C PS C  SC  P
+Sbjct  8   SVCSDQGCGLETCCRPSCCQTTCCRTTCCRPSCCVSSCCRP  48
+
+
+>lcl|SP:CHIT_PHAVU P06215 Endochitinase OS=Phaseolus vulgaris PE=1 SV=1
+Length=328
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 13/33 (39%), Positives = 13/33 (39%), Gaps = 0/33 (0%)
+
+Query  96   CPKDNPCSIDSDCSGTMKCCKNGCIMSCMDPEP  128
+            CP  N CS    C  T   C  GC   C  P P
+Sbjct  39   CPGGNCCSQFGWCGSTTDYCGPGCQSQCGGPSP  71
+
+
+>lcl|SP:CASA2_BOVIN P02663 Alpha-S2-casein OS=Bos taurus GN=CSN1S2 PE=1 SV=2
+Length=222
+
+ Score = 32.5 bits (64),  Expect = 2.5
+ Identities = 12/29 (41%), Positives = 21/29 (72%), Gaps = 0/29 (0%)
+
+Query  14  LEVALARNLQEHVFNSVQSMCSDDSFSED  42
+           L VALA+N  EHV +S +S+ S +++ ++
+Sbjct  10  LAVALAKNTMEHVSSSEESIISQETYKQE  38
+
+
+>lcl|SP:WFKN1_RAT P0C5J5 WAP, Kazal, immunoglobulin, Kunitz and NTR domain-containing 
+protein 1 OS=Rattus norvegicus GN=Wfikkn1 PE=2 SV=1
+Length=552
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 9/21 (43%), Positives = 13/21 (62%), Gaps = 0/21 (0%)
+
+Query  99   DNPCSIDSDCSGTMKCCKNGC  119
+            +  C+ D DC+ + KCC N C
+Sbjct  53   ERECTRDQDCAASEKCCTNVC  73
+
+
+>lcl|SP:WFKN1_HUMAN Q96NZ8 WAP, Kazal, immunoglobulin, Kunitz and NTR domain-containing 
+protein 1 OS=Homo sapiens GN=WFIKKN1 PE=1 SV=1
+Length=548
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 10/21 (48%), Positives = 12/21 (57%), Gaps = 0/21 (0%)
+
+Query  99   DNPCSIDSDCSGTMKCCKNGC  119
+            +  CS D DC+   KCC N C
+Sbjct  50   ERECSRDQDCAAAEKCCINVC  70
+
+
+>lcl|SP:SPHR_AMEPV P29815 Spheroidin OS=Amsacta moorei entomopoxvirus GN=AMV187 
+PE=1 SV=2
+Length=1003
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 11/44 (25%), Positives = 22/44 (50%), Gaps = 0/44 (0%)
+
+Query  24   EHVFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMCCPSSCGR  67
+            E+V +  Q  C+ ++F  +T C+     +   +N     ++CGR
+Sbjct  884  EYVHHRYQESCTPNTFGNNTNCVTRNGEQHVYENSCGDNATCGR  927
+
+
+>lcl|SP:SET2_CHAGB Q2H988 Histone-lysine N-methyltransferase, H3 lysine-36 specific 
+OS=Chaetomium globosum (strain ATCC 6205 / CBS 148.51 / 
+DSM 1962 / NBRC 6347 / NRRL 1970) GN=SET2 PE=3 SV=1
+Length=894
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 11/25 (44%), Positives = 13/25 (52%), Gaps = 0/25 (0%)
+
+Query  41   EDTECINCQTNEECAQNDMCCPSSC  65
+            ED++CIN  T  EC   D  C   C
+Sbjct  93   EDSDCINRATKIECVSGDCNCGEGC  117
+
+
+>lcl|SP:KRA92_PANTR A5A6P5 Keratin-associated protein 9-2 OS=Pan troglodytes GN=KRTAP9-2 
+PE=2 SV=1
+Length=170
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 10/29 (34%), Positives = 14/29 (48%), Gaps = 0/29 (0%)
+
+Query  47   NCQTNEECAQNDMCCPSSCGRSCKTPVNI  75
+            +C     C Q+  C P  C R+C  P N+
+Sbjct  94   SCCGQTSCGQSSSCTPVYCRRTCYYPTNV  122
+
+
+>lcl|SP:INSRR_MOUSE Q9WTL4 Insulin receptor-related protein OS=Mus musculus GN=Insrr 
+PE=1 SV=2
+Length=1300
+
+ Score = 32.0 bits (63),  Expect = 3.4
+ Identities = 11/32 (34%), Positives = 14/32 (44%), Gaps = 0/32 (0%)
+
+Query  96   CPKDNPCSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            C K  PC     C+    CC + C+  C  PE
+Sbjct  210  CQKVCPCPRGMACTAGGDCCHSECLGGCSQPE  241
+
+
+>lcl|SP:WFKN1_MOUSE Q8R0S6 WAP, Kazal, immunoglobulin, Kunitz and NTR domain-containing 
+protein 1 OS=Mus musculus GN=Wfikkn1 PE=2 SV=2
+Length=552
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 9/21 (43%), Positives = 13/21 (62%), Gaps = 0/21 (0%)
+
+Query  99   DNPCSIDSDCSGTMKCCKNGC  119
+            +  C+ D DC+ + KCC N C
+Sbjct  53   ERECTGDQDCAASEKCCTNVC  73
+
+
+>lcl|SP:WFDC6_HUMAN Q9BQY6 WAP four-disulfide core domain protein 6 OS=Homo sapiens 
+GN=WFDC6 PE=2 SV=1
+Length=131
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 11/29 (38%), Positives = 14/29 (48%), Gaps = 0/29 (0%)
+
+Query  41  EDTECINCQTNEECAQNDMCCPSSCGRSC  69
+           E  E   C    +C +N  CCP S G+ C
+Sbjct  41  EVEEIDQCTKPRDCPENMKCCPFSRGKKC  69
+
+
+>lcl|SP:WFC6B_MOUSE F6ULY1 WAP four-disulfide core domain protein 6B OS=Mus musculus 
+GN=Wfdc6b PE=2 SV=1
+Length=148
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 9/22 (41%), Positives = 12/22 (55%), Gaps = 0/22 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSC  69
+           C  + EC   + CC  +CGR C
+Sbjct  59  CLRHRECPGEERCCLFACGRKC  80
+
+
+>lcl|SP:LECB_PHYAM Q9AVB0 Lectin-B OS=Phytolacca americana PE=1 SV=1
+Length=361
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 10/29 (34%), Positives = 16/29 (55%), Gaps = 0/29 (0%)
+
+Query  96   CPKDNPCSIDSDCSGTMKCCKNGCIMSCM  124
+            CP D  CS+   C  +++ C +GC   C+
+Sbjct  54   CPDDLCCSVFGHCGVSVQHCGDGCQSQCV  82
+
+
+>lcl|SP:KRA48_HUMAN Q9BYQ9 Keratin-associated protein 4-8 OS=Homo sapiens GN=KRTAP4-8 
+PE=2 SV=4
+Length=185
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 11/39 (28%), Positives = 19/39 (49%), Gaps = 0/39 (0%)
+
+Query  31  QSMCSDDSFSEDTECINCQTNEECAQNDMCCPSSCGRSC  69
+           QS+C   +    + C++     +C Q+  C P+ C  SC
+Sbjct  56  QSVCCQPTCCRPSCCVSSCCKPQCCQSVCCQPTCCHPSC  94
+
+
+>lcl|SP:INSRR_HUMAN P14616 Insulin receptor-related protein OS=Homo sapiens GN=INSRR 
+PE=1 SV=2
+Length=1297
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 10/32 (31%), Positives = 14/32 (44%), Gaps = 0/32 (0%)
+
+Query  96   CPKDNPCSIDSDCSGTMKCCKNGCIMSCMDPE  127
+            C +  PC     C+   +CC   C+  C  PE
+Sbjct  210  CQRVCPCPHGMACTARGECCHTECLGGCSQPE  241
+
+
+>lcl|SP:ACN1_CAEEL Q18581 Inactive angiotensin-converting enzyme-related protein 
+OS=Caenorhabditis elegans GN=acn-1 PE=1 SV=2
+Length=906
+
+ Score = 31.6 bits (62),  Expect = 4.7
+ Identities = 10/25 (40%), Positives = 14/25 (56%), Gaps = 0/25 (0%)
+
+Query  94   GPCPKDNPCSIDSDCSGTMKCCKNG  118
+            G C     C +DS C+GT+  C +G
+Sbjct  800  GECVNGQECLLDSHCNGTICVCNDG  824
+
+
+>lcl|SP:SP3_MOUSE O70494 Transcription factor Sp3 OS=Mus musculus GN=Sp3 PE=1 SV=2
+Length=783
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 14/44 (32%), Positives = 22/44 (50%), Gaps = 0/44 (0%)
+
+Query  21   NLQEHVFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMCCPSS  64
+            N   H+ N+ Q+M S D+     E ++   NE  A  D+  P+S
+Sbjct  293  NADGHLINTGQAMDSSDNSERTGERVSPDVNETNADTDLFVPTS  336
+
+
+>lcl|SP:SEM6C_HUMAN Q9H3T2 Semaphorin-6C OS=Homo sapiens GN=SEMA6C PE=2 SV=4
+Length=930
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 11/37 (30%), Positives = 18/37 (49%), Gaps = 0/37 (0%)
+
+Query  62   PSSCGRSCKTPVNIEVQKAGRCPWNPIQMIAAGPCPK  98
+            PS     C +P+ ++V   GRC   P +   + P P+
+Sbjct  807  PSPRPHECASPLRLDVPPEGRCASAPARPALSAPAPR  843
+
+
+>lcl|SP:SAE1_XENLA Q8JGT5 SUMO-activating enzyme subunit 1 OS=Xenopus laevis GN=sae1 
+PE=2 SV=1
+Length=344
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 17/58 (29%), Positives = 28/58 (48%), Gaps = 0/58 (0%)
+
+Query  17   ALARNLQEHVFNSVQSMCSDDSFSEDTECINCQTNEECAQNDMCCPSSCGRSCKTPVN  74
+            +L +N  E   N  +++    S   DTE IN ++++   Q D+ C +SC       VN
+Sbjct  84   SLGQNRAEASLNRARNLNPMVSVEADTENINQKSDDFFTQFDVVCLTSCPSDLLVRVN  141
+
+
+>lcl|SP:KRA97_HUMAN A8MTY7 Keratin-associated protein 9-7 OS=Homo sapiens GN=KRTAP9-7 
+PE=3 SV=1
+Length=169
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 17/73 (23%), Positives = 25/73 (34%), Gaps = 0/73 (0%)
+
+Query  54   CAQNDMCCPSSCGRSCKTPVNIEVQKAGRCPWNPIQMIAAGPCPKDNPCSIDSDCSGTMK  113
+            C  +  C  +SCG SC  P +       R  ++P  +   G   +    S    C     
+Sbjct  85   CCGSSCCGQTSCGSSCCQPSSCAPIYCRRTCYHPTSVYLPGCLNQSCGSSCCQPCCRPAC  144
+
+Query  114  CCKNGCIMSCMDP  126
+            C    C  +C  P
+Sbjct  145  CETTCCRTTCFQP  157
+
+
+>lcl|SP:KRA45_HUMAN Q9BYR2 Keratin-associated protein 4-5 OS=Homo sapiens GN=KRTAP4-5 
+PE=1 SV=4
+Length=181
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 12/39 (31%), Positives = 14/39 (36%), Gaps = 0/39 (0%)
+
+Query  34   CSDDSFSEDTECINCQTNEECAQNDMCCPSSCGRSCKTP  72
+            C + S      C        C +   CCPS C  SC  P
+Sbjct  70   CCESSCCRPCCCQTTCCRTTCCRTTCCCPSCCVSSCCRP  108
+
+
+>lcl|SP:KRA44_HUMAN Q9BYR3 Keratin-associated protein 4-4 OS=Homo sapiens GN=KRTAP4-4 
+PE=1 SV=1
+Length=166
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 13/41 (32%), Positives = 16/41 (39%), Gaps = 0/41 (0%)
+
+Query  32  SMCSDDSFSEDTECINCQTNEECAQNDMCCPSSCGRSCKTP  72
+           S+CSD     +  C        C +   C PS C  SC  P
+Sbjct  8   SVCSDQGCGLENCCRPSYCQTTCCRTTCCRPSCCVSSCCRP  48
+
+
+>lcl|SP:KRA24_HUMAN Q9BYR9 Keratin-associated protein 2-4 OS=Homo sapiens GN=KRTAP2-4 
+PE=1 SV=1
+Length=128
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/21 (48%), Positives = 11/21 (52%), Gaps = 0/21 (0%)
+
+Query  45  CINCQTNEECAQNDMCCPSSC  65
+           C  C   E C +   CCPSSC
+Sbjct  64  CDPCSLQEGCCRPITCCPSSC  84
+
+
+>lcl|SP:KRA23_HUMAN P0C7H8 Keratin-associated protein 2-3 OS=Homo sapiens GN=KRTAP2-3 
+PE=1 SV=2
+Length=128
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/21 (48%), Positives = 11/21 (52%), Gaps = 0/21 (0%)
+
+Query  45  CINCQTNEECAQNDMCCPSSC  65
+           C  C   E C +   CCPSSC
+Sbjct  64  CDPCSLQEGCCRPITCCPSSC  84
+
+
+>lcl|SP:KRA22_HUMAN Q9BYT5 Keratin-associated protein 2-2 OS=Homo sapiens GN=KRTAP2-2 
+PE=2 SV=3
+Length=123
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/21 (48%), Positives = 11/21 (52%), Gaps = 0/21 (0%)
+
+Query  45  CINCQTNEECAQNDMCCPSSC  65
+           C  C   E C +   CCPSSC
+Sbjct  64  CDPCSLQEGCCRPITCCPSSC  84
+
+
+>lcl|SP:KRA21_HUMAN Q9BYU5 Keratin-associated protein 2-1 OS=Homo sapiens GN=KRTAP2-1 
+PE=2 SV=2
+Length=128
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 10/21 (48%), Positives = 11/21 (52%), Gaps = 0/21 (0%)
+
+Query  45  CINCQTNEECAQNDMCCPSSC  65
+           C  C   E C +   CCPSSC
+Sbjct  64  CDPCSLQEGCCRPITCCPSSC  84
+
+
+>lcl|SP:CHI8_POPTR P16061 Endochitinase WIN8 OS=Populus trichocarpa GN=WIN8 PE=2 
+SV=1
+Length=316
+
+ Score = 31.1 bits (61),  Expect = 6.5
+ Identities = 11/28 (39%), Positives = 13/28 (46%), Gaps = 0/28 (0%)
+
+Query  96   CPKDNPCSIDSDCSGTMKCCKNGCIMSC  123
+            CP D  CS    C  T+  C  GC+  C
+Sbjct  35   CPNDLCCSSGGYCGLTVAYCCAGCVSQC  62
+
+
+>lcl|SP:WFD12_RAT Q6IE40 WAP four-disulfide core domain protein 12 OS=Rattus norvegicus 
+GN=Wfdc12 PE=3 SV=1
+Length=78
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 9/26 (35%), Positives = 12/26 (46%), Gaps = 0/26 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSCKTPV  73
+           C  + +C    +CC   CG  C  PV
+Sbjct  47  CHNDNDCKDQKICCYWHCGFKCVQPV  72
+
+
+>lcl|SP:RUTD_ECO44 D3H122 Putative aminoacrylate hydrolase RutD OS=Escherichia coli 
+O44:H18 (strain 042 / EAEC) GN=rutD PE=3 SV=1
+Length=270
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 15/27 (56%), Gaps = 0/27 (0%)
+
+Query  39   FSEDTECINCQTNEECAQNDMCCPSSC  65
+            FS  T+ I C     CA +D+  PS+C
+Sbjct  190  FSRHTDRIRCPVQIICASDDLLVPSAC  216
+
+
+>lcl|SP:PGBM_MOUSE Q05793 Basement membrane-specific heparan sulfate proteoglycan 
+core protein OS=Mus musculus GN=Hspg2 PE=1 SV=1
+Length=3707
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 12/26 (46%), Positives = 14/26 (54%), Gaps = 0/26 (0%)
+
+Query  45   CINCQTNEECAQNDMCCPSSCGRSCK  70
+            C+NCQ N E  Q D C P   G + K
+Sbjct  780  CLNCQHNTEGPQCDKCKPGFFGDATK  805
+
+
+>lcl|SP:MCSP_RAT Q64298 Sperm mitochondrial-associated cysteine-rich protein OS=Rattus 
+norvegicus GN=Smcp PE=1 SV=1
+Length=145
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 14/53 (26%), Positives = 15/53 (28%), Gaps = 0/53 (0%)
+
+Query  65   CGRSCKTPVNIEVQKAGRCPWNPIQMIAAGPCPKDNPCSIDSDCSGTMKCCKN  117
+            C   C  P       A  CP  P        CPK   C     C     CC +
+Sbjct  55   CPTPCPCPATCPAACACPCPMKPCCPTKCTCCPKKCTCCPQPTCCVQPTCCSS  107
+
+
+>lcl|SP:KCP_XENLA Q9IBG7 Kielin/chordin-like protein OS=Xenopus laevis GN=kcp PE=2 
+SV=1
+Length=2327
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/35 (31%), Positives = 16/35 (46%), Gaps = 0/35 (0%)
+
+Query  97   PKDNPCSIDSDCSGTMKCCKNGCIMSCMDPEPKSP  131
+            P+ +PC       G ++C K  C   C +P P  P
+Sbjct  686  PQGDPCQSCRCLEGRVQCRKRHCAALCRNPLPPRP  720
+
+
+>lcl|SP:K1H1_HUMAN Q15323 Keratin, type I cuticular Ha1 OS=Homo sapiens GN=KRT31 
+PE=1 SV=3
+Length=416
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/32 (34%), Positives = 17/32 (53%), Gaps = 0/32 (0%)
+
+Query  100  NPCSIDSDCSGTMKCCKNGCIMSCMDPEPKSP  131
+            NPC+  + CS  +  C +    SC+ P P +P
+Sbjct  370  NPCATTNACSKPIGPCLSNPCTSCVPPAPCTP  401
+
+
+>lcl|SP:FBN2_MOUSE Q61555 Fibrillin-2 OS=Mus musculus GN=Fbn2 PE=1 SV=2
+Length=2907
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/32 (34%), Positives = 16/32 (50%), Gaps = 0/32 (0%)
+
+Query  34    CSDDSFSEDTECINCQTNEECAQNDMCCPSSC  65
+             C+ +   E    +NC+   ECAQN + C   C
+Sbjct  2230  CTCNEGFEPGPMMNCEDINECAQNPLLCAFRC  2261
+
+
+>lcl|SP:FBN2_HUMAN P35556 Fibrillin-2 OS=Homo sapiens GN=FBN2 PE=1 SV=3
+Length=2912
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/32 (34%), Positives = 16/32 (50%), Gaps = 0/32 (0%)
+
+Query  34    CSDDSFSEDTECINCQTNEECAQNDMCCPSSC  65
+             C+ +   E    +NC+   ECAQN + C   C
+Sbjct  2237  CNCNEGFEPGPMMNCEDINECAQNPLLCAFRC  2268
+
+
+>lcl|SP:EZ1_MAIZE Q8S4P6 Histone-lysine N-methyltransferase EZ1 OS=Zea mays GN=EZ1 
+PE=2 SV=1
+Length=931
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 10/24 (42%), Positives = 11/24 (46%), Gaps = 0/24 (0%)
+
+Query  95   PCPKDNPCSIDSDCSGTMKCCKNG  118
+            PC + NPC   S C     C  NG
+Sbjct  674  PCRQYNPCGCQSTCGKQCPCLSNG  697
+
+
+>lcl|SP:DF254_ARATH Q2V318 Putative defensin-like protein 254 OS=Arabidopsis thaliana 
+GN=At5g43401 PE=5 SV=1
+Length=89
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/22 (50%), Positives = 12/22 (55%), Gaps = 0/22 (0%)
+
+Query  48  CQTNEECAQNDMCCPSSCGRSC  69
+           C TNEEC  N  C  + C  SC
+Sbjct  31  CATNEECRINCQCDAAYCDLSC  52
+
+
+>lcl|SP:BAR3_CHITE Q03376 Balbiani ring protein 3 OS=Chironomus tentans GN=BR3 PE=2 
+SV=1
+Length=1700
+
+ Score = 30.7 bits (60),  Expect = 8.9
+ Identities = 11/27 (41%), Positives = 12/27 (44%), Gaps = 0/27 (0%)
+
+Query  102  CSIDSDCSGTMKCCKNGCIMSCMDPEP  128
+            C  D  C G+   CKN C   C   EP
+Sbjct  202  CKGDGKCQGSKIWCKNNCRCICPTAEP  228
+
+
+
+Lambda      K        H
+   0.320    0.132    0.439 
+
+Gapped
+Lambda      K        H
+   -1.00    -1.00    -1.00 
+
+Effective search space used: 15150730848
+
+
+  Database: uniprotkb_swissprot
+    Posted date:  Dec 19, 2017  10:26 AM
+  Number of letters in database: 199,430,408
+  Number of sequences in database:  556,388
+
+
+
+Matrix: BLOSUM62
+Neighboring words threshold: 11
+Window for multiple hits: 40

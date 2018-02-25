@@ -18,6 +18,7 @@ import platform, os, re, sys, time, urllib
 from optparse import OptionParser
 from xmltramp2 import xmltramp
 import urllib.request as urllib2
+import utils
 
 def get_comparison(options):
     baseUrl = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast'
@@ -28,7 +29,7 @@ def get_comparison(options):
     # Debug level
     debugLevel = 0
     # Number of option arguments.
-    numOpts = len(sys.argv)
+    numOpts = len(options.keys())
 
     # Usage message
     usage = "Usage: %prog [options...] [seqFile]"
@@ -39,55 +40,53 @@ def get_comparison(options):
     version = "$Id: ncbiblast_urllib3.py 2106 2012-05-01 17:00:40Z hpm $"
     # Process command-line options
     parser = OptionParser(usage=usage, description=description, epilog=epilog, version=version)
+
     # Tool specific options
-    parser.add_option('-p', '--program', help='program to run')
-    parser.add_option('-D', '--database', help='database to search')
-    parser.add_option('--stype', default='protein', help='query sequence type')
-    parser.add_option('-m', '--matrix', help='scoring matrix')
-    parser.add_option('-E', '--exp', help='E-value threshold')
-    parser.add_option('-f', '--filter', action="store_true", help='low complexity sequence filter')
-    parser.add_option('-n', '--alignments', type='int', help='maximum number of alignments')
-    parser.add_option('-s', '--scores', type='int', help='maximum number of scores')
-    parser.add_option('-d', '--dropoff', type='int', help='dropoff score')
-    parser.add_option('--match_score', help='match/missmatch score')
-    parser.add_option('-o', '--gapopen', type='int', help='open gap penalty')
-    parser.add_option('-x', '--gapext', type='int', help='extend gap penalty')
-    parser.add_option('-g', '--gapalign', action="store_true", help='optimise gap alignments')
-    parser.add_option('--seqrange', help='region within input to use as query')
-    parser.add_option('--sequence', help='input sequence file name')
+    parser.add_option('-p', '--program', default=options["program"], help='program to run')
+    parser.add_option('-D', '--database', default=options["database"], help='database to search')
+    parser.add_option('--stype', default=options["stype"], help='query sequence type')
+    parser.add_option('-m', '--matrix', default=options["matrix"], help='scoring matrix')
+    parser.add_option('-E', '--exp', default=options["exp"], help='E-value threshold')
+    parser.add_option('-f', '--filter', default=options["filter"], action="store_true", help='low complexity sequence filter')
+    parser.add_option('-n', '--alignments', default=options["alignments"], type='int', help='maximum number of alignments')
+    parser.add_option('-s', '--scores', default=options["scores"], type='int', help='maximum number of scores')
+    parser.add_option('-d', '--dropoff', default=options["dropoff"], type='int', help='dropoff score')
+    parser.add_option('--match_score', default=options["match_score"], help='match/missmatch score')
+    parser.add_option('-o', '--gapopen', default=options["gapopen"], type='int', help='open gap penalty')
+    parser.add_option('-x', '--gapext', default=options["gapext"], type='int', help='extend gap penalty')
+    parser.add_option('-g', '--gapalign', default=options["gapalign"], action="store_true", help='optimise gap alignments')
+    parser.add_option('--seqrange', default=options["seqrange"], help='region within input to use as query')
+    parser.add_option('--sequence', default=options["sequence"], help='input sequence file name')
     # General options
-    parser.add_option('--email', help='e-mail address')
-    parser.add_option('--title', help='job title')
-    parser.add_option('--outfile', help='file name for results')
-    parser.add_option('--outformat', help='output format for results')
-    parser.add_option('--async', action='store_true', help='asynchronous mode')
-    parser.add_option('--jobid', help='job identifier')
-    parser.add_option('--polljob', action="store_true", help='get job result')
-    parser.add_option('--status', action="store_true", help='get job status')
-    parser.add_option('--resultTypes', action='store_true', help='get result types')
-    parser.add_option('--params', action='store_true', help='list input parameters')
-    parser.add_option('--paramDetail', help='get details for parameter')
-    parser.add_option('--quiet', action='store_true', help='decrease output level')
-    parser.add_option('--verbose', action='store_true', help='increase output level')
+    parser.add_option('--email', default=options["email"], help='e-mail address')
+    parser.add_option('--title', default=options["title"], help='job title')
+    parser.add_option('--outfile', default=options["outfile"], help='file name for results')
+    parser.add_option('--outformat', default=options["outformat"], help='output format for results')
+    parser.add_option('--async', default=options["async"], action='store_true', help='asynchronous mode')
+    parser.add_option('--jobid', default=options["jobid"], help='job identifier')
+    parser.add_option('--polljob', default=options["polljob"], action="store_true", help='get job result')
+    parser.add_option('--status', default=options["status"], action="store_true", help='get job status')
+    parser.add_option('--resultTypes', default=options["resultTypes"], action='store_true', help='get result types')
+    parser.add_option('--params', default=options["params"], action='store_true', help='list input parameters')
+    parser.add_option('--paramDetail', default=options["paramDetail"], help='get details for parameter')
+    parser.add_option('--quiet', default=options["quiet"], action='store_true', help='decrease output level')
+    parser.add_option('--verbose', default=options["verbose"], action='store_true', help='increase output level')
     parser.add_option('--baseURL', default=baseUrl, help='Base URL for service')
     parser.add_option('--debugLevel', type='int', default=debugLevel, help='debug output level')
 
-    print("options")
-    print(options)
-    print("args")
-    print(args)
+    (options, args) = parser.parse_args()
 
-    # Increase output level
-    if options.verbose:
-        outputLevel += 1
+    # # Increase output level
+    # if options.verbose:
+    #     outputLevel += 1
 
-    # Decrease output level
-    if options.quiet:
-        outputLevel -= 1
+    # # Decrease output level
+    # if options.quiet:
+    #     outputLevel -= 1
 
-    # Debug level
-    if options.debugLevel:
-        debugLevel = options.debugLevel
+    # # Debug level
+    # if options.debugLevel:
+    #     debugLevel = options.debugLevel
 
     # Debug print
     def printDebugMessage(functionName, message, level):
@@ -127,9 +126,9 @@ def get_comparison(options):
             resp = reqH.read();
             contenttype = reqH.getheader("Content-Type")
             
-            print(contenttype)
+            # print(contenttype)
             
-            print("len(resp) = " + str(len(resp)))
+            # print("len(resp) = " + str(len(resp)))
             
             if(len(resp)>0 and contenttype!="image/png;charset=UTF-8"
                 and contenttype!="image/jpeg;charset=UTF-8"):
@@ -140,7 +139,7 @@ def get_comparison(options):
         # Errors are indicated by HTTP status codes.
         except urllib2.HTTPError as ex:
             # Trap exception and output the document to get error message.
-            print (ex.read(), file=sys.stderr)
+            # print (ex.read(), file=sys.stderr)
             raise
         printDebugMessage('restRequest', 'End', 11)
         return result
@@ -159,8 +158,8 @@ def get_comparison(options):
     def printGetParameters():
         printDebugMessage('printGetParameters', 'Begin', 1)
         idList = serviceGetParameters()
-        for id_ in idList:
-            print (id_)
+        # for id_ in idList:
+        #     print (id_)
         printDebugMessage('printGetParameters', 'End', 1)    
 
     # Get input parameter information
@@ -178,17 +177,17 @@ def get_comparison(options):
     def printGetParameterDetails(paramName):
         printDebugMessage('printGetParameterDetails', 'Begin', 1)
         doc = serviceGetParameterDetails(paramName)
-        print (str(doc.name) + "\t" + str(doc.type))
-        print (doc.description)
-        for value in doc.values:
-            print (value.value,end=" ")
-            if str(value.defaultValue) == 'true':
-                print ('default', end=" ")
-            print
-            print ("\t" + str(value.label))
-            if(hasattr(value, 'properties')):
-                for wsProperty in value.properties:
-                    print  ("\t" + str(wsProperty.key) + "\t" + str(wsProperty.value))
+        # print (str(doc.name) + "\t" + str(doc.type))
+        # print (doc.description)
+        # for value in doc.values:
+            # print (value.value,end=" ")
+            # if str(value.defaultValue) == 'true':
+                # print ('default', end=" ")
+            # print
+            # print ("\t" + str(value.label))
+            # if(hasattr(value, 'properties')):
+                # for wsProperty in value.properties:
+                    # print  ("\t" + str(wsProperty.key) + "\t" + str(wsProperty.value))
         #print doc
         printDebugMessage('printGetParameterDetails', 'End', 1)
 
@@ -225,7 +224,7 @@ def get_comparison(options):
             reqH.close()
         except urllib2.HTTPError as ex:
             # Trap exception and output the document to get error message.
-            print (ex.read(), file=sys.stderr)
+            # print (ex.read(), file=sys.stderr)
             raise
         printDebugMessage('serviceRun', 'jobId: ' + jobId, 2)
         printDebugMessage('serviceRun', 'End', 1)
@@ -246,7 +245,7 @@ def get_comparison(options):
     def printGetStatus(jobId):
         printDebugMessage('printGetStatus', 'Begin', 1)
         status = serviceGetStatus(jobId)
-        print (status)
+        # print (status)
         printDebugMessage('printGetStatus', 'End', 1)
         
 
@@ -265,16 +264,16 @@ def get_comparison(options):
     def printGetResultTypes(jobId):
         printDebugMessage('printGetResultTypes', 'Begin', 1)
         resultTypeList = serviceGetResultTypes(jobId)
-        for resultType in resultTypeList:
-            print (resultType['identifier'])
-            if(hasattr(resultType, 'label')):
-                print ("\t", resultType['label'])
-            if(hasattr(resultType, 'description')):
-                print ("\t", resultType['description'])
-            if(hasattr(resultType, 'mediaType')):
-                print ("\t", resultType['mediaType'])
-            if(hasattr(resultType, 'fileSuffix')):
-                print ("\t", resultType['fileSuffix'])
+        # for resultType in resultTypeList:
+        #     print (resultType['identifier'])
+        #     if(hasattr(resultType, 'label')):
+        #         print ("\t", resultType['label'])
+        #     if(hasattr(resultType, 'description')):
+        #         print ("\t", resultType['description'])
+        #     if(hasattr(resultType, 'mediaType')):
+        #         print ("\t", resultType['mediaType'])
+        #     if(hasattr(resultType, 'fileSuffix')):
+        #         print ("\t", resultType['fileSuffix'])
         printDebugMessage('printGetResultTypes', 'End', 1)
 
     # Get result
@@ -293,7 +292,7 @@ def get_comparison(options):
         result = 'PENDING'
         while result == 'RUNNING' or result == 'PENDING':
             result = serviceGetStatus(jobId)
-            print (result, file=sys.stderr)
+            # print (result, file=sys.stderr)
             if result == 'RUNNING' or result == 'PENDING':
                 time.sleep(checkInterval)
         printDebugMessage('clientPoll', 'End', 1)
@@ -307,26 +306,29 @@ def get_comparison(options):
         # Get available result types
         resultTypes = serviceGetResultTypes(jobId)
         for resultType in resultTypes:
-            # Derive the filename for the result
-            if options.outfile:
-                filename = options.outfile + '.' + str(resultType['identifier']) + '.' + str(resultType['fileSuffix'])
-            else:
-                filename = jobId + '.' + str(resultType['identifier']) + '.' + str(resultType['fileSuffix'])
-            # Write a result file
-            if not options.outformat or options.outformat == str(resultType['identifier']):
-                # Get the result
-                result = serviceGetResult(jobId, str(resultType['identifier']))
-                if(str(resultType['mediaType']) == "image/png" or str(resultType['mediaType']) == "image/jpeg"):
-                    fmode= 'wb'
+            if str(resultType['identifier']) == "out":
+                # Derive the filename for the result
+                filename = utils.TMP_FOLDER
+                if options.outfile:
+                    filename += options.outfile + '.' + str(resultType['identifier']) + '.' + str(resultType['fileSuffix'])
                 else:
-                    fmode='w'
+                    filename += jobId + '.' + str(resultType['identifier']) + '.' + str(resultType['fileSuffix'])
+                # Write a result file
+                if not options.outformat or options.outformat == str(resultType['identifier']):
+                    # Get the result
+                    result = serviceGetResult(jobId, str(resultType['identifier']))
+                    if(str(resultType['mediaType']) == "image/png" or str(resultType['mediaType']) == "image/jpeg"):
+                        fmode= 'wb'
+                    else:
+                        fmode='w'
+                        
+                    fh = open(filename, fmode);
                     
-                fh = open(filename, fmode);
-                
-                fh.write(result)
-                fh.close()
-                print (filename)
-        printDebugMessage('getResult', 'End', 1)
+                    fh.write(result)
+                    fh.close()
+                # print (filename)
+        # printDebugMessage('getResult', 'End', 1)
+                return filename
 
     # Read a file
     def readFile(filename):
@@ -392,12 +394,12 @@ def get_comparison(options):
         
         # Submit the job
         jobid = serviceRun(options.email, options.title, params)
-        if options.async: # Async mode
-            print (jobid)
-        else: # Sync mode
-            print (jobid, file=sys.stderr)
+        if not options.async: # Async mode
+            # print (jobid)
+        # else: # Sync mode
+            # print (jobid, file=sys.stderr)
             time.sleep(5)
-            getResult(jobid)
+            filename_return = getResult(jobid)
     # Get job status
     elif options.status and options.jobid:
         printGetStatus(options.jobid)
@@ -406,7 +408,9 @@ def get_comparison(options):
         printGetResultTypes(options.jobid)
     # Get results for job
     elif options.polljob and options.jobid:
-        getResult(options.jobid)
+        filename_return =getResult(options.jobid)
     else:
         print ('Error: unrecognised argument combination', file=sys.stderr)
         parser.print_help()
+
+    return filename_return

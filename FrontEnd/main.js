@@ -292,7 +292,7 @@ function drawWordCloud(mData) {
 
 function start() {
 
-	sequences = [1];
+	sequences = ['sp:wap_rat'];
 	
 	post_data = {
 		sequences:JSON.stringify(sequences)
