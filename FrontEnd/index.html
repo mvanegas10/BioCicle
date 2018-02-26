@@ -45,6 +45,7 @@
 			<option value="firstWord">First word</option>
 			<option value="fullPhrase">Full name</option>
 		</select>
+		<div><input id="sequence" type="text" value="" placeholder="Sequence" onkeyup="getSequences(this)"></div>
 		<div id="chart"></div>
 		<div id="icicle" class="icicle"></div>
 		<div id="tree"><svg></svg></div>
@@ -54,7 +55,7 @@
 		
 		<div>
 			<h2>Data:</h2>
-			<button id="btnRefresh" onClick="start()">Refresh</button>
+			<button id="btnRefresh" onClick="getSequences()">Refresh</button>
 			<br>
 			<br>
 			<label for="textEntry">Copy and paste here your TSV</label>

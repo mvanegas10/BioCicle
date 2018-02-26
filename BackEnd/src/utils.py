@@ -4,7 +4,7 @@ import ncbi_blast.client as blast
 from random import randint
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
-TMP_FOLDER = os.path.join(PROJECT_DIR, "tmp")
+TMP_FOLDER = os.path.join(PROJECT_DIR, "tmp/")
 UNI_PROT_URL = "https://www.uniprot.org/uniprot/"
 
 taxonomy_ranks = [
@@ -22,7 +22,8 @@ taxonomy_ranks = [
 
 def compare_sequence(sequence):
     options = {'program': 'blastp', 'database': 'uniprotkb_swissprot', 'stype': 'protein', 'matrix': None, 'exp': None, 'filter': None, 'alignments': None, 'scores': None, 'dropoff': None, 'match_score': None, 'gapopen': None, 'gapext': None, 'gapalign': None, 'seqrange': None, 'sequence': sequence, 'email': 'm.vanegas10@uniandes.edu.co', 'title': None, 'outfile': None, 'outformat': None, 'async': None, 'jobid': None, 'polljob': None, 'status': None, 'resultTypes': None, 'params': None, 'paramDetail': None, 'quiet': None, 'verbose': None, 'baseURL': 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast', 'debugLevel': 0}
-    return os.path.join(TMP_FOLDER, blast.get_comparison(options))
+    path = os.path.join(TMP_FOLDER, blast.get_comparison(options))
+    return path
 
 def extract_comparisons_from_file(filename):
     comparisons = []

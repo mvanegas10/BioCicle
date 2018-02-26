@@ -199,7 +199,7 @@ function redrawWordCloud(data,dCounts) {
 	.font("Impact")
 	.fontSize(function(d) { return size(d.count); })
 	.on("end", drawWordCloud)
-	.start();
+	.getSequences();
 }
 
 function redrawTable (mData,columns) {
@@ -290,14 +290,14 @@ function drawWordCloud(mData) {
 	// $(".word").tooltip();
 }
 
-function start() {
+function getSequences(e) {
+	sequences = [];
 
-	sequences = ['sp:wap_rat'];
-	
+	sequences.push(e.value);
+
 	post_data = {
 		sequences:JSON.stringify(sequences)
 	};
-
 
 	$.post( "http://localhost:8080/post_compare_sequence", post_data , function( data ) {
 		allData = data;
@@ -314,5 +314,3 @@ function start() {
 		}
 	});	
 }
-
-start();
