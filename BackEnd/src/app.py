@@ -10,12 +10,10 @@ CORS(app)
 @app.route('/post_compare_sequence', methods=['POST'])
 def post_compare_sequence():
 
-    data = request.form.to_dict(flat=False)
+    data = request.get_json()
 
     if not "batch_size" in data:
         data["batch_size"] = 1
-
-    data["sequences"] = json.loads(data["sequences"][0])
 
     counter = 0
     current_batch_stop = counter

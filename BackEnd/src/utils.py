@@ -15,7 +15,7 @@ taxonomy_ranks = [
     "ORDER",
     "FAMILY",
     "GENUS",
-    "SPECIE",
+    "SPECIES",
     "ORGANISM",
     "NAME"
 ]
