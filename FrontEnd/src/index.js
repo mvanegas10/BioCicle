@@ -34,8 +34,7 @@ class Form extends React.Component {
 
   handleSequenceClick(event) {
     if(this.state.sequence) {
-      var sequences = [];
-      sequences.push(this.state.sequence);
+      var sequences = this.state.sequence.split(",");
 
       var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
 
@@ -61,7 +60,7 @@ class Form extends React.Component {
 
             if(alignments.length > 0) return redrawIcicle(tree);
 
-          }, 10000) 
+          }, 1000) 
 
         }
       
