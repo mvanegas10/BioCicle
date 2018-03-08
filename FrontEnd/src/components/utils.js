@@ -1,5 +1,28 @@
 import * as d3 from 'd3';
 
+const colorPalette = [
+  '#7E7F9A',
+  '#898AA3',
+  '#9596AC',
+  '#A1A1B5',
+  '#97A7B3',
+  '#A0AFB9',
+  '#A9B7C0',
+  '#B3BFC7',
+  '#B8D2A9',
+  '#CAE7B9',
+  '#CEE9BF',
+  '#D3EBC5',
+  '#DDCA7E',
+  '#F3DE8A',
+  '#F4E194',
+  '#F5E49F',
+  '#EB9486',
+  '#EC9D91',
+  '#EEA79C',
+  '#F0B1A7'
+]
+
 export function createTree(data) {
   var phylum = data[0].PHYLUM; 
   var tree = {};
@@ -57,7 +80,7 @@ export function redrawIcicle(root) {
   var y = d3.scaleLinear()
       .range([0, height]);
 
-  var color = d3.scaleOrdinal(d3.schemeCategory20c);
+  var color = d3.scaleOrdinal(colorPalette);
 
   var partition = d3.partition()
       .size([width, height])
