@@ -45,6 +45,11 @@ def post_compare_sequence():
 
         print("{} files processed.".format(counter))
 
+        # ----------------------------- Temporary ----------------------------- 
+        with open('/home/meili/Documents/BioCicle/BackEnd/tmp/sample_output.json', 'w') as outfile:
+            json.dump(comparisons_batch, outfile)     
+        # ---------------------------------------------------------------------
+
     return jsonify(comparisons_batch)
 
 if __name__ == '__main__':

@@ -34,11 +34,14 @@ class Form extends React.Component {
 
   handleSequenceClick(event) {
     if(this.state.sequence) {
+
       var sequences = this.state.sequence.split(",");
 
       var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
-
-      post(url, { sequences:sequences }).then((alignments) => {
+      // ----------------------------- Temporary ----------------------------- 
+      d3.json("tmp/sample_output.json", function(alignments) {
+      // ---------------------------------------------------------------------
+      // post(url, { sequences:sequences }).then((alignments) => {
 
         var first = alignments.shift();
 
@@ -63,12 +66,12 @@ class Form extends React.Component {
           }, 1000) 
 
         }
+      })  
+      // .catch((error) => {
       
-      }).catch((error) => {
+      //   console.error(error);
       
-        console.error(error);
-      
-      });
+      // });
     }
 
   }

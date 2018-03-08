@@ -1,26 +1,17 @@
 import * as d3 from 'd3';
 
 const colorPalette = [
-  '#7E7F9A',
+  '#444444',
+  '#454654',
+  '#535C62',
+  '#6F7E65',
+  '#857A4C',
+  '#81514A',
   '#898AA3',
-  '#9596AC',
-  '#A1A1B5',
-  '#97A7B3',
   '#A0AFB9',
-  '#A9B7C0',
-  '#B3BFC7',
-  '#B8D2A9',
-  '#CAE7B9',
   '#CEE9BF',
-  '#D3EBC5',
-  '#DDCA7E',
-  '#F3DE8A',
   '#F4E194',
-  '#F5E49F',
-  '#EB9486',
-  '#EC9D91',
-  '#EEA79C',
-  '#F0B1A7'
+  '#EC9D91'
 ]
 
 export function createTree(data) {
@@ -36,7 +27,6 @@ export function createTree(data) {
     if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM] = {};
     if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM][d.NAME]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM][d.NAME] = d.SCORE;
   });
-  console.log(tree);
   return tree;
 }
 
@@ -109,15 +99,34 @@ export function redrawIcicle(root) {
       .attr("y", function(d) { return d.x0; })
       .attr("width", function(d) { return d.y1 - d.y0; })
       .attr("height", function(d) { return d.x1 - d.x0; })
-      .attr("fill", function(d) { return color((d.children ? d : d.parent).data.key); })
+      .attr("fill", function(d) { 
+        if(d.parent) {
+          if(!d.parent.parent) return color(d.data.key);
+          else {
+            var parentColor;
+            var count = 0;
+            var parent = d.parent;
+            while (parent.parent) {
+              count ++;
+              parentColor = color(parent.data.key);
+              parent = parent.parent;
+            }
+            return d3.rgb(parentColor).brighter(0.4 + (0.4 * count));
+          }
+        }
+        else return color(d.data.key);
+      })
+      .style("stroke", "#FFF")
+      .style("stroke-width", 2)
       .on("click", clicked);
     
   var text = barsEnter.append("text")
     .attr("x", function(d) { return d.y0; })
+        .attr("dx", ".35em")
       .attr("y", function(d) { return d.x0 + (d.x1 - d.x0)/2; })
         .attr("dy", ".35em")
     .text(function (d) { 
-      return typeof(d.data.value) !== "object"? d.data.key + "(" + d.data.value + ")": d.data.key + ": " + Math.round(treeLength(d) * 100)/100 });
+      return typeof(d.data.value) !== "object"? d.data.key + "(" + d.data.value + ")": d.data.key + "(" + Math.round(treeLength(d) * 100)/100 + ")" });
   
   function clicked(d) {
       x.domain([d.x0, d.x1]);
