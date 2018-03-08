@@ -76,27 +76,12 @@ class Form extends React.Component {
   render() {
     return (
       <div>
-        <div className="form-count">
-          <select value={this.state.countAttr} onChange={this.handleAttrChange}>
-            <option value="name">Name</option>
-            <option value="organism">Organism</option>
-            <option value="family">Family</option>
-            <option value="species">Species</option>
-            <option value="order">Order</option>
-            <option value="genus">Genus</option>
-            <option value="class">Class</option>
-          </select>
-          <select value={this.state.countFunction} onChange={this.handleFuncChange}>
-            <option value="splitWords">Split word</option>
-            <option value="firstWord">First word</option>
-            <option value="fullPhrase">Full name</option>
-          </select>
+        <div className="form-sequence">
+          <p></p>
+          <textarea value={this.state.sequence} cols="60" rows="7" placeholder="Insert a sequence or sequence id. For example, try with sp:wap_rat." onChange={this.handleSequenceChange}></textarea>
         </div>
         <div className="form-sequence">
-          <input type="text" value={this.state.sequence} onChange={this.handleSequenceChange}/>
-        </div>
-        <div className="form-sequence">
-          <button onClick={this.handleSequenceClick}>Align Sequence</button>
+          <button className="btn btn-secondary" onClick={this.handleSequenceClick}>Align Sequence</button>
         </div>
       </div>
     );
