@@ -1,18 +1,17 @@
 import * as d3 from 'd3';
 
 const colorPalette = [
-  '#444444',
-  '#454654',
-  '#535C62',
-  '#6F7E65',
-  '#857A4C',
-  '#81514A',
-  '#898AA3',
-  '#A0AFB9',
-  '#CEE9BF',
-  '#F4E194',
-  '#EC9D91'
-]
+  '#5C5D71',
+  '#6E7A83',
+  '#93A987',
+  '#B1A265',
+  '#BF783F',
+  '#AB6C62',
+  '#75604F',
+  '#BFBEBD'
+];
+
+var colorDict = {};
 
 export function createTree(data) {
   var phylum = data[0].PHYLUM; 
@@ -100,21 +99,29 @@ export function redrawIcicle(root) {
       .attr("width", function(d) { return d.y1 - d.y0; })
       .attr("height", function(d) { return d.x1 - d.x0; })
       .attr("fill", function(d) { 
-        if(d.parent) {
-          if(!d.parent.parent) return color(d.data.key);
+        if(colorDict[d.data.key]) return colorDict[d.data.key];
+        else if(d.parent) {
+          if(!d.parent.parent) {
+            colorDict[d.data.key] = color(d.data.key);
+            return colorDict[d.data.key];
+          }
           else {
             var parentColor;
             var count = 0;
             var parent = d.parent;
             while (parent.parent) {
               count ++;
-              parentColor = color(parent.data.key);
+              parentColor = colorDict[parent.data.key];
               parent = parent.parent;
             }
-            return d3.rgb(parentColor).brighter(0.4 + (0.4 * count));
+            colorDict[d.data.key] = d3.rgb(parentColor).brighter(0.2 + (0.2 * count));
+            return colorDict[d.data.key];
           }
         }
-        else return color(d.data.key);
+        else {
+          colorDict[d.data.key] = color(d.data.key);
+          return colorDict[d.data.key];
+        }
       })
       .style("stroke", "#FFF")
       .style("stroke-width", 2)
