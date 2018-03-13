@@ -1,6 +1,8 @@
 # BioCicle
 ## A Tool for Summarizing and Comparing Taxonomic Reports for Biological Sequence Alignment Results
 
+![BioCicleTeaser](https://mvanegas10.github.io/BioCicle/BioCicleTeaser.png "BioCicleTeaser")
+
 This is a tool that supports taxonomic report analysis for single and multiple query displays. Our preeminent contributions are mostly in the visual design for taxonomic reports, the ease interaction and manipulation for taxonomic profiles analysis and the format support for input files.
 
 ### Implementation
