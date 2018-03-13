@@ -32,7 +32,6 @@ def extract_comparisons_from_file(filename):
         print(datetime.datetime.time(datetime.datetime.now()).strftime("%H:%M:%S"))
         with Pool(processes=10) as pool: 
             comparisons = pool.map(partial(get_relevant_data, total=total), sequences)
-        print(comparisons)
         print(datetime.datetime.time(datetime.datetime.now()).strftime("%H:%M:%S"))
 
     return comparisons
