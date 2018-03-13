@@ -46,6 +46,8 @@ class Form extends React.Component {
         var first = alignments.shift();
 
         var tree = createTree(first);
+        
+        console.log(tree)
 
         alignments.push(first);
 

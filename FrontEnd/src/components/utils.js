@@ -22,9 +22,9 @@ export function createTree(data) {
     if(!tree[phylum][d.CLASS][d.ORDER]) tree[phylum][d.CLASS][d.ORDER] = {};
     if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY] = {};
     if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS] = {};
-    if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES] = {};
-    if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM] = {};
-    if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM][d.NAME]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM][d.NAME] = d.SCORE;
+    if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES] = d.SCORE;
+    /*if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM] = {};
+    if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM][d.NAME]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM][d.NAME] = d.SCORE;*/
   });
   return tree;
 }
@@ -84,7 +84,6 @@ export function redrawIcicle(root) {
       return d3.entries(d.value)
     })
     .sum(function(d) { return d.value })
-    .sort(function(a, b) { return b.value - a.value; });
     partition(root);
 
   var bar = svgIcicle.selectAll("g")
@@ -114,7 +113,7 @@ export function redrawIcicle(root) {
               parentColor = colorDict[parent.data.key];
               parent = parent.parent;
             }
-            colorDict[d.data.key] = d3.rgb(parentColor).brighter(0.2 + (0.2 * count));
+            colorDict[d.data.key] = d3.rgb(parentColor).brighter(0.32 + (0.32 * count));
             return colorDict[d.data.key];
           }
         }

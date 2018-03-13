@@ -1,5 +1,11 @@
+# BackEnd
 BackEnd/tmp
+BackEnd/src/taxdmp/*.dmp
+
+# Virtual environment
 biovis
+
+# FrontEnd
 FrontEndV2
 FrontEnd/node_modules
 FrontEnd/public/tmp
