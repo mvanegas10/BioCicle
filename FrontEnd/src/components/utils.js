@@ -1,11 +1,12 @@
 import * as d3 from 'd3';
 
 const colorPalette = [
-  '#5C5D71',
-  '#6E7A83',
-  '#93A987',
-  '#B1A265',
-  '#BF783F',
+  '#797979',
+  '#68687F',
+  '#7C8993',
+  '#A6BE98',
+  '#C7B671',
+  '#C17A6E',
   '#AB6C62',
   '#75604F',
   '#BFBEBD'
@@ -14,15 +15,14 @@ const colorPalette = [
 var colorDict = {};
 
 export function createTree(data) {
-  var phylum = data[0].PHYLUM; 
   var tree = {};
-  tree[phylum] = {};
   data.forEach(function(d){
-    if(!tree[phylum][d.CLASS]) tree[phylum][d.CLASS] = {};
-    if(!tree[phylum][d.CLASS][d.ORDER]) tree[phylum][d.CLASS][d.ORDER] = {};
-    if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY] = {};
-    if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS] = {};
-    if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES] = d.SCORE;
+    if(!tree[d.PHYLUM]) tree[d.PHYLUM] = {};
+    if(!tree[d.PHYLUM][d.CLASS]) tree[d.PHYLUM][d.CLASS] = {};
+    if(!tree[d.PHYLUM][d.CLASS][d.ORDER]) tree[d.PHYLUM][d.CLASS][d.ORDER] = {};
+    if(!tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY]) tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY] = {};
+    if(!tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY][d.GENUS]) tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY][d.GENUS] = {};
+    if(!tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES]) tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES] = d.SCORE;
     /*if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM] = {};
     if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM][d.NAME]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM][d.NAME] = d.SCORE;*/
   });
@@ -113,7 +113,7 @@ export function redrawIcicle(root) {
               parentColor = colorDict[parent.data.key];
               parent = parent.parent;
             }
-            colorDict[d.data.key] = d3.rgb(parentColor).brighter(0.32 + (0.32 * count));
+            colorDict[d.data.key] = d3.rgb(parentColor).brighter(0.3 + (0.3 * count));
             return colorDict[d.data.key];
           }
         }

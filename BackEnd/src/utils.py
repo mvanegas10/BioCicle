@@ -12,6 +12,7 @@ SRC_FOLDER = os.path.join(PROJECT_DIR, "src/")
 TAXDUMP_FOLDER = os.path.join(SRC_FOLDER, "taxdmp/")
 NODES_FILE = os.path.join(TAXDUMP_FOLDER, "nodes.dmp")
 NAMES_FILE = os.path.join(TAXDUMP_FOLDER, "names.dmp")
+MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
 
 def compare_sequence(sequence):
     options = {'program': 'blastp', 'database': 'uniprotkb_swissprot', 'stype': 'protein', 'matrix': None, 'exp': None, 'filter': None, 'alignments': None, 'scores': None, 'dropoff': None, 'match_score': None, 'gapopen': None, 'gapext': None, 'gapalign': None, 'seqrange': None, 'sequence': sequence, 'email': 'm.vanegas10@uniandes.edu.co', 'title': None, 'outfile': None, 'outformat': None, 'async': None, 'jobid': None, 'polljob': None, 'status': None, 'resultTypes': None, 'params': None, 'paramDetail': None, 'quiet': None, 'verbose': None, 'baseURL': 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast', 'debugLevel': 0}
@@ -26,7 +27,10 @@ def extract_comparisons_from_file(filename):
         sequences = []
         for row in data:
             if row[:6] == "lcl|SP":
-                sequences.append([value.strip() for value in row.split(" ")])
+                sequences.append({
+                    "id":total, 
+                    "values":[value.strip() for value in row.split(" ")]
+                })
                 total += 1
 
         print(datetime.datetime.time(datetime.datetime.now()).strftime("%H:%M:%S"))
@@ -37,7 +41,8 @@ def extract_comparisons_from_file(filename):
     return comparisons
 
 def get_relevant_data(values, total):
-    count = 0
+    count = values["id"]
+    values = values["values"]
     taxid = get_taxid_from_sequence(values[2])
 
     organism_result = get_taxonomy_from_taxid(taxid)
@@ -59,7 +64,7 @@ def get_relevant_data(values, total):
     count += 1
     
     organism_result["SCORE"] = num
-    print("{} out of {} classified sequences.".format(count, total))
+    print("Classified sequence with id.{} out of {} sequences.".format(count, total))
     return organism_result
 
 def get_taxonomy_from_taxid(taxid):
@@ -69,7 +74,15 @@ def get_taxonomy_from_taxid(taxid):
         if rank != "NO RANK":
             taxonomy_dict[rank] = tax_name
         rank, tax_name, parent_taxid = get_rank_from_taxid(parent_taxid)
-    return taxonomy_dict        
+
+    # Check if it has the minimum rankings
+    for min_rank in MINIMUM_RANKS:
+        if not min_rank in taxonomy_dict.keys():
+            possible_ranks = [rank for rank in taxonomy_dict.keys() if min_rank in rank]
+            if len(possible_ranks) > 0:
+                taxonomy_dict[min_rank] = taxonomy_dict[possible_ranks[0]]
+
+    return taxonomy_dict
 
 def get_rank_from_taxid(taxid):
     with open(NODES_FILE, 'r') as nodes:
