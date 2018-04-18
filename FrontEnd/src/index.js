@@ -39,9 +39,9 @@ class Form extends React.Component {
 
       var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
       // ----------------------------- Temporal -----------------------------       
-      d3.json("tmp/sample_output.json", function(alignments) {
+      // d3.json("tmp/sample_output.json", function(alignments) {
       // ---------------------------------------------------------------------
-      // post(url, { sequences:sequences }).then((alignments) => {
+      post(url, { sequences:sequences }).then((alignments) => {
 
         var first = alignments.shift();
 
