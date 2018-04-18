@@ -3,7 +3,9 @@ import datetime
 import requests
 import ncbi_blast.client as blast
 from multiprocessing.pool import Pool
-from functools import partial
+from functools import partial,reduce
+import json
+
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
 TMP_FOLDER = os.path.join(PROJECT_DIR, "tmp/")
@@ -36,9 +38,18 @@ def extract_comparisons_from_file(filename):
         print(datetime.datetime.time(datetime.datetime.now()).strftime("%H:%M:%S"))
         with Pool(processes=10) as pool: 
             comparisons = pool.map(partial(get_relevant_data, total=total), sequences)
+
+        score_list = [sequence["SCORE"] for sequence in comparisons]
+        total_score = reduce(lambda x,y: x+y, score_list) 
+
+        for sequence in comparisons:
+            sequence["SCORE"] = sequence["SCORE"]/total_score * 100
+
         print(datetime.datetime.time(datetime.datetime.now()).strftime("%H:%M:%S"))
 
-    return comparisons
+        comparisons_hierarchy = get_hierarchy_from_dict(comparisons)['children'][0]
+
+    return comparisons_hierarchy
 
 def get_relevant_data(values, total):
     count = values["id"]
@@ -113,4 +124,30 @@ def get_taxid_from_sequence(sequence_id):
             string = line.split("=")
             string = string[len(string)-1].replace(";","").split(" ")
             return string[0].strip(" \t\n\r")
-    
+
+def form_hierarchy(node):
+    if not len(node['children']) == 0:
+        children_list = []
+        for child, child_node in node['children'].items():
+            children_list.append(form_hierarchy(child_node))
+        node['children'] = []
+        node['children'].extend(children_list)
+        return node
+
+    else:
+        node['value'] = +node['SCORE']
+        return node
+
+def get_hierarchy_from_dict(comparisons):
+    tree = {'name':'', 'children': {}, 'SCORE': 0.0}
+
+    for sequence in comparisons:
+        children = tree['children']
+        for rank in MINIMUM_RANKS:
+            if not sequence[rank] in children.keys():
+                children[sequence[rank]] = {'name':sequence[rank], 'children': {}, 'SCORE': 0.0}
+            children[sequence[rank]]['SCORE'] += sequence['SCORE']
+            children = children[sequence[rank]]['children']
+
+    return form_hierarchy(tree)
+

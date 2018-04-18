@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import { createTree, post, redrawIcicle } from './components/utils';
+import { post, redrawIcicle } from './components/utils';
 
 var CONFIG = require('./config/config.json');
 
@@ -38,42 +38,36 @@ class Form extends React.Component {
       var sequences = this.state.sequence.split(",");
 
       var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
-      // ----------------------------- Temporal ----------------------------- 
-      // d3.json("tmp/sample_output.json", function(alignments) {
+      // ----------------------------- Temporal -----------------------------       
+      d3.json("tmp/sample_output.json", function(alignments) {
       // ---------------------------------------------------------------------
-      post(url, { sequences:sequences }).then((alignments) => {
+      // post(url, { sequences:sequences }).then((alignments) => {
 
         var first = alignments.shift();
-
-        var tree = createTree(first);
-        
-        console.log(tree)
 
         alignments.push(first);
 
         if(alignments) {
 
-          redrawIcicle(tree);
+          redrawIcicle(first);
 
-          d3.interval(function(){
+        //   d3.interval(function(){
 
-            var next = alignments.shift();
+        //     var next = alignments.shift();
 
-            alignments.push(next);
+        //     alignments.push(next);
 
-            tree = createTree(next);
+        //     if(alignments.length > 0) return redrawIcicle(createTree(next));
 
-            if(alignments.length > 0) return redrawIcicle(tree);
-
-          }, 1000) 
+        //   }, 1000) 
 
         }
       })  
-      .catch((error) => {
+      // .catch((error) => {
       
-        console.error(error);
+      //   console.error(error);
       
-      });
+      // });
     }
 
   }

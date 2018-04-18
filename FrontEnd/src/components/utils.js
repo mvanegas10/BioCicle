@@ -14,21 +14,6 @@ const colorPalette = [
 
 var colorDict = {};
 
-export function createTree(data) {
-  var tree = {};
-  data.forEach(function(d){
-    if(!tree[d.PHYLUM]) tree[d.PHYLUM] = {};
-    if(!tree[d.PHYLUM][d.CLASS]) tree[d.PHYLUM][d.CLASS] = {};
-    if(!tree[d.PHYLUM][d.CLASS][d.ORDER]) tree[d.PHYLUM][d.CLASS][d.ORDER] = {};
-    if(!tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY]) tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY] = {};
-    if(!tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY][d.GENUS]) tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY][d.GENUS] = {};
-    if(!tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES]) tree[d.PHYLUM][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES] = d.SCORE;
-    /*if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM] = {};
-    if(!tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM][d.NAME]) tree[phylum][d.CLASS][d.ORDER][d.FAMILY][d.GENUS][d.SPECIES][d.ORGANISM][d.NAME] = d.SCORE;*/
-  });
-  return tree;
-}
-
 function treeLength(parent) {
   var count = 0;
   if(!parent.children) {
@@ -58,10 +43,12 @@ export function post(url, data) {
 
 export function redrawIcicle(root) {
 
+  console.log(root)
+
   d3.select('.icicle').html('');
 
-  var width = 1000,
-  height = 1000;
+  var width = 1200,
+  height = 1200;
 
   var x = d3.scaleLinear()
       .range([0, width]);
@@ -80,11 +67,14 @@ export function redrawIcicle(root) {
       .attr("width", width)
       .attr("height", height);
 
-  root = d3.hierarchy(d3.entries(root)[0], function(d) {
-      return d3.entries(d.value)
-    })
-    .sum(function(d) { return d.value })
-    partition(root);
+  root = d3.hierarchy(root)
+    .sum(function(d) { return d.value; });
+
+  console.log(root);
+  
+  partition(root);
+
+  console.log(root)
 
   var bar = svgIcicle.selectAll("g")
       .data(root.descendants());
@@ -98,11 +88,11 @@ export function redrawIcicle(root) {
       .attr("width", function(d) { return d.y1 - d.y0; })
       .attr("height", function(d) { return d.x1 - d.x0; })
       .attr("fill", function(d) { 
-        if(colorDict[d.data.key]) return colorDict[d.data.key];
+        if(colorDict[d.data.name]) return colorDict[d.data.name];
         else if(d.parent) {
           if(!d.parent.parent) {
-            colorDict[d.data.key] = color(d.data.key);
-            return colorDict[d.data.key];
+            colorDict[d.data.name] = color(d.data.name);
+            return colorDict[d.data.name];
           }
           else {
             var parentColor;
@@ -110,16 +100,16 @@ export function redrawIcicle(root) {
             var parent = d.parent;
             while (parent.parent) {
               count ++;
-              parentColor = colorDict[parent.data.key];
+              parentColor = colorDict[parent.data.name];
               parent = parent.parent;
             }
-            colorDict[d.data.key] = d3.rgb(parentColor).brighter(0.3 + (0.3 * count));
-            return colorDict[d.data.key];
+            colorDict[d.data.name] = d3.rgb(parentColor).brighter(0.3 + (0.3 * count));
+            return colorDict[d.data.name];
           }
         }
         else {
-          colorDict[d.data.key] = color(d.data.key);
-          return colorDict[d.data.key];
+          colorDict[d.data.name] = color(d.data.name);
+          return colorDict[d.data.name];
         }
       })
       .style("stroke", "#FFF")
@@ -131,8 +121,7 @@ export function redrawIcicle(root) {
         .attr("dx", ".35em")
       .attr("y", function(d) { return d.x0 + (d.x1 - d.x0)/2; })
         .attr("dy", ".35em")
-    .text(function (d) { 
-      return typeof(d.data.value) !== "object"? d.data.key + "(" + d.data.value + ")": d.data.key + "(" + Math.round(treeLength(d) * 100)/100 + ")" });
+    .text(function (d) { return d.data.name + "(" + Math.round(d.data.SCORE * 100)/100 + "%)" });
   
   function clicked(d) {
       x.domain([d.x0, d.x1]);
