@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import { post, redrawIcicle } from './components/utils';
+import { post, redrawIcicle, changeThreshold } from './components/utils';
 
 var CONFIG = require('./config/config.json');
 
@@ -12,10 +12,13 @@ class Form extends React.Component {
       sequence: "",
       countAttr: "NAME",
       countFunction: "splitWords",
+      threshold: 0
     };
 
      this.handleAttrChange = this.handleAttrChange.bind(this);
      this.handleFuncChange = this.handleFuncChange.bind(this);
+     this.handleThresholdChange = this.handleThresholdChange.bind(this);
+     this.handleThresholdClick = this.handleThresholdClick.bind(this);
      this.handleSequenceChange = this.handleSequenceChange.bind(this);
      this.handleSequenceClick = this.handleSequenceClick.bind(this);
   }
@@ -26,6 +29,16 @@ class Form extends React.Component {
 
   handleFuncChange(event) {
     this.setState({countFunction: event.target.value});
+  }
+
+  handleThresholdChange(event) {
+    this.setState({threshold: event.target.value});
+  }
+
+  handleThresholdClick(event) {
+    if(this.state.threshold) {
+      changeThreshold(this.state.threshold);
+    }
   }
 
   handleSequenceChange(event) {
@@ -39,9 +52,9 @@ class Form extends React.Component {
 
       var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
       // ----------------------------- Temporal -----------------------------       
-      // d3.json("tmp/sample_output.json", function(alignments) {
+      d3.json("tmp/sample_output.json", function(alignments) {
       // ---------------------------------------------------------------------
-      post(url, { sequences:sequences }).then((alignments) => {
+      // post(url, { sequences:sequences }).then((alignments) => {
 
         var first = alignments.shift();
 
@@ -75,12 +88,19 @@ class Form extends React.Component {
   render() {
     return (
       <div>
+
         <div className="form-sequence">
           <p></p>
           <textarea value={this.state.sequence} cols="60" rows="7" placeholder="Insert a sequence or sequence id. For example, try with sp:wap_rat." onChange={this.handleSequenceChange}></textarea>
         </div>
+
         <div className="form-sequence">
           <button className="btn btn-secondary" onClick={this.handleSequenceClick}>Align Sequence</button>
+        </div>
+
+        <div className="form-sequence">
+          <input value={this.state.threshold} onChange={this.handleThresholdChange}/>
+          <button className="" onClick={this.handleThresholdClick}>Change Threshold</button>
         </div>
       </div>
     );

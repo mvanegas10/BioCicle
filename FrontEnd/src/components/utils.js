@@ -43,8 +43,6 @@ export function post(url, data) {
 
 export function redrawIcicle(root) {
 
-  console.log(root)
-
   d3.select('.icicle').html('');
 
   var width = 1200,
@@ -70,11 +68,7 @@ export function redrawIcicle(root) {
   root = d3.hierarchy(root)
     .sum(function(d) { return d.value; });
 
-  console.log(root);
-  
   partition(root);
-
-  console.log(root)
 
   var bar = svgIcicle.selectAll("g")
       .data(root.descendants());
@@ -139,4 +133,8 @@ export function redrawIcicle(root) {
       .attr("x", function(d) { return y(d.y0); })
       .attr("y", function(d) { return x(d.x0 + (d.x1 - d.x0)/2); });
   }
+}
+
+export function changeThreshold(threshold) {
+  console.log('Changing threshold ', threshold)
 }
