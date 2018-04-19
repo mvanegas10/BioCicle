@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import { post, redrawIcicle, changeThreshold } from './components/utils';
+import { post, changeThreshold } from './components/utils';
+import { Icicle } from './components/icicle';
+
 
 var CONFIG = require('./config/config.json');
 
@@ -14,15 +16,16 @@ class Form extends React.Component {
       countFunction: "splitWords",
       threshold: 0,
       currentRoot: 0,
-      rootList: []
+      rootList: [],
+      icicle: new Icicle(1200, 1200)
     };
 
-     this.handleAttrChange = this.handleAttrChange.bind(this);
-     this.handleFuncChange = this.handleFuncChange.bind(this);
-     this.handleThresholdChange = this.handleThresholdChange.bind(this);
-     this.handleThresholdClick = this.handleThresholdClick.bind(this);
-     this.handleSequenceChange = this.handleSequenceChange.bind(this);
-     this.handleSequenceClick = this.handleSequenceClick.bind(this);
+    this.handleAttrChange = this.handleAttrChange.bind(this);
+    this.handleFuncChange = this.handleFuncChange.bind(this);
+    this.handleThresholdChange = this.handleThresholdChange.bind(this);
+    this.handleThresholdClick = this.handleThresholdClick.bind(this);
+    this.handleSequenceChange = this.handleSequenceChange.bind(this);
+    this.handleSequenceClick = this.handleSequenceClick.bind(this);
   }
 
   handleAttrChange(event) {
@@ -46,7 +49,7 @@ class Form extends React.Component {
       
       console.log(this.state.rootList[this.state.currentRoot]);
 
-      changeThreshold(this.state.threshold, this.state.rootList[this.state.currentRoot]);
+      changeThreshold(this.state.threshold, this.state.rootList[this.state.currentRoot], this.state.icicle);
     }
   }
 
@@ -79,7 +82,7 @@ class Form extends React.Component {
 
         this.setState({rootList: rootList});
 
-        if(rootList.length === 1) redrawIcicle(rootList[0]);
+        if(rootList.length === 1) this.state.icicle.draw(rootList[0]);
         else {
 
           d3.interval(function(){
@@ -90,7 +93,7 @@ class Form extends React.Component {
 
             this.setState({currentRoot: rootList.length-1});
 
-            if(rootList.length > 0) return redrawIcicle(root);
+            if(rootList.length > 0) return this.state.icicle.draw(root);
 
           }, 1000) 
         }
