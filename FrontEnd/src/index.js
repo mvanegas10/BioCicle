@@ -47,8 +47,6 @@ class Form extends React.Component {
         hierarchy.children = hierarchy._children;
       });
       
-      console.log(this.state.rootList[this.state.currentRoot]);
-
       changeThreshold(this.state.threshold, this.state.rootList[this.state.currentRoot], this.state.icicle);
     }
   }

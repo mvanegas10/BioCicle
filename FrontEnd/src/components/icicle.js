@@ -31,31 +31,87 @@ export class Icicle {
       .range([0, this.width]);
     this.y = d3.scaleLinear()
       .range([0, this.height]);
+    
+    this.color = d3.scaleOrdinal(COLOR_PALETTE);
+
     this.partition = d3.partition()
       .size([this.width, this.height])
       .padding(0)
       .round(true);
-    this.color = d3.scaleOrdinal(COLOR_PALETTE);
 
-
-
-    this.partition(root);
-    this.update(root.descendants());
+    this.update(root);
 
   }
 
-  update(descendants) {
+  update(root) {
 
-    console.log(descendants)
+    this.partition(root);
+    console.log(root.descendants())
 
-    this.bar = this.svg.selectAll("g")
-      .data(descendants);
+    // transition
+    var t = d3.transition()
+      .duration(750);
 
-    this.barsEnter = this.bar.enter()
-      .append("g");
-    
+    //JOIN
+    this.bars = this.svg.selectAll(".node")
+      .data(root.descendants());
+
+    //EXIT
+    this.bars.exit()
+      .transition(t)
+        .remove();
+
+    //ENTER
+    this.barsEnter = this.bars.enter()
+      .append("g")
+      .attr("class", "node");
+
     this.rect = this.barsEnter.append("rect")
       .attr("x", (d) => { return d.y0; })
+      .attr("y", (d) => { return d.x0; })
+      .attr("width", (d) => { return d.y1 - d.y0; })
+      .attr("height", (d) => { return d.x1 - d.x0; })
+      .attr("fill", (d) => { 
+        if(this.colorDict.hasOwnProperty(d.data.name)) return this.colorDict[d.data.name];
+        else if(d.parent) {
+          if(!d.parent.parent) {
+            this.colorDict[d.data.name] = this.color(d.data.name);
+            return this.colorDict[d.data.name];
+          }
+          else {
+            var parentColor;
+            var count = 0;
+            var parent = d.parent;
+            while (parent.parent) {
+              count ++;
+              parentColor = this.colorDict[parent.data.name];
+              parent = parent.parent;
+            }
+            this.colorDict[d.data.name] = d3.rgb(parentColor).brighter(0.3 + (0.3 * count));
+            return this.colorDict[d.data.name];
+          }
+        }
+        else {
+          this.colorDict[d.data.name] = this.color(d.data.name);
+          return this.colorDict[d.data.name];
+        }
+      })
+      .style("stroke", "#FFF")
+      .style("stroke-width", 2)
+      .on("click", this.clicked);
+      
+    this.text = this.barsEnter.append("text")
+      .attr("x", (d) => { return d.y0; })
+      .attr("dx", ".35em")
+      .attr("y", function(d) { return d.x0 + (d.x1 - d.x0)/2; })
+      .attr("dy", ".35em")
+      .text((d) => { return d.data.name + "(" + Math.round(d.data.SCORE * 100)/100 + "%)" });
+
+    this.bars = this.barsEnter.merge(this.bars);
+
+
+    this.svg.selectAll("rect")
+        .attr("x", (d) => { return d.y0; })
         .attr("y", (d) => { return d.x0; })
         .attr("width", (d) => { return d.y1 - d.y0; })
         .attr("height", (d) => { return d.x1 - d.x0; })
@@ -87,13 +143,6 @@ export class Icicle {
         .style("stroke", "#FFF")
         .style("stroke-width", 2)
         .on("click", this.clicked);
-      
-    this.text = this.barsEnter.append("text")
-      .attr("x", (d) => { return d.y0; })
-          .attr("dx", ".35em")
-        .attr("y", function(d) { return d.x0 + (d.x1 - d.x0)/2; })
-          .attr("dy", ".35em")
-      .text((d) => { return d.data.name + "(" + Math.round(d.data.SCORE * 100)/100 + "%)" });
 
   }
 

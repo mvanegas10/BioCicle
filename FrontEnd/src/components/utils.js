@@ -18,7 +18,7 @@ function pruneTree(threshold, node) {
 
   if(node.children && node.children.length > 0) {
 
-    var currentChildren = node.children;
+    var currentChildren = node.children.slice();
   
     currentChildren.forEach(function(child) {
 
@@ -31,13 +31,19 @@ function pruneTree(threshold, node) {
 
     node.children = preservedNodes;
     if(preservedNodes.length > 0) return node;
-    
+    else if(node.value > threshold) {
+      node.children = undefined;
+      console.log(node);
+      return node;
+    }
   }
   else if(node.value > threshold) return node;
+
 }
 
 export function changeThreshold(threshold, root, icicle) {
   console.log('Changing threshold ', threshold);
-  icicle.update(pruneTree(threshold, root.copy()));
+  var prunedTree = pruneTree(threshold, root.copy());
+  icicle.draw(prunedTree);
 
 }
