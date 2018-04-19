@@ -43,6 +43,7 @@ export function post(url, data) {
 
 export function redrawIcicle(root) {
 
+
   d3.select('.icicle').html('');
 
   var width = 1200,
@@ -60,18 +61,15 @@ export function redrawIcicle(root) {
       .size([width, height])
       .padding(0)
       .round(true);
+  
+  partition(root);
 
   var svgIcicle = d3.select(".icicle").append("svg")
       .attr("width", width)
       .attr("height", height);
 
-  root = d3.hierarchy(root)
-    .sum(function(d) { return d.value; });
-
-  partition(root);
-
   var bar = svgIcicle.selectAll("g")
-      .data(root.descendants());
+  .data(root.descendants());
 
   var barsEnter = bar.enter()
     .append("g");
@@ -135,6 +133,33 @@ export function redrawIcicle(root) {
   }
 }
 
-export function changeThreshold(threshold) {
-  console.log('Changing threshold ', threshold)
+function pruneTree(threshold, node) {
+  
+  var preservedNodes = [];
+
+  if(node.children && node.children.length > 0) {
+
+    var currentChildren = node.children;
+  
+    currentChildren.forEach(function(child) {
+
+      if(child.value > threshold) {
+        var prunedChild = pruneTree(threshold, child);
+        if(prunedChild) preservedNodes.push(prunedChild);
+      }
+
+    });
+    
+    node.children = preservedNodes;
+    console.log('children ', node);
+    if(preservedNodes.length > 0) return node;
+    
+  }
+  else if(node.value > threshold) return node;
+}
+
+export function changeThreshold(threshold, root) {
+  console.log('Changing threshold ', threshold);
+  redrawIcicle(pruneTree(threshold, root.copy()));
+
 }

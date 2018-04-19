@@ -12,7 +12,9 @@ class Form extends React.Component {
       sequence: "",
       countAttr: "NAME",
       countFunction: "splitWords",
-      threshold: 0
+      threshold: 0,
+      currentRoot: 0,
+      rootList: []
     };
 
      this.handleAttrChange = this.handleAttrChange.bind(this);
@@ -37,7 +39,14 @@ class Form extends React.Component {
 
   handleThresholdClick(event) {
     if(this.state.threshold) {
-      changeThreshold(this.state.threshold);
+
+      this.state.rootList.forEach((hierarchy) => {
+        hierarchy.children = hierarchy._children;
+      });
+      
+      console.log(this.state.rootList[this.state.currentRoot]);
+
+      changeThreshold(this.state.threshold, this.state.rootList[this.state.currentRoot]);
     }
   }
 
@@ -48,33 +57,44 @@ class Form extends React.Component {
   handleSequenceClick(event) {
     if(this.state.sequence) {
 
+      var rootList = [];
       var sequences = this.state.sequence.split(",");
 
       var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
       // ----------------------------- Temporal -----------------------------       
-      d3.json("tmp/sample_output.json", function(alignments) {
+      d3.json("tmp/sample_output.json", (alignments) => {
       // ---------------------------------------------------------------------
       // post(url, { sequences:sequences }).then((alignments) => {
 
-        var first = alignments.shift();
+        alignments.forEach( function(tree) {
 
-        alignments.push(first);
+          var hierarchy = d3.hierarchy(tree)
+            .sum(function(d) { return d.value; });
 
-        if(alignments) {
+          hierarchy._children = hierarchy.children;
 
-          redrawIcicle(first);
+          rootList.push(hierarchy);
 
-        //   d3.interval(function(){
+        } );
 
-        //     var next = alignments.shift();
+        this.setState({rootList: rootList});
 
-        //     alignments.push(next);
+        if(rootList.length === 1) redrawIcicle(rootList[0]);
+        else {
 
-        //     if(alignments.length > 0) return redrawIcicle(createTree(next));
+          d3.interval(function(){
 
-        //   }, 1000) 
+            var root = rootList.shift();
 
+            rootList.push(root);
+
+            this.setState({currentRoot: rootList.length-1});
+
+            if(rootList.length > 0) return redrawIcicle(root);
+
+          }, 1000) 
         }
+
       })  
       // .catch((error) => {
       
