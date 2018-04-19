@@ -44,20 +44,20 @@ export class Icicle {
   }
 
   update(root) {
-
-    this.partition(root);
+    
     console.log(root.descendants())
 
     // transition
     var t = d3.transition()
-      .duration(750);
+      .duration(1000);
 
     //JOIN
     this.bars = this.svg.selectAll(".node")
-      .data(root.descendants());
+      .data(this.partition(root).descendants());
 
     //EXIT
     this.bars.exit()
+        .attr("class", "exit")
       .transition(t)
         .remove();
 
@@ -106,43 +106,6 @@ export class Icicle {
       .attr("y", function(d) { return d.x0 + (d.x1 - d.x0)/2; })
       .attr("dy", ".35em")
       .text((d) => { return d.data.name + "(" + Math.round(d.data.SCORE * 100)/100 + "%)" });
-
-    this.bars = this.barsEnter.merge(this.bars);
-
-
-    this.svg.selectAll("rect")
-        .attr("x", (d) => { return d.y0; })
-        .attr("y", (d) => { return d.x0; })
-        .attr("width", (d) => { return d.y1 - d.y0; })
-        .attr("height", (d) => { return d.x1 - d.x0; })
-        .attr("fill", (d) => { 
-          if(this.colorDict.hasOwnProperty(d.data.name)) return this.colorDict[d.data.name];
-          else if(d.parent) {
-            if(!d.parent.parent) {
-              this.colorDict[d.data.name] = this.color(d.data.name);
-              return this.colorDict[d.data.name];
-            }
-            else {
-              var parentColor;
-              var count = 0;
-              var parent = d.parent;
-              while (parent.parent) {
-                count ++;
-                parentColor = this.colorDict[parent.data.name];
-                parent = parent.parent;
-              }
-              this.colorDict[d.data.name] = d3.rgb(parentColor).brighter(0.3 + (0.3 * count));
-              return this.colorDict[d.data.name];
-            }
-          }
-          else {
-            this.colorDict[d.data.name] = this.color(d.data.name);
-            return this.colorDict[d.data.name];
-          }
-        })
-        .style("stroke", "#FFF")
-        .style("stroke-width", 2)
-        .on("click", this.clicked);
 
   }
 

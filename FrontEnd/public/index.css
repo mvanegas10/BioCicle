@@ -1,3 +1,6 @@
 textarea { 
 	font-size: 12px; 
 }
+.exit {
+	opacity: 0.5;
+}
