@@ -53,3 +53,23 @@ export function filter(threshold, root, icicle) {
   icicle.draw(prunedTree);
 
 }
+
+export function mergeTrees(target, root) {
+  var found = false;
+  var i = 0;
+  for(i = 0; i < target.length; i++){
+    found = target[i].name === root.name;
+    if(found) break;
+  }
+  
+  if(!found) {
+    i = target.length;
+    target.push({ name: root.name, children: [] });
+  }
+
+  if(root.children && root.children.length > 0) {
+    root.children.forEach((child) => {
+      mergeTrees(target[i], child)
+    });
+  }
+}

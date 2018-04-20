@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import { post, changeThreshold, filter } from './components/utils';
+import { post, changeThreshold, mergeTrees, filter } from './components/utils';
 import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 
@@ -72,14 +72,17 @@ class Form extends React.Component {
 
       var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
       // ----------------------------- Temporal -----------------------------       
-      d3.json("tmp/sample_output_multi.json", (alignments) => {
+      d3.json("tmp/sample_output_multi.json", (data) => {
       // ---------------------------------------------------------------------
       // post(url, { sequences:sequences }).then((alignments) => {
 
-        var mergedTree = {};
-        alignments.forEach( function(tree) {
+        var alignments = data["alignments"];
+        var mergedTree = [];
 
-          mergedTree = Object.assign(tree, mergedTree);
+        for (var i = 0; i < alignments.length; i++) {
+          var tree = alignments[i];
+          
+          mergeTrees(mergedTree, tree);
 
           var hierarchy = d3.hierarchy(tree)
             .sum(function(d) { return d.value; });
@@ -88,7 +91,9 @@ class Form extends React.Component {
 
           rootList.push(hierarchy);
 
-        } );
+        }
+
+        console.log({mergedTree});
 
         var hierarchy = d3.hierarchy(mergedTree)
           .sum(function(d) { return d.children;; });
@@ -101,8 +106,7 @@ class Form extends React.Component {
 
         this.setState({rootList: rootList});
 
-        console.log(rootList)
-        console.log(mergedTree)
+        console.log(rootList);
 
         if(rootList.length === 1) this.state.icicle.draw(rootList[0]);
         else {
