@@ -44,8 +44,6 @@ export class Icicle {
   }
 
   update(root) {
-    
-    console.log(root.descendants())
 
     // transition
     var t = d3.transition()

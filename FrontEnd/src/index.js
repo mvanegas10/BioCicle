@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import { post, changeThreshold } from './components/utils';
+import { post, changeThreshold, filter } from './components/utils';
 import { Icicle } from './components/icicle';
+import { Dendogram } from './components/dendogram';
 
 
 var CONFIG = require('./config/config.json');
@@ -17,7 +18,9 @@ class Form extends React.Component {
       threshold: 0,
       currentRoot: 0,
       rootList: [],
-      icicle: new Icicle(1200, 1200)
+      mergedTree: [],
+      icicle: new Icicle(1200, 1200),
+      dendogram: new Dendogram(1200, 1200)
     };
 
     this.handleAttrChange = this.handleAttrChange.bind(this);
@@ -46,8 +49,14 @@ class Form extends React.Component {
       this.state.rootList.forEach((hierarchy) => {
         hierarchy.children = hierarchy._children;
       });
+
+      if(this.state.rootList.length > 1) 
+        changeThreshold(this.state.threshold, this.state.rootList[this.state.currentRoot], this.state.icicle);
+      else{
+        this.state.mergedTree.children = this.state.mergedTree._children;
+        filter(this.state.threshold, this.state.mergedTree, this.state.dendogram);
+      }
       
-      changeThreshold(this.state.threshold, this.state.rootList[this.state.currentRoot], this.state.icicle);
     }
   }
 
@@ -67,7 +76,10 @@ class Form extends React.Component {
       // ---------------------------------------------------------------------
       // post(url, { sequences:sequences }).then((alignments) => {
 
+        var mergedTree = {};
         alignments.forEach( function(tree) {
+
+          mergedTree = Object.assign(tree, mergedTree);
 
           var hierarchy = d3.hierarchy(tree)
             .sum(function(d) { return d.value; });
@@ -77,6 +89,15 @@ class Form extends React.Component {
           rootList.push(hierarchy);
 
         } );
+
+        var hierarchy = d3.hierarchy(mergedTree)
+          .sum(function(d) { return d.children;; });
+
+        hierarchy._children = hierarchy.children;
+
+        this.setState({mergedTree: hierarchy});
+
+        this.state.dendogram.draw(this.state.mergedTree)
 
         this.setState({rootList: rootList});
 
@@ -131,7 +152,9 @@ class Form extends React.Component {
 class Body extends React.Component {
   render() {
     return (
-      <div className="icicle">
+      <div className="body">
+        <div className="dendogram"></div>
+        <div className="icicle"></div>
       </div>
     );
   } 
