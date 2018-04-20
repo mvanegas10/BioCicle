@@ -25,7 +25,7 @@ export class Dendogram {
     this.root.y0 = 0;
 
     // Collapse after the second level
-    this.root.children.forEach((d) => {this.collapse});
+    this.root.children.forEach((d) => {this.collapse(d)});
 
     this.update(this.root);
 
@@ -44,18 +44,18 @@ export class Dendogram {
         links = treeData.descendants().slice(1);
 
     // Normalize for fixed-depth.
-    nodes.forEach(function(d){ d.y = d.depth * 180});
+    nodes.forEach((d) => { d.y = d.depth * 180});
 
     // ****************** Nodes section ***************************
 
     // Update the nodes...
     var node = this.svg.selectAll('g.node')
-        .data(nodes, function(d) {return d.id || (d.id = ++i); });
+        .data(nodes, (d) => {return d.id || (d.id = ++i); });
 
     // Enter any new modes at the parent's previous position.
     var nodeEnter = node.enter().append('g')
         .attr('class', 'node')
-        .attr("transform", function(d) {
+        .attr("transform", (d) => {
           return "translate(" + source.y0 + "," + source.x0 + ")";
       })
       .on('click', (d) => {this.click(d);});
@@ -64,20 +64,20 @@ export class Dendogram {
     nodeEnter.append('circle')
         .attr('class', 'node')
         .attr('r', 1e-6)
-        .style("fill", function(d) {
+        .style("fill", (d) => {
             return d._children ? "lightsteelblue" : "#fff";
         });
 
     // Add labels for the nodes
     nodeEnter.append('text')
         .attr("dy", ".35em")
-        .attr("x", function(d) {
+        .attr("x", (d) => {
             return d.children || d._children ? -13 : 13;
         })
-        .attr("text-anchor", function(d) {
+        .attr("text-anchor", (d) => {
             return d.children || d._children ? "end" : "start";
         })
-        .text(function(d) { return d.data.name; });
+        .text((d) => { return d.data.name; });
 
     // UPDATE
 
@@ -86,14 +86,14 @@ export class Dendogram {
     // Transition to the proper position for the node
     nodeUpdate.transition()
       .duration(duration)
-      .attr("transform", function(d) { 
+      .attr("transform", (d) => { 
           return "translate(" + d.y + "," + d.x + ")";
        });
 
     // Update the node attributes and style
     nodeUpdate.select('circle.node')
       .attr('r', 10)
-      .style("fill", function(d) {
+      .style("fill", (d) => {
           return d._children ? "lightsteelblue" : "#fff";
       })
       .attr('cursor', 'pointer');
@@ -102,7 +102,7 @@ export class Dendogram {
     // Remove any exiting nodes
     var nodeExit = node.exit().transition()
         .duration(duration)
-        .attr("transform", function(d) {
+        .attr("transform", (d) => {
             return "translate(" + source.y + "," + source.x + ")";
         })
         .remove();
@@ -117,7 +117,7 @@ export class Dendogram {
 
     // Update the links...
     var link = this.svg.selectAll('path.link')
-        .data(links, function(d) { return d.id; });
+        .data(links, (d) => { return d.id; });
 
     // Enter any new links at the parent's previous position.
     var linkEnter = link.enter().insert('path', "g")
@@ -145,7 +145,7 @@ export class Dendogram {
         .remove();
 
     // Store the old positions for transition.
-    nodes.forEach(function(d){
+    nodes.forEach((d) => {
       d.x0 = d.x;
       d.y0 = d.y;
     });

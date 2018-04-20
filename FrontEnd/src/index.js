@@ -72,7 +72,7 @@ class Form extends React.Component {
 
       var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
       // ----------------------------- Temporal -----------------------------       
-      d3.json("tmp/sample_output.json", (alignments) => {
+      d3.json("tmp/sample_output_multi.json", (alignments) => {
       // ---------------------------------------------------------------------
       // post(url, { sequences:sequences }).then((alignments) => {
 
@@ -101,18 +101,22 @@ class Form extends React.Component {
 
         this.setState({rootList: rootList});
 
+        console.log(rootList)
+        console.log(mergedTree)
+
         if(rootList.length === 1) this.state.icicle.draw(rootList[0]);
         else {
 
-          d3.interval(function(){
+          d3.interval(() => {
 
             var root = rootList.shift();
-
             rootList.push(root);
 
-            this.setState({currentRoot: rootList.length-1});
+            if(rootList.length > 0) {
+              return this.state.icicle.draw(root);
+            }
 
-            if(rootList.length > 0) return this.state.icicle.draw(root);
+            this.setState({currentRoot: rootList.length-1});
 
           }, 1000) 
         }

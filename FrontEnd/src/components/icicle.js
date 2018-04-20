@@ -96,12 +96,12 @@ export class Icicle {
       })
       .style("stroke", "#FFF")
       .style("stroke-width", 2)
-      .on("click", this.clicked);
+      .on("click", (d) => {this.clicked(d)});
       
     this.text = this.barsEnter.append("text")
       .attr("x", (d) => { return d.y0; })
       .attr("dx", ".35em")
-      .attr("y", function(d) { return d.x0 + (d.x1 - d.x0)/2; })
+      .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
       .attr("dy", ".35em")
       .text((d) => { return d.data.name + "(" + Math.round(d.data.SCORE * 100)/100 + "%)" });
 
@@ -114,15 +114,15 @@ export class Icicle {
 
     this.rect.transition()
       .duration(750)
-      .attr("x", function(d) { return this.y(d.y0); })
-      .attr("y", function(d) { return this.x(d.x0); })
-      .attr("width", function(d) { return this.y(d.y1) - this.y(d.y0); })
-      .attr("height", function(d) { return this.x(d.x1) - this.x(d.x0); });
+      .attr("x", (d) => { return this.y(d.y0); })
+      .attr("y", (d) => { return this.x(d.x0); })
+      .attr("width", (d) => { return this.y(d.y1) - this.y(d.y0); })
+      .attr("height", (d) => { return this.x(d.x1) - this.x(d.x0); });
 
     this.text.transition()
       .duration(750)
-      .attr("x", function(d) { return this.y(d.y0); })
-      .attr("y", function(d) { return this.x(d.x0 + (d.x1 - d.x0)/2); });
+      .attr("x", (d) => { return this.y(d.y0); })
+      .attr("y", (d) => { return this.x(d.x0 + (d.x1 - d.x0)/2); });
 
   }
 

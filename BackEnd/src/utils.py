@@ -92,6 +92,8 @@ def get_taxonomy_from_taxid(taxid):
             possible_ranks = [rank for rank in taxonomy_dict.keys() if min_rank in rank]
             if len(possible_ranks) > 0:
                 taxonomy_dict[min_rank] = taxonomy_dict[possible_ranks[0]]
+            else:
+                taxonomy_dict[min_rank] = "undefined"
 
     return taxonomy_dict
 
@@ -135,6 +137,7 @@ def form_hierarchy(node):
         return node
 
     else:
+        node.pop('children', None)
         node['value'] = +node['SCORE']
         return node
 
