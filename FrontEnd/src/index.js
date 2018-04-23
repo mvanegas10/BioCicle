@@ -72,18 +72,18 @@ class Form extends React.Component {
 
       var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
       // ----------------------------- Temporal -----------------------------       
-      d3.json("tmp/sample_output_multi.json", (data) => {
+      // d3.json("tmp/sample_output_multi.json", (data) => {
       // ---------------------------------------------------------------------
-      // post(url, { sequences:sequences }).then((alignments) => {
+      post(url, { sequences:sequences }).then((output) => {
 
-        var alignments = data["alignments"];
-        var mergedTree = [];
+        console.log(output)
 
-        for (var i = 0; i < alignments.length; i++) {
-          var tree = alignments[i];
+        var taxonomiesBatch = output["taxonomies_batch"];
+        var mergedTree = output["merged_tree"]['children'][0];
+
+        for (var i = 0; i < taxonomiesBatch.length; i++) {
+          var tree = taxonomiesBatch[i];
           
-          mergeTrees(mergedTree, tree);
-
           var hierarchy = d3.hierarchy(tree)
             .sum(function(d) { return d.value; });
 
@@ -92,8 +92,6 @@ class Form extends React.Component {
           rootList.push(hierarchy);
 
         }
-
-        console.log({mergedTree});
 
         var hierarchy = d3.hierarchy(mergedTree)
           .sum(function(d) { return d.children;; });

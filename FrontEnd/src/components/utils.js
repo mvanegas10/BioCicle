@@ -54,22 +54,24 @@ export function filter(threshold, root, icicle) {
 
 }
 
-export function mergeTrees(target, root) {
+export function mergeTrees(root, node) {
   var found = false;
   var i = 0;
-  for(i = 0; i < target.length; i++){
-    found = target[i].name === root.name;
+  for(i = 0; i < root.children.length; i++){
+    found = root.children[i].name === node.name;
     if(found) break;
   }
   
   if(!found) {
-    i = target.length;
-    target.push({ name: root.name, children: [] });
+    i = root.children.length;
+    root.children.push({ name: node.name, children: [] });
   }
 
-  if(root.children && root.children.length > 0) {
-    root.children.forEach((child) => {
-      mergeTrees(target[i], child)
+  if(node.children && node.children.length > 0) {
+    node.children.forEach((child) => {
+      node.children.push(mergeTrees(child));
     });
+    return root;
   }
+  else return root;
 }

@@ -47,9 +47,7 @@ def extract_comparisons_from_file(filename):
 
         print(datetime.datetime.time(datetime.datetime.now()).strftime("%H:%M:%S"))
 
-        comparisons_hierarchy = get_hierarchy_from_dict(comparisons)['children'][0]
-
-    return comparisons_hierarchy
+    return comparisons
 
 def get_relevant_data(values, total):
     count = values["id"]
@@ -153,4 +151,3 @@ def get_hierarchy_from_dict(comparisons):
             children = children[sequence[rank]]['children']
 
     return form_hierarchy(tree)
-

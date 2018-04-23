@@ -18,7 +18,9 @@ def post_compare_sequence():
     counter = 0
     current_batch_stop = counter
     pieces_left = len(data["sequences"]) > 0
+    outcome = {}
     comparisons_batch = []
+    comparisons_group = []
 
     while pieces_left:
 
@@ -41,7 +43,14 @@ def post_compare_sequence():
         
         print("{} comparisons made.".format(counter))
 
-        comparisons_batch.extend([utils.extract_comparisons_from_file(file) for file in file_batch])
+        for file in file_batch:
+            comparisons = utils.extract_comparisons_from_file(file)
+            comparisons_batch.extend([utils.get_hierarchy_from_dict(comparisons)['children'][0]])
+            comparisons_group = comparisons_group + comparisons
+
+        outcome["taxonomies_batch"] = comparisons_batch
+
+        outcome["merged_tree"] = utils.get_hierarchy_from_dict(comparisons_group)
 
         print("{} files processed.".format(counter))
 
@@ -50,7 +59,7 @@ def post_compare_sequence():
             json.dump(comparisons_batch, outfile)     
         # ---------------------------------------------------------------------
 
-    return jsonify(comparisons_batch)
+    return jsonify(outcome)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=8080,debug=True)
