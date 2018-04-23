@@ -125,7 +125,7 @@ def get_taxid_from_sequence(sequence_id):
             string = string[len(string)-1].replace(";","").split(" ")
             return string[0].strip(" \t\n\r")
 
-def form_hierarchy(node):
+def form_hierarchy(node, sequence_id):
     if not len(node['children']) == 0:
         children_list = []
         for child, child_node in node['children'].items():
@@ -136,13 +136,18 @@ def form_hierarchy(node):
 
     else:
         node.pop('children', None)
-        node['value'] = +node['SCORE']
+        if sequence_id is not None:
+            node['value'] = +node['SCORE']
+        else:
+            if not 'value' in node.keys():
+                node['value'] = {}  
+            node['value'][sequence_id] = +node['SCORE']
         return node
 
 def get_hierarchy_from_dict(comparisons):
     tree = {'name':'', 'children': {}, 'SCORE': 0.0}
 
-    for sequence in comparisons:
+    for i, sequence in enumerate(comparisons):
         children = tree['children']
         for rank in MINIMUM_RANKS:
             if not sequence[rank] in children.keys():
@@ -150,4 +155,29 @@ def get_hierarchy_from_dict(comparisons):
             children[sequence[rank]]['SCORE'] += sequence['SCORE']
             children = children[sequence[rank]]['children']
 
-    return form_hierarchy(tree)
+    return form_hierarchy(tree, sequence_id)
+
+def prune_tree(threshold, node):
+    preserved_nodes = []
+
+    if node['children'] is not None && len(node['children']) > 0:
+
+        current_children = node['children'].copy()
+      
+        for child in current_children:
+
+            if child['value'] > threshold:
+                pruned_child = prune_tree(threshold, child)
+                
+                if pruned_child is not None:
+                    preserved_nodes.append(pruned_child)
+
+        node['children'] = preserved_nodes
+        if len(preserved_nodes) > 0:
+            return node
+        elif node['value'] > threshold:
+            node['children'] = None
+            return node
+    
+    elif node['value'] > threshold:
+        return node;

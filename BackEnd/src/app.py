@@ -50,7 +50,7 @@ def post_compare_sequence():
 
         outcome["taxonomies_batch"] = comparisons_batch
 
-        outcome["merged_tree"] = utils.get_hierarchy_from_dict(comparisons_group)
+        outcome["merged_tree"] = utils.get_hierarchy_from_dict(comparisons_group)['children'][0]
 
         print("{} files processed.".format(counter))
 
@@ -58,6 +58,32 @@ def post_compare_sequence():
         with open('/home/meili/Documents/BioCicle/BackEnd/tmp/sample_output.json', 'w') as outfile:
             json.dump(comparisons_batch, outfile)     
         # ---------------------------------------------------------------------
+
+    return jsonify(outcome)
+
+@app.route('/post_prune_single_tree', methods=['POST'])
+def post_prune_single_tree():
+
+    data = request.get_json()
+    tree = data['tree']
+    threshold = data['threshold']
+
+    pruned_tree = utils.prune_tree(threshold, tree)
+
+    return jsonify(pruned_tree)
+
+@app.route('/post_prune_multiple_trees', methods=['POST'])
+def post_prune_multiple_trees():
+
+    data = request.get_json()
+    trees_batch = data['trees_batch']
+    threshold = data['threshold']
+    pruned_batch = []
+
+    for tree in trees_batch:
+        pruned_tree = utils.prune_tree(threshold, tree)
+        pruned_batch.append(utils.prune_tree(threshold, tree))
+
 
     return jsonify(outcome)
 
