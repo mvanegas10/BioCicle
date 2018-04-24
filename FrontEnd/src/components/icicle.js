@@ -70,12 +70,16 @@ export class Icicle {
       .attr("width", (d) => { return d.y1 - d.y0; })
       .attr("height", (d) => { return d.x1 - d.x0; })
       .attr("fill", (d) => { 
-        if(this.colorDict.hasOwnProperty(d.data.name)) return this.colorDict[d.data.name];
+        if(this.colorDict.hasOwnProperty(d.data.name)) 
+          return this.colorDict[d.data.name];
+
         else if(d.parent) {
+
           if(!d.parent.parent) {
             this.colorDict[d.data.name] = this.color(d.data.name);
             return this.colorDict[d.data.name];
           }
+
           else {
             var parentColor;
             var count = 0;
@@ -85,10 +89,12 @@ export class Icicle {
               parentColor = this.colorDict[parent.data.name];
               parent = parent.parent;
             }
-            this.colorDict[d.data.name] = d3.rgb(parentColor).brighter(0.3 + (0.3 * count));
+            this.colorDict[d.data.name] = d3.rgb(parentColor).brighter(
+                0.3 + (0.3 * count));
             return this.colorDict[d.data.name];
           }
         }
+
         else {
           this.colorDict[d.data.name] = this.color(d.data.name);
           return this.colorDict[d.data.name];
@@ -103,7 +109,9 @@ export class Icicle {
       .attr("dx", ".35em")
       .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
       .attr("dy", ".35em")
-      .text((d) => { return d.data.name + "(" + Math.round(d.data.SCORE * 100)/100 + "%)" });
+      .text((d) => { 
+        return d.data.name + "(" + Math.round(d.data.SCORE * 100)/100 + "%)" 
+      });
 
   }
 

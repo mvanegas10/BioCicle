@@ -71,9 +71,9 @@ class Form extends React.Component {
       var sequences = this.state.sequence.split(",");
 
       var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
-      // ----------------------------- Temporal -----------------------------       
+      // ----------------------------- Temporal -------------------------------
       // d3.json("tmp/sample_output_multi.json", (data) => {
-      // ---------------------------------------------------------------------
+      // ----------------------------------------------------------------------
       post(url, { sequences:sequences }).then((output) => {
 
         console.log(output)
@@ -139,16 +139,34 @@ class Form extends React.Component {
 
         <div className="form-sequence">
           <p></p>
-          <textarea value={this.state.sequence} cols="60" rows="7" placeholder="Insert a sequence or sequence id. For example, try with sp:wap_rat." onChange={this.handleSequenceChange}></textarea>
+          <textarea 
+              value={this.state.sequence} 
+              cols="60" 
+              rows="7" 
+              placeholder="Insert a sequence or sequence id. For example, try with sp:wap_rat." 
+              onChange={this.handleSequenceChange}
+          ></textarea>
         </div>
 
         <div className="form-sequence">
-          <button className="btn btn-secondary" onClick={this.handleSequenceClick}>Align Sequence</button>
+          <button 
+              className="btn btn-secondary" 
+              onClick={this.handleSequenceClick}>
+            Align Sequence
+          </button>
         </div>
 
         <div className="form-sequence">
-          <input value={this.state.threshold} onChange={this.handleThresholdChange}/>
-          <button className="" onClick={this.handleThresholdClick}>Change Threshold</button>
+          <input 
+              value={this.state.threshold} 
+              onChange={this.handleThresholdChange}
+          />
+          <button 
+              className="" 
+              onClick={this.handleThresholdClick}
+            >
+            Change Threshold
+          </button>
         </div>
       </div>
     );

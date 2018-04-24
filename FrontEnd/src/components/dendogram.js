@@ -17,7 +17,8 @@ export class Dendogram {
         .attr("width", this.width + this.margin.right + this.margin.left)
         .attr("height", this.height + this.margin.top + this.margin.bottom)
       .append("g")
-        .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
+        .attr("transform", "translate(" + 
+            this.margin.left + "," + this.margin.top + ")");
 
 
     // declares a tree layout and assigns the size

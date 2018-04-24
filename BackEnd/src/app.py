@@ -1,18 +1,15 @@
 #!flask/bin/python
+import json
+import components.utils as utils
+import components.log as log
 from flask import request, Flask, jsonify
 from flask_cors import CORS, cross_origin
-import pymongo
-from pymongo import MongoClient
-import json
-import utils
 
 app = Flask(__name__)
 CORS(app)
-client = MongoClient()
-db = client.biovis
-db_models = db.models
 
-@app.route('/post_compare_sequence', methods=['POST'])
+
+@app.route("/post_compare_sequence", methods=["POST"])
 def post_compare_sequence():
 
     data = request.get_json()
@@ -23,9 +20,7 @@ def post_compare_sequence():
     counter = 0
     current_batch_stop = counter
     pieces_left = len(data["sequences"]) > 0
-    outcome = {}
-    comparisons_batch = []
-    comparisons_group = []
+    output = {}
 
     while pieces_left:
 
@@ -40,54 +35,36 @@ def post_compare_sequence():
             current_batch_stop = num_sequences_left
             pieces_left = False
 
-        tmp_sequences = data["sequences"][ :current_batch_stop]
-        saved_sequences = []
+        # Detect sequences processed before
+        saved_sequences, tmp_sequences = utils.get_unsaved_sequences(
+                data["sequences"][ :current_batch_stop])
 
-        for i, sequence in enumerate(tmp_sequences):
-            saved = db_models.find_one({"sequence_id": sequence})
-            saved.pop('_id', None)
-            if saved is not None and saved["comparisons"] is not None and saved["hierarchy"] is not None:
-                tmp_sequences.pop(i)
-                saved_sequences.append(saved)
-
+        # Compare unprocessed sequences
         file_batch = [utils.compare_sequence(sequence) for sequence in tmp_sequences]
 
         counter += data["batch_size"]
-        
-        print("{} comparisons made.".format(counter))
+        log.datetime_log("{} sequences compared.".format(counter))
 
-        for i,file in enumerate(file_batch):
-            comparisons = utils.extract_comparisons_from_file(file)
-            
-            hierarchy = utils.get_hierarchy_from_dict(comparisons)['children'][0]
-            comparison = {
-                "sequence_id": tmp_sequences[i],
-                "comparisons": comparisons[0],
-                "hierarchy": hierarchy
-            }
-            db_models.insert_one(comparison.copy())
-            
-            comparisons_batch.extend([comparison])
-            comparisons_group = comparisons_group + comparisons
-        
-        comparisons_batch.extend(saved_sequences)
+        # Generate tree for unprocessed sequences
+        comparisons_list, processed_batch = utils.process_batch(
+                tmp_sequences, file_batch)
+
+        # Include previously saved sequences
+        processed_batch.extend(saved_sequences)
         saved_comparisons = [comparison["comparisons"] for comparison in saved_sequences]
-        comparisons_group = comparisons_group + saved_comparisons
+        comparisons_list = comparisons_list + saved_comparisons
 
-        outcome["taxonomies_batch"] = comparisons_batch
+        # Prepare output
+        output["merged_tree"] = utils.get_hierarchy_from_dict(
+                comparisons_list)['children'][0]
+        output["taxonomies_batch"] = processed_batch
 
-        outcome["merged_tree"] = utils.get_hierarchy_from_dict(comparisons_group)['children'][0]
+        log.datetime_log("{} hierarchies formed.".format(counter))
 
-        print("{} files processed.".format(counter))
+    return jsonify(output)
 
-        # ----------------------------- Temporal ----------------------------- 
-        with open('/home/meili/Documents/BioCicle/BackEnd/tmp/sample_output.json', 'w') as outfile:
-            json.dump(comparisons_batch, outfile)     
-        # ---------------------------------------------------------------------
 
-    return jsonify(outcome)
-
-@app.route('/post_prune_single_tree', methods=['POST'])
+@app.route("/post_prune_single_tree", methods=["POST"])
 def post_prune_single_tree():
 
     data = request.get_json()
@@ -98,7 +75,8 @@ def post_prune_single_tree():
 
     return jsonify(pruned_tree)
 
-@app.route('/post_prune_multiple_trees', methods=['POST'])
+
+@app.route("/post_prune_multiple_trees", methods=["POST"])
 def post_prune_multiple_trees():
 
     data = request.get_json()
@@ -113,5 +91,5 @@ def post_prune_multiple_trees():
 
     return jsonify(outcome)
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8080,debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0",port=8080,debug=True)
