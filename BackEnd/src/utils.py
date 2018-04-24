@@ -25,23 +25,25 @@ db_models = db.models
 
 def get_unsaved_sequences(sequences):
     saved_list = []
-    for i, sequence in enumerate(sequences):
+    nonsaved_list = sequences.copy()
+
+    for sequence in sequences:
 
         search = {
                 "sequence_id": sequence
             }
-        
+
         saved = db_models.find_one(search)
-        
+
         if (saved is not None 
-            and saved["comparisons"] is not None 
-            and saved["hierarchy"] is not None):
-            
+        and saved["comparisons"] is not None 
+        and saved["hierarchy"] is not None):
+
             saved.pop('_id', None)
-            sequences.pop(i)
+            nonsaved_list.remove(sequence)
             saved_list.append(saved)
 
-    return saved_list, sequences
+    return saved_list, nonsaved_list
 
 
 def compare_sequence(sequence):
@@ -97,7 +99,7 @@ def process_batch(sequences, file_batch):
         }
         db_models.insert_one(processed_sequence)
         
-        comparisons_list = comparisons_group + comparisons
+        comparisons_list = comparisons_list + comparisons
         processed_batch.extend([processed_sequence])
 
     return comparisons_list, processed_batch

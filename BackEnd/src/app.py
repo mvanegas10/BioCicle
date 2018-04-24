@@ -17,16 +17,27 @@ def post_compare_sequence():
     if not "batch_size" in data:
         data["batch_size"] = 1
 
+    data["sequences"] = [sequence.strip(" \t\n\r") for sequence in data["sequences"]]
+
+    # Detect sequences processed before
+    saved_sequences, tmp_sequences = utils.get_unsaved_sequences(
+            data["sequences"])
+    
+    # Include previously saved sequences
+    processed_batch = saved_sequences.copy()
+    saved_comparisons = [comparison["comparisons"] for comparison in saved_sequences]
+    comparisons_list = saved_comparisons.copy()
+
     counter = 0
     current_batch_stop = counter
-    pieces_left = len(data["sequences"]) > 0
+    pieces_left = len(tmp_sequences) > 0
     output = {}
 
     while pieces_left:
 
-        data["sequences"] = data["sequences"][current_batch_stop:]
+        tmp_sequences = tmp_sequences[current_batch_stop:]
 
-        num_sequences_left = len(data["sequences"])
+        num_sequences_left = len(tmp_sequences)
 
         if data["batch_size"] < num_sequences_left:
             current_batch_stop = data["batch_size"]
@@ -34,10 +45,6 @@ def post_compare_sequence():
         else:
             current_batch_stop = num_sequences_left
             pieces_left = False
-
-        # Detect sequences processed before
-        saved_sequences, tmp_sequences = utils.get_unsaved_sequences(
-                data["sequences"][ :current_batch_stop])
 
         # Compare unprocessed sequences
         file_batch = [utils.compare_sequence(sequence) for sequence in tmp_sequences]
@@ -49,17 +56,12 @@ def post_compare_sequence():
         comparisons_list, processed_batch = utils.process_batch(
                 tmp_sequences, file_batch)
 
-        # Include previously saved sequences
-        processed_batch.extend(saved_sequences)
-        saved_comparisons = [comparison["comparisons"] for comparison in saved_sequences]
-        comparisons_list = comparisons_list + saved_comparisons
+    # Prepare output
+    output["merged_tree"] = utils.get_hierarchy_from_dict(
+            comparisons_list)['children'][0]
+    output["taxonomies_batch"] = processed_batch
 
-        # Prepare output
-        output["merged_tree"] = utils.get_hierarchy_from_dict(
-                comparisons_list)['children'][0]
-        output["taxonomies_batch"] = processed_batch
-
-        log.datetime_log("{} hierarchies formed.".format(counter))
+    log.datetime_log("{} hierarchies formed.".format(counter))
 
     return jsonify(output)
 
