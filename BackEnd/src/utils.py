@@ -12,7 +12,8 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
 TMP_FOLDER = os.path.join(PROJECT_DIR, "tmp/")
 UNI_PROT_URL = "https://www.uniprot.org/uniprot/"
 SRC_FOLDER = os.path.join(PROJECT_DIR, "src/")
-TAXDUMP_FOLDER = os.path.join(SRC_FOLDER, "taxdmp/")
+COMPONENTS_FOLDER = os.path.join(SRC_FOLDER, "components/")
+TAXDUMP_FOLDER = os.path.join(COMPONENTS_FOLDER, "taxdmp/")
 NODES_FILE = os.path.join(TAXDUMP_FOLDER, "nodes.dmp")
 NAMES_FILE = os.path.join(TAXDUMP_FOLDER, "names.dmp")
 MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
@@ -31,12 +32,12 @@ def get_unsaved_sequences(sequences):
             }
         
         saved = db_models.find_one(search)
-        saved.pop('_id', None)
         
         if (saved is not None 
             and saved["comparisons"] is not None 
             and saved["hierarchy"] is not None):
             
+            saved.pop('_id', None)
             sequences.pop(i)
             saved_list.append(saved)
 
@@ -86,9 +87,9 @@ def process_batch(sequences, file_batch):
     processed_batch = []
 
     for i,file in enumerate(file_batch):
-        comparisons = utils.extract_comparisons_from_file(file)
+        comparisons = extract_comparisons_from_file(file)
         
-        hierarchy = utils.get_hierarchy_from_dict(comparisons)['children'][0]
+        hierarchy = get_hierarchy_from_dict(comparisons)['children'][0]
         processed_sequence = {
             "sequence_id": sequences[i],
             "comparisons": comparisons[0],

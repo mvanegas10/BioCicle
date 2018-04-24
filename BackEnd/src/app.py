@@ -1,6 +1,6 @@
 #!flask/bin/python
 import json
-import components.utils as utils
+import utils as utils
 import components.log as log
 from flask import request, Flask, jsonify
 from flask_cors import CORS, cross_origin

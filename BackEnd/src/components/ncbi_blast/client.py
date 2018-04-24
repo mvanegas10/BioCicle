@@ -18,7 +18,7 @@ import platform, os, re, sys, time, urllib
 from optparse import OptionParser
 from xmltramp2 import xmltramp
 import urllib.request as urllib2
-import components.utils
+import utils
 
 def get_comparison(options):
     baseUrl = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast'

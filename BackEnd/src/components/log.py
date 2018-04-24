@@ -5,5 +5,5 @@ def datetime_log(msg):
 	datetime_msg = datetime.datetime.time(
 			datetime.datetime.now()).strftime("%H:%M:%S")
 
-	output = "{}: {}".format(datetime, msg)
+	output = "{}: {}".format(datetime_msg, msg)
 	print(output)
