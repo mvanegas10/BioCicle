@@ -9,7 +9,10 @@ export class Dendogram {
   }
 
   draw(root) {
+    d3.select('.dendogram').html('');
+    
     this.root = root;
+
     this.svg = d3.select(".dendogram").append("svg")
         .attr("width", this.width + this.margin.right + this.margin.left)
         .attr("height", this.height + this.margin.top + this.margin.bottom)

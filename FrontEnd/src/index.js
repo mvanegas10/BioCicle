@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import { post, changeThreshold, mergeTrees, filter } from './components/utils';
+import { post, changeThreshold, filter } from './components/utils';
 import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 
@@ -79,10 +79,10 @@ class Form extends React.Component {
         console.log(output)
 
         var taxonomiesBatch = output["taxonomies_batch"];
-        var mergedTree = output["merged_tree"]['children'][0];
+        var mergedTree = output["merged_tree"];
 
         for (var i = 0; i < taxonomiesBatch.length; i++) {
-          var tree = taxonomiesBatch[i];
+          var tree = taxonomiesBatch[i]['hierarchy'];
           
           var hierarchy = d3.hierarchy(tree)
             .sum(function(d) { return d.value; });

@@ -125,7 +125,7 @@ def get_taxid_from_sequence(sequence_id):
             string = string[len(string)-1].replace(";","").split(" ")
             return string[0].strip(" \t\n\r")
 
-def form_hierarchy(node, sequence_id):
+def form_hierarchy(node):
     if not len(node['children']) == 0:
         children_list = []
         for child, child_node in node['children'].items():
@@ -136,12 +136,7 @@ def form_hierarchy(node, sequence_id):
 
     else:
         node.pop('children', None)
-        if sequence_id is not None:
-            node['value'] = +node['SCORE']
-        else:
-            if not 'value' in node.keys():
-                node['value'] = {}  
-            node['value'][sequence_id] = +node['SCORE']
+        node['value'] = +node['SCORE']
         return node
 
 def get_hierarchy_from_dict(comparisons):
@@ -155,12 +150,12 @@ def get_hierarchy_from_dict(comparisons):
             children[sequence[rank]]['SCORE'] += sequence['SCORE']
             children = children[sequence[rank]]['children']
 
-    return form_hierarchy(tree, sequence_id)
+    return form_hierarchy(tree)
 
 def prune_tree(threshold, node):
     preserved_nodes = []
 
-    if node['children'] is not None && len(node['children']) > 0:
+    if node['children'] is not None and len(node['children']) > 0:
 
         current_children = node['children'].copy()
       

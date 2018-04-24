@@ -1,11 +1,16 @@
 #!flask/bin/python
 from flask import request, Flask, jsonify
 from flask_cors import CORS, cross_origin
+import pymongo
+from pymongo import MongoClient
 import json
 import utils
 
 app = Flask(__name__)
 CORS(app)
+client = MongoClient()
+db = client.biovis
+db_models = db.models
 
 @app.route('/post_compare_sequence', methods=['POST'])
 def post_compare_sequence():
@@ -36,17 +41,38 @@ def post_compare_sequence():
             pieces_left = False
 
         tmp_sequences = data["sequences"][ :current_batch_stop]
-        
+        saved_sequences = []
+
+        for i, sequence in enumerate(tmp_sequences):
+            saved = db_models.find_one({"sequence_id": sequence})
+            saved.pop('_id', None)
+            if saved is not None and saved["comparisons"] is not None and saved["hierarchy"] is not None:
+                tmp_sequences.pop(i)
+                saved_sequences.append(saved)
+
         file_batch = [utils.compare_sequence(sequence) for sequence in tmp_sequences]
 
         counter += data["batch_size"]
         
         print("{} comparisons made.".format(counter))
 
-        for file in file_batch:
+        for i,file in enumerate(file_batch):
             comparisons = utils.extract_comparisons_from_file(file)
-            comparisons_batch.extend([utils.get_hierarchy_from_dict(comparisons)['children'][0]])
+            
+            hierarchy = utils.get_hierarchy_from_dict(comparisons)['children'][0]
+            comparison = {
+                "sequence_id": tmp_sequences[i],
+                "comparisons": comparisons[0],
+                "hierarchy": hierarchy
+            }
+            db_models.insert_one(comparison.copy())
+            
+            comparisons_batch.extend([comparison])
             comparisons_group = comparisons_group + comparisons
+        
+        comparisons_batch.extend(saved_sequences)
+        saved_comparisons = [comparison["comparisons"] for comparison in saved_sequences]
+        comparisons_group = comparisons_group + saved_comparisons
 
         outcome["taxonomies_batch"] = comparisons_batch
 
@@ -65,8 +91,8 @@ def post_compare_sequence():
 def post_prune_single_tree():
 
     data = request.get_json()
-    tree = data['tree']
-    threshold = data['threshold']
+    tree = data["tree"]
+    threshold = data["threshold"]
 
     pruned_tree = utils.prune_tree(threshold, tree)
 
@@ -76,8 +102,8 @@ def post_prune_single_tree():
 def post_prune_multiple_trees():
 
     data = request.get_json()
-    trees_batch = data['trees_batch']
-    threshold = data['threshold']
+    trees_batch = data["trees_batch"]
+    threshold = data["threshold"]
     pruned_batch = []
 
     for tree in trees_batch:
