@@ -22,12 +22,11 @@ def post_compare_sequence():
     # Detect sequences processed before
     saved_sequences, tmp_sequences = utils.get_unsaved_sequences(
             data["sequences"])
-
     
     # Include previously saved sequences
     processed_batch = saved_sequences.copy()  
     saved_comparisons = [comparison["comparisons"] for comparison in saved_sequences]
-    comparisons_list = saved_comparisons.copy()
+    comparisons_list = saved_comparisons.copy()[0]
 
     counter = 0
     current_batch_stop = counter
@@ -54,9 +53,10 @@ def post_compare_sequence():
         log.datetime_log("{} sequences compared.".format(counter))
 
         # Generate tree for unprocessed sequences
-        comparisons_list, unsaved_batch = utils.process_batch(
+        unsaved_comparisons, unsaved_batch = utils.process_batch(
                 tmp_sequences, file_batch)
 
+        comparisons_list.extend(unsaved_comparisons)
         processed_batch.extend(unsaved_batch)
 
     # Prepare output

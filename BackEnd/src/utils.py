@@ -92,10 +92,10 @@ def process_batch(sequences, file_batch):
         comparisons = extract_comparisons_from_file(file)
         
         hierarchy = get_hierarchy_from_dict(comparisons)['children'][0]
-        
+
         processed_sequence = {
             "sequence_id": sequences[i],
-            "comparisons": comparisons[0],
+            "comparisons": comparisons,
             "hierarchy": hierarchy
         }
 
@@ -244,6 +244,7 @@ def form_hierarchy(node):
 
 
 def get_hierarchy_from_dict(comparisons):
+    print(comparisons)
     tree = {'name':'', 'children': {}, 'SCORE': 0.0}
 
     for i, sequence in enumerate(comparisons):

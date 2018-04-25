@@ -82,7 +82,6 @@ class Form extends React.Component {
 
         console.log(mergedTree)
 
-
         for (var i = 0; i < taxonomiesBatch.length; i++) {
           var tree = taxonomiesBatch[i]['hierarchy'];
           
