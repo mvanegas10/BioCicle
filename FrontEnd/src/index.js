@@ -76,10 +76,12 @@ class Form extends React.Component {
       // ----------------------------------------------------------------------
       post(url, { sequences:sequences }).then((output) => {
 
-        console.log(output)
 
         var taxonomiesBatch = output["taxonomies_batch"];
         var mergedTree = output["merged_tree"];
+
+        console.log(mergedTree)
+
 
         for (var i = 0; i < taxonomiesBatch.length; i++) {
           var tree = taxonomiesBatch[i]['hierarchy'];
@@ -103,8 +105,6 @@ class Form extends React.Component {
         this.state.dendogram.draw(this.state.mergedTree)
 
         this.setState({rootList: rootList});
-
-        console.log(rootList);
 
         if(rootList.length === 1) this.state.icicle.draw(rootList[0]);
         else {

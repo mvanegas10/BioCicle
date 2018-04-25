@@ -22,9 +22,10 @@ def post_compare_sequence():
     # Detect sequences processed before
     saved_sequences, tmp_sequences = utils.get_unsaved_sequences(
             data["sequences"])
+
     
     # Include previously saved sequences
-    processed_batch = saved_sequences.copy()
+    processed_batch = saved_sequences.copy()  
     saved_comparisons = [comparison["comparisons"] for comparison in saved_sequences]
     comparisons_list = saved_comparisons.copy()
 
@@ -53,13 +54,16 @@ def post_compare_sequence():
         log.datetime_log("{} sequences compared.".format(counter))
 
         # Generate tree for unprocessed sequences
-        comparisons_list, processed_batch = utils.process_batch(
+        comparisons_list, unsaved_batch = utils.process_batch(
                 tmp_sequences, file_batch)
+
+        processed_batch.extend(unsaved_batch)
 
     # Prepare output
     output["merged_tree"] = utils.get_hierarchy_from_dict(
             comparisons_list)['children'][0]
-    output["taxonomies_batch"] = processed_batch
+
+    output["taxonomies_batch"] = processed_batch   
 
     log.datetime_log("{} hierarchies formed.".format(counter))
 

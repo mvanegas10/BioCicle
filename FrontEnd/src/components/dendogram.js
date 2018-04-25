@@ -40,7 +40,6 @@ export class Dendogram {
         duration = 750;
 
     // Assigns the x and y position for the nodes
-    console.log(this.root)
     var treeData = this.treemap(this.root);
 
     // Compute the new tree layout.

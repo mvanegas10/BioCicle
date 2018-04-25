@@ -92,14 +92,17 @@ def process_batch(sequences, file_batch):
         comparisons = extract_comparisons_from_file(file)
         
         hierarchy = get_hierarchy_from_dict(comparisons)['children'][0]
+        
         processed_sequence = {
             "sequence_id": sequences[i],
             "comparisons": comparisons[0],
             "hierarchy": hierarchy
         }
-        db_models.insert_one(processed_sequence)
+
+        db_models.insert_one(processed_sequence.copy())
         
         comparisons_list = comparisons_list + comparisons
+
         processed_batch.extend([processed_sequence])
 
     return comparisons_list, processed_batch
