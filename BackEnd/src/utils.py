@@ -285,15 +285,22 @@ def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
 
 
 def prune_tree(threshold, node):
+    print("Tree")
+    print(node)
     preserved_nodes = []
 
-    if node['children'] is not None and len(node['children']) > 0:
+    if 'children' in node.keys() and len(node['children']) > 0:
 
         current_children = node['children'].copy()
       
         for child in current_children:
+            preserved_sequences = 0
+            
+            for key, sequence_value in child['SCORE'].items():
+                if int(sequence_value) > threshold:
+                    preserved_sequences += 1
 
-            if child['value'] > threshold:
+            if preserved_sequences > 0:
                 pruned_child = prune_tree(threshold, child)
                 
                 if pruned_child is not None:
@@ -302,9 +309,24 @@ def prune_tree(threshold, node):
         node['children'] = preserved_nodes
         if len(preserved_nodes) > 0:
             return node
-        elif node['value'] > threshold:
-            node['children'] = None
+        else:
+            preserved_sequences = 0
+
+            for key, sequence_value in child['SCORE'].items():
+                if int(sequence_value) > threshold:
+                    preserved_sequences += 1
+
+            if preserved_sequences > 0:
+                node['children'] = None
+
             return node
     
-    elif node['value'] > threshold:
-        return node;
+    else:
+        preserved_sequences = 0
+
+        for key, sequence_value in node['SCORE'].items():
+            if int(sequence_value) > threshold:
+                preserved_sequences += 1
+
+        if preserved_sequences > 0:
+            return node

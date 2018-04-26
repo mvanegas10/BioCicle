@@ -78,10 +78,15 @@ def post_compare_sequence():
 def post_prune_single_tree():
 
     data = request.get_json()
-    tree = data["tree"]
+    tree = json.loads(data["tree"])
     threshold = data["threshold"]
 
+    log.datetime_log("{} Pruning tree {}\n{}".format('*'*10,'*'*10,tree))
+    
     pruned_tree = utils.prune_tree(threshold, tree)
+
+    log.datetime_log("{} Finish pruning tree {}\n{}".format(
+            '*'*10,'*'*10,pruned_tree))
 
     return jsonify(pruned_tree)
 
@@ -90,16 +95,17 @@ def post_prune_single_tree():
 def post_prune_multiple_trees():
 
     data = request.get_json()
-    trees_batch = data["trees_batch"]
-    threshold = data["threshold"]
-    pruned_batch = []
+    merged_tree = json.loads(data['mergedTree']);
+    threshold = int(data['threshold'])
 
-    for tree in trees_batch:
-        pruned_tree = utils.prune_tree(threshold, tree)
-        pruned_batch.append(utils.prune_tree(threshold, tree))
+    log.datetime_log("{} Pruning tree {}".format('*'*10,'*'*10))
 
+    pruned_tree = utils.prune_tree(threshold, merged_tree)
 
-    return jsonify(outcome)
+    log.datetime_log("{} Finish pruning tree {}\n{}".format(
+            '*'*10,'*'*10,pruned_tree))
+
+    return jsonify({'pruned_tree': pruned_tree});
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=8080,debug=True)

@@ -6,8 +6,6 @@ import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 
 
-var CONFIG = require('./config/config.json');
-
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +16,7 @@ class Form extends React.Component {
       threshold: 0,
       currentRoot: 0,
       rootList: [],
-      mergedTree: [],
+      mergedTree: {},
       icicle: new Icicle(1200, 1200),
       dendogram: new Dendogram(1200, 1200)
     };
@@ -50,11 +48,21 @@ class Form extends React.Component {
         hierarchy.children = hierarchy._children;
       });
 
-      if(this.state.rootList.length > 1) 
-        changeThreshold(this.state.threshold, this.state.rootList[this.state.currentRoot], this.state.icicle);
+      if(this.state.rootList.length > 1) {
+        var tempTree = this.state.mergedTree;
+        tempTree.children = tempTree._children;
+        this.setState({mergedTree: tempTree});
+        filter(
+            this.state.threshold, 
+            this.state.mergedTree, 
+            this.state.dendogram);
+      }
+
       else{
-        this.state.mergedTree.children = this.state.mergedTree._children;
-        filter(this.state.threshold, this.state.mergedTree, this.state.dendogram);
+        changeThreshold(
+            this.state.threshold, 
+            this.state.rootList[this.state.currentRoot], 
+            this.state.icicle);
       }
       
     }
@@ -70,12 +78,7 @@ class Form extends React.Component {
       var rootList = [];
       var sequences = this.state.sequence.split(",");
 
-      var url = `${CONFIG.BACKEND_URL}post_compare_sequence`;
-      // ----------------------------- Temporal -------------------------------
-      // d3.json("tmp/sample_output_multi.json", (data) => {
-      // ----------------------------------------------------------------------
-      post(url, { sequences:sequences }).then((output) => {
-
+      post('post_compare_sequence', { sequences:sequences }).then((output) => {
 
         var taxonomiesBatch = output["taxonomies_batch"];
         var mergedTree = output["merged_tree"];
@@ -85,26 +88,25 @@ class Form extends React.Component {
         for (var i = 0; i < taxonomiesBatch.length; i++) {
           var tree = taxonomiesBatch[i]['hierarchy'];
           
-          var hierarchy = d3.hierarchy(tree)
+          var singleHierarchy = d3.hierarchy(tree)
             .sum(function(d) { 
-              console.log(d);
               return d.value? d.value[Object.keys(d.value)[0]]: undefined;
             });
 
-          hierarchy._children = hierarchy.children;
+          singleHierarchy._children = singleHierarchy.children;
 
-          rootList.push(hierarchy);
+          rootList.push(singleHierarchy);
 
         }
+        
+        mergedTree._children = mergedTree.children;
 
         var hierarchy = d3.hierarchy(mergedTree)
-          .sum(function(d) { return d.children;; });
+          .sum(function(d) { return d.children; });
 
-        hierarchy._children = hierarchy.children;
+        this.setState({mergedTree: mergedTree});
 
-        this.setState({mergedTree: hierarchy});
-
-        this.state.dendogram.draw(this.state.mergedTree)
+        this.state.dendogram.draw(hierarchy);
 
         this.setState({rootList: rootList});
 
