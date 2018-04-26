@@ -86,7 +86,10 @@ class Form extends React.Component {
           var tree = taxonomiesBatch[i]['hierarchy'];
           
           var hierarchy = d3.hierarchy(tree)
-            .sum(function(d) { return d.value; });
+            .sum(function(d) { 
+              console.log(d);
+              return d.value? d.value[Object.keys(d.value)[0]]: undefined;
+            });
 
           hierarchy._children = hierarchy.children;
 

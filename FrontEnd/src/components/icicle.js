@@ -110,7 +110,9 @@ export class Icicle {
       .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
       .attr("dy", ".35em")
       .text((d) => { 
-        return d.data.name + "(" + Math.round(d.data.SCORE * 100)/100 + "%)" 
+        var keys = Object.keys(d.data.SCORE);
+        return d.data.name + "(" + Math.round(
+          d.data.SCORE[keys[0]] * 100)/100 + "%)" 
       });
 
   }
