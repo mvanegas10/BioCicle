@@ -91,18 +91,19 @@ def process_batch(sequences, file_batch, tree):
 
         comparisons = extract_comparisons_from_file(file)
         
-        tmp_tree = get_hierarchy_from_dict(
-                sequences[i], comparisons)['children'][0]
+        tmp_tree, tmp_hierarchy = get_hierarchy_from_dict(
+                sequences[i], comparisons)
 
         tree = get_hierarchy_from_dict(
                 sequences[i], 
                 comparisons,
-                tree=tree)
+                target=tree)
 
         processed_sequence = {
             "sequence_id": sequences[i],
             "comparisons": comparisons,
-            "hierarchy": tmp_tree
+            "tree": tmp_tree,
+            "hierarchy": tmp_hierarchy
         }
 
         db_models.insert_one(processed_sequence.copy())
@@ -256,10 +257,10 @@ def form_hierarchy(node):
 
 def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
 
-    if not 'tree' in kargs:
+    if not 'target' in kargs:
         tree = {'name':'', 'children': {}, 'SCORE': []}
     else:
-        tree = kargs['tree']
+        tree = kargs['target']
 
     for i, sequence in enumerate(comparisons):
         children = tree['children']
@@ -277,7 +278,10 @@ def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
             children[sequence[rank]]['SCORE'][sequence_id] += sequence['SCORE']
             children = children[sequence[rank]]['children']
 
-    return form_hierarchy(tree)
+    if not 'target' in kargs:
+        return tree, form_hierarchy(tree)['children'][0]
+    else:
+        return tree
 
 
 def prune_tree(threshold, node):

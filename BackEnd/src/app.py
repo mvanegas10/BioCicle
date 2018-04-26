@@ -32,7 +32,7 @@ def post_compare_sequence():
         utils.get_hierarchy_from_dict(
                 saved_sequence['sequence_id'],
                 saved_sequence['comparisons'],
-                tree=merged_tree)
+                target=merged_tree)
 
     counter = 0
     current_batch_stop = counter
@@ -65,7 +65,7 @@ def post_compare_sequence():
         processed_batch.extend(unsaved_batch)
 
     # Prepare output
-    output["merged_tree"] = merged_tree['children'][0]
+    output["merged_tree"] = utils.form_hierarchy(merged_tree)['children'][0]
 
     output["taxonomies_batch"] = processed_batch   
 
