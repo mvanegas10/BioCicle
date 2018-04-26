@@ -12,6 +12,8 @@ CORS(app)
 @app.route("/post_compare_sequence", methods=["POST"])
 def post_compare_sequence():
 
+    merged_tree = {'name':'', 'children': {}, 'SCORE': []}
+
     data = request.get_json()
 
     if not "batch_size" in data:
@@ -24,9 +26,13 @@ def post_compare_sequence():
             data["sequences"])
     
     # Include previously saved sequences
-    processed_batch = saved_sequences.copy()  
-    saved_comparisons = [comparison["comparisons"] for comparison in saved_sequences]
-    comparisons_list = saved_comparisons.copy()[0]
+    processed_batch = saved_sequences.copy()    
+
+    for saved_sequence in processed_batch:
+        utils.get_hierarchy_from_dict(
+                saved_sequence['sequence_id'],
+                saved_sequence['comparisons'],
+                tree=merged_tree)
 
     counter = 0
     current_batch_stop = counter
@@ -53,15 +59,13 @@ def post_compare_sequence():
         log.datetime_log("{} sequences compared.".format(counter))
 
         # Generate tree for unprocessed sequences
-        unsaved_comparisons, unsaved_batch = utils.process_batch(
-                tmp_sequences, file_batch)
+        merged_tree, unsaved_batch = utils.process_batch(
+                tmp_sequences, file_batch, merged_tree)
 
-        comparisons_list.extend(unsaved_comparisons)
         processed_batch.extend(unsaved_batch)
 
     # Prepare output
-    output["merged_tree"] = utils.get_hierarchy_from_dict(
-            comparisons_list)['children'][0]
+    output["merged_tree"] = merged_tree['children'][0]
 
     output["taxonomies_batch"] = processed_batch   
 

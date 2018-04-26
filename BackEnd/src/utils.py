@@ -84,28 +84,32 @@ def compare_sequence(sequence):
     return path
 
 
-def process_batch(sequences, file_batch):
-    comparisons_list = []
+def process_batch(sequences, file_batch, tree):
     processed_batch = []
 
     for i,file in enumerate(file_batch):
+
         comparisons = extract_comparisons_from_file(file)
         
-        hierarchy = get_hierarchy_from_dict(comparisons)['children'][0]
+        tmp_tree = get_hierarchy_from_dict(
+                sequences[i], comparisons)['children'][0]
+
+        tree = get_hierarchy_from_dict(
+                sequences[i], 
+                comparisons,
+                tree=tree)
 
         processed_sequence = {
             "sequence_id": sequences[i],
             "comparisons": comparisons,
-            "hierarchy": hierarchy
+            "hierarchy": tmp_tree
         }
 
         db_models.insert_one(processed_sequence.copy())
-        
-        comparisons_list = comparisons_list + comparisons
 
         processed_batch.extend([processed_sequence])
 
-    return comparisons_list, processed_batch
+    return tree, processed_batch
 
 
 def extract_comparisons_from_file(filename):
@@ -239,13 +243,23 @@ def form_hierarchy(node):
 
     else:
         node.pop('children', None)
-        node['value'] = +node['SCORE']
+        for sequence in node['SCORE'].keys():
+            if not 'value' in node.keys():
+                node['value'] = {}
+            if not sequence in node['value'].keys():
+                node['value'][sequence] = 0.0
+            
+            node['value'][sequence] += node['SCORE'][sequence]
+
         return node
 
 
-def get_hierarchy_from_dict(comparisons):
-    print(comparisons)
-    tree = {'name':'', 'children': {}, 'SCORE': 0.0}
+def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
+
+    if not 'tree' in kargs:
+        tree = {'name':'', 'children': {}, 'SCORE': []}
+    else:
+        tree = kargs['tree']
 
     for i, sequence in enumerate(comparisons):
         children = tree['children']
@@ -254,10 +268,13 @@ def get_hierarchy_from_dict(comparisons):
                 children[sequence[rank]] = {
                     'name':sequence[rank], 
                     'children': {}, 
-                    'SCORE': 0.0
+                    'SCORE': {}
                 }
 
-            children[sequence[rank]]['SCORE'] += sequence['SCORE']
+            if not sequence_id in children[sequence[rank]]['SCORE'].keys():
+                children[sequence[rank]]['SCORE'][sequence_id] = 0.0
+
+            children[sequence[rank]]['SCORE'][sequence_id] += sequence['SCORE']
             children = children[sequence[rank]]['children']
 
     return form_hierarchy(tree)
