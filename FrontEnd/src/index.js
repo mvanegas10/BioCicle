@@ -10,15 +10,16 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sequence: "",
-      countAttr: "NAME",
-      countFunction: "splitWords",
+      sequence: '',
+      countAttr: 'NAME',
+      countFunction: 'splitWords',
       threshold: 0,
-      currentRoot: 0,
-      rootList: [],
+      currentRoot: '',
+      rootDict: [],
       mergedTree: {},
       icicle: new Icicle(1200, 1200),
-      dendogram: new Dendogram(1200, 1200)
+      dendogram: new Dendogram(1200, 1200),
+      showingOriginal: true
     };
 
     this.handleAttrChange = this.handleAttrChange.bind(this);
@@ -44,24 +45,31 @@ class Form extends React.Component {
   handleThresholdClick(event) {
     if(this.state.threshold) {
 
-      this.state.rootList.forEach((hierarchy) => {
-        hierarchy.children = hierarchy._children;
+      var tmpDict = this.state.rootDict;
+      var tmpSequences = Object.keys(tmpDict);
+
+      tmpSequences.forEach((sequence) => {
+        tmpDict[sequence].children = tmpDict[sequence]._children;
       });
 
-      if(this.state.rootList.length > 1) {
+      this.setState({rootDict: tmpDict});
+
+      if(tmpSequences.length > 1) {
         var tempTree = this.state.mergedTree;
         tempTree.children = tempTree._children;
         this.setState({mergedTree: tempTree});
+        this.setState({showingOriginal: false});
         filter(
             this.state.threshold, 
             this.state.mergedTree, 
-            this.state.dendogram);
+            this.state.dendogram,
+            this.state.icicle);
       }
 
       else{
         changeThreshold(
             this.state.threshold, 
-            this.state.rootList[this.state.currentRoot], 
+            this.state.rootDict[this.state.currentRoot], 
             this.state.icicle);
       }
       
@@ -75,17 +83,18 @@ class Form extends React.Component {
   handleSequenceClick(event) {
     if(this.state.sequence) {
 
-      var rootList = [];
-      var sequences = this.state.sequence.split(",");
+      var rootDict = {};
+      var sequences = this.state.sequence.split(',');
 
       post('post_compare_sequence', { sequences:sequences }).then((output) => {
 
-        var taxonomiesBatch = output["taxonomies_batch"];
-        var mergedTree = output["merged_tree"];
+        var taxonomiesBatch = output['taxonomies_batch'];
+        var mergedTree = output['merged_tree'];
 
         console.log(mergedTree)
 
         for (var i = 0; i < taxonomiesBatch.length; i++) {
+          var sequence = taxonomiesBatch[i]['sequence_id'];
           var tree = taxonomiesBatch[i]['hierarchy'];
           
           var singleHierarchy = d3.hierarchy(tree)
@@ -95,7 +104,7 @@ class Form extends React.Component {
 
           singleHierarchy._children = singleHierarchy.children;
 
-          rootList.push(singleHierarchy);
+          rootDict[sequence] = singleHierarchy;
 
         }
         
@@ -108,31 +117,42 @@ class Form extends React.Component {
 
         this.state.dendogram.draw(hierarchy);
 
-        this.setState({rootList: rootList});
+        this.setState({rootDict: rootDict});
 
-        if(rootList.length === 1) this.state.icicle.draw(rootList[0]);
+        var tmpSequences = Object.keys(rootDict);
+        if(tmpSequences.length === 1)
+
+          this.state.icicle.draw(rootDict[tmpSequences[0]], tmpSequences[0]);
+
         else {
 
-          d3.interval(() => {
+          var i = 0;
 
-            var root = rootList.shift();
-            rootList.push(root);
+          var interval = d3.interval(() => {
 
-            if(rootList.length > 0) {
-              return this.state.icicle.draw(root);
+            if (!this.state.showingOriginal) {
+              interval.stop();
+              return;
             }
 
-            this.setState({currentRoot: rootList.length-1});
+            var root = this.state.rootDict[tmpSequences[i]];
+
+            this.state.icicle.draw(root, tmpSequences[i]);
+
+            this.setState({currentRoot: tmpSequences[i]});
+
+            i = (i === (tmpSequences.length - 1))? 0: i+1;
 
           }, 1000) 
+
         }
 
       })  
-      // .catch((error) => {
+      .catch((error) => {
       
-      //   console.error(error);
+        console.error(error);
       
-      // });
+      });
     }
 
   }
@@ -141,36 +161,38 @@ class Form extends React.Component {
     return (
       <div>
 
-        <div className="form-sequence">
-          <p></p>
+        <div className='form-sequence'>
           <textarea 
               value={this.state.sequence} 
-              cols="60" 
-              rows="7" 
-              placeholder="Insert a sequence or sequence id. For example, try with sp:wap_rat." 
+              cols='60' 
+              rows='7' 
+              placeholder='Insert a sequence or sequence id. For example, try with sp:wap_rat.' 
               onChange={this.handleSequenceChange}
           ></textarea>
         </div>
 
-        <div className="form-sequence">
+        <div className='form-sequence'>
           <button 
-              className="btn btn-secondary" 
+              className='btn btn-secondary' 
               onClick={this.handleSequenceClick}>
             Align Sequence
           </button>
         </div>
 
-        <div className="form-sequence">
+        <div className='form-sequence'>
           <input 
               value={this.state.threshold} 
               onChange={this.handleThresholdChange}
           />
           <button 
-              className="" 
+              className='' 
               onClick={this.handleThresholdClick}
             >
             Change Threshold
           </button>
+        </div>
+        <div>
+          <p value={this.state.currentRoot}></p>
         </div>
       </div>
     );
@@ -180,9 +202,11 @@ class Form extends React.Component {
 class Body extends React.Component {
   render() {
     return (
-      <div className="body">
-        <div className="dendogram"></div>
-        <div className="icicle"></div>
+      <div className='body'>
+        <div className='dendogram'></div>
+        <div className='sequence_id'>
+        </div>
+        <div className='icicle'></div>
       </div>
     );
   } 
@@ -191,11 +215,11 @@ class Body extends React.Component {
 class Vis extends React.Component {
   render() {
     return (
-      <div className="vis">
-        <div className="vis-form">
+      <div className='vis'>
+        <div className='vis-form'>
           <Form />
         </div>
-        <div className="vis-body">
+        <div className='vis-body'>
           <Body />
         </div>
       </div>

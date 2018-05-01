@@ -25,7 +25,7 @@ export function changeThreshold(threshold, root, icicle) {
 
 }
 
-export function filter(threshold, root, dendogram) {
+export function filter(threshold, root, dendogram, icicle) {
   console.log('Changing threshold ', threshold);
   console.log('   Merged tree ', root);
 
@@ -35,15 +35,45 @@ export function filter(threshold, root, dendogram) {
   };
 
   post('post_prune_multiple_trees', options).then((output) => {
+    var prunedSequences = output.pruned_sequences;
     var prunedTree = output.pruned_tree;
-    console.log('   Pruned tree', prunedTree);
+    console.log('   Pruned tree', prunedSequences);
 
     prunedTree._children = prunedTree.children;
 
-    var hierarchy = d3.hierarchy(prunedTree)
+    var dendoHierarchy = d3.hierarchy(prunedTree)
       .sum(function(d) { return d.children; });
 
-    dendogram.draw(hierarchy);
+    dendogram.draw(dendoHierarchy);
+
+    var hierarchies = {};
+
+    prunedSequences.forEach((sequence) => {
+      var sequence_id = sequence['sequence_id']
+
+      var icicleHierarchy = d3.hierarchy(sequence['hierarchy'])
+        .sum(function(d) { 
+          return d.value? d.value[sequence_id]: undefined;
+        });
+      hierarchies[sequence_id] = icicleHierarchy;
+
+    });
+
+    var i = 0;
+
+    console.log(hierarchies);
+    
+    d3.interval(() => {
+
+      var sequence = prunedSequences[i]['sequence_id'];
+
+      var root = hierarchies[sequence];
+
+      icicle.draw(root, hierarchies[sequence]);
+
+      i = (i === (prunedSequences.length - 1))? 0: i+1;
+
+    }, 1000) 
   });
 
 }

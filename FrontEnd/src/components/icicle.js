@@ -20,7 +20,7 @@ export class Icicle {
     this.colorDict = {};
   }
 
-  draw(root) {
+  draw(root, sequence) {
 
     d3.select('.icicle').html('');
 
@@ -39,11 +39,11 @@ export class Icicle {
       .padding(0)
       .round(true);
 
-    this.update(root);
+    this.update(root, sequence);
 
   }
 
-  update(root) {
+  update(root, sequence) {
 
     // transition
     var t = d3.transition()
@@ -110,9 +110,8 @@ export class Icicle {
       .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
       .attr("dy", ".35em")
       .text((d) => { 
-        var keys = Object.keys(d.data.SCORE);
         return d.data.name + "(" + Math.round(
-          d.data.SCORE[keys[0]] * 100)/100 + "%)" 
+          d.data.SCORE[sequence] * 100)/100 + "%)" 
       });
 
   }

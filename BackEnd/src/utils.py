@@ -294,39 +294,39 @@ def prune_tree(threshold, node):
         current_children = node['children'].copy()
       
         for child in current_children:
-            preserved_sequences = 0
-            
+            score_sequences = {}
             for key, sequence_value in child['SCORE'].items():
-                if int(sequence_value) > threshold:
-                    preserved_sequences += 1
+                if float(sequence_value) >= threshold:
+                    score_sequences[key] = sequence_value
 
-            if preserved_sequences > 0:
+            if len(score_sequences.keys()) > 0:
+                child['SCORE'] = score_sequences
                 pruned_child = prune_tree(threshold, child)
                 
                 if pruned_child is not None:
                     preserved_nodes.append(pruned_child)
 
-        node['children'] = preserved_nodes
         if len(preserved_nodes) > 0:
-            return node
+            node['children'] = preserved_nodes
         else:
-            preserved_sequences = 0
+            node.pop('children', None)
+            node['value'] = node ['SCORE']
 
-            for key, sequence_value in child['SCORE'].items():
-                if int(sequence_value) > threshold:
-                    preserved_sequences += 1
-
-            if preserved_sequences > 0:
-                node['children'] = None
-
-            return node
-    
+        return node
+        
     else:
-        preserved_sequences = 0
+        score_sequences = {}
 
         for key, sequence_value in node['SCORE'].items():
-            if int(sequence_value) > threshold:
-                preserved_sequences += 1
+            if float(sequence_value) >= threshold:
+                score_sequences[key] = sequence_value
 
-        if preserved_sequences > 0:
+        if len(score_sequences.keys()) > 0:
+            node['value'] = score_sequences
+            node['SCORE'] = score_sequences
+            node.pop('children', None)
+        
             return node
+            
+        else:
+            return None

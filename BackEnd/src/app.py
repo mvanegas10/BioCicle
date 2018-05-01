@@ -94,18 +94,30 @@ def post_prune_single_tree():
 @app.route("/post_prune_multiple_trees", methods=["POST"])
 def post_prune_multiple_trees():
 
+    output = {}
     data = request.get_json()
     merged_tree = json.loads(data['mergedTree']);
     threshold = int(data['threshold'])
 
-    log.datetime_log("{} Pruning tree {}".format('*'*10,'*'*10))
+    sequences = list(merged_tree['SCORE'].keys())
+    saved_sequences, rest = utils.get_unsaved_sequences(
+            sequences)
+
+    pruned_sequences = []
+
+    for sequence in saved_sequences:
+        pruned_sequence = {}
+        pruned_sequence['sequence_id'] = sequence['sequence_id']
+        pruned_sequence['hierarchy'] = utils.prune_tree(
+                threshold, sequence['hierarchy'])
+        pruned_sequences.append(pruned_sequence)
 
     pruned_tree = utils.prune_tree(threshold, merged_tree)
 
-    log.datetime_log("{} Finish pruning tree {}\n{}".format(
-            '*'*10,'*'*10,pruned_tree))
+    output['pruned_sequences'] = pruned_sequences
+    output['pruned_tree'] = pruned_tree
 
-    return jsonify({'pruned_tree': pruned_tree});
+    return jsonify(output);
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=8080,debug=True)
