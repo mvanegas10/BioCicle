@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
-import { post, changeThreshold, filter } from './components/utils';
+import { post, filter } from './components/utils';
 import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 
@@ -19,7 +19,9 @@ class Form extends React.Component {
       mergedTree: {},
       icicle: new Icicle(1200, 1200),
       dendogram: new Dendogram(1200, 1200),
-      showingOriginal: true
+      showingOriginal: true,
+      interval: undefined,
+      filterInterval: undefined
     };
 
     this.handleAttrChange = this.handleAttrChange.bind(this);
@@ -54,25 +56,41 @@ class Form extends React.Component {
 
       this.setState({rootDict: tmpDict});
 
-      if(tmpSequences.length > 1) {
-        var tempTree = this.state.mergedTree;
-        tempTree.children = tempTree._children;
-        this.setState({mergedTree: tempTree});
-        this.setState({showingOriginal: false});
-        filter(
-            this.state.threshold, 
-            this.state.mergedTree, 
-            this.state.dendogram,
-            this.state.icicle);
-      }
+      if(tmpSequences.length > 1) this.setState({showingOriginal: false});
 
-      else{
-        changeThreshold(
-            this.state.threshold, 
-            this.state.rootDict[this.state.currentRoot], 
-            this.state.icicle);
-      }
-      
+      var tempTree = this.state.mergedTree;
+      tempTree.children = tempTree._children;
+      this.setState({mergedTree: tempTree});
+      filter(
+          this.state.threshold, 
+          this.state.mergedTree, 
+          this.state.dendogram
+      ).then((output) => {
+
+        console.log(output)
+
+        var i = 0;
+
+        var filterInterval = d3.interval(() => {
+
+            if (this.state.showingOriginal) {
+              this.state.filterInterval.stop();
+              return;
+            }
+
+            var sequence = output.prunedSequences[i]['sequence_id'];
+
+            var root = output.hierarchies[sequence];
+
+            this.state.icicle.draw(root, sequence);
+
+            i = (i === (output.prunedSequences.length - 1))? 0: i+1;
+
+          }, 1000);
+
+        this.setState({filterInterval:filterInterval});
+        
+      });
     }
   }
 
@@ -88,10 +106,11 @@ class Form extends React.Component {
 
       post('post_compare_sequence', { sequences:sequences }).then((output) => {
 
+        this.setState({showingOriginal: true});
+        this.setState({currentRoot: sequences[0]});
+
         var taxonomiesBatch = output['taxonomies_batch'];
         var mergedTree = output['merged_tree'];
-
-        console.log(mergedTree)
 
         for (var i = 0; i < taxonomiesBatch.length; i++) {
           var sequence = taxonomiesBatch[i]['sequence_id'];
@@ -120,30 +139,33 @@ class Form extends React.Component {
         this.setState({rootDict: rootDict});
 
         var tmpSequences = Object.keys(rootDict);
+
         if(tmpSequences.length === 1)
 
           this.state.icicle.draw(rootDict[tmpSequences[0]], tmpSequences[0]);
 
         else {
 
-          var i = 0;
+          var j = 0;
 
           var interval = d3.interval(() => {
 
             if (!this.state.showingOriginal) {
-              interval.stop();
+              this.state.interval.stop();
               return;
             }
 
-            var root = this.state.rootDict[tmpSequences[i]];
+            var root = this.state.rootDict[tmpSequences[j]];
 
-            this.state.icicle.draw(root, tmpSequences[i]);
+            this.state.icicle.draw(root, tmpSequences[j]);
 
-            this.setState({currentRoot: tmpSequences[i]});
+            this.setState({currentRoot: tmpSequences[j]});
 
-            i = (i === (tmpSequences.length - 1))? 0: i+1;
+            j = (j === (tmpSequences.length - 1))? 0: j+1;
 
-          }, 1000) 
+          }, 1000);
+
+          this.setState({interval:interval}); 
 
         }
 

@@ -319,7 +319,4 @@ def prune_tree(threshold, node):
     else:
         pruned_node = None
 
-    print("Before {}".format(node))
-    print("After {}".format(pruned_node))
-    print("{}".format('*'*10))
     return pruned_node

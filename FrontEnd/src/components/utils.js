@@ -18,62 +18,55 @@ export function post(path, data) {
 
 }
 
-export function changeThreshold(threshold, root, icicle) {
-  // console.log('Changing threshold ', threshold);
-  // var prunedTree = pruneTree(threshold, root.copy());
-  // icicle.draw(prunedTree);
 
-}
-
-export function filter(threshold, root, dendogram, icicle) {
+export function filter(threshold, root, dendogram) {
   console.log('Changing threshold ', threshold);
   console.log('   Merged tree ', root);
 
-  var options = {
-    mergedTree: JSON.stringify(root),
-    threshold: threshold
-  };
 
-  post('post_prune_multiple_trees', options).then((output) => {
-    var prunedSequences = output.pruned_sequences;
-    var prunedTree = output.pruned_tree;
-    console.log('   Pruned tree', prunedSequences);
+  return new Promise((resolve, reject) => {
 
-    prunedTree._children = prunedTree.children;
+    var options = {
+      mergedTree: JSON.stringify(root),
+      threshold: threshold
+    };
 
-    var dendoHierarchy = d3.hierarchy(prunedTree)
-      .sum(function(d) { return d.children; });
+    post('post_prune_trees', options).then((output) => {
+      var prunedOutput = {};
 
-    dendogram.draw(dendoHierarchy);
+      prunedOutput.prunedSequences = output.pruned_sequences;
+      prunedOutput.prunedTree = output.pruned_tree;
+      prunedOutput.hierarchies = {};
 
-    var hierarchies = {};
+      console.log('   Pruned tree', prunedOutput.prunedSequences);
 
-    prunedSequences.forEach((sequence) => {
-      var sequence_id = sequence['sequence_id']
+      prunedOutput.prunedTree._children = prunedOutput.prunedTree.children;
 
-      var icicleHierarchy = d3.hierarchy(sequence['hierarchy'])
-        .sum(function(d) { 
-          return d.value? d.value[sequence_id]: undefined;
-        });
-      hierarchies[sequence_id] = icicleHierarchy;
+      var dendoHierarchy = d3.hierarchy(prunedOutput.prunedTree)
+        .sum(function(d) { return d.children; });
+
+      dendogram.draw(dendoHierarchy);
+
+      prunedOutput.prunedSequences.forEach((sequence) => {
+        var sequence_id = sequence['sequence_id']
+
+        var icicleHierarchy = d3.hierarchy(sequence['hierarchy'])
+          .sum(function(d) { 
+            return d.value? d.value[sequence_id]: undefined;
+          });
+        prunedOutput.hierarchies[sequence_id] = icicleHierarchy;
+
+      });
+
+      resolve( prunedOutput ); 
+
+    })
+    .catch((reason) => {
+
+      reject(reason);
 
     });
 
-    var i = 0;
-
-    console.log(hierarchies);
-    
-    d3.interval(() => {
-
-      var sequence = prunedSequences[i]['sequence_id'];
-
-      var root = hierarchies[sequence];
-
-      icicle.draw(root, sequence);
-
-      i = (i === (prunedSequences.length - 1))? 0: i+1;
-
-    }, 1000) 
   });
 
 }

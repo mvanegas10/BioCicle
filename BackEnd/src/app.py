@@ -77,27 +77,26 @@ def post_compare_sequence():
 @app.route("/post_prune_single_tree", methods=["POST"])
 def post_prune_single_tree():
 
+    output = {}
     data = request.get_json()
-    tree = json.loads(data["tree"])
-    threshold = data["threshold"]
+    tree = json.loads(data['tree']);
+    threshold = float(data['threshold'])
 
-    log.datetime_log("{} Pruning tree {}\n{}".format('*'*10,'*'*10,tree))
-    
     pruned_tree = utils.prune_tree(threshold, tree)
 
-    log.datetime_log("{} Finish pruning tree {}\n{}".format(
-            '*'*10,'*'*10,pruned_tree))
+    output['pruned_tree'] = pruned_tree
 
-    return jsonify(pruned_tree)
+    return jsonify(output);
 
 
-@app.route("/post_prune_multiple_trees", methods=["POST"])
-def post_prune_multiple_trees():
+
+@app.route("/post_prune_trees", methods=["POST"])
+def post_prune_trees():
 
     output = {}
     data = request.get_json()
     merged_tree = json.loads(data['mergedTree']);
-    threshold = int(data['threshold'])
+    threshold = float(data['threshold'])
 
     sequences = list(merged_tree['SCORE'].keys())
     saved_sequences, rest = utils.get_unsaved_sequences(
@@ -106,8 +105,6 @@ def post_prune_multiple_trees():
     pruned_sequences = []
 
     for sequence in saved_sequences:
-        print("{} {} {}".format(':'*10,sequence['sequence_id'],'-'*10))
-
         pruned_sequence = {}
         pruned_sequence['sequence_id'] = sequence['sequence_id']
         pruned_sequence['hierarchy'] = utils.prune_tree(
