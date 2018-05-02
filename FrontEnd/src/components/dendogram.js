@@ -2,10 +2,11 @@ import * as d3 from 'd3';
 
 export class Dendogram {
 
-  constructor(width, height) {
+  constructor(width, height, click) {
     this.margin = {top: 20, right: 90, bottom: 30, left: 90};
     this.width = width - this.margin.left - this.margin.right;
     this.height = height - this.margin.top - this.margin.bottom;
+    this.click = click;
   }
 
   draw(root) {
@@ -61,7 +62,7 @@ export class Dendogram {
         .attr("transform", (d) => {
           return "translate(" + source.y0 + "," + source.x0 + ")";
       })
-      .on('click', (d) => {this.click(d);});
+      .on('click', (d) => {this.click(this, d);});
 
     // Add Circle for the nodes
     nodeEnter.append('circle')
@@ -171,18 +172,6 @@ export class Dendogram {
               ${d.y} ${d.x}`
 
     return path
-  }
-
-  // Toggle children on click.
-  click(d) {
-    if (d.children) {
-        d._children = d.children;
-        d.children = null;
-      } else {
-        d.children = d._children;
-        d._children = null;
-      }
-    this.update(d);
   }
 
 }

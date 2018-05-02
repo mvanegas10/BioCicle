@@ -6,9 +6,21 @@ import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 
 
+const TIME_ITERATION = 1000;
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
+
+    this.iterateOverIcicles = this.iterateOverIcicles.bind(this);
+    this.handleDendogramClick = this.handleDendogramClick.bind(this);
+    this.handleAttrChange = this.handleAttrChange.bind(this);
+    this.handleFuncChange = this.handleFuncChange.bind(this);
+    this.handleThresholdChange = this.handleThresholdChange.bind(this);
+    this.handleThresholdClick = this.handleThresholdClick.bind(this);
+    this.handleSequenceChange = this.handleSequenceChange.bind(this);
+    this.handleSequenceClick = this.handleSequenceClick.bind(this);
+
     this.state = {
       sequence: '',
       countAttr: 'NAME',
@@ -18,18 +30,43 @@ class Form extends React.Component {
       rootDict: [],
       mergedTree: {},
       icicle: new Icicle(1200, 1200),
-      dendogram: new Dendogram(1200, 1200),
+      dendogram: new Dendogram(1200, 1200, this.handleDendogramClick),
       showingOriginal: true,
-      interval: undefined,
-      filterInterval: undefined
+      interval: undefined
     };
 
-    this.handleAttrChange = this.handleAttrChange.bind(this);
-    this.handleFuncChange = this.handleFuncChange.bind(this);
-    this.handleThresholdChange = this.handleThresholdChange.bind(this);
-    this.handleThresholdClick = this.handleThresholdClick.bind(this);
-    this.handleSequenceChange = this.handleSequenceChange.bind(this);
-    this.handleSequenceClick = this.handleSequenceClick.bind(this);
+  }
+
+  iterateOverIcicles(treeDict, idList) {
+
+    if(this.state.interval)
+      this.state.interval.stop();
+
+    var i = 0;
+
+    var interval = d3.interval(() => {
+
+      var root = treeDict[idList[i]];
+
+      this.state.icicle.draw(root, idList[i]);
+
+      this.setState({currentRoot: idList[i]});
+
+      i = (i === (idList.length - 1))? 0: i+1;
+
+    }, TIME_ITERATION);
+
+    this.setState({interval:interval});
+
+  }
+
+  handleDendogramClick(dendogram, d) {
+    if (d.children) {
+      var sequences = Object.keys(d.data.SCORE);
+
+      this.iterateOverIcicles(this.state.rootDict, sequences);
+
+    }
   }
 
   handleAttrChange(event) {
@@ -67,29 +104,8 @@ class Form extends React.Component {
           this.state.dendogram
       ).then((output) => {
 
-        console.log(output)
+        this.iterateOverIcicles(output.hierarchies, output.prunedSequences);
 
-        var i = 0;
-
-        var filterInterval = d3.interval(() => {
-
-            if (this.state.showingOriginal) {
-              this.state.filterInterval.stop();
-              return;
-            }
-
-            var sequence = output.prunedSequences[i]['sequence_id'];
-
-            var root = output.hierarchies[sequence];
-
-            this.state.icicle.draw(root, sequence);
-
-            i = (i === (output.prunedSequences.length - 1))? 0: i+1;
-
-          }, 1000);
-
-        this.setState({filterInterval:filterInterval});
-        
       });
     }
   }
@@ -141,33 +157,10 @@ class Form extends React.Component {
         var tmpSequences = Object.keys(rootDict);
 
         if(tmpSequences.length === 1)
-
           this.state.icicle.draw(rootDict[tmpSequences[0]], tmpSequences[0]);
 
-        else {
-
-          var j = 0;
-
-          var interval = d3.interval(() => {
-
-            if (!this.state.showingOriginal) {
-              this.state.interval.stop();
-              return;
-            }
-
-            var root = this.state.rootDict[tmpSequences[j]];
-
-            this.state.icicle.draw(root, tmpSequences[j]);
-
-            this.setState({currentRoot: tmpSequences[j]});
-
-            j = (j === (tmpSequences.length - 1))? 0: j+1;
-
-          }, 1000);
-
-          this.setState({interval:interval}); 
-
-        }
+        else 
+          this.iterateOverIcicles(this.state.rootDict, tmpSequences);
 
       })  
       .catch((error) => {
