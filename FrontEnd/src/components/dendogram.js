@@ -29,7 +29,7 @@ export class Dendogram {
     this.root.y0 = 0;
 
     // Collapse after the second level
-    this.root.children.forEach((d) => {this.collapse(d)});
+    // this.root.children.forEach((d) => {this.collapse(d)});
 
     this.update(this.root);
 
