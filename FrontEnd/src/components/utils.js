@@ -58,6 +58,8 @@ export function filter(threshold, root, dendogram) {
 
       });
 
+      prunedOutput.prunedSequences = prunedOutput.prunedSequences.map((sequence) => {return sequence['sequence_id']});
+
       resolve( prunedOutput ); 
 
     })

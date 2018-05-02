@@ -38,6 +38,9 @@ class Form extends React.Component {
 
   iterateOverIcicles(treeDict, idList) {
 
+    console.log('treeDict', treeDict)
+    console.log('idList', idList)
+
     if(this.state.interval)
       this.state.interval.stop();
 
