@@ -285,48 +285,41 @@ def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
 
 
 def prune_tree(threshold, node):
-    print("Tree")
-    print(node)
-    preserved_nodes = []
 
-    if 'children' in node.keys() and len(node['children']) > 0:
+    pruned_node = node.copy()
 
-        current_children = node['children'].copy()
-      
-        for child in current_children:
-            score_sequences = {}
-            for key, sequence_value in child['SCORE'].items():
-                if float(sequence_value) >= threshold:
-                    score_sequences[key] = sequence_value
+    pruned_score = {}
+    for key, sequence_value in node['SCORE'].items():
+        if float(sequence_value) >= threshold:
+            pruned_score[key] = sequence_value
 
-            if len(score_sequences.keys()) > 0:
-                child['SCORE'] = score_sequences
+    if len(pruned_score.keys()) > 0:
+        pruned_node['SCORE'] = pruned_score
+    
+        if 'children' in node.keys() and len(node['children']) > 0:
+            preserved_children = []
+          
+            for child in pruned_node['children']:
                 pruned_child = prune_tree(threshold, child)
                 
                 if pruned_child is not None:
-                    preserved_nodes.append(pruned_child)
+                    preserved_children.append(pruned_child)
 
-        if len(preserved_nodes) > 0:
-            node['children'] = preserved_nodes
+            if len(preserved_children) > 0:
+                pruned_node['children'] = preserved_children
+
+            else:
+                pruned_node['value'] = pruned_score
+                pruned_node.pop('children', None)
+
         else:
-            node.pop('children', None)
-            node['value'] = node ['SCORE']
-
-        return node
-        
+            pruned_node.pop('children', None)
+            pruned_node['value'] = pruned_score
+    
     else:
-        score_sequences = {}
+        pruned_node = None
 
-        for key, sequence_value in node['SCORE'].items():
-            if float(sequence_value) >= threshold:
-                score_sequences[key] = sequence_value
-
-        if len(score_sequences.keys()) > 0:
-            node['value'] = score_sequences
-            node['SCORE'] = score_sequences
-            node.pop('children', None)
-        
-            return node
-            
-        else:
-            return None
+    print("Before {}".format(node))
+    print("After {}".format(pruned_node))
+    print("{}".format('*'*10))
+    return pruned_node

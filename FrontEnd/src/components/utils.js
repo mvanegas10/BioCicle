@@ -69,7 +69,7 @@ export function filter(threshold, root, dendogram, icicle) {
 
       var root = hierarchies[sequence];
 
-      icicle.draw(root, hierarchies[sequence]);
+      icicle.draw(root, sequence);
 
       i = (i === (prunedSequences.length - 1))? 0: i+1;
 

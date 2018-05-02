@@ -106,6 +106,8 @@ def post_prune_multiple_trees():
     pruned_sequences = []
 
     for sequence in saved_sequences:
+        print("{} {} {}".format(':'*10,sequence['sequence_id'],'-'*10))
+
         pruned_sequence = {}
         pruned_sequence['sequence_id'] = sequence['sequence_id']
         pruned_sequence['hierarchy'] = utils.prune_tree(
