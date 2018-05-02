@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import { post, filter } from './components/utils';
 import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
-
+import { Grid, Row, Col } from 'react-bootstrap';
 
 const TIME_ITERATION = 1000;
 
@@ -29,9 +29,8 @@ class Form extends React.Component {
       currentRoot: '',
       rootDict: [],
       mergedTree: {},
-      icicle: new Icicle(1200, 1200),
-      dendogram: new Dendogram(1200, 1200, this.handleDendogramClick),
-      showingOriginal: true,
+      icicle: new Icicle(800, 800),
+      dendogram: new Dendogram(800, 1000, this.handleDendogramClick),
       interval: undefined
     };
 
@@ -93,8 +92,6 @@ class Form extends React.Component {
 
       this.setState({rootDict: tmpDict});
 
-      if(tmpSequences.length > 1) this.setState({showingOriginal: false});
-
       var tempTree = this.state.mergedTree;
       tempTree.children = tempTree._children;
       this.setState({mergedTree: tempTree});
@@ -122,7 +119,6 @@ class Form extends React.Component {
 
       post('post_compare_sequence', { sequences:sequences }).then((output) => {
 
-        this.setState({showingOriginal: true});
         this.setState({currentRoot: sequences[0]});
 
         var taxonomiesBatch = output['taxonomies_batch'];
@@ -175,40 +171,48 @@ class Form extends React.Component {
   render() {
     return (
       <div>
-
-        <div className='form-sequence'>
-          <textarea 
-              value={this.state.sequence} 
-              cols='60' 
-              rows='7' 
-              placeholder='Insert a sequence or sequence id. For example, try with sp:wap_rat.' 
-              onChange={this.handleSequenceChange}
-          ></textarea>
-        </div>
-
-        <div className='form-sequence'>
-          <button 
-              className='btn btn-secondary' 
-              onClick={this.handleSequenceClick}>
-            Align Sequence
-          </button>
-        </div>
-
-        <div className='form-sequence'>
-          <input 
-              value={this.state.threshold} 
-              onChange={this.handleThresholdChange}
-          />
-          <button 
-              className='' 
-              onClick={this.handleThresholdClick}
-            >
-            Change Threshold
-          </button>
-        </div>
-        <div>
-          <p value={this.state.currentRoot}></p>
-        </div>
+        <Grid>
+          <Row>
+            <Col md={3}>
+              <textarea 
+                value={this.state.sequence} 
+                cols='60' 
+                rows='7' 
+                placeholder='Insert a sequence or sequence id. For example, try with sp:wap_rat.' 
+                onChange={this.handleSequenceChange}
+              ></textarea>
+            </Col>
+            <Col md={3}>
+              <button 
+                  className='btn btn-secondary' 
+                  onClick={this.handleSequenceClick}>
+                Align Sequence
+              </button>
+            </Col>
+            <Col md={3}>
+              <input 
+                value={this.state.threshold} 
+                onChange={this.handleThresholdChange}
+              />
+            </Col>
+            <Col md={3}>
+              <button 
+                  className='btn btn-secondary' 
+                  onClick={this.handleThresholdClick}
+                >
+                Change Threshold
+              </button>
+            </Col>            
+          </Row>
+        </Grid>
+        <Row>
+          <Col md={6}>
+            <p>Current sequence: {this.state.currentRoot}</p>
+          </Col>            
+          <Col md={6}>
+            <p>Displaying {Object.keys(this.state.rootDict).length} compared sequences</p>
+          </Col>            
+        </Row>
       </div>
     );
   }
@@ -217,11 +221,17 @@ class Form extends React.Component {
 class Body extends React.Component {
   render() {
     return (
-      <div className='body'>
-        <div className='dendogram'></div>
-        <div className='sequence_id'>
-        </div>
-        <div className='icicle'></div>
+      <div>
+        <Grid>
+          <Row>        
+            <Col md={6}>
+              <div className='dendogram'></div>
+            </Col>            
+            <Col md={6}>
+              <div className='icicle'></div>
+            </Col>            
+          </Row>              
+        </Grid>
       </div>
     );
   } 
@@ -231,6 +241,9 @@ class Vis extends React.Component {
   render() {
     return (
       <div className='vis'>
+        <div className='title'>
+          <h2>Visualizing Biological Sequence Comparison Summaries for Sequence Alignment Analysis</h2>
+        </div>
         <div className='vis-form'>
           <Form />
         </div>

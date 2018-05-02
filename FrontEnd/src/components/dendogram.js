@@ -48,7 +48,7 @@ export class Dendogram {
         links = treeData.descendants().slice(1);
 
     // Normalize for fixed-depth.
-    nodes.forEach((d) => { d.y = d.depth * 180});
+    nodes.forEach((d) => { d.y = d.depth * 80});
 
     // ****************** Nodes section ***************************
 
@@ -67,7 +67,7 @@ export class Dendogram {
     // Add Circle for the nodes
     nodeEnter.append('circle')
         .attr('class', 'node')
-        .attr('r', 1e-6)
+        .attr('r', 1e-8)
         .style("fill", (d) => {
             return d._children ? "lightsteelblue" : "#fff";
         });
@@ -96,7 +96,7 @@ export class Dendogram {
 
     // Update the node attributes and style
     nodeUpdate.select('circle.node')
-      .attr('r', 10)
+      .attr('r', 5)
       .style("fill", (d) => {
           return d._children ? "lightsteelblue" : "#fff";
       })
