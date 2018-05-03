@@ -10,7 +10,9 @@ export class Dendogram {
   }
 
   draw(root) {
-    d3.select('.dendogram').html('');
+    var parent = d3.select('.dendogram').html('');
+    this.width = parent.node().getBoundingClientRect().width;
+    console.log('dendogram',parent);
     
     this.root = root;
 

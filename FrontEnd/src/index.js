@@ -227,12 +227,8 @@ class Body extends React.Component {
       <div>
         <Grid>
           <Row>        
-            <Col md={6}>
-              <div className='dendogram'></div>
-            </Col>            
-            <Col md={6}>
-              <div className='icicle'></div>
-            </Col>            
+            <Col md={6} className='dendogram'></Col>            
+            <Col md={6} className='icicle'></Col>            
           </Row>              
         </Grid>
       </div>

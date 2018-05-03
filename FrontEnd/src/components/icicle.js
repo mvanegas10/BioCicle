@@ -22,7 +22,9 @@ export class Icicle {
 
   draw(root, sequence) {
 
-    d3.select('.icicle').html('');
+    var parent = d3.select('.icicle').html('');
+    this.width = parent.node().getBoundingClientRect().width;
+    console.log('icicle',this.width);
 
     this.svg = d3.select(".icicle").append("svg")
       .attr("width", this.width)
