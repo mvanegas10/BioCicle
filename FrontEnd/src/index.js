@@ -32,7 +32,8 @@ class Form extends React.Component {
       mergedTree: {},
       icicle: new Icicle(),
       dendogram: new Dendogram(1000, this.handleDendogramClick),
-      interval: undefined
+      interval: undefined,
+      nothingToShow: 'disabled'
     };
 
   } 
@@ -85,30 +86,40 @@ class Form extends React.Component {
   }
 
   handleThresholdChange(event) {
-    this.setState({threshold: event.target.value});
-    if(this.state.threshold) {
+    if(this.nothingToShow !== 'disabled') {
 
-      var tmpDict = this.state.rootDict;
-      var tmpSequences = Object.keys(tmpDict);
+      this.setState({threshold: event.target.value});
+      if(this.state.threshold) {
 
-      tmpSequences.forEach((sequence) => {
-        tmpDict[sequence].children = tmpDict[sequence]._children;
-      });
+        console.log(this.state.rootDict)
 
-      this.setState({rootDict: tmpDict});
+        var tmpDict = this.state.rootDict;
+        var tmpSequences = Object.keys(tmpDict);
 
-      var tempTree = this.state.mergedTree;
-      tempTree.children = tempTree._children;
-      this.setState({mergedTree: tempTree});
-      filter(
-          this.state.threshold, 
-          this.state.mergedTree, 
-          this.state.dendogram
-      ).then((output) => {
+        tmpSequences.forEach((sequence) => {
+          tmpDict[sequence].children = tmpDict[sequence]._children;
+        });
 
-        this.iterateOverIcicles(output.hierarchies, output.prunedSequences);
+        this.setState({rootDict: tmpDict});
 
-      });
+        var tempTree = this.state.mergedTree;
+        tempTree.children = tempTree._children;
+        this.setState({mergedTree: tempTree});
+        filter(
+            this.state.threshold, 
+            this.state.mergedTree, 
+            this.state.dendogram
+        ).then((output) => {
+          var tempHierarchies = output.hierarchies;
+          for(var sequence in tempHierarchies) {
+            tempHierarchies._children = this.state.rootDict[sequence].children;
+          }
+          this.setState({rootDict: tempHierarchies});
+          this.iterateOverIcicles(output.hierarchies, output.prunedSequences);
+
+        });
+      }
+
     }
   }
 
@@ -118,6 +129,8 @@ class Form extends React.Component {
 
   handleSequenceClick(event) {
     if(this.state.sequence) {
+      this.setState({threshold: 0});
+      this.setState({nothingToShow: 'false'});
 
       var rootDict = {};
       var sequences = this.state.sequence.split(',');
@@ -198,11 +211,12 @@ class Form extends React.Component {
               </Col>
             </Col>
             <Col md={6}>
-              <p className='section-title' >Score Threshold {this.state.threshold} </p>
+              <p className='section-title' >Score Threshold: {this.state.threshold} </p>
               <Col md={8}>
               <ReactBootstrapSlider
                 value={this.state.threshold} 
                 slideStop={this.handleThresholdChange}
+                disabled={this.nothingToShow}
                 step={1}
                 max={100}
                 min={0} />
@@ -221,10 +235,10 @@ class Form extends React.Component {
         </Grid>
         <Row>
           <Col md={6}>
-            <p>Current sequence: {this.state.currentRoot}</p>
+            <p>Displaying {Object.keys(this.state.rootDict).length} compared sequences</p>
           </Col>            
           <Col md={6}>
-            <p>Displaying {Object.keys(this.state.rootDict).length} compared sequences</p>
+            <p>Current sequence: {this.state.currentRoot}</p>
           </Col>            
         </Row>
       </div>

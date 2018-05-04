@@ -29,6 +29,9 @@ p.section-title {
     text-align: left;
     padding: 0% 3%;
 }
+div.slider-handle {
+    background-image: linear-gradient(to bottom,#008080 0,#008080 100%);
+}
 .exit {
     opacity: 0.5;
 }
