@@ -1,0 +1,75 @@
+#main .react-native-slider {
+    width: 200px;
+}
+.demoWrapper {
+    width: 400px;
+    display: inline-block;
+}
+#rangeHighlightsSlider .slider-rangeHighlight {
+    background: #f70616;
+}
+textarea { 
+    width:100%;
+    font-size: 12px; 
+    resize: none;
+}
+div.wrapper {
+    background-color: #E0E0E0;
+    padding: 20px;
+    width: 300px;
+}
+button.btn-secondary {
+    width:100%;
+    background: #eee;
+}
+button.btn-secondary:hover {
+    background: #fff;
+}
+p.section-title {
+    text-align: left;
+    padding: 0% 3%;
+}
+.exit {
+    opacity: 0.5;
+}
+.node circle {
+    fill: #fff;
+    stroke: steelblue;
+    stroke-width: 1px;
+}
+
+.node text {
+    font: 10px sans-serif;
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+}
+div.title {
+    width: 100%;
+    position: fixed;
+    background: rgb(204,204,204);
+    z-index: 2000;
+    font-family: 'Concert One', cursive;
+    text-align: left;
+    padding: 0% 3%;
+    color: #008080;
+}
+div.container {
+    width: 100%;
+    margin: 0%;
+}
+div.vis-form {
+    width: 100%;
+    position: fixed;
+    background: rgb(204,204,204);
+    z-index: 1000;
+    box-shadow: 0 8px 6px -6px #ccc;
+    padding-top: 2cm;
+}
+div.vis-body * {
+    display: inline;
+    margin-top: 3cm;
+}

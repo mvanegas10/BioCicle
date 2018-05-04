@@ -2,17 +2,16 @@ import * as d3 from 'd3';
 
 export class Dendogram {
 
-  constructor(width, height, click) {
+  constructor(height, click) {
     this.margin = {top: 20, right: 90, bottom: 30, left: 90};
-    this.width = width - this.margin.left - this.margin.right;
     this.height = height - this.margin.top - this.margin.bottom;
     this.click = click;
   }
 
   draw(root) {
     var parent = d3.select('.dendogram').html('');
-    this.width = parent.node().getBoundingClientRect().width;
-    console.log('dendogram',parent);
+    var width = parent.node().getBoundingClientRect().width;
+    this.width = width - this.margin.left - this.margin.right;
     
     this.root = root;
 

@@ -1,5 +1,5 @@
 {
-  "short_name": "BioVis",
+  "short_name": "BioCicle",
   "name": "Visualizing Biological Sequence Comparison Summaries for Sequence Alignment Analysis",
   "icons": [ ],
   "start_url": "./index.html",

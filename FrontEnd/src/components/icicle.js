@@ -14,17 +14,15 @@ const COLOR_PALETTE = [
 
 export class Icicle {
 
-  constructor(width, height) {
-    this.width = width;
-    this.height = height;
+  constructor() {
     this.colorDict = {};
   }
 
   draw(root, sequence) {
 
     var parent = d3.select('.icicle').html('');
-    this.width = parent.node().getBoundingClientRect().width;
-    console.log('icicle',this.width);
+    this.width = parent.node().getBoundingClientRect().width * 0.9;
+    this.height = this.width;
 
     this.svg = d3.select(".icicle").append("svg")
       .attr("width", this.width)

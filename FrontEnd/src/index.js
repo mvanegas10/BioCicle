@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactBootstrapSlider from 'react-bootstrap-slider';
 import * as d3 from 'd3';
 import { post, filter } from './components/utils';
 import { Icicle } from './components/icicle';
@@ -29,12 +30,12 @@ class Form extends React.Component {
       currentRoot: '',
       rootDict: [],
       mergedTree: {},
-      icicle: new Icicle(800, 800),
-      dendogram: new Dendogram(800, 1000, this.handleDendogramClick),
+      icicle: new Icicle(),
+      dendogram: new Dendogram(1000, this.handleDendogramClick),
       interval: undefined
     };
 
-  }
+  } 
 
   iterateOverIcicles(treeDict, idList) {
 
@@ -79,11 +80,12 @@ class Form extends React.Component {
     this.setState({countFunction: event.target.value});
   }
 
-  handleThresholdChange(event) {
+  handleThresholdClick(event) {
     this.setState({threshold: event.target.value});
   }
 
-  handleThresholdClick(event) {
+  handleThresholdChange(event) {
+    this.setState({threshold: event.target.value});
     if(this.state.threshold) {
 
       var tmpDict = this.state.rootDict;
@@ -171,41 +173,50 @@ class Form extends React.Component {
 
   }
 
-  render() {
+  render() { 
     return (
       <div>
         <Grid>
           <Row>
-            <Col md={3}>
-              <textarea 
-                value={this.state.sequence} 
-                cols='60' 
-                rows='7' 
-                placeholder='Insert a sequence or sequence id. For example, try with sp:wap_rat.' 
-                onChange={this.handleSequenceChange}
-              ></textarea>
+            <Col md={6}>
+              <p className='section-title' >Sequence alignment</p>
+              <Col md={8}>
+                <textarea 
+                  value={this.state.sequence} 
+                  rows='3'
+                  placeholder='Insert a sequence or sequence id. For example, try with sp:wap_rat.' 
+                  onChange={this.handleSequenceChange}
+                ></textarea>
+              </Col>
+              <Col md={1}></Col>
+              <Col md={3}>
+                <button 
+                    className='btn btn-secondary' 
+                    onClick={this.handleSequenceClick}>
+                  Align Sequence
+                </button>
+              </Col>
             </Col>
-            <Col md={3}>
-              <button 
-                  className='btn btn-secondary' 
-                  onClick={this.handleSequenceClick}>
-                Align Sequence
-              </button>
-            </Col>
-            <Col md={3}>
-              <input 
+            <Col md={6}>
+              <p className='section-title' >Score Threshold {this.state.threshold} </p>
+              <Col md={8}>
+              <ReactBootstrapSlider
                 value={this.state.threshold} 
-                onChange={this.handleThresholdChange}
-              />
+                slideStop={this.handleThresholdChange}
+                step={1}
+                max={100}
+                min={0} />
+              </Col>  
+              <Col md={1}></Col>
+              <Col md={3}>
+                <button 
+                    className='btn btn-secondary' 
+                    onClick={this.handleThresholdClick}
+                  >
+                  Change Threshold
+                </button>
+              </Col>
             </Col>
-            <Col md={3}>
-              <button 
-                  className='btn btn-secondary' 
-                  onClick={this.handleThresholdClick}
-                >
-                Change Threshold
-              </button>
-            </Col>            
           </Row>
         </Grid>
         <Row>
@@ -226,10 +237,10 @@ class Body extends React.Component {
     return (
       <div>
         <Grid>
-          <Row>        
-            <Col md={6} className='dendogram'></Col>            
-            <Col md={6} className='icicle'></Col>            
-          </Row>              
+          <Row>
+            <Col md={6} className='dendogram'></Col>
+            <Col md={6} className='icicle'></Col>
+          </Row>
         </Grid>
       </div>
     );
@@ -241,7 +252,7 @@ class Vis extends React.Component {
     return (
       <div className='vis'>
         <div className='title'>
-          <h2>Visualizing Biological Sequence Comparison Summaries for Sequence Alignment Analysis</h2>
+          <h2>BioCicle</h2>
         </div>
         <div className='vis-form'>
           <Form />
@@ -255,8 +266,8 @@ class Vis extends React.Component {
 }
 
 // ========================================
-
 ReactDOM.render(
-  <Vis />,
+  // <div className = "demoWrapper">
+  <Vis/>,
   document.getElementById('root')
 );
