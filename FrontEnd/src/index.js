@@ -31,7 +31,7 @@ class Form extends React.Component {
       rootDict: [],
       mergedTree: {},
       icicle: new Icicle(),
-      dendogram: new Dendogram(1000, this.handleDendogramClick),
+      dendogram: new Dendogram(1500, this.handleDendogramClick),
       interval: undefined,
       nothingToShow: 'disabled'
     };
@@ -91,8 +91,6 @@ class Form extends React.Component {
       this.setState({threshold: event.target.value});
       if(this.state.threshold) {
 
-        console.log(this.state.rootDict)
-
         var tmpDict = this.state.rootDict;
         var tmpSequences = Object.keys(tmpDict);
 
@@ -105,16 +103,20 @@ class Form extends React.Component {
         var tempTree = this.state.mergedTree;
         tempTree.children = tempTree._children;
         this.setState({mergedTree: tempTree});
+        console.log(this.state.mergedTree)
         filter(
             this.state.threshold, 
             this.state.mergedTree, 
             this.state.dendogram
         ).then((output) => {
-          var tempHierarchies = output.hierarchies;
-          for(var sequence in tempHierarchies) {
-            tempHierarchies._children = this.state.rootDict[sequence].children;
+          var tempHier = output.hierarchies;
+          for(var sequence in this.state.rootDict) {
+            if(!tempHier[sequence]) 
+              tempHier[sequence] = {};
+            tempHier[sequence]._children = this.state.rootDict[sequence].children;
           }
-          this.setState({rootDict: tempHierarchies});
+          this.setState({rootDict: tempHier});
+          console.log(this.state.rootDict)
           this.iterateOverIcicles(output.hierarchies, output.prunedSequences);
 
         });
@@ -252,8 +254,8 @@ class Body extends React.Component {
       <div>
         <Grid>
           <Row>
-            <Col md={6} className='dendogram'></Col>
-            <Col md={6} className='icicle'></Col>
+            <Col md={5} className='dendogram'></Col>
+            <Col md={7} className='icicle'></Col>
           </Row>
         </Grid>
       </div>

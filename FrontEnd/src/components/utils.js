@@ -5,7 +5,7 @@ var CONFIG = require('../config/config.json');
 
 export function post(path, data) {
   var url = `${CONFIG.BACKEND_URL}${path}`;
-  console.log(`POSTING to ${url} with data ${JSON.stringify(data)}`);
+  console.log(`POSTING to ${url} with data ${data}`);
 
   return fetch( url, {
     method: "POST",
