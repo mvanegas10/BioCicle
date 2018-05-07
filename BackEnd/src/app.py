@@ -65,7 +65,8 @@ def post_compare_sequence():
         processed_batch.extend(unsaved_batch)
 
     # Prepare output
-    output["merged_tree"] = utils.form_hierarchy(merged_tree)['children'][0]
+    hierarchy, aggregated_score = utils.form_hierarchy(merged_tree)
+    output["merged_tree"] = hierarchy['children'][0]
 
     output["taxonomies_batch"] = processed_batch   
 

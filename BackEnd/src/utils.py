@@ -134,12 +134,6 @@ def extract_comparisons_from_file(filename):
             comparisons = pool.map(
                     partial(get_relevant_data, total=total), sequences)
 
-        score_list = [sequence["SCORE"] for sequence in comparisons]
-        total_score = reduce(lambda x,y: x+y, score_list) 
-
-        for sequence in comparisons:
-            sequence["SCORE"] = sequence["SCORE"]/total_score * 100
-
         log.datetime_log("Finishing process for filename {}".format(filename))
 
     return comparisons
@@ -235,12 +229,21 @@ def get_taxid_from_sequence(sequence_id):
 def form_hierarchy(node):
     if not len(node['children']) == 0:
         children_list = []
+        aggregated_score = {}
         for child, child_node in node['children'].items():
-            children_list.append(form_hierarchy(child_node))
+            parsed_child, child_score = form_hierarchy(child_node)
+            children_list.append(parsed_child)
+            
+            for sequence in child_score.keys():
+                if not sequence in aggregated_score.keys():
+                    aggregated_score[sequence] = 0.0
+
+                aggregated_score[sequence] += child_score[sequence]
 
         node['children'] = []
         node['children'].extend(children_list)
-        return node
+        node['SCORE'] = aggregated_score
+        return node, aggregated_score
 
     else:
         node.pop('children', None)
@@ -250,9 +253,9 @@ def form_hierarchy(node):
             if not sequence in node['value'].keys():
                 node['value'][sequence] = 0.0
             
-            node['value'][sequence] += node['SCORE'][sequence]
+            node['value'][sequence] = node['SCORE'][sequence]
 
-        return node
+        return node, node['SCORE']
 
 
 def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
@@ -275,11 +278,15 @@ def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
             if not sequence_id in children[sequence[rank]]['SCORE'].keys():
                 children[sequence[rank]]['SCORE'][sequence_id] = 0.0
 
-            children[sequence[rank]]['SCORE'][sequence_id] += sequence['SCORE']
+            current_score = children[sequence[rank]]['SCORE'][sequence_id]
+            if rank == 'SPECIES' and current_score < sequence['SCORE']:
+                children[sequence[rank]]['SCORE'][sequence_id] = sequence['SCORE']
+            
             children = children[sequence[rank]]['children']
 
     if not 'target' in kargs:
-        return tree, form_hierarchy(tree)['children'][0]
+        hierarchy, aggregated_score = form_hierarchy(tree)
+        return tree, hierarchy['children'][0]
     else:
         return tree
 
