@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route("/post_compare_sequence", methods=["POST"])
+@app.route("/api/post_compare_sequence", methods=["POST"])
 def post_compare_sequence():
 
     merged_tree = {'name':'', 'children': {}, 'SCORE': []}
@@ -74,7 +74,7 @@ def post_compare_sequence():
     return jsonify(output)
 
 
-@app.route("/post_prune_single_tree", methods=["POST"])
+@app.route("/api/post_prune_single_tree", methods=["POST"])
 def post_prune_single_tree():
 
     output = {}
@@ -90,7 +90,7 @@ def post_prune_single_tree():
 
 
 
-@app.route("/post_prune_trees", methods=["POST"])
+@app.route("/api/post_prune_trees", methods=["POST"])
 def post_prune_trees():
 
     output = {}
