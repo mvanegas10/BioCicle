@@ -5,9 +5,11 @@ import * as d3 from 'd3';
 import { post, filter } from './components/utils';
 import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Modal, Button, ButtonToolbar } from 'react-bootstrap';
 
 const TIME_ITERATION = 1000;
+
+
 
 class Form extends React.Component {
   constructor(props) {
@@ -23,6 +25,7 @@ class Form extends React.Component {
     this.handleSequenceClick = this.handleSequenceClick.bind(this);
 
     this.state = {
+      error: '',
       sequence: '',
       countAttr: 'NAME',
       countFunction: 'splitWords',
@@ -37,6 +40,10 @@ class Form extends React.Component {
     };
 
   } 
+
+  reload() {
+    window.location.reload();
+  }
 
   iterateOverIcicles(treeDict, idList) {
 
@@ -69,7 +76,6 @@ class Form extends React.Component {
       var sequences = Object.keys(d.data.SCORE);
 
       this.iterateOverIcicles(this.state.rootDict, sequences);
-
     }
   }
 
@@ -136,112 +142,205 @@ class Form extends React.Component {
 
       var rootDict = {};
       var sequences = this.state.sequence.split(',');
+    
+      if(sequences.length > 0) {
 
-      post('post_compare_sequence', { sequences:sequences }).then((output) => {
+        let params = { sequences:sequences };
+        this.setState({currentRoot: ''});
 
-        this.setState({currentRoot: sequences[0]});
+        this.setState({mergedTree: {}});
 
-        var taxonomiesBatch = output['taxonomies_batch'];
-        var mergedTree = output['merged_tree'];
+        this.setState({rootDict: []});        
 
-        for (var i = 0; i < taxonomiesBatch.length; i++) {
-          var sequence = taxonomiesBatch[i]['sequence_id'];
-          var tree = taxonomiesBatch[i]['hierarchy'];
+        post('post_compare_sequence', params).then((output) => {
+
+          console.log(output)
+
+          this.setState({currentRoot: sequences[0]});
+
+          var taxonomiesBatch = output['taxonomies_batch'];
+          var mergedTree = output['merged_tree'];
+
+          for (var i = 0; i < taxonomiesBatch.length; i++) {
+            var sequence = taxonomiesBatch[i]['sequence_id'];
+            var tree = taxonomiesBatch[i]['hierarchy'];
+            
+            var singleHierarchy = d3.hierarchy(tree)
+              .sum(function(d) { 
+                return d.value? d.value[Object.keys(d.value)[0]]: undefined;
+              });
+
+            singleHierarchy._children = singleHierarchy.children;
+
+            rootDict[sequence] = singleHierarchy;
+
+          }
           
-          var singleHierarchy = d3.hierarchy(tree)
-            .sum(function(d) { 
-              return d.value? d.value[Object.keys(d.value)[0]]: undefined;
-            });
+          mergedTree._children = mergedTree.children;
 
-          singleHierarchy._children = singleHierarchy.children;
+          var hierarchy = d3.hierarchy(mergedTree)
+            .sum(function(d) { return d.children; });
 
-          rootDict[sequence] = singleHierarchy;
+          this.setState({mergedTree: mergedTree});
 
-        }
+          this.state.dendogram.draw(hierarchy);
+
+          this.setState({rootDict: rootDict});
+
+          var tmpSequences = Object.keys(rootDict);
+
+          if(tmpSequences.length === 1)
+            this.state.icicle.draw(rootDict[tmpSequences[0]], tmpSequences[0]);
+
+          else 
+            this.iterateOverIcicles(this.state.rootDict, tmpSequences);
+
+        })  
+        .catch((error) => {
+          if (!error.includes('HTTP'))
+            error = 'Your search did not produced any result.';
+
+          this.setState({error: error});
+          console.error(error);
         
-        mergedTree._children = mergedTree.children;
-
-        var hierarchy = d3.hierarchy(mergedTree)
-          .sum(function(d) { return d.children; });
-
-        this.setState({mergedTree: mergedTree});
-
-        this.state.dendogram.draw(hierarchy);
-
-        this.setState({rootDict: rootDict});
-
-        var tmpSequences = Object.keys(rootDict);
-
-        if(tmpSequences.length === 1)
-          this.state.icicle.draw(rootDict[tmpSequences[0]], tmpSequences[0]);
-
-        else 
-          this.iterateOverIcicles(this.state.rootDict, tmpSequences);
-
-      })  
-      .catch((error) => {
-      
-        console.error(error);
-      
-      });
+        });
+      }
+      else {
+        this.setState({error: 'You have to input a valid sequence.'});
+      }      
     }
+    else {
+      this.setState({error: 'You have to input a sequence.'});
+    }
+  }
+
+
+  renderSequence() {
+    return (
+      <Col md={6}>
+        <p className='section-title' >Sequence alignment</p>
+        <Col md={8}>
+          <textarea 
+            value={this.state.sequence} 
+            rows='3'
+            placeholder='Insert a sequence or sequence id. For example, try with sp:wap_rat.' 
+            onChange={this.handleSequenceChange}
+          ></textarea>
+        </Col>
+        <Col md={1}></Col>
+        <Col md={3}>
+          <button 
+              className='btn btn-secondary' 
+              onClick={this.handleSequenceClick}>
+            Align Sequence
+          </button>
+        </Col>
+      </Col>
+    );
+  } 
+
+
+
+
+  renderScore() {
+
+    return (
+
+      <div>
+        <Col md={6}>
+          <p className='section-title' >Score Threshold: {this.state.threshold} </p>
+          <Col md={8}>
+          <ReactBootstrapSlider
+            value={this.state.threshold} 
+            slideStop={this.handleThresholdChange}
+            disabled={this.nothingToShow}
+            step={1}
+            max={100}
+            min={0} />
+          </Col>  
+          <Col md={1}></Col>
+          <Col md={3}>
+            <button 
+                className='btn btn-secondary' 
+                onClick={this.handleThresholdClick}
+              >
+              Change Threshold
+            </button>
+          </Col>
+        </Col>
+      </div>
+
+    );
 
   }
 
+
+  renderInfo() {
+    
+    return (
+      
+      <div>
+        <Col md={6}>
+          <p>Displaying {Object.keys(this.state.rootDict).length} compared sequences</p>
+        </Col>            
+        <Col md={6}>
+          <p>Current sequence: {this.state.currentRoot}</p>
+        </Col>  
+      </div>
+
+    );
+
+  }
+
+
+  renderAlert(){
+
+    return (
+
+      <div>
+
+        <Modal
+          show={true}
+          onHide={this.reload}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-lg">
+              Oh snap! You got an error!
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{this.state.error}</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button 
+              className='btn btn-danger'
+              onClick={this.reload}>Try again
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+      </div>
+
+    );
+
+  }
+
+
   render() { 
+
     return (
       <div>
         <Grid>
           <Row>
-            <Col md={6}>
-              <p className='section-title' >Sequence alignment</p>
-              <Col md={8}>
-                <textarea 
-                  value={this.state.sequence} 
-                  rows='3'
-                  placeholder='Insert a sequence or sequence id. For example, try with sp:wap_rat.' 
-                  onChange={this.handleSequenceChange}
-                ></textarea>
-              </Col>
-              <Col md={1}></Col>
-              <Col md={3}>
-                <button 
-                    className='btn btn-secondary' 
-                    onClick={this.handleSequenceClick}>
-                  Align Sequence
-                </button>
-              </Col>
-            </Col>
-            <Col md={6}>
-              <p className='section-title' >Score Threshold: {this.state.threshold} </p>
-              <Col md={8}>
-              <ReactBootstrapSlider
-                value={this.state.threshold} 
-                slideStop={this.handleThresholdChange}
-                disabled={this.nothingToShow}
-                step={1}
-                max={100}
-                min={0} />
-              </Col>  
-              <Col md={1}></Col>
-              <Col md={3}>
-                <button 
-                    className='btn btn-secondary' 
-                    onClick={this.handleThresholdClick}
-                  >
-                  Change Threshold
-                </button>
-              </Col>
-            </Col>
+            {this.renderSequence()}
+            {this.renderScore()}
           </Row>
         </Grid>
         <Row>
-          <Col md={6}>
-            <p>Displaying {Object.keys(this.state.rootDict).length} compared sequences</p>
-          </Col>            
-          <Col md={6}>
-            <p>Current sequence: {this.state.currentRoot}</p>
-          </Col>            
+          {Object.keys(this.state.rootDict).length > 0 && this.renderInfo()}
+        </Row>
+        <Row>
+          {this.state.error && this.renderAlert()}
         </Row>
       </div>
     );
@@ -249,7 +348,9 @@ class Form extends React.Component {
 }
 
 class Body extends React.Component {
+
   render() {
+
     return (
       <div>
         <Grid>
@@ -260,11 +361,15 @@ class Body extends React.Component {
         </Grid>
       </div>
     );
+
   } 
+
 }
 
 class Vis extends React.Component {
+
   render() {
+
     return (
       <div className='vis'>
         <div className='title'>
@@ -278,12 +383,13 @@ class Vis extends React.Component {
         </div>
       </div>
     );
+
   }
+
 }
 
 // ========================================
 ReactDOM.render(
-  // <div className = "demoWrapper">
   <Vis/>,
   document.getElementById('root')
 );

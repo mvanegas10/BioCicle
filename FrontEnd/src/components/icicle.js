@@ -109,11 +109,24 @@ export class Icicle {
       .attr("dx", ".35em")
       .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
       .attr("dy", ".35em")
-      .text((d) => { 
+      .text((d) => {
+        var score = this.getScore(d, sequence);
         return d.data.name + "(" + Math.round(
-          d.data.SCORE[sequence] * 100)/100 + "%)" 
+          score * 100)/100 + "%)" 
       });
 
+  }
+
+  getScore(d, sequence) {
+    if (d.children) {
+      var tmpScore = 0.0;
+      for (let child of d.children) {
+        tmpScore += this.getScore(child);
+      }
+      return tmpScore;
+    }
+    else 
+      return d.value;
   }
 
   clicked(d) {

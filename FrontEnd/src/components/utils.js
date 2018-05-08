@@ -15,7 +15,21 @@ export function post(path, data) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(data)
-  }).then((response) => response.json());
+  })
+  .then((response) => response.json())
+  .catch(error => console.error('Error:', error))
+  .then((response) => {
+    
+    return new Promise((resolve, reject) => {
+
+      if (response.Error)
+        reject(response.Error);
+      else
+        resolve(response);
+
+    });  
+
+  });
 
 }
 
@@ -64,9 +78,9 @@ export function filter(threshold, root, dendogram) {
       resolve( prunedOutput ); 
 
     })
-    .catch((reason) => {
+    .catch((error) => {
 
-      reject(reason);
+      console.error(error);
 
     });
 
