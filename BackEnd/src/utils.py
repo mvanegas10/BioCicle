@@ -39,8 +39,9 @@ def get_unsaved_sequences(sequences):
         and saved["comparisons"] is not None 
         and saved["hierarchy"] is not None):
 
-            saved.pop('_id', None)
+            saved.pop("_id", None)
             nonsaved_list.remove(sequence)
+            saved["max"] = saved["comparisons"][0]["SCORE"]
             saved_list.append(saved)
 
     return saved_list, nonsaved_list
@@ -103,12 +104,15 @@ def process_batch(sequences, file_batch, tree):
             "sequence_id": sequences[i],
             "comparisons": comparisons,
             "tree": tmp_tree,
-            "hierarchy": tmp_hierarchy
+            "hierarchy": tmp_hierarchy,
+            "max": comparisons[0]["SCORE"]
         }
 
         db_models.insert_one(processed_sequence.copy())
 
-        processed_batch.extend([processed_sequence])
+        print(processed_sequence["max"])
+
+        processed_batch.extend([processed_sequence])        
 
     return tree, processed_batch
 

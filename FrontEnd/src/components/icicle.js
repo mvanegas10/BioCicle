@@ -18,13 +18,17 @@ export class Icicle {
     this.colorDict = {};
   }
 
-  draw(root, sequence) {
+  draw(parentNode, root, sequence, selectIcicle) {
+    console.log(parentNode)
+    console.log(root)
+    console.log(sequence)
+    console.log("*******")
 
-    var parent = d3.select('.icicle').html('');
+    var parent = d3.select(parentNode).html('');
     this.width = parent.node().getBoundingClientRect().width * 0.9;
     this.height = this.width;
 
-    this.svg = d3.select(".icicle").append("svg")
+    this.svg = d3.select(parentNode).append("svg")
       .attr("width", this.width)
       .attr("height", this.height);
     this.x = d3.scaleLinear()
@@ -39,14 +43,18 @@ export class Icicle {
       .padding(0)
       .round(true);
 
+    this.selectIcicle = selectIcicle;
+
     this.update(root, sequence);
+
+    return this.svg;
 
   }
 
   update(root, sequence) {
 
     // transition
-    var t = d3.transition()
+    let t = d3.transition()
       .duration(1000);
 
     //JOIN
@@ -102,18 +110,26 @@ export class Icicle {
       })
       .style("stroke", "#FFF")
       .style("stroke-width", 2)
-      .on("click", (d) => {this.clicked(d)});
-      
-    this.text = this.barsEnter.append("text")
-      .attr("x", (d) => { return d.y0; })
-      .attr("dx", ".35em")
-      .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
-      .attr("dy", ".35em")
-      .text((d) => {
-        var score = this.getScore(d, sequence);
-        return d.data.name + "(" + Math.round(
-          score * 100)/100 + "%)" 
+      .on("click", (d) => {
+        if (!this.selectIcicle)
+          return this.clicked(d)
+        else
+          return this.selectIcicle(d);
       });
+      
+      
+    if (!this.selectIcicle) {
+      this.text = this.barsEnter.append("text")
+        .attr("x", (d) => { return d.y0; })
+        .attr("dx", ".35em")
+        .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
+        .attr("dy", ".35em")
+        .text((d) => {
+          var score = this.getScore(d, sequence);
+          return d.data.name + "(" + Math.round(
+            score * 100)/100 + "%)" 
+        });
+    }
 
   }
 

@@ -75,12 +75,17 @@ div.vis-form {
 div.modal {
     z-index: 4000 !important;
 }
-div.vis-body * {
+div.vis-body {
     display: inline;
-    margin-top: 3cm;
+}
+div.margin {
+    margin-top: 6cm;
 }
 div.modal-content {
     background-color: #f2dede;
     border-color: #ebccd1;
     color: #a94442;
+}
+svg.sparkline {
+    margin: 0px !important;
 }

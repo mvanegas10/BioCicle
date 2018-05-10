@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
 import * as d3 from 'd3';
-import { post, filter } from './components/utils';
+import { post, drawSparklines, filter } from './components/utils';
 import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
-import { Grid, Row, Col, Modal, Button, ButtonToolbar } from 'react-bootstrap';
+import { Grid, Row, Col, Modal, Button } from 'react-bootstrap';
 
 const TIME_ITERATION = 1000;
-
 
 
 class Form extends React.Component {
@@ -16,6 +15,7 @@ class Form extends React.Component {
     super(props);
 
     this.iterateOverIcicles = this.iterateOverIcicles.bind(this);
+    this.selectIcicle = this.selectIcicle.bind(this);
     this.handleDendogramClick = this.handleDendogramClick.bind(this);
     this.handleAttrChange = this.handleAttrChange.bind(this);
     this.handleFuncChange = this.handleFuncChange.bind(this);
@@ -45,10 +45,19 @@ class Form extends React.Component {
     window.location.reload();
   }
 
+  selectIcicle(icicle) {
+    if(this.state.interval)
+      this.state.interval.stop();
+    
+    let sequence_id = Object.keys(icicle.data.SCORE)[0];
+    this.state.icicle.draw(
+        '.icicle', this.state.rootDict[sequence_id].hierarchy, sequence_id);
+  }
+
   iterateOverIcicles(treeDict, idList) {
 
-    console.log('treeDict', treeDict)
-    console.log('idList', idList)
+    console.log(treeDict)
+    console.log(idList)
 
     if(this.state.interval)
       this.state.interval.stop();
@@ -57,9 +66,10 @@ class Form extends React.Component {
 
     var interval = d3.interval(() => {
 
-      var root = treeDict[idList[i]];
+      let root = treeDict[idList[i]].hierarchy;
 
-      this.state.icicle.draw(root, idList[i]);
+      treeDict[idList[i]]['svg'] = this.state.icicle.draw(
+          '.icicle', root, idList[i]);
 
       this.setState({currentRoot: idList[i]});
 
@@ -69,11 +79,13 @@ class Form extends React.Component {
 
     this.setState({interval:interval});
 
+    return treeDict;
+
   }
 
   handleDendogramClick(dendogram, d) {
     if (d.children) {
-      var sequences = Object.keys(d.data.SCORE);
+      let sequences = Object.keys(d.data.SCORE);
 
       this.iterateOverIcicles(this.state.rootDict, sequences);
     }
@@ -98,7 +110,7 @@ class Form extends React.Component {
       if(this.state.threshold) {
 
         var tmpDict = this.state.rootDict;
-        var tmpSequences = Object.keys(tmpDict);
+        let tmpSequences = Object.keys(tmpDict);
 
         tmpSequences.forEach((sequence) => {
           tmpDict[sequence].children = tmpDict[sequence]._children;
@@ -109,9 +121,9 @@ class Form extends React.Component {
         var tempTree = this.state.mergedTree;
         tempTree.children = tempTree._children;
         this.setState({mergedTree: tempTree});
-        console.log(this.state.mergedTree)
         filter(
             this.state.threshold, 
+            this.state.rootDict, 
             this.state.mergedTree, 
             this.state.dendogram
         ).then((output) => {
@@ -119,10 +131,9 @@ class Form extends React.Component {
           for(var sequence in this.state.rootDict) {
             if(!tempHier[sequence]) 
               tempHier[sequence] = {};
-            tempHier[sequence]._children = this.state.rootDict[sequence].children;
+            tempHier[sequence]._children = this.state.rootDict[sequence].hierarchy.children;
           }
           this.setState({rootDict: tempHier});
-          console.log(this.state.rootDict)
           this.iterateOverIcicles(output.hierarchies, output.prunedSequences);
 
         });
@@ -141,7 +152,7 @@ class Form extends React.Component {
       this.setState({nothingToShow: 'false'});
 
       var rootDict = {};
-      var sequences = this.state.sequence.split(',');
+      let sequences = this.state.sequence.split(',');
     
       if(sequences.length > 0) {
 
@@ -154,16 +165,14 @@ class Form extends React.Component {
 
         post('post_compare_sequence', params).then((output) => {
 
-          console.log(output)
-
           this.setState({currentRoot: sequences[0]});
 
-          var taxonomiesBatch = output['taxonomies_batch'];
+          let taxonomiesBatch = output['taxonomies_batch'];
           var mergedTree = output['merged_tree'];
 
-          for (var i = 0; i < taxonomiesBatch.length; i++) {
-            var sequence = taxonomiesBatch[i]['sequence_id'];
-            var tree = taxonomiesBatch[i]['hierarchy'];
+          for (let i = 0; i < taxonomiesBatch.length; i++) {
+            let sequence = taxonomiesBatch[i]['sequence_id'];
+            let tree = taxonomiesBatch[i]['hierarchy'];
             
             var singleHierarchy = d3.hierarchy(tree)
               .sum(function(d) { 
@@ -172,32 +181,44 @@ class Form extends React.Component {
 
             singleHierarchy._children = singleHierarchy.children;
 
-            rootDict[sequence] = singleHierarchy;
+            let tmpObject = {
+              'sequence_id': sequence,
+              'hierarchy': singleHierarchy,
+              'max': taxonomiesBatch[i]['max']
+            };
+
+            rootDict[sequence] = tmpObject;
 
           }
           
           mergedTree._children = mergedTree.children;
 
-          var hierarchy = d3.hierarchy(mergedTree)
+          let hierarchy = d3.hierarchy(mergedTree)
             .sum(function(d) { return d.children; });
 
           this.setState({mergedTree: mergedTree});
 
           this.state.dendogram.draw(hierarchy);
 
-          this.setState({rootDict: rootDict});
-
-          var tmpSequences = Object.keys(rootDict);
+          let tmpSequences = Object.keys(rootDict);
 
           if(tmpSequences.length === 1)
-            this.state.icicle.draw(rootDict[tmpSequences[0]], tmpSequences[0]);
+            rootDict[tmpSequences[0]]['svg'] = this.state.icicle.draw(
+                '.icicle', 
+                rootDict[tmpSequences[0]].hierarchy, 
+                tmpSequences[0]);
 
           else 
-            this.iterateOverIcicles(this.state.rootDict, tmpSequences);
+            rootDict = this.iterateOverIcicles(
+                rootDict, tmpSequences);
+
+          drawSparklines(rootDict, this.selectIcicle);
+
+          this.setState({rootDict: rootDict});
 
         })  
         .catch((error) => {
-          if (!error.includes('HTTP'))
+          if (error && typeof(error) === 'string' && !error.includes('HTTP'))
             error = 'Your search did not produced any result.';
 
           this.setState({error: error});
@@ -355,8 +376,9 @@ class Body extends React.Component {
       <div>
         <Grid>
           <Row>
-            <Col md={5} className='dendogram'></Col>
-            <Col md={7} className='icicle'></Col>
+            <Col md={5} className='dendogram margin'></Col>
+            <Col md={1} className='sparklines margin'></Col>
+            <Col md={6} className='icicle margin'></Col>
           </Row>
         </Grid>
       </div>
