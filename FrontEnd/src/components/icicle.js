@@ -19,10 +19,6 @@ export class Icicle {
   }
 
   draw(parentNode, root, sequence, selectIcicle) {
-    console.log(parentNode)
-    console.log(root)
-    console.log(sequence)
-    console.log("*******")
 
     var parent = d3.select(parentNode).html('');
     this.width = parent.node().getBoundingClientRect().width * 0.9;
@@ -114,7 +110,7 @@ export class Icicle {
         if (!this.selectIcicle)
           return this.clicked(d)
         else
-          return this.selectIcicle(d);
+          return this.selectIcicle(Object.keys(d.data.SCORE)[0]);
       });
       
       

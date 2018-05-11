@@ -1,13 +1,12 @@
 import * as d3 from 'd3';
 import { Icicle } from './icicle';
 
-var CONFIG = require('../config/config.json');
+var CONFIG = require('../assets/config/config.json');
 
 function prune(node, threshold) {
   var leaves = node.leaves();
   for (let leave of leaves) {
     if (leave.value < threshold) {
-      console.log('Leave ', leave.value);
       var parent = leave.parent;
       while (parent) {
         if (parent.value === leave.value) {
@@ -64,7 +63,6 @@ export function drawSparklines(models, selectIcicle) {
   models = Object.values(models)
 
   let parent = d3.select('.sparklines').html('');
-  console.log(parent)
   let width = parent.node().getBoundingClientRect().width;
 
   let parentNode = parent.selectAll('div')
@@ -84,8 +82,6 @@ export function drawSparklines(models, selectIcicle) {
 
   for (let model of models) {
 
-    console.log(model)
-  
     let icicle = new Icicle();
 
     icicle.draw(

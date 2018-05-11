@@ -7,7 +7,7 @@ import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 import { Grid, Row, Col, Modal, Button } from 'react-bootstrap';
 
-const TIME_ITERATION = 1000;
+const TIME_ITERATION = 500;
 
 
 class Form extends React.Component {
@@ -45,19 +45,17 @@ class Form extends React.Component {
     window.location.reload();
   }
 
-  selectIcicle(icicle) {
+  selectIcicle(sequence_id) {
     if(this.state.interval)
       this.state.interval.stop();
-    
-    let sequence_id = Object.keys(icicle.data.SCORE)[0];
+
+    this.setState({interval: undefined});
+
     this.state.icicle.draw(
         '.icicle', this.state.rootDict[sequence_id].hierarchy, sequence_id);
   }
 
   iterateOverIcicles(treeDict, idList) {
-
-    console.log(treeDict)
-    console.log(idList)
 
     if(this.state.interval)
       this.state.interval.stop();
@@ -238,8 +236,8 @@ class Form extends React.Component {
 
   renderSequence() {
     return (
-      <Col md={6}>
-        <p className='section-title' >Sequence alignment</p>
+      <Col md={8}>
+        <h4 className='section-title' >Sequence alignment</h4>
         <Col md={8}>
           <textarea 
             value={this.state.sequence} 
@@ -268,9 +266,9 @@ class Form extends React.Component {
     return (
 
       <div>
-        <Col md={6}>
-          <p className='section-title' >Score Threshold: {this.state.threshold} </p>
-          <Col md={8}>
+        <Col md={4}>
+          <h4 className='section-title' >Score Threshold: {this.state.threshold} </h4>
+          <Col md={11}>
           <ReactBootstrapSlider
             value={this.state.threshold} 
             slideStop={this.handleThresholdChange}
@@ -280,15 +278,41 @@ class Form extends React.Component {
             min={0} />
           </Col>  
           <Col md={1}></Col>
-          <Col md={3}>
-            <button 
-                className='btn btn-secondary' 
-                onClick={this.handleThresholdClick}
-              >
-              Change Threshold
-            </button>
-          </Col>
         </Col>
+      </div>
+
+    );
+
+  }
+
+
+  renderResume(){
+
+    return (
+
+      <div>
+        <Col md={2}></Col>   
+        <Col md={1}>
+          <Button 
+            className='img-frame'
+            onClick={() => { this.iterateOverIcicles(
+                this.state.rootDict,
+                Object.keys(this.state.rootDict)
+              )} }
+            disabled={(this.state.interval === undefined)? false: true}
+            >
+            <img src={require('./assets/img/resume.png')} width={30} height={30}/>
+          </Button>
+          <Button 
+            className='img-frame'
+            onClick={() => { this.selectIcicle(this.state.currentRoot)} }
+            disabled={(this.state.interval === undefined)? true: false}
+            >
+            <img src={require('./assets/img/pause.png')} width={30} height={30}/>
+          </Button>
+        </Col>   
+        <Col md={2}></Col>
+
       </div>
 
     );
@@ -301,12 +325,12 @@ class Form extends React.Component {
     return (
       
       <div>
-        <Col md={6}>
-          <p>Displaying {Object.keys(this.state.rootDict).length} compared sequences</p>
-        </Col>            
-        <Col md={6}>
-          <p>Current sequence: {this.state.currentRoot}</p>
-        </Col>  
+        <Col md={1}></Col>
+        <Col md={3}>
+          <h4>Displaying {Object.keys(this.state.rootDict).length} sequences.     {'\n'} Current sequence: </h4>
+        </Col>
+        <Col md={3} className='to-left'> <h4> {this.state.currentRoot}</h4></Col> 
+        {Object.keys(this.state.rootDict).length > 1 && this.renderResume() }
       </div>
 
     );
