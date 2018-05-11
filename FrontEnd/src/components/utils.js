@@ -88,6 +88,7 @@ export function drawSparklines(models, selectIcicle) {
         `#${model.sequence_id.replace(':','')}`, 
         model.hierarchy, 
         model.sequence_id,
+        model.total,
         selectIcicle);
     
   }

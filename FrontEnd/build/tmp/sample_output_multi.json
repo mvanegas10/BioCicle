@@ -1,0 +1,1115 @@
+{
+  "alignments":[
+    {
+      "name": "Chordata",
+      "children": [
+        {
+          "name": "Mammalia",
+          "children": [
+            {
+              "name": "Rodentia",
+              "children": [
+                {
+                  "name": "Muridae",
+                  "children": [
+                    {
+                      "name": "Rattus",
+                      "children": [
+                        {
+                          "name": "Buffalo rat",
+                          "SCORE": 8.5825913395524,
+                          "value": 8.5825913395524
+                        }
+                      ],
+                      "SCORE": 8.5825913395524
+                    },
+                    {
+                      "name": "Mus",
+                      "children": [
+                        {
+                          "name": "LK3 transgenic mice",
+                          "SCORE": 11.914839403762585,
+                          "value": 11.914839403762585
+                        }
+                      ],
+                      "SCORE": 11.914839403762585
+                    }
+                  ],
+                  "SCORE": 20.497430743314986
+                },
+                {
+                  "name": "Caviidae",
+                  "children": [
+                    {
+                      "name": "Cavia",
+                      "children": [
+                        {
+                          "name": "Cavia aperea porcellus",
+                          "SCORE": 0.5053579264753765,
+                          "value": 0.5053579264753765
+                        }
+                      ],
+                      "SCORE": 0.5053579264753765
+                    }
+                  ],
+                  "SCORE": 0.5053579264753765
+                }
+              ],
+              "SCORE": 21.002788669790363
+            },
+            {
+              "name": "Lagomorpha",
+              "children": [
+                {
+                  "name": "Leporidae",
+                  "children": [
+                    {
+                      "name": "Oryctolagus",
+                      "children": [
+                        {
+                          "name": "European rabbit",
+                          "SCORE": 1.463697747830642,
+                          "value": 1.463697747830642
+                        }
+                      ],
+                      "SCORE": 1.463697747830642
+                    }
+                  ],
+                  "SCORE": 1.463697747830642
+                }
+              ],
+              "SCORE": 1.463697747830642
+            },
+            {
+              "name": "Artiodactyla",
+              "children": [
+                {
+                  "name": "Suidae",
+                  "children": [
+                    {
+                      "name": "Sus",
+                      "children": [
+                        {
+                          "name": "Sus scrofa",
+                          "SCORE": 3.545998895856633,
+                          "value": 3.545998895856633
+                        }
+                      ],
+                      "SCORE": 3.545998895856633
+                    }
+                  ],
+                  "SCORE": 3.545998895856633
+                },
+                {
+                  "name": "Camelidae",
+                  "children": [
+                    {
+                      "name": "Camelus",
+                      "children": [
+                        {
+                          "name": "Arabian camel",
+                          "SCORE": 0.6964596633778297,
+                          "value": 0.6964596633778297
+                        }
+                      ],
+                      "SCORE": 0.6964596633778297
+                    }
+                  ],
+                  "SCORE": 0.6964596633778297
+                }
+              ],
+              "SCORE": 4.242458559234462
+            },
+            {
+              "name": "Primata",
+              "children": [
+                {
+                  "name": "Hominidae",
+                  "children": [
+                    {
+                      "name": "Homo",
+                      "children": [
+                        {
+                          "name": "Home sapiens",
+                          "SCORE": 14.996531857367332,
+                          "value": 14.996531857367332
+                        }
+                      ],
+                      "SCORE": 14.996531857367332
+                    },
+                    {
+                      "name": "Pongo",
+                      "children": [
+                        {
+                          "name": "Orang-utan",
+                          "SCORE": 1.084325410868735,
+                          "value": 1.084325410868735
+                        }
+                      ],
+                      "SCORE": 1.084325410868735
+                    },
+                    {
+                      "name": "Pan",
+                      "children": [
+                        {
+                          "name": "Chimpansee troglodytes",
+                          "SCORE": 1.5373073057486244,
+                          "value": 1.5373073057486244
+                        }
+                      ],
+                      "SCORE": 1.5373073057486244
+                    },
+                    {
+                      "name": "Gorilla",
+                      "children": [
+                        {
+                          "name": "Gorilla gorilla",
+                          "SCORE": 1.084325410868735,
+                          "value": 1.084325410868735
+                        }
+                      ],
+                      "SCORE": 1.084325410868735
+                    }
+                  ],
+                  "SCORE": 18.702489984853422
+                },
+                {
+                  "name": "Lemuridae",
+                  "children": [
+                    {
+                      "name": "Lemur",
+                      "children": [
+                        {
+                          "name": "Lemur catta",
+                          "SCORE": 1.1621816740512159,
+                          "value": 1.1621816740512159
+                        }
+                      ],
+                      "SCORE": 1.1621816740512159
+                    }
+                  ],
+                  "SCORE": 1.1621816740512159
+                },
+                {
+                  "name": "Cercopithecidae",
+                  "children": [
+                    {
+                      "name": "Chlorocebus",
+                      "children": [
+                        {
+                          "name": "African green monkey",
+                          "SCORE": 1.10414336876973,
+                          "value": 1.10414336876973
+                        }
+                      ],
+                      "SCORE": 1.10414336876973
+                    },
+                    {
+                      "name": "Papio",
+                      "children": [
+                        {
+                          "name": "Anubis baboon",
+                          "SCORE": 1.1041433687697302,
+                          "value": 1.1041433687697302
+                        }
+                      ],
+                      "SCORE": 1.1041433687697302
+                    },
+                    {
+                      "name": "Macaca",
+                      "children": [
+                        {
+                          "name": "Macaca mulatta",
+                          "SCORE": 1.569865379443116,
+                          "value": 1.569865379443116
+                        }
+                      ],
+                      "SCORE": 1.569865379443116
+                    },
+                    {
+                      "name": "Colobus",
+                      "children": [
+                        {
+                          "name": "Colobus abyssinicus",
+                          "SCORE": 1.0970655266622318,
+                          "value": 1.0970655266622318
+                        }
+                      ],
+                      "SCORE": 1.0970655266622318
+                    }
+                  ],
+                  "SCORE": 4.875217643644808
+                },
+                {
+                  "name": "Aotidae",
+                  "children": [
+                    {
+                      "name": "Aotus",
+                      "children": [
+                        {
+                          "name": "Aotus nancymaae",
+                          "SCORE": 1.0843254108687348,
+                          "value": 1.0843254108687348
+                        }
+                      ],
+                      "SCORE": 1.0843254108687348
+                    }
+                  ],
+                  "SCORE": 1.0843254108687348
+                },
+                {
+                  "name": "Cebidae",
+                  "children": [
+                    {
+                      "name": "Saimiri",
+                      "children": [
+                        {
+                          "name": "Bolivian squirrel monkey",
+                          "SCORE": 1.0772475687612366,
+                          "value": 1.0772475687612366
+                        }
+                      ],
+                      "SCORE": 1.0772475687612366
+                    },
+                    {
+                      "name": "Callithrix",
+                      "children": [
+                        {
+                          "name": "Callithrix jacchus",
+                          "SCORE": 1.0772475687612366,
+                          "value": 1.0772475687612366
+                        }
+                      ],
+                      "SCORE": 1.0772475687612366
+                    }
+                  ],
+                  "SCORE": 2.1544951375224732
+                },
+                {
+                  "name": "Galagidae",
+                  "children": [
+                    {
+                      "name": "Otolemur",
+                      "children": [
+                        {
+                          "name": "Galago garnetti",
+                          "SCORE": 0.584629758079357,
+                          "value": 0.584629758079357
+                        }
+                      ],
+                      "SCORE": 0.584629758079357
+                    }
+                  ],
+                  "SCORE": 0.584629758079357
+                }
+              ],
+              "SCORE": 28.563339609020016
+            },
+            {
+              "name": "Pecora",
+              "children": [
+                {
+                  "name": "Bovidae",
+                  "children": [
+                    {
+                      "name": "Bos",
+                      "children": [
+                        {
+                          "name": "Bos Tauurus",
+                          "SCORE": 1.602423453137608,
+                          "value": 1.602423453137608
+                        }
+                      ],
+                      "SCORE": 1.602423453137608
+                    },
+                    {
+                      "name": "Ovis",
+                      "children": [
+                        {
+                          "name": "Ovis ammon aries",
+                          "SCORE": 0.5393315685913682,
+                          "value": 0.5393315685913682
+                        }
+                      ],
+                      "SCORE": 0.5393315685913682
+                    }
+                  ],
+                  "SCORE": 2.1417550217289762
+                }
+              ],
+              "SCORE": 2.1417550217289762
+            },
+            {
+              "name": "Diprotodontia",
+              "children": [
+                {
+                  "name": "Macropodidae",
+                  "children": [
+                    {
+                      "name": "Bennett's wallabies",
+                      "children": [
+                        {
+                          "name": "Macropus eugenii",
+                          "SCORE": 0.6171878317738492,
+                          "value": 0.6171878317738492
+                        }
+                      ],
+                      "SCORE": 0.6171878317738492
+                    }
+                  ],
+                  "SCORE": 0.6171878317738492
+                }
+              ],
+              "SCORE": 0.6171878317738492
+            },
+            {
+              "name": "Carnivora",
+              "children": [
+                {
+                  "name": "Canidae",
+                  "children": [
+                    {
+                      "name": "Canis",
+                      "children": [
+                        {
+                          "name": "Canis lupus",
+                          "SCORE": 0.552071684384865,
+                          "value": 0.552071684384865
+                        }
+                      ],
+                      "SCORE": 0.552071684384865
+                    }
+                  ],
+                  "SCORE": 0.552071684384865
+                }
+              ],
+              "SCORE": 0.552071684384865
+            }
+          ],
+          "SCORE": 58.583299123763176
+        },
+        {
+          "name": "Aves",
+          "children": [
+            {
+              "name": "Craciformes",
+              "children": [
+                {
+                  "name": "Meleagrididae",
+                  "children": [
+                    {
+                      "name": "Coturnix",
+                      "children": [
+                        {
+                          "name": "Coturnix coturnix Japonicus",
+                          "SCORE": 0.6370057896748442,
+                          "value": 0.6370057896748442
+                        }
+                      ],
+                      "SCORE": 0.6370057896748442
+                    },
+                    {
+                      "name": "Gallus",
+                      "children": [
+                        {
+                          "name": "Gallus domesticus",
+                          "SCORE": 1.6689551689480917,
+                          "value": 1.6689551689480917
+                        }
+                      ],
+                      "SCORE": 1.6689551689480917
+                    }
+                  ],
+                  "SCORE": 2.3059609586229364
+                }
+              ],
+              "SCORE": 2.3059609586229364
+            }
+          ],
+          "SCORE": 2.3059609586229364
+        },
+        {
+          "name": "Sarcopterygii",
+          "children": [
+            {
+              "name": "Squamata",
+              "children": [
+                {
+                  "name": "Dipsadidae",
+                  "children": [
+                    {
+                      "name": "Philodryas",
+                      "children": [
+                        {
+                          "name": "BMNH 1946.1.21.59",
+                          "SCORE": 1.8374078111065506,
+                          "value": 1.8374078111065506
+                        }
+                      ],
+                      "SCORE": 1.8374078111065506
+                    },
+                    {
+                      "name": "Erythrolamprus",
+                      "children": [
+                        {
+                          "name": "AMNH 3594",
+                          "SCORE": 0.4926178106818795,
+                          "value": 0.4926178106818795
+                        }
+                      ],
+                      "SCORE": 0.4926178106818795
+                    }
+                  ],
+                  "SCORE": 2.33002562178843
+                },
+                {
+                  "name": "Elapidae",
+                  "children": [
+                    {
+                      "name": "Pseudechis",
+                      "children": [
+                        {
+                          "name": "Pseudechis australis",
+                          "SCORE": 1.194739747745708,
+                          "value": 1.194739747745708
+                        },
+                        {
+                          "name": "Pseudechis porphyriacus",
+                          "SCORE": 2.2918052744079396,
+                          "value": 2.2918052744079396
+                        }
+                      ],
+                      "SCORE": 3.4865450221536474
+                    },
+                    {
+                      "name": "Austrelaps",
+                      "children": [
+                        {
+                          "name": "Australian copperhead",
+                          "SCORE": 2.33144119020993,
+                          "value": 2.33144119020993
+                        }
+                      ],
+                      "SCORE": 2.33144119020993
+                    },
+                    {
+                      "name": "Hoplocephalus",
+                      "children": [
+                        {
+                          "name": "Hoplocephalus stephensi",
+                          "SCORE": 0.597369873872854,
+                          "value": 0.597369873872854
+                        }
+                      ],
+                      "SCORE": 0.597369873872854
+                    },
+                    {
+                      "name": "Demansia",
+                      "children": [
+                        {
+                          "name": "Demansia atra",
+                          "SCORE": 2.305960958622936,
+                          "value": 2.305960958622936
+                        }
+                      ],
+                      "SCORE": 2.305960958622936
+                    },
+                    {
+                      "name": "Cryptophis",
+                      "children": [
+                        {
+                          "name": "BMNH 1946.1.20.58",
+                          "SCORE": 1.1437792845717203,
+                          "value": 1.1437792845717203
+                        }
+                      ],
+                      "SCORE": 1.1437792845717203
+                    },
+                    {
+                      "name": "Tropidechis",
+                      "children": [
+                        {
+                          "name": "Tropidechis carinatus",
+                          "SCORE": 1.1551038319437175,
+                          "value": 1.1551038319437175
+                        }
+                      ],
+                      "SCORE": 1.1551038319437175
+                    },
+                    {
+                      "name": "Notechis",
+                      "children": [
+                        {
+                          "name": "Naja (Hamadryas) scutata",
+                          "SCORE": 1.1494415582577189,
+                          "value": 1.1494415582577189
+                        }
+                      ],
+                      "SCORE": 1.1494415582577189
+                    },
+                    {
+                      "name": "Oxyuranus",
+                      "children": [
+                        {
+                          "name": "NMV D12354",
+                          "SCORE": 1.668955168948092,
+                          "value": 1.668955168948092
+                        },
+                        {
+                          "name": "Oxyuranus scutellatus",
+                          "SCORE": 0.5648118001783619,
+                          "value": 0.5648118001783619
+                        }
+                      ],
+                      "SCORE": 2.233766969126454
+                    },
+                    {
+                      "name": "Pseudonaja",
+                      "children": [
+                        {
+                          "name": "MNHP 3944",
+                          "SCORE": 0.5648118001783619,
+                          "value": 0.5648118001783619
+                        }
+                      ],
+                      "SCORE": 0.5648118001783619
+                    },
+                    {
+                      "name": "Naja",
+                      "children": [
+                        {
+                          "name": "Naja nigricollis",
+                          "SCORE": 0.5251758843763716,
+                          "value": 0.5251758843763716
+                        }
+                      ],
+                      "SCORE": 0.5251758843763716
+                    }
+                  ],
+                  "SCORE": 15.493396373313713
+                },
+                {
+                  "name": "Colubridae",
+                  "children": [
+                    {
+                      "name": "Thrasops",
+                      "children": [
+                        {
+                          "name": "Thrasops jacksoni",
+                          "SCORE": 0.5322537264838699,
+                          "value": 0.5322537264838699
+                        }
+                      ],
+                      "SCORE": 0.5322537264838699
+                    },
+                    {
+                      "name": "Rhabdophis",
+                      "children": [
+                        {
+                          "name": "BMNH 1861.12.27.9",
+                          "SCORE": 0.5322537264838699,
+                          "value": 0.5322537264838699
+                        }
+                      ],
+                      "SCORE": 0.5322537264838699
+                    }
+                  ],
+                  "SCORE": 1.0645074529677399
+                },
+                {
+                  "name": "Homalopsidae",
+                  "children": [
+                    {
+                      "name": "Pseudoferania",
+                      "children": [
+                        {
+                          "name": "Enhydris polylepis",
+                          "SCORE": 0.4926178106818795,
+                          "value": 0.4926178106818795
+                        }
+                      ],
+                      "SCORE": 0.4926178106818795
+                    }
+                  ],
+                  "SCORE": 0.4926178106818795
+                }
+              ],
+              "SCORE": 19.380547258751754
+            },
+            {
+              "name": "Anapsida",
+              "children": [
+                {
+                  "name": "Cheloniidae",
+                  "children": [
+                    {
+                      "name": "Caretta",
+                      "children": [
+                        {
+                          "name": "Caretta caretta",
+                          "SCORE": 0.5053579264753765,
+                          "value": 0.5053579264753765
+                        }
+                      ],
+                      "SCORE": 0.5053579264753765
+                    }
+                  ],
+                  "SCORE": 0.5053579264753765
+                }
+              ],
+              "SCORE": 0.5053579264753765
+            }
+          ],
+          "SCORE": 19.88590518522713
+        },
+        {
+          "name": "Actinopteri",
+          "children": [
+            {
+              "name": "Cypriniformes",
+              "children": [
+                {
+                  "name": "Cyprinidae",
+                  "children": [
+                    {
+                      "name": "Brachydanio",
+                      "children": [
+                        {
+                          "name": "Brachidanio rerio",
+                          "SCORE": 0.4671375790948858,
+                          "value": 0.4671375790948858
+                        }
+                      ],
+                      "SCORE": 0.4671375790948858
+                    }
+                  ],
+                  "SCORE": 0.4671375790948858
+                }
+              ],
+              "SCORE": 0.4671375790948858
+            }
+          ],
+          "SCORE": 0.4671375790948858
+        },
+        {
+          "name": "Amphibia",
+          "children": [
+            {
+              "name": "Anura",
+              "children": [
+                {
+                  "name": "Pipidae",
+                  "children": [
+                    {
+                      "name": "Xenopus",
+                      "children": [
+                        {
+                          "name": "Silurana (Xenopus) tropicalis",
+                          "SCORE": 0.4600597369873875,
+                          "value": 0.4600597369873875
+                        },
+                        {
+                          "name": "African clawed frog",
+                          "SCORE": 0.874821284486786,
+                          "value": 0.874821284486786
+                        }
+                      ],
+                      "SCORE": 1.3348810214741735
+                    }
+                  ],
+                  "SCORE": 1.3348810214741735
+                }
+              ],
+              "SCORE": 1.3348810214741735
+            }
+          ],
+          "SCORE": 1.3348810214741735
+        }
+      ],
+      "SCORE": 82.57718386818219
+    },
+    {
+      "name": "Chordata",
+      "children": [
+        {
+          "name": "Mammalia",
+          "children": [
+            {
+              "name": "Carnivora",
+              "children": [
+                {
+                  "name": "Canidae",
+                  "children": [
+                    {
+                      "name": "Alopex",
+                      "children": [
+                        {
+                          "name": "Canis vulpes",
+                          "SCORE": 5.21727467811159,
+                          "value": 5.21727467811159
+                        }
+                      ],
+                      "SCORE": 5.21727467811159
+                    },
+                    {
+                      "name": "Canis",
+                      "children": [
+                        {
+                          "name": "Canis lupus",
+                          "SCORE": 5.21727467811159,
+                          "value": 5.21727467811159
+                        }
+                      ],
+                      "SCORE": 5.21727467811159
+                    }
+                  ],
+                  "SCORE": 10.43454935622318
+                },
+                {
+                  "name": "Ursidae",
+                  "children": [
+                    {
+                      "name": "Euarctos",
+                      "children": [
+                        {
+                          "name": "Ursus arctos",
+                          "SCORE": 4.694206008583692,
+                          "value": 4.694206008583692
+                        }
+                      ],
+                      "SCORE": 4.694206008583692
+                    }
+                  ],
+                  "SCORE": 4.694206008583692
+                },
+                {
+                  "name": "Phocidae",
+                  "children": [
+                    {
+                      "name": "Halichoerus",
+                      "children": [
+                        {
+                          "name": "Halichoerus grypus",
+                          "SCORE": 4.104077253218885,
+                          "value": 4.104077253218885
+                        }
+                      ],
+                      "SCORE": 4.104077253218885
+                    }
+                  ],
+                  "SCORE": 4.104077253218885
+                },
+                {
+                  "name": "Felidae",
+                  "children": [
+                    {
+                      "name": "Felis",
+                      "children": [
+                        {
+                          "name": "Felis catus",
+                          "SCORE": 4.104077253218885,
+                          "value": 4.104077253218885
+                        }
+                      ],
+                      "SCORE": 4.104077253218885
+                    }
+                  ],
+                  "SCORE": 4.104077253218885
+                }
+              ],
+              "SCORE": 23.336909871244643
+            },
+            {
+              "name": "Perissodactyla",
+              "children": [
+                {
+                  "name": "Equidae",
+                  "children": [
+                    {
+                      "name": "Equus",
+                      "children": [
+                        {
+                          "name": "African ass",
+                          "SCORE": 4.278433476394851,
+                          "value": 4.278433476394851
+                        },
+                        {
+                          "name": "Equus caballus",
+                          "SCORE": 3.6883047210300437,
+                          "value": 3.6883047210300437
+                        }
+                      ],
+                      "SCORE": 7.966738197424895
+                    }
+                  ],
+                  "SCORE": 7.966738197424895
+                },
+                {
+                  "name": "Tapiridae",
+                  "children": [
+                    {
+                      "name": "Tapirus",
+                      "children": [
+                        {
+                          "name": "Brazilian tapir",
+                          "SCORE": 4.211373390557941,
+                          "value": 4.211373390557941
+                        }
+                      ],
+                      "SCORE": 4.211373390557941
+                    }
+                  ],
+                  "SCORE": 4.211373390557941
+                },
+                {
+                  "name": "Rhinocerotidae",
+                  "children": [
+                    {
+                      "name": "Ceratotherium",
+                      "children": [
+                        {
+                          "name": "Ceratotherium simum",
+                          "SCORE": 4.157725321888414,
+                          "value": 4.157725321888414
+                        }
+                      ],
+                      "SCORE": 4.157725321888414
+                    }
+                  ],
+                  "SCORE": 4.157725321888414
+                }
+              ],
+              "SCORE": 16.33583690987125
+            },
+            {
+              "name": "Artiodactyla",
+              "children": [
+                {
+                  "name": "Camelidae",
+                  "children": [
+                    {
+                      "name": "Camelus",
+                      "children": [
+                        {
+                          "name": "Arabian camel",
+                          "SCORE": 3.983369098712447,
+                          "value": 3.983369098712447
+                        }
+                      ],
+                      "SCORE": 3.983369098712447
+                    },
+                    {
+                      "name": "Vicugna",
+                      "children": [
+                        {
+                          "name": "Camelus vicugna",
+                          "SCORE": 3.7419527896995715,
+                          "value": 3.7419527896995715
+                        }
+                      ],
+                      "SCORE": 3.7419527896995715
+                    },
+                    {
+                      "name": "Lama",
+                      "children": [
+                        {
+                          "name": "Camelus glama",
+                          "SCORE": 3.7419527896995715,
+                          "value": 3.7419527896995715
+                        }
+                      ],
+                      "SCORE": 3.7419527896995715
+                    }
+                  ],
+                  "SCORE": 11.46727467811159
+                },
+                {
+                  "name": "Suidae",
+                  "children": [
+                    {
+                      "name": "Sus",
+                      "children": [
+                        {
+                          "name": "Sus scrofa",
+                          "SCORE": 3.6883047210300437,
+                          "value": 3.6883047210300437
+                        }
+                      ],
+                      "SCORE": 3.6883047210300437
+                    }
+                  ],
+                  "SCORE": 3.6883047210300437
+                }
+              ],
+              "SCORE": 15.155579399141633
+            },
+            {
+              "name": "Primata",
+              "children": [
+                {
+                  "name": "Hylobatidae",
+                  "children": [
+                    {
+                      "name": "Hylobates",
+                      "children": [
+                        {
+                          "name": "Hylobates lar",
+                          "SCORE": 3.9297210300429195,
+                          "value": 3.9297210300429195
+                        }
+                      ],
+                      "SCORE": 3.9297210300429195
+                    }
+                  ],
+                  "SCORE": 3.9297210300429195
+                },
+                {
+                  "name": "Hominidae",
+                  "children": [
+                    {
+                      "name": "Homo",
+                      "children": [
+                        {
+                          "name": "Home sapiens",
+                          "SCORE": 3.9297210300429195,
+                          "value": 3.9297210300429195
+                        }
+                      ],
+                      "SCORE": 3.9297210300429195
+                    }
+                  ],
+                  "SCORE": 3.9297210300429195
+                },
+                {
+                  "name": "Cercopithecidae",
+                  "children": [
+                    {
+                      "name": "Theropithecus",
+                      "children": [
+                        {
+                          "name": "Theropithecus gelada",
+                          "SCORE": 3.7419527896995715,
+                          "value": 3.7419527896995715
+                        }
+                      ],
+                      "SCORE": 3.7419527896995715
+                    },
+                    {
+                      "name": "Papio",
+                      "children": [
+                        {
+                          "name": "Papio hamadryas",
+                          "SCORE": 3.7419527896995715,
+                          "value": 3.7419527896995715
+                        },
+                        {
+                          "name": "Anubis baboon",
+                          "SCORE": 3.7419527896995715,
+                          "value": 3.7419527896995715
+                        }
+                      ],
+                      "SCORE": 7.483905579399143
+                    },
+                    {
+                      "name": "Macaca",
+                      "children": [
+                        {
+                          "name": "Macaca mulatta",
+                          "SCORE": 3.7419527896995715,
+                          "value": 3.7419527896995715
+                        },
+                        {
+                          "name": "Japanese macaque",
+                          "SCORE": 3.7419527896995715,
+                          "value": 3.7419527896995715
+                        },
+                        {
+                          "name": "Macaca cynomolgus",
+                          "SCORE": 3.7419527896995715,
+                          "value": 3.7419527896995715
+                        }
+                      ],
+                      "SCORE": 11.225858369098715
+                    },
+                    {
+                      "name": "Erythrocebus",
+                      "children": [
+                        {
+                          "name": "Cercopithecus patas",
+                          "SCORE": 3.7419527896995715,
+                          "value": 3.7419527896995715
+                        }
+                      ],
+                      "SCORE": 3.7419527896995715
+                    },
+                    {
+                      "name": "Chlorocebus",
+                      "children": [
+                        {
+                          "name": "African green monkey",
+                          "SCORE": 3.7419527896995715,
+                          "value": 3.7419527896995715
+                        }
+                      ],
+                      "SCORE": 3.7419527896995715
+                    }
+                  ],
+                  "SCORE": 29.93562231759657
+                }
+              ],
+              "SCORE": 37.795064377682415
+            },
+            {
+              "name": "Diprotodontia",
+              "children": [
+                {
+                  "name": "Macropodidae",
+                  "children": [
+                    {
+                      "name": "Macropus",
+                      "children": [
+                        {
+                          "name": "Macropus giganteus",
+                          "SCORE": 3.6883047210300437,
+                          "value": 3.6883047210300437
+                        }
+                      ],
+                      "SCORE": 3.6883047210300437
+                    }
+                  ],
+                  "SCORE": 3.6883047210300437
+                }
+              ],
+              "SCORE": 3.6883047210300437
+            },
+            {
+              "name": "Pecora",
+              "children": [
+                {
+                  "name": "Bovidae",
+                  "children": [
+                    {
+                      "name": "Bubalus",
+                      "children": [
+                        {
+                          "name": "Bubalis arnee bubalis",
+                          "SCORE": 3.6883047210300437,
+                          "value": 3.6883047210300437
+                        }
+                      ],
+                      "SCORE": 3.6883047210300437
+                    }
+                  ],
+                  "SCORE": 3.6883047210300437
+                }
+              ],
+              "SCORE": 3.6883047210300437
+            }
+          ],
+          "SCORE": 100.00000000000004
+        }
+      ],
+      "SCORE": 100.00000000000004
+    }
+  ]
+}

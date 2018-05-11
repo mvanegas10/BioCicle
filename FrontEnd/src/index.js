@@ -52,7 +52,10 @@ class Form extends React.Component {
     this.setState({interval: undefined});
 
     this.state.icicle.draw(
-        '.icicle', this.state.rootDict[sequence_id].hierarchy, sequence_id);
+        '.icicle', 
+        this.state.rootDict[sequence_id].hierarchy, 
+        sequence_id,
+        this.state.rootDict[sequence_id].total);
   }
 
   iterateOverIcicles(treeDict, idList) {
@@ -67,7 +70,7 @@ class Form extends React.Component {
       let root = treeDict[idList[i]].hierarchy;
 
       treeDict[idList[i]]['svg'] = this.state.icicle.draw(
-          '.icicle', root, idList[i]);
+          '.icicle', root, idList[i], treeDict[idList[i]].total);
 
       this.setState({currentRoot: idList[i]});
 
@@ -179,10 +182,15 @@ class Form extends React.Component {
 
             singleHierarchy._children = singleHierarchy.children;
 
+            let values = singleHierarchy.leaves().map((leave) => leave.value);
+
+            let total = values.reduce((accum, val) => accum + val);
+
             let tmpObject = {
               'sequence_id': sequence,
               'hierarchy': singleHierarchy,
-              'max': taxonomiesBatch[i]['max']
+              'max': taxonomiesBatch[i]['max'],
+              'total': total
             };
 
             rootDict[sequence] = tmpObject;
@@ -204,7 +212,8 @@ class Form extends React.Component {
             rootDict[tmpSequences[0]]['svg'] = this.state.icicle.draw(
                 '.icicle', 
                 rootDict[tmpSequences[0]].hierarchy, 
-                tmpSequences[0]);
+                tmpSequences[0],
+                rootDict[tmpSequences[0]].total);
 
           else 
             rootDict = this.iterateOverIcicles(

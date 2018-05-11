@@ -18,7 +18,7 @@ export class Icicle {
     this.colorDict = {};
   }
 
-  draw(parentNode, root, sequence, selectIcicle) {
+  draw(parentNode, root, sequence, aggregatedValue, selectIcicle) {
 
     var parent = d3.select(parentNode).html('');
     this.width = parent.node().getBoundingClientRect().width * 0.9;
@@ -40,6 +40,8 @@ export class Icicle {
       .round(true);
 
     this.selectIcicle = selectIcicle;
+
+    this.aggregatedValue = aggregatedValue;
 
     this.update(root, sequence);
 
@@ -123,7 +125,7 @@ export class Icicle {
         .text((d) => {
           var score = this.getScore(d, sequence);
           return d.data.name + "(" + Math.round(
-            score * 100)/100 + "%)" 
+            score * 100) + "%)" 
         });
     }
 
@@ -138,7 +140,7 @@ export class Icicle {
       return tmpScore;
     }
     else 
-      return d.value;
+      return d.value/this.aggregatedValue;
   }
 
   clicked(d) {

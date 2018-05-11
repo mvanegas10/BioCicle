@@ -1,0 +1,9 @@
+{
+  "short_name": "BioCicle",
+  "name": "Visualizing Biological Sequence Comparison Summaries for Sequence Alignment Analysis",
+  "icons": [ ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
