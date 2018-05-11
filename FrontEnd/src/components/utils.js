@@ -3,27 +3,68 @@ import { Icicle } from './icicle';
 
 var CONFIG = require('../assets/config/config.json');
 
-function prune(node, threshold) {
-  var leaves = node.leaves();
-  for (let leave of leaves) {
-    if (leave.value < threshold) {
-      var parent = leave.parent;
-      while (parent) {
-        if (parent.value === leave.value) {
-          let parentsParent = parent.parent;
-          let index = parentsParent.children.indexOf(leave);
-          if (index !== -1) parentsParent.children.splice(index, 1);
-        }
-        else {
-          let index = parent.children.indexOf(leave);
-          if (index !== -1) parent.children.splice(index, 1);
-          parent.value -= leave.value;
-        }
-        parent = (leave.parent)? leave.parent: undefined;
-      }
-    }
+
+function remove(element, array) {
+
+  const index = array.indexOf(element);
+    
+  if (index !== -1) {
+      array.splice(index, 1);
   }
-  return node;
+
+  return array;
+
+}
+
+
+function prune(node) {
+
+  let ancestors = node.ancestors;
+
+  for (let ancestor of ancestors) {
+
+    let parent = ancestor.parent;
+    if (ancestor.children.length > 1) {
+      
+      ancestor.children = remove(parent, ancestor.children);
+
+    }
+
+  }
+
+}
+
+
+function pruneLeaves(node, threshold) {
+
+  var leaves = node.hierarchy.leaves();
+  var preservedNodes = [];
+  node.hierarchy.children = [];
+
+  for (let leave of leaves) {
+    let ancestors = [];
+    
+    let currentValue = leave.value/node.total * 100;
+    if (currentValue < threshold) {
+
+      prune(leave);
+      
+
+
+      let parent = leave.parent;
+      parent.children = remove(leave, parent.children);
+      ancestors = parent.ancestors();
+    
+    }
+    else 
+      ancestors = leave.ancestors();
+
+    preservedNodes.push(ancestors[ancestors.length - 2]);
+
+  }
+
+  node.hierarchy.children = preservedNodes;
+  return node.hierarchy;
 }
 
 
@@ -97,13 +138,38 @@ export function drawSparklines(models, selectIcicle) {
 }
 
 
-export function filter(threshold, hierarchyNode, root, dendogram) {
+export function filter(threshold, hierarchyNode, idList, root, dendogram) {
   console.log('Changing threshold ', threshold);
-  console.log('   Merged tree ', root);
 
+  var output = {
+    hierarchies: {},
+    prunedSequences: [] 
+  };
 
-  console.log(' Before', hierarchyNode);
-  console.log(' After', prune(hierarchyNode['sp:WAP_RAT'], threshold));
+  return new Promise((resolve, reject) => {
+    for (let sequence_id of idList) {
+
+      let prunedHierarchy = prune(
+          hierarchyNode[sequence_id],
+          threshold);
+      if (prunedHierarchy !== undefined) {
+
+        hierarchyNode[sequence_id].hierarchy = prunedHierarchy;
+        let values = prunedHierarchy.leaves().map((leave) => leave.value);
+        let total = values.reduce((accum, val) => accum + val);
+        hierarchyNode[sequence_id].total = total;
+
+        output.hierarchies[sequence_id] = hierarchyNode[sequence_id];
+        output.prunedSequences.push(sequence_id);
+
+      }
+      
+    }
+
+    resolve(output);
+
+  });
+
 
   // return new Promise((resolve, reject) => {
 

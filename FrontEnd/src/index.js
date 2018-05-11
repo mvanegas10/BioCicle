@@ -114,7 +114,7 @@ class Form extends React.Component {
         let tmpSequences = Object.keys(tmpDict);
 
         tmpSequences.forEach((sequence) => {
-          tmpDict[sequence].children = tmpDict[sequence]._children;
+          tmpDict[sequence].hierarchy.children = tmpDict[sequence].hierarchy._children;
         });
 
         this.setState({rootDict: tmpDict});
@@ -125,14 +125,16 @@ class Form extends React.Component {
         filter(
             this.state.threshold, 
             this.state.rootDict, 
+            tmpSequences,
             this.state.mergedTree, 
             this.state.dendogram
         ).then((output) => {
+          console.log(output.hierarchies);
           var tempHier = output.hierarchies;
           for(var sequence in this.state.rootDict) {
             if(!tempHier[sequence]) 
               tempHier[sequence] = {};
-            tempHier[sequence]._children = this.state.rootDict[sequence].hierarchy.children;
+            tempHier[sequence].hierarchy._children = this.state.rootDict[sequence].hierarchy.children;
           }
           this.setState({rootDict: tempHier});
           this.iterateOverIcicles(output.hierarchies, output.prunedSequences);
