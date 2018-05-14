@@ -64,25 +64,39 @@ class Form extends React.Component {
 
   iterateOverIcicles(treeDict, idList) {
 
-    if(this.state.interval)
-      this.state.interval.stop();
+    if (idList.length === 1) {
 
-    var i = 0;
+      this.state.icicle.draw(
+        '.icicle', 
+        treeDict[idList[0]].hierarchy, 
+        idList[0],
+        treeDict[idList[0]].total);
+    
+    }
 
-    var interval = d3.interval(() => {
+    else {
 
-      let root = treeDict[idList[i]].hierarchy;
+      if(this.state.interval)
+        this.state.interval.stop();
 
-      treeDict[idList[i]]['svg'] = this.state.icicle.draw(
-          '.icicle', root, idList[i], treeDict[idList[i]].total);
+      var i = 0;
 
-      this.setState({currentRoot: idList[i]});
+      var interval = d3.interval(() => {
 
-      i = (i === (idList.length - 1))? 0: i+1;
+        let root = treeDict[idList[i]].hierarchy;
 
-    }, TIME_ITERATION);
+        treeDict[idList[i]]['svg'] = this.state.icicle.draw(
+            '.icicle', root, idList[i], treeDict[idList[i]].total);
 
-    this.setState({interval:interval});
+        this.setState({currentRoot: idList[i]});
+
+        i = (i === (idList.length - 1))? 0: i+1;
+
+      }, TIME_ITERATION);
+
+      this.setState({interval:interval});
+
+    }
 
     return treeDict;
 
@@ -131,6 +145,7 @@ class Form extends React.Component {
 
         tmpSequences.forEach((sequence) => {
           tmpDict[sequence].hierarchy.children = tmpDict[sequence].hierarchy._children.slice();
+          tmpDict[sequence].total = tmpDict[sequence]._total;
         });
 
         this.setState({rootDict: tmpDict});     
@@ -152,7 +167,9 @@ class Form extends React.Component {
             if(!tempHier[sequence]) 
               tempHier[sequence] = {};
             tempHier[sequence].hierarchy._children = this.state.rootDict[sequence].hierarchy.children.slice();
+            tempHier[sequence]._total = this.state.rootDict[sequence].total;
           }
+
           this.setState({rootDict: tempHier});
           this.iterateOverIcicles(output.hierarchies, output.prunedSequences);
 
@@ -214,6 +231,7 @@ class Form extends React.Component {
             };
 
             tmpObject.hierarchy._children = singleHierarchy.children.slice();
+            tmpObject._total = tmpObject.total;
 
             rootDict[sequence] = tmpObject;
 
@@ -232,20 +250,10 @@ class Form extends React.Component {
 
           let tmpSequences = Object.keys(rootDict);
 
-          if(tmpSequences.length === 1)
-            rootDict[tmpSequences[0]]['svg'] = this.state.icicle.draw(
-                '.icicle', 
-                rootDict[tmpSequences[0]].hierarchy, 
-                tmpSequences[0],
-                rootDict[tmpSequences[0]].total);
-
-          else 
-            rootDict = this.iterateOverIcicles(
-                rootDict, tmpSequences);
-
+          rootDict = this.iterateOverIcicles(
+              rootDict, tmpSequences);
 
           drawSparklines(rootDict, this.selectIcicle);
-
 
           this.setState({rootDict: rootDict});       
 
@@ -364,7 +372,7 @@ class Form extends React.Component {
         </Col>
         <Col md={2} className='to-left'> <h4> {this.state.currentRoot}</h4></Col> 
         <Col md={1}> 
-          <a download='comparisons.csv' target='_blank' href={() => this.downloadComparisons()}>download</a>
+          <a download='comparisons.csv' target='_blank'>download</a>
         </Col> 
         {Object.keys(this.state.rootDict).length > 1 && this.renderResume() }
         <Col></Col>

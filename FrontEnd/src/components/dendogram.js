@@ -10,34 +10,42 @@ export class Dendogram {
 
   draw(root) {
     var parent = d3.select('.dendogram').html('');
-    var width = parent.node().getBoundingClientRect().width;
-    this.width = width - this.margin.left - this.margin.right;
-    
-    this.root = root;
 
-    this.svg = d3.select(".dendogram").append("svg")
-        .attr("width", this.width + this.margin.right + this.margin.left)
-        .attr("height", this.height + this.margin.top + this.margin.bottom)
-      .append("g")
-        .attr("transform", "translate(" + 
-            this.margin.left + "," + this.margin.top + ")");
+    if (root !== undefined && root.children !== undefined && root.children.length > 0) {
+
+      var width = parent.node().getBoundingClientRect().width;
+      this.width = width - this.margin.left - this.margin.right;
+      
+      this.root = root;
+
+      this.svg = d3.select(".dendogram").append("svg")
+          .attr("width", this.width + this.margin.right + this.margin.left)
+          .attr("height", this.height + this.margin.top + this.margin.bottom)
+        .append("g")
+          .attr("transform", "translate(" + 
+              this.margin.left + "," + this.margin.top + ")");
 
 
-    // declares a tree layout and assigns the size
-    this.treemap = d3.tree().size([this.height, this.width]);
+      // declares a tree layout and assigns the size
+      this.treemap = d3.tree().size([this.height, this.width]);
 
-    // Assigns parent, children, height, depth
-    this.root.x0 = this.height / 2;
-    this.root.y0 = 0;
+      // Assigns parent, children, height, depth
+      this.root.x0 = this.height / 2;
+      this.root.y0 = 0;
 
-    // Collapse after the second level
-    // this.root.children.forEach((d) => {this.collapse(d)});
+      // Collapse after the second level
+      // this.root.children.forEach((d) => {this.collapse(d)});
 
-    this.update(this.root);
+      this.update(this.root);
+
+    }
 
   }
 
   update(source) {
+
+    console.log(source);
+
     var i = 0,
         duration = 750;
 

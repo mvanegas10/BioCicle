@@ -4,6 +4,28 @@ import { Icicle } from './icicle';
 var CONFIG = require('../assets/config/config.json');
 
 
+function prune(node) {
+
+  const leaves = node.copy().leaves().slice();
+  let currentNode = undefined;
+
+  for (const leave of leaves) {
+    currentNode = leave;
+
+    while (currentNode.data.name !== node.data.name) {
+
+      if (currentNode.depth !== 5 && (currentNode.children === undefined || currentNode.children.length === 0))
+        currentNode.parent.children = remove(currentNode, currentNode.parent.children);
+      
+      currentNode = currentNode.parent;
+
+    }   
+    
+  }
+  return currentNode;
+}
+
+
 function remove(element, array) {
 
   const index = array.indexOf(element);
@@ -23,10 +45,19 @@ function pruneLeaves(node, threshold, total) {
 
   for (let leave of leaves) {
 
-    let currentValue = (leave.value/total) * 100;
-    if (currentValue < threshold) {
+    let count = 0;
+    let sequences = Object.keys(leave.data.value);
+
+    for (let sequence_id of sequences) {
+      let currentValue = (leave.data.value[sequence_id]/total[sequence_id]) * 100;
+      if (currentValue > threshold) count ++;
+
+    }
+    if (count === 0) {
+
       leave.parent.children = remove(leave, leave.parent.children);
       leave.parent = undefined;
+    
     }
 
   }
@@ -115,26 +146,33 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
 
   return new Promise((resolve, reject) => {
 
+    let totals = {};
+
     for (let sequence_id of idList) {
+    
+      totals[sequence_id] = hierarchyNode[sequence_id].total;
 
       var tmpOutput = {
         sequence_id: sequence_id,
-        max: hierarchyNode[sequence_id].max,
+        max: hierarchyNode[sequence_id].max
       };
+
+      let tmpTotal = {};
+      tmpTotal[sequence_id] = totals[sequence_id];
 
       var hierarchyCopy = hierarchyNode[sequence_id].hierarchy.copy();
 
       var prunedHierarchy = pruneLeaves(
           hierarchyCopy,
           threshold,
-          hierarchyNode[sequence_id].total);
+          tmpTotal);
 
       if (prunedHierarchy !== undefined) {
 
         prunedHierarchy._children = hierarchyNode[sequence_id].hierarchy.children.slice().map(a => Object.assign({}, a)); 
 
         tmpOutput.hierarchy = prunedHierarchy;
-
+        
         let values = prunedHierarchy.leaves().map((leave) => leave.value);
         let total = (values && values.length > 0)? values.reduce((accum, val) => accum + val): 0;
 
@@ -147,56 +185,21 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
       
     }
 
+    let rootHierarchy = d3.hierarchy(root)
+        .sum(function(d) { return d.children; });
+
+    let prunedMerge = prune(pruneLeaves(
+      rootHierarchy,
+      threshold,
+      totals
+    ));
+
+    prunedMerge._children = root.children.slice().map(a => Object.assign({}, a));
+
+    dendogram.draw(prunedMerge);
+
     resolve(output);        
 
   });
-
-
-  // return new Promise((resolve, reject) => {
-
-  //   var options = {
-  //     mergedTree: JSON.stringify(root),
-  //     threshold: threshold
-  //   };
-
-  //   post('post_prune_trees', options).then((output) => {
-  //     var prunedOutput = {};
-
-  //     prunedOutput.prunedSequences = output.pruned_sequences;
-  //     prunedOutput.prunedTree = output.pruned_tree;
-  //     prunedOutput.hierarchies = {};
-
-  //     console.log('   Pruned tree', prunedOutput.prunedSequences);
-
-  //     prunedOutput.prunedTree._children = prunedOutput.prunedTree.children;
-
-  //     var dendoHierarchy = d3.hierarchy(prunedOutput.prunedTree)
-  //       .sum(function(d) { return d.children; });
-
-  //     dendogram.draw(dendoHierarchy);
-
-  //     prunedOutput.prunedSequences.forEach((sequence) => {
-  //       var sequence_id = sequence['sequence_id']
-
-  //       var icicleHierarchy = d3.hierarchy(sequence['hierarchy'])
-  //         .sum(function(d) { 
-  //           return d.value? d.value[sequence_id]: undefined;
-  //         });
-  //       prunedOutput.hierarchies[sequence_id] = icicleHierarchy;
-
-  //     });
-
-  //     prunedOutput.prunedSequences = prunedOutput.prunedSequences.map((sequence) => {return sequence['sequence_id']});
-
-  //     resolve( prunedOutput ); 
-
-  //   })
-  //   .catch((error) => {
-
-  //     console.error(error);
-
-  //   });
-
-  // });
 
 }
