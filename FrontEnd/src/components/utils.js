@@ -17,53 +17,19 @@ function remove(element, array) {
 }
 
 
-function prune(node) {
-
-  let ancestors = node.ancestors;
-
-  for (let ancestor of ancestors) {
-
-    let parent = ancestor.parent;
-    if (ancestor.children.length > 1) {
-      
-      ancestor.children = remove(parent, ancestor.children);
-
-    }
-
-  }
-
-}
-
-
 function pruneLeaves(node, threshold) {
 
   var leaves = node.hierarchy.leaves();
-  var preservedNodes = [];
-  node.hierarchy.children = [];
 
   for (let leave of leaves) {
-    let ancestors = [];
-    
-    let currentValue = leave.value/node.total * 100;
+
+    let currentValue = (leave.value/node.total) * 100;
     if (currentValue < threshold) {
-
-      prune(leave);
-      
-
-
-      let parent = leave.parent;
-      parent.children = remove(leave, parent.children);
-      ancestors = parent.ancestors();
-    
+      leave.parent.children = remove(leave, leave.parent.children);
+      leave.parent = undefined;
     }
-    else 
-      ancestors = leave.ancestors();
-
-    preservedNodes.push(ancestors[ancestors.length - 2]);
 
   }
-
-  node.hierarchy.children = preservedNodes;
   return node.hierarchy;
 }
 
@@ -148,15 +114,15 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
 
   return new Promise((resolve, reject) => {
     for (let sequence_id of idList) {
-
-      let prunedHierarchy = prune(
+      let prunedHierarchy = pruneLeaves(
           hierarchyNode[sequence_id],
           threshold);
+
       if (prunedHierarchy !== undefined) {
 
         hierarchyNode[sequence_id].hierarchy = prunedHierarchy;
         let values = prunedHierarchy.leaves().map((leave) => leave.value);
-        let total = values.reduce((accum, val) => accum + val);
+        let total = (values && values.length > 0)? values.reduce((accum, val) => accum + val): 0;
         hierarchyNode[sequence_id].total = total;
 
         output.hierarchies[sequence_id] = hierarchyNode[sequence_id];

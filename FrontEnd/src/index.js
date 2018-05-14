@@ -31,7 +31,7 @@ class Form extends React.Component {
       countFunction: 'splitWords',
       threshold: 0,
       currentRoot: '',
-      rootDict: [],
+      rootDict: {},
       mergedTree: {},
       icicle: new Icicle(),
       dendogram: new Dendogram(1500, this.handleDendogramClick),
@@ -105,21 +105,26 @@ class Form extends React.Component {
   }
 
   handleThresholdChange(event) {
+    console.log(' 2 *****') 
+    let tmpSequences = Object.keys(this.state.rootDict);           
+    console.log(this.state.rootDict[tmpSequences[0]].hierarchy._children[0].children[0].children[0].children.slice()[1].children)
+
     if(this.nothingToShow !== 'disabled') {
 
       this.setState({threshold: event.target.value});
       if(this.state.threshold) {
 
-        var tmpDict = this.state.rootDict;
+
+        var tmpDict = Object.assign({}, this.state.rootDict);
         let tmpSequences = Object.keys(tmpDict);
 
         tmpSequences.forEach((sequence) => {
-          tmpDict[sequence].hierarchy.children = tmpDict[sequence].hierarchy._children;
+          tmpDict[sequence].hierarchy.children = tmpDict[sequence].hierarchy._children.slice();
         });
 
         this.setState({rootDict: tmpDict});
 
-        var tempTree = this.state.mergedTree;
+        var tempTree = Object.assign({}, this.state.mergedTree);
         tempTree.children = tempTree._children;
         this.setState({mergedTree: tempTree});
         filter(
@@ -129,12 +134,11 @@ class Form extends React.Component {
             this.state.mergedTree, 
             this.state.dendogram
         ).then((output) => {
-          console.log(output.hierarchies);
           var tempHier = output.hierarchies;
           for(var sequence in this.state.rootDict) {
             if(!tempHier[sequence]) 
               tempHier[sequence] = {};
-            tempHier[sequence].hierarchy._children = this.state.rootDict[sequence].hierarchy.children;
+            tempHier[sequence].hierarchy._children = this.state.rootDict[sequence].hierarchy.children.slice();
           }
           this.setState({rootDict: tempHier});
           this.iterateOverIcicles(output.hierarchies, output.prunedSequences);
@@ -182,11 +186,14 @@ class Form extends React.Component {
                 return d.value? d.value[Object.keys(d.value)[0]]: undefined;
               });
 
-            singleHierarchy._children = singleHierarchy.children;
-
             let values = singleHierarchy.leaves().map((leave) => leave.value);
 
             let total = values.reduce((accum, val) => accum + val);
+
+            singleHierarchy._children = singleHierarchy.children.slice();
+            
+            console.log(' 1 *****')            
+            console.log(singleHierarchy._children[0].children[0].children[0].children.slice()[1].children)
 
             let tmpObject = {
               'sequence_id': sequence,
@@ -221,9 +228,12 @@ class Form extends React.Component {
             rootDict = this.iterateOverIcicles(
                 rootDict, tmpSequences);
 
+
           drawSparklines(rootDict, this.selectIcicle);
 
           this.setState({rootDict: rootDict});
+          console.log(' 2 *****')            
+          console.log(this.state.rootDict[tmpSequences[0]].hierarchy._children[0].children[0].children[0].children.slice()[1].children)
 
         })  
         .catch((error) => {

@@ -75,7 +75,9 @@ export class Icicle {
       .attr("y", (d) => { return d.x0; })
       .attr("width", (d) => { return d.y1 - d.y0; })
       .attr("height", (d) => { return d.x1 - d.x0; })
+      .attr("class", (d) => { return (this.getScore(d, sequence) === 0)? "invisible": ""; })
       .attr("fill", (d) => { 
+
         if(this.colorDict.hasOwnProperty(d.data.name)) 
           return this.colorDict[d.data.name];
 
@@ -122,6 +124,7 @@ export class Icicle {
         .attr("dx", ".35em")
         .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
         .attr("dy", ".35em")
+        .attr("class", (d) => { return (this.getScore(d, sequence) === 0)? "invisible": ""; })
         .text((d) => {
           var score = this.getScore(d, sequence);
           return d.data.name + "(" + Math.round(
