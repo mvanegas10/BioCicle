@@ -105,12 +105,9 @@ class Form extends React.Component {
   }
 
   handleThresholdChange(event) {
-    console.log(' 2 *****') 
-    let tmpSequences = Object.keys(this.state.rootDict);           
-    console.log(this.state.rootDict[tmpSequences[0]].hierarchy._children[0].children[0].children[0].children.slice()[1].children)
 
     if(this.nothingToShow !== 'disabled') {
-
+      
       this.setState({threshold: event.target.value});
       if(this.state.threshold) {
 
@@ -122,18 +119,20 @@ class Form extends React.Component {
           tmpDict[sequence].hierarchy.children = tmpDict[sequence].hierarchy._children.slice();
         });
 
-        this.setState({rootDict: tmpDict});
+        this.setState({rootDict: tmpDict});     
 
         var tempTree = Object.assign({}, this.state.mergedTree);
         tempTree.children = tempTree._children;
         this.setState({mergedTree: tempTree});
+
         filter(
             this.state.threshold, 
-            this.state.rootDict, 
-            tmpSequences,
-            this.state.mergedTree, 
+            Object.assign({}, this.state.rootDict), 
+            tmpSequences.slice(),
+            Object.assign({}, this.state.mergedTree), 
             this.state.dendogram
-        ).then((output) => {
+        ).then((output) => {    
+
           var tempHier = output.hierarchies;
           for(var sequence in this.state.rootDict) {
             if(!tempHier[sequence]) 
@@ -191,9 +190,6 @@ class Form extends React.Component {
             let total = values.reduce((accum, val) => accum + val);
 
             singleHierarchy._children = singleHierarchy.children.slice();
-            
-            console.log(' 1 *****')            
-            console.log(singleHierarchy._children[0].children[0].children[0].children.slice()[1].children)
 
             let tmpObject = {
               'sequence_id': sequence,
@@ -231,9 +227,7 @@ class Form extends React.Component {
 
           drawSparklines(rootDict, this.selectIcicle);
 
-          this.setState({rootDict: rootDict});
-          console.log(' 2 *****')            
-          console.log(this.state.rootDict[tmpSequences[0]].hierarchy._children[0].children[0].children[0].children.slice()[1].children)
+          this.setState({rootDict: rootDict});       
 
         })  
         .catch((error) => {

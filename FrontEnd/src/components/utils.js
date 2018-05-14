@@ -17,20 +17,20 @@ function remove(element, array) {
 }
 
 
-function pruneLeaves(node, threshold) {
+function pruneLeaves(node, threshold, total) {
 
-  var leaves = node.hierarchy.leaves();
+  var leaves = node.leaves().slice();
 
   for (let leave of leaves) {
 
-    let currentValue = (leave.value/node.total) * 100;
+    let currentValue = (leave.value/total) * 100;
     if (currentValue < threshold) {
       leave.parent.children = remove(leave, leave.parent.children);
       leave.parent = undefined;
     }
 
   }
-  return node.hierarchy;
+  return node;
 }
 
 
@@ -105,6 +105,7 @@ export function drawSparklines(models, selectIcicle) {
 
 
 export function filter(threshold, hierarchyNode, idList, root, dendogram) {
+
   console.log('Changing threshold ', threshold);
 
   var output = {
@@ -113,26 +114,42 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
   };
 
   return new Promise((resolve, reject) => {
+
     for (let sequence_id of idList) {
-      let prunedHierarchy = pruneLeaves(
-          hierarchyNode[sequence_id],
-          threshold);
+
+      var tmpOutput = {
+        sequence_id: sequence_id,
+        max: hierarchyNode[sequence_id].max,
+      };
+
+      var hierarchyCopy = hierarchyNode[sequence_id].hierarchy.copy();
+
+      var prunedHierarchy = pruneLeaves(
+          hierarchyCopy,
+          threshold,
+          hierarchyNode[sequence_id].total);
 
       if (prunedHierarchy !== undefined) {
 
-        hierarchyNode[sequence_id].hierarchy = prunedHierarchy;
+        console.log(prunedHierarchy);
+
+        prunedHierarchy._children = hierarchyNode[sequence_id].hierarchy.children.slice().map(a => Object.assign({}, a)); 
+
+        tmpOutput.hierarchy = prunedHierarchy;
+
         let values = prunedHierarchy.leaves().map((leave) => leave.value);
         let total = (values && values.length > 0)? values.reduce((accum, val) => accum + val): 0;
-        hierarchyNode[sequence_id].total = total;
 
-        output.hierarchies[sequence_id] = hierarchyNode[sequence_id];
+        tmpOutput.total = total;
+
+        output.hierarchies[sequence_id] = tmpOutput;
         output.prunedSequences.push(sequence_id);
 
       }
       
     }
 
-    resolve(output);
+    resolve(output);        
 
   });
 
