@@ -21,6 +21,7 @@ class Form extends React.Component {
 
     this.iterateOverIcicles = this.iterateOverIcicles.bind(this);
     this.selectIcicle = this.selectIcicle.bind(this);
+    this.downloadComparisons = this.downloadComparisons.bind(this);
     this.handleDendogramClick = this.handleDendogramClick.bind(this);
     this.handleAttrChange = this.handleAttrChange.bind(this);
     this.handleFuncChange = this.handleFuncChange.bind(this);
@@ -85,6 +86,11 @@ class Form extends React.Component {
 
     return treeDict;
 
+  }
+
+
+  downloadComparisons() {
+    
   }
 
 
@@ -211,7 +217,7 @@ class Form extends React.Component {
 
             rootDict[sequence] = tmpObject;
 
-            console.log(tmpObject);
+            console.log(output);
 
           }
           
@@ -328,14 +334,14 @@ class Form extends React.Component {
               )} }
             disabled={(this.state.interval === undefined)? false: true}
             >
-            <img src={require('./assets/img/resume.png')} width={30} height={30}/>
+            <img src={require('./assets/img/resume.png')} alt='' width={30} height={30}/>
           </Button>
           <Button 
             className='img-frame'
             onClick={() => { this.selectIcicle(this.state.currentRoot)} }
             disabled={(this.state.interval === undefined)? true: false}
             >
-            <img src={require('./assets/img/pause.png')} width={30} height={30}/>
+            <img src={require('./assets/img/pause.png')} alt='' width={30} height={30}/>
           </Button>
         </Col>   
         <Col md={2}></Col>
@@ -356,8 +362,12 @@ class Form extends React.Component {
         <Col md={3}>
           <h4>Displaying {Object.keys(this.state.rootDict).length} sequences.     {'\n'} Current sequence: </h4>
         </Col>
-        <Col md={3} className='to-left'> <h4> {this.state.currentRoot}</h4></Col> 
+        <Col md={2} className='to-left'> <h4> {this.state.currentRoot}</h4></Col> 
+        <Col md={1}> 
+          <a download='comparisons.csv' target='_blank' href={() => this.downloadComparisons()}>download</a>
+        </Col> 
         {Object.keys(this.state.rootDict).length > 1 && this.renderResume() }
+        <Col></Col>
       </div>
 
     );
@@ -448,7 +458,7 @@ class Vis extends React.Component {
     return (
       <div className='vis'>
         <div className='title'>
-          <h2 onClick={() => reload()}>BioCicle</h2>
+          <h2 onClick={() => reload()}>BioCicle <img src={require('./assets/img/reload.png')} alt='' width={20} height={20}/> </h2>
         </div>
         <div className='vis-form'>
           <Form />

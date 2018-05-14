@@ -9,7 +9,7 @@ from multiprocessing.pool import Pool
 from functools import partial,reduce
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
-TMP_FOLDER = os.path.join(PROJECT_DIR, "tmp/")
+TMP_FOLDER = os.path.join(PROJECT_DIR, "../FrontEnd/public/tmp/")
 UNI_PROT_URL = "https://www.uniprot.org/uniprot/"
 SRC_FOLDER = os.path.join(PROJECT_DIR, "src/")
 COMPONENTS_FOLDER = os.path.join(SRC_FOLDER, "components/")
