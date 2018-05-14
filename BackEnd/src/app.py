@@ -5,8 +5,12 @@ import components.log as log
 from flask import request, Flask, jsonify
 from flask_cors import CORS, cross_origin
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="")
 CORS(app)
+
+@app.route("/")
+def root():
+    return app.send_static_file("index.html")
 
 
 @app.route("/api/post_compare_sequence", methods=["POST"])

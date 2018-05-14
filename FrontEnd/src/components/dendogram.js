@@ -44,8 +44,6 @@ export class Dendogram {
 
   update(source) {
 
-    console.log(source);
-
     var i = 0,
         duration = 750;
 

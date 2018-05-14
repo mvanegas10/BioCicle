@@ -21,7 +21,6 @@ class Form extends React.Component {
 
     this.iterateOverIcicles = this.iterateOverIcicles.bind(this);
     this.selectIcicle = this.selectIcicle.bind(this);
-    this.downloadComparisons = this.downloadComparisons.bind(this);
     this.handleDendogramClick = this.handleDendogramClick.bind(this);
     this.handleAttrChange = this.handleAttrChange.bind(this);
     this.handleFuncChange = this.handleFuncChange.bind(this);
@@ -100,11 +99,6 @@ class Form extends React.Component {
 
     return treeDict;
 
-  }
-
-
-  downloadComparisons() {
-    
   }
 
 
@@ -205,6 +199,8 @@ class Form extends React.Component {
 
         post('post_compare_sequence', params).then((output) => {
 
+          console.log(output)
+
           this.setState({currentRoot: sequences[0]});
 
           let taxonomiesBatch = output['taxonomies_batch'];
@@ -226,16 +222,15 @@ class Form extends React.Component {
             let tmpObject = {
               'sequence_id': sequence,
               'hierarchy': singleHierarchy.copy(),
-              'max': taxonomiesBatch[i]['max'],
-              'total': total
+              'max': taxonomiesBatch[i].max,
+              'total': total,
+              'filename': taxonomiesBatch[i].filename
             };
 
             tmpObject.hierarchy._children = singleHierarchy.children.slice();
             tmpObject._total = tmpObject.total;
 
             rootDict[sequence] = tmpObject;
-
-            console.log(output);
 
           }
           
@@ -372,7 +367,7 @@ class Form extends React.Component {
         </Col>
         <Col md={2} className='to-left'> <h4> {this.state.currentRoot}</h4></Col> 
         <Col md={1}> 
-          <a download='comparisons.csv' target='_blank'>download</a>
+          <a download={this.state.currentRoot + ".txt"} target='_blank' href={'/tmp/' + this.state.rootDict[this.state.currentRoot].filename}>download</a>
         </Col> 
         {Object.keys(this.state.rootDict).length > 1 && this.renderResume() }
         <Col></Col>

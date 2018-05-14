@@ -66,8 +66,8 @@ function pruneLeaves(node, threshold, total) {
 
 
 export function post(path, data) {
-  // var url = `${CONFIG.BACKEND_URL}${path}`;
-  var url = `/${path}`;
+  var url = `${CONFIG.BACKEND_URL}${path}`;
+  // var url = `/${path}`;
   console.log(`POSTING to ${url} with data ${data}`);
 
   return fetch( url, {

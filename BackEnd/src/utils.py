@@ -9,9 +9,9 @@ from multiprocessing.pool import Pool
 from functools import partial,reduce
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
-TMP_FOLDER = os.path.join(PROJECT_DIR, "../FrontEnd/public/tmp/")
 UNI_PROT_URL = "https://www.uniprot.org/uniprot/"
 SRC_FOLDER = os.path.join(PROJECT_DIR, "src/")
+TMP_FOLDER = os.path.join(SRC_FOLDER, "static/tmp/")
 COMPONENTS_FOLDER = os.path.join(SRC_FOLDER, "components/")
 TAXDUMP_FOLDER = os.path.join(COMPONENTS_FOLDER, "taxdmp/")
 NODES_FILE = os.path.join(TAXDUMP_FOLDER, "nodes.dmp")
@@ -90,6 +90,9 @@ def process_batch(sequences, file_batch, tree):
 
     for i,file in enumerate(file_batch):
 
+        file_list = file.split("/")
+        filename = file_list[len(file_list) - 1]
+
         comparisons = extract_comparisons_from_file(file)
         
         tmp_tree, tmp_hierarchy = get_hierarchy_from_dict(
@@ -105,7 +108,8 @@ def process_batch(sequences, file_batch, tree):
             "comparisons": comparisons,
             "tree": tmp_tree,
             "hierarchy": tmp_hierarchy,
-            "max": comparisons[0]["SCORE"]
+            "max": comparisons[0]["SCORE"],
+            "filename": filename
         }
 
         db_models.insert_one(processed_sequence.copy())

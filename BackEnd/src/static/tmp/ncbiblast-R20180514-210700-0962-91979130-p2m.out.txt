@@ -1,0 +1,79 @@
+BLASTP 2.2.29+
+
+
+Reference: Stephen F. Altschul, Thomas L. Madden, Alejandro A.
+Schaffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J.
+Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of
+protein database search programs", Nucleic Acids Res. 25:3389-3402.
+
+
+Reference for composition-based statistics: Alejandro A. Schaffer,
+L. Aravind, Thomas L. Madden, Sergei Shavirin, John L. Spouge, Yuri
+I. Wolf, Eugene V. Koonin, and Stephen F. Altschul (2001),
+"Improving the accuracy of PSI-BLAST protein database searches with
+composition-based statistics and other refinements", Nucleic Acids
+Res. 29:2994-3005.
+
+
+
+Database: uniprotkb_swissprot
+           557,275 sequences; 199,856,860 total letters
+
+
+
+Query= sp|P14482|FIBB_VULVU Fibrinogen beta chain (Fragment) OS=Vulpes
+vulpes OX=9627 GN=FGB PE=1 SV=1
+
+Length=19
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+lcl|SP:FIBB_VULVU  P14482 Fibrinogen beta chain (Fragment) OS=Vul...  46.0    2e-05
+lcl|SP:FIBB_CANLF  P02677 Fibrinogen beta chain (Fragment) OS=Can...  43.8    1e-04
+
+
+>lcl|SP:FIBB_VULVU P14482 Fibrinogen beta chain (Fragment) OS=Vulpes vulpes OX=9627 
+GN=FGB PE=1 SV=1
+Length=19
+
+ Score = 46.0 bits (98),  Expect = 2e-05
+ Identities = 19/19 (100%), Positives = 19/19 (100%), Gaps = 0/19 (0%)
+
+Query  1   EYYDDTDEEERIVSTVDAR  19
+           EYYDDTDEEERIVSTVDAR
+Sbjct  1   EYYDDTDEEERIVSTVDAR  19
+
+
+>lcl|SP:FIBB_CANLF P02677 Fibrinogen beta chain (Fragment) OS=Canis lupus familiaris 
+OX=9615 GN=FGB PE=1 SV=2
+Length=31
+
+ Score = 43.8 bits (93),  Expect = 1e-04
+ Identities = 18/18 (100%), Positives = 18/18 (100%), Gaps = 0/18 (0%)
+
+Query  2   YYDDTDEEERIVSTVDAR  19
+           YYDDTDEEERIVSTVDAR
+Sbjct  2   YYDDTDEEERIVSTVDAR  19
+
+
+
+Lambda      K        H
+   0.305    0.128    0.335 
+
+Gapped
+Lambda      K        H
+   -1.00    -1.00    -1.00 
+
+Effective search space used: 1748556990
+
+
+  Database: uniprotkb_swissprot
+    Posted date:  Apr 18, 2018  4:47 PM
+  Number of letters in database: 199,856,860
+  Number of sequences in database:  557,275
+
+
+
+Matrix: BLOSUM62
+Neighboring words threshold: 11
+Window for multiple hits: 40
