@@ -10,6 +10,11 @@ import { Grid, Row, Col, Modal, Button } from 'react-bootstrap';
 const TIME_ITERATION = 500;
 
 
+function reload() {
+  window.location.reload();
+}
+
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -39,11 +44,8 @@ class Form extends React.Component {
       nothingToShow: 'disabled'
     };
 
-  } 
-
-  reload() {
-    window.location.reload();
   }
+
 
   selectIcicle(sequence_id) {
     if(this.state.interval)
@@ -57,6 +59,7 @@ class Form extends React.Component {
         sequence_id,
         this.state.rootDict[sequence_id].total);
   }
+
 
   iterateOverIcicles(treeDict, idList) {
 
@@ -84,6 +87,7 @@ class Form extends React.Component {
 
   }
 
+
   handleDendogramClick(dendogram, d) {
     if (d.children) {
       let sequences = Object.keys(d.data.SCORE);
@@ -92,17 +96,21 @@ class Form extends React.Component {
     }
   }
 
+
   handleAttrChange(event) {
     this.setState({countAttr: event.target.value});
   }
+
 
   handleFuncChange(event) {
     this.setState({countFunction: event.target.value});
   }
 
+
   handleThresholdClick(event) {
     this.setState({threshold: event.target.value});
   }
+
 
   handleThresholdChange(event) {
 
@@ -148,26 +156,29 @@ class Form extends React.Component {
     }
   }
 
+
   handleSequenceChange(event) {
     this.setState({sequence: event.target.value});
   }
 
+
   handleSequenceClick(event) {
-    if(this.state.sequence) {
+
+    const sequenceString = this.state.sequence;
+    if(sequenceString) {
+
       this.setState({threshold: 0});
       this.setState({nothingToShow: 'false'});
 
       var rootDict = {};
-      let sequences = this.state.sequence.split(',');
+      let sequences = sequenceString.split(',');
     
       if(sequences.length > 0) {
 
         let params = { sequences:sequences };
         this.setState({currentRoot: ''});
-
         this.setState({mergedTree: {}});
-
-        this.setState({rootDict: []});        
+        this.setState({rootDict: {}});        
 
         post('post_compare_sequence', params).then((output) => {
 
@@ -189,16 +200,18 @@ class Form extends React.Component {
 
             let total = values.reduce((accum, val) => accum + val);
 
-            singleHierarchy._children = singleHierarchy.children.slice();
-
             let tmpObject = {
               'sequence_id': sequence,
-              'hierarchy': singleHierarchy,
+              'hierarchy': singleHierarchy.copy(),
               'max': taxonomiesBatch[i]['max'],
               'total': total
             };
 
+            tmpObject.hierarchy._children = singleHierarchy.children.slice();
+
             rootDict[sequence] = tmpObject;
+
+            console.log(tmpObject);
 
           }
           
@@ -226,6 +239,7 @@ class Form extends React.Component {
 
 
           drawSparklines(rootDict, this.selectIcicle);
+
 
           this.setState({rootDict: rootDict});       
 
@@ -274,8 +288,6 @@ class Form extends React.Component {
   } 
 
 
-
-
   renderScore() {
 
     return (
@@ -289,8 +301,8 @@ class Form extends React.Component {
             slideStop={this.handleThresholdChange}
             disabled={this.nothingToShow}
             step={1}
-            max={100}
-            min={0} />
+            max={101}
+            min={-1} />
           </Col>  
           <Col md={1}></Col>
         </Col>
@@ -361,7 +373,7 @@ class Form extends React.Component {
 
         <Modal
           show={true}
-          onHide={this.reload}
+          onHide={reload}
         >
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-lg">
@@ -374,7 +386,7 @@ class Form extends React.Component {
           <Modal.Footer>
             <Button 
               className='btn btn-danger'
-              onClick={this.reload}>Try again
+              onClick={reload}>Try again
             </Button>
           </Modal.Footer>
         </Modal>
@@ -409,6 +421,7 @@ class Form extends React.Component {
 
 class Body extends React.Component {
 
+
   render() {
 
     return (
@@ -429,12 +442,13 @@ class Body extends React.Component {
 
 class Vis extends React.Component {
 
+
   render() {
 
     return (
       <div className='vis'>
         <div className='title'>
-          <h2>BioCicle</h2>
+          <h2 onClick={() => reload()}>BioCicle</h2>
         </div>
         <div className='vis-form'>
           <Form />

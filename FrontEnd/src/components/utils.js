@@ -131,8 +131,6 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
 
       if (prunedHierarchy !== undefined) {
 
-        console.log(prunedHierarchy);
-
         prunedHierarchy._children = hierarchyNode[sequence_id].hierarchy.children.slice().map(a => Object.assign({}, a)); 
 
         tmpOutput.hierarchy = prunedHierarchy;

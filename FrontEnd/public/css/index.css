@@ -59,6 +59,7 @@ div.title {
     text-align: left;
     padding: 0% 3%;
     color: #008080;
+    cursor: pointer;
 }
 div.container {
     width: 100%;
