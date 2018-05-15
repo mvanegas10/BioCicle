@@ -1,0 +1,144 @@
+BLASTP 2.2.29+
+
+
+Reference: Stephen F. Altschul, Thomas L. Madden, Alejandro A.
+Schaffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J.
+Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of
+protein database search programs", Nucleic Acids Res. 25:3389-3402.
+
+
+Reference for composition-based statistics: Alejandro A. Schaffer,
+L. Aravind, Thomas L. Madden, Sergei Shavirin, John L. Spouge, Yuri
+I. Wolf, Eugene V. Koonin, and Stephen F. Altschul (2001),
+"Improving the accuracy of PSI-BLAST protein database searches with
+composition-based statistics and other refinements", Nucleic Acids
+Res. 29:2994-3005.
+
+
+
+Database: uniprotkb_swissprot
+           557,275 sequences; 199,856,860 total letters
+
+
+
+Query= sp|P83200|PRDX5_VULVU Peroxiredoxin-5 (Fragment) OS=Vulpes vulpes
+OX=9627 GN=PRDX5 PE=1 SV=1
+
+Length=16
+                                                                      Score     E
+Sequences producing significant alignments:                          (Bits)  Value
+
+lcl|SP:PRDX5_VULVU  P83200 Peroxiredoxin-5 (Fragment) OS=Vulpes v...  34.4    0.060
+lcl|SP:PRDX5_PAPHA  Q9GLW9 Peroxiredoxin-5, mitochondrial OS=Papi...  34.4    0.060
+lcl|SP:PRDX5_MOUSE  P99029 Peroxiredoxin-5, mitochondrial OS=Mus ...  34.4    0.060
+lcl|SP:PRDX5_HUMAN  P30044 Peroxiredoxin-5, mitochondrial OS=Homo...  34.4    0.060
+lcl|SP:PRDX5_CHLAE  Q9GLW7 Peroxiredoxin-5, mitochondrial OS=Chlo...  34.4    0.060
+lcl|SP:PRDX5_BOVIN  Q9BGI1 Peroxiredoxin-5, mitochondrial OS=Bos ...  34.4    0.060
+lcl|SP:PRDX5_RAT  Q9R063 Peroxiredoxin-5, mitochondrial OS=Rattus...  32.6    0.22 
+
+
+>lcl|SP:PRDX5_VULVU P83200 Peroxiredoxin-5 (Fragment) OS=Vulpes vulpes OX=9627 GN=PRDX5 
+PE=1 SV=1
+Length=16
+
+ Score = 34.4 bits (68),  Expect = 0.060
+ Identities = 16/16 (100%), Positives = 16/16 (100%), Gaps = 0/16 (0%)
+
+Query  1   APIKVGDAIPXVXVFE  16
+           APIKVGDAIPXVXVFE
+Sbjct  1   APIKVGDAIPXVXVFE  16
+
+
+>lcl|SP:PRDX5_PAPHA Q9GLW9 Peroxiredoxin-5, mitochondrial OS=Papio hamadryas OX=9557 
+GN=PRDX5 PE=2 SV=1
+Length=215
+
+ Score = 34.4 bits (68),  Expect = 0.060
+ Identities = 14/16 (88%), Positives = 14/16 (88%), Gaps = 0/16 (0%)
+
+Query  1   APIKVGDAIPXVXVFE  16
+           APIKVGDAIP V VFE
+Sbjct  55  APIKVGDAIPAVEVFE  70
+
+
+>lcl|SP:PRDX5_MOUSE P99029 Peroxiredoxin-5, mitochondrial OS=Mus musculus OX=10090 
+GN=Prdx5 PE=1 SV=2
+Length=210
+
+ Score = 34.4 bits (68),  Expect = 0.060
+ Identities = 14/16 (88%), Positives = 14/16 (88%), Gaps = 0/16 (0%)
+
+Query  1   APIKVGDAIPXVXVFE  16
+           APIKVGDAIP V VFE
+Sbjct  50  APIKVGDAIPSVEVFE  65
+
+
+>lcl|SP:PRDX5_HUMAN P30044 Peroxiredoxin-5, mitochondrial OS=Homo sapiens OX=9606 
+GN=PRDX5 PE=1 SV=4
+Length=214
+
+ Score = 34.4 bits (68),  Expect = 0.060
+ Identities = 14/16 (88%), Positives = 14/16 (88%), Gaps = 0/16 (0%)
+
+Query  1   APIKVGDAIPXVXVFE  16
+           APIKVGDAIP V VFE
+Sbjct  54  APIKVGDAIPAVEVFE  69
+
+
+>lcl|SP:PRDX5_CHLAE Q9GLW7 Peroxiredoxin-5, mitochondrial OS=Chlorocebus aethiops 
+OX=9534 GN=PRDX5 PE=2 SV=1
+Length=215
+
+ Score = 34.4 bits (68),  Expect = 0.060
+ Identities = 14/16 (88%), Positives = 14/16 (88%), Gaps = 0/16 (0%)
+
+Query  1   APIKVGDAIPXVXVFE  16
+           APIKVGDAIP V VFE
+Sbjct  55  APIKVGDAIPAVEVFE  70
+
+
+>lcl|SP:PRDX5_BOVIN Q9BGI1 Peroxiredoxin-5, mitochondrial OS=Bos taurus OX=9913 GN=PRDX5 
+PE=2 SV=2
+Length=219
+
+ Score = 34.4 bits (68),  Expect = 0.060
+ Identities = 14/16 (88%), Positives = 14/16 (88%), Gaps = 0/16 (0%)
+
+Query  1   APIKVGDAIPXVXVFE  16
+           APIKVGDAIP V VFE
+Sbjct  59  APIKVGDAIPSVEVFE  74
+
+
+>lcl|SP:PRDX5_RAT Q9R063 Peroxiredoxin-5, mitochondrial OS=Rattus norvegicus OX=10116 
+GN=Prdx5 PE=1 SV=1
+Length=213
+
+ Score = 32.6 bits (64),  Expect = 0.22
+ Identities = 13/16 (81%), Positives = 13/16 (81%), Gaps = 0/16 (0%)
+
+Query  1   APIKVGDAIPXVXVFE  16
+           APIKVGD IP V VFE
+Sbjct  53  APIKVGDTIPSVEVFE  68
+
+
+
+Lambda      K        H
+   0.323    0.147    0.431 
+
+Gapped
+Lambda      K        H
+   -1.00    -1.00    -1.00 
+
+Effective search space used: 1363889695
+
+
+  Database: uniprotkb_swissprot
+    Posted date:  Apr 18, 2018  4:47 PM
+  Number of letters in database: 199,856,860
+  Number of sequences in database:  557,275
+
+
+
+Matrix: BLOSUM62
+Neighboring words threshold: 11
+Window for multiple hits: 40

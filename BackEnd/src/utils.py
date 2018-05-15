@@ -1,7 +1,9 @@
 import os
 import requests
+import base64
 import json
 import pymongo
+from pathlib import Path
 import components.log as log
 from pymongo import MongoClient
 import components.ncbi_blast.client as blast
@@ -21,6 +23,10 @@ MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
 client = MongoClient()
 db = client.biovis
 db_models = db.models
+
+
+class FileExists(Exception):
+    pass
 
 
 def get_unsaved_sequences(sequences):
@@ -45,6 +51,23 @@ def get_unsaved_sequences(sequences):
             saved_list.append(saved)
 
     return saved_list, nonsaved_list
+
+
+def save_file(file, filename):
+    file_path = "{}{}".format(TMP_FOLDER, filename)
+    path = Path(file_path)
+
+    try:
+        path.resolve()
+
+    except FileNotFoundError:
+        with open(file_path, "wb") as file_writer:
+            file_writer.write(base64.decodebytes(file.encode('ascii')))
+        return file_path 
+    
+    else:
+        raise FileExists(file_path)
+
 
 
 def compare_sequence(sequence):

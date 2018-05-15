@@ -139,6 +139,48 @@ def post_prune_trees():
     except Exception as e:
         output["Error"] = str(e)
         return jsonify(output)
+
+
+@app.route("/api/upload_file", methods=["POST"])
+def upload_file():
+    
+    output = {}
+
+    try:
+        data = request.get_json()
+
+        if data["file"] is not None and data["filename"] is not None:
+
+            taxonomy = []
+            parsed_filename = data["filename"].split(".")[0]
+            merged_tree = {'name':'', 'children': {}, 'SCORE': []}
+
+            try:
+                file_path = utils.save_file(data["file"], data["filename"])
+    
+                merged_tree, taxonomy = utils.process_batch(
+                        [parsed_filename], [file_path], merged_tree)
+
+            except utils.FileExists as e:
+                taxonomy, tmp_sequences = utils.get_unsaved_sequences(
+                    [parsed_filename])
+                
+                utils.get_hierarchy_from_dict(
+                    taxonomy[0]['sequence_id'],
+                    taxonomy[0]['comparisons'],
+                    target=merged_tree)
+
+            # Prepare output
+            hierarchy, aggregated_score = utils.form_hierarchy(merged_tree)
+            output["merged_tree"] = hierarchy['children'][0]
+
+            output["taxonomies_batch"] = taxonomy   
+            return jsonify(output)    
+
+    except Exception as e:
+        output["Error"] = str(e)
+        return jsonify(output)
+
         
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=8080,debug=True)
