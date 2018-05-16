@@ -18,11 +18,12 @@ div.wrapper {
     padding: 20px;
     width: 300px;
 }
-button.btn-secondary {
+.btn-secondary {
+    margin: 0px 0px 5px 0px;
     width:100%;
     background: #eee;
 }
-button.btn-secondary:hover {
+.btn-secondary:hover {
     background: #fff;
 }
 h4.section-title {
@@ -81,7 +82,7 @@ div.vis-body {
     display: inline;
 }
 div.margin {
-    margin-top: 6.5cm;
+    margin-top: 6.7cm;
 }
 div.modal-content {
     background-color: #f2dede;

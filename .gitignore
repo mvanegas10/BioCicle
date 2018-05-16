@@ -9,3 +9,7 @@ biovis
 FrontEndV2
 FrontEnd/node_modules
 FrontEnd/public/tmp
+
+# Static files
+static
+static.*

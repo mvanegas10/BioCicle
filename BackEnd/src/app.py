@@ -1,5 +1,6 @@
 #!flask/bin/python
 import json
+import random
 import utils as utils
 import components.log as log
 from flask import request, Flask, jsonify
@@ -82,6 +83,7 @@ def post_compare_sequence():
 
     except Exception as e:
         output["Error"] = str(e)
+        log.datetime_log("Error: {}".format(e))
         return jsonify(output)
 
 
@@ -103,6 +105,7 @@ def post_prune_single_tree():
 
     except Exception as e:
         output["Error"] = str(e)
+        log.datetime_log("Error: {}".format(e))
         return jsonify(output)
 
 
@@ -138,6 +141,7 @@ def post_prune_trees():
 
     except Exception as e:
         output["Error"] = str(e)
+        log.datetime_log("Error: {}".format(e))
         return jsonify(output)
 
 
@@ -156,7 +160,10 @@ def upload_file():
             merged_tree = {'name':'', 'children': {}, 'SCORE': []}
 
             try:
-                file_path = utils.save_file(data["file"], data["filename"])
+                file_path = utils.try_to_save_file(
+                        data["file"], data["filename"])
+
+                log.datetime_log("Succeded saving file.")
     
                 merged_tree, taxonomy = utils.process_batch(
                         [parsed_filename], [file_path], merged_tree)
@@ -165,10 +172,37 @@ def upload_file():
                 taxonomy, tmp_sequences = utils.get_unsaved_sequences(
                     [parsed_filename])
                 
-                utils.get_hierarchy_from_dict(
-                    taxonomy[0]['sequence_id'],
-                    taxonomy[0]['comparisons'],
-                    target=merged_tree)
+                if len(taxonomy) == 0:
+                    sequence_id = utils.get_sequence_id(data["filename"])
+                    if sequence_id is not None:
+                        log.datetime_log("File existed and sequence {} parsed succesfully.".format(sequence_id))
+                        taxonomy, tmp_sequences = utils.get_unsaved_sequences(
+                            [sequence_id])
+
+                if len(taxonomy) > 0:
+                    utils.get_hierarchy_from_dict(
+                        taxonomy[0]['sequence_id'],
+                        taxonomy[0]['comparisons'],
+                        target=merged_tree)
+
+                else:
+                    log.datetime_log("File existed but sequence not parsed: trying to write a new file.")
+                    file_path = ""
+                    cont = 0
+                    while len(file_path) == 0 and cont < 50:
+                        try:
+                            file_path = utils.try_to_save_file(
+                                    data["file"], 
+                                    data["filename"], 
+                                    modifier=cont)
+                            
+                        except utils.FileExists as e:
+                            cont += 1
+                    
+                    log.datetime_log("File succesfully saved at {}.".format(file_path))
+    
+                    merged_tree, taxonomy = utils.process_batch(
+                            [parsed_filename], [file_path], merged_tree)
 
             # Prepare output
             hierarchy, aggregated_score = utils.form_hierarchy(merged_tree)
@@ -179,8 +213,9 @@ def upload_file():
 
     except Exception as e:
         output["Error"] = str(e)
+        log.datetime_log("Error: {}".format(e))
         return jsonify(output)
 
         
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=8080,debug=True)
+    app.run(host="0.0.0.0",port=80,debug=True)

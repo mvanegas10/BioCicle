@@ -21,6 +21,8 @@ class Form extends React.Component {
 
     this.iterateOverIcicles = this.iterateOverIcicles.bind(this);
     this.selectIcicle = this.selectIcicle.bind(this);
+    this.handleIcicleAndDendogramRendering = this.handleIcicleAndDendogramRendering.bind(this);
+    this.handleFileUpload = this.handleFileUpload.bind(this);
     this.handleDendogramClick = this.handleDendogramClick.bind(this);
     this.handleAttrChange = this.handleAttrChange.bind(this);
     this.handleFuncChange = this.handleFuncChange.bind(this);
@@ -98,6 +100,96 @@ class Form extends React.Component {
     }
 
     return treeDict;
+
+  }
+
+
+  handleIcicleAndDendogramRendering(output) {
+
+    var rootDict = {};
+
+    console.log(output)
+
+    let taxonomiesBatch = output['taxonomies_batch'];
+    var mergedTree = output['merged_tree'];
+
+    for (let i = 0; i < taxonomiesBatch.length; i++) {
+      let sequence = taxonomiesBatch[i]['sequence_id'];
+      
+      this.setState({currentRoot: sequence});
+
+      let tree = taxonomiesBatch[i]['hierarchy'];
+      
+      var singleHierarchy = d3.hierarchy(tree)
+        .sum(function(d) { 
+          return d.value? d.value[Object.keys(d.value)[0]]: undefined;
+        });
+
+      let values = singleHierarchy.leaves().map((leave) => leave.value);
+
+      let total = values.reduce((accum, val) => accum + val);
+
+      let tmpObject = {
+        'sequence_id': sequence,
+        'hierarchy': singleHierarchy.copy(),
+        'max': taxonomiesBatch[i].max,
+        'total': total,
+        'filename': taxonomiesBatch[i].filename
+      };
+
+      tmpObject.hierarchy._children = singleHierarchy.children.slice();
+      tmpObject._total = tmpObject.total;
+
+      rootDict[sequence] = tmpObject;
+
+    }
+    
+    mergedTree._children = mergedTree.children;
+
+    let hierarchy = d3.hierarchy(mergedTree)
+      .sum(function(d) { return d.children; });
+
+    this.setState({mergedTree: mergedTree});
+
+    this.state.dendogram.draw(hierarchy);
+
+    let tmpSequences = Object.keys(rootDict);
+
+    rootDict = this.iterateOverIcicles(
+        rootDict, tmpSequences);
+
+    drawSparklines(rootDict, this.selectIcicle);
+
+    this.setState({rootDict: rootDict});   
+  }
+
+
+  handleFileUpload(selectorFiles: FileList) {
+
+    const reader = new FileReader();
+    reader.readAsDataURL(selectorFiles[0]);
+
+    reader.onload = () => {
+
+      const fileList = reader.result.split(',');
+
+      const params = {
+        file: fileList[1],
+        filename: selectorFiles[0].name
+      };
+      post('upload_file', params).then((output) => {
+
+        this.handleIcicleAndDendogramRendering(output);
+
+      })
+      .catch((error) => {
+
+        this.setState({error: error});
+        console.error(error);
+
+      });   
+
+    };
 
   }
 
@@ -187,7 +279,6 @@ class Form extends React.Component {
       this.setState({threshold: 0});
       this.setState({nothingToShow: 'false'});
 
-      var rootDict = {};
       let sequences = sequenceString.split(',');
     
       if(sequences.length > 0) {
@@ -199,58 +290,7 @@ class Form extends React.Component {
 
         post('post_compare_sequence', params).then((output) => {
 
-          console.log(output)
-
-          this.setState({currentRoot: sequences[0]});
-
-          let taxonomiesBatch = output['taxonomies_batch'];
-          var mergedTree = output['merged_tree'];
-
-          for (let i = 0; i < taxonomiesBatch.length; i++) {
-            let sequence = taxonomiesBatch[i]['sequence_id'];
-            let tree = taxonomiesBatch[i]['hierarchy'];
-            
-            var singleHierarchy = d3.hierarchy(tree)
-              .sum(function(d) { 
-                return d.value? d.value[Object.keys(d.value)[0]]: undefined;
-              });
-
-            let values = singleHierarchy.leaves().map((leave) => leave.value);
-
-            let total = values.reduce((accum, val) => accum + val);
-
-            let tmpObject = {
-              'sequence_id': sequence,
-              'hierarchy': singleHierarchy.copy(),
-              'max': taxonomiesBatch[i].max,
-              'total': total,
-              'filename': taxonomiesBatch[i].filename
-            };
-
-            tmpObject.hierarchy._children = singleHierarchy.children.slice();
-            tmpObject._total = tmpObject.total;
-
-            rootDict[sequence] = tmpObject;
-
-          }
-          
-          mergedTree._children = mergedTree.children;
-
-          let hierarchy = d3.hierarchy(mergedTree)
-            .sum(function(d) { return d.children; });
-
-          this.setState({mergedTree: mergedTree});
-
-          this.state.dendogram.draw(hierarchy);
-
-          let tmpSequences = Object.keys(rootDict);
-
-          rootDict = this.iterateOverIcicles(
-              rootDict, tmpSequences);
-
-          drawSparklines(rootDict, this.selectIcicle);
-
-          this.setState({rootDict: rootDict});       
+          this.handleIcicleAndDendogramRendering(output);
 
         })  
         .catch((error) => {
@@ -279,7 +319,7 @@ class Form extends React.Component {
         <Col md={8}>
           <textarea 
             value={this.state.sequence} 
-            rows='3'
+            rows='4'
             placeholder='Insert a sequence or sequence id. For example, try with sp:wap_rat.' 
             onChange={this.handleSequenceChange}
           ></textarea>
@@ -291,6 +331,7 @@ class Form extends React.Component {
               onClick={this.handleSequenceClick}>
             Align Sequence
           </button>
+          <input className='btn btn-secondary' type="file" onChange={ (e) => this.handleFileUpload(e.target.files) }/>
         </Col>
       </Col>
     );
@@ -361,13 +402,12 @@ class Form extends React.Component {
     return (
       
       <div>
-        <Col md={1}></Col>
         <Col md={3}>
           <h4>Displaying {Object.keys(this.state.rootDict).length} sequences.     {'\n'} Current sequence: </h4>
         </Col>
         <Col md={2} className='to-left'> <h4> {this.state.currentRoot}</h4></Col> 
-        <Col md={1}> 
-          <a download={this.state.currentRoot + ".txt"} target='_blank' href={'/tmp/' + this.state.rootDict[this.state.currentRoot].filename}>download</a>
+        <Col md={2}> 
+          <h4><a download={this.state.currentRoot + ".txt"} target='_blank' href={'/tmp/' + this.state.rootDict[this.state.currentRoot].filename}>Download comparison file</a></h4>
         </Col> 
         {Object.keys(this.state.rootDict).length > 1 && this.renderResume() }
         <Col></Col>

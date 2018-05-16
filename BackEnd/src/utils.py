@@ -108,6 +108,25 @@ def compare_sequence(sequence):
     return path
 
 
+def get_sequence_id(filename):
+    path = "{}{}".format(TMP_FOLDER, filename)
+
+    with open(path) as f:
+        data = f.readlines()
+        sequences = []
+        row = data[23]
+        if row[:6] == "Query=":
+            sequence_id = row.split("|")[2].split(" ")[0]
+            return "sp:{}".format(sequence_id)
+
+
+def try_to_save_file(file, filename, **kargs):
+    if "modifier" in kargs:
+        filename = "{}-{}".format(kargs["modifier"], filename)
+
+    return save_file(file, filename)
+
+
 def process_batch(sequences, file_batch, tree):
     processed_batch = []
 
