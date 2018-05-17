@@ -20,36 +20,34 @@ NODES_FILE = os.path.join(TAXDUMP_FOLDER, "nodes.dmp")
 NAMES_FILE = os.path.join(TAXDUMP_FOLDER, "names.dmp")
 MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
 
-client = MongoClient()
-db = client.biovis
-db_models = db.models
-db_taxonomy = db.taxonomy
-
-
 class FileExists(Exception):
     pass
 
 
 def get_unsaved_sequences(sequences):
-    saved_list = []
-    nonsaved_list = sequences.copy()
+    with MongoClient() as client:
+        db = client.biovis
+        db_models = db.models
 
-    for sequence in sequences:
+        saved_list = []
+        nonsaved_list = sequences.copy()
 
-        search = {
-                "sequence_id": sequence
-            }
+        for sequence in sequences:
 
-        saved = db_models.find_one(search)
+            search = {
+                    "sequence_id": sequence
+                }
 
-        if (saved is not None 
-        and saved["comparisons"] is not None 
-        and saved["hierarchy"] is not None):
+            saved = db_models.find_one(search)
 
-            saved.pop("_id", None)
-            nonsaved_list.remove(sequence)
-            saved["max"] = saved["comparisons"][0]["SCORE"]
-            saved_list.append(saved)
+            if (saved is not None 
+            and saved["comparisons"] is not None 
+            and saved["hierarchy"] is not None):
+
+                saved.pop("_id", None)
+                nonsaved_list.remove(sequence)
+                saved["max"] = saved["comparisons"][0]["SCORE"]
+                saved_list.append(saved)
 
     return saved_list, nonsaved_list
 
@@ -134,37 +132,41 @@ def try_to_save_file(file, filename, **kargs):
 
 
 def process_batch(sequences, file_batch, tree):
-    processed_batch = []
+    with MongoClient() as client:
+        db = client.biovis
+        db_models = db.models
 
-    for i,file in enumerate(file_batch):
+        processed_batch = []
 
-        file_list = file.split("/")
-        filename = file_list[len(file_list) - 1]
+        for i,file in enumerate(file_batch):
 
-        comparisons = extract_comparisons_from_file(file)
-        
-        tmp_tree, tmp_hierarchy = get_hierarchy_from_dict(
-                sequences[i], comparisons)
-        
-        tree = get_hierarchy_from_dict(
-                sequences[i], 
-                comparisons,
-                target=tree)
+            file_list = file.split("/")
+            filename = file_list[len(file_list) - 1]
 
-        processed_sequence = {
-            "sequence_id": sequences[i],
-            "comparisons": comparisons,
-            "tree": tmp_tree,
-            "hierarchy": tmp_hierarchy,
-            "max": comparisons[0]["SCORE"],
-            "filename": filename
-        }
+            comparisons = extract_comparisons_from_file(file)
+            
+            tmp_tree, tmp_hierarchy = get_hierarchy_from_dict(
+                    sequences[i], comparisons)
+            
+            tree = get_hierarchy_from_dict(
+                    sequences[i], 
+                    comparisons,
+                    target=tree)
 
-        db_models.insert_one(processed_sequence.copy())
+            processed_sequence = {
+                "sequence_id": sequences[i],
+                "comparisons": comparisons,
+                "tree": tmp_tree,
+                "hierarchy": tmp_hierarchy,
+                "max": comparisons[0]["SCORE"],
+                "filename": filename
+            }
 
-        print(processed_sequence["max"])
+            db_models.insert_one(processed_sequence.copy())
 
-        processed_batch.extend([processed_sequence])        
+            print(processed_sequence["max"])
+
+            processed_batch.extend([processed_sequence])        
 
     return tree, processed_batch
 
@@ -199,7 +201,7 @@ def extract_comparisons_from_file(filename):
 def get_relevant_data(values, total):
     count = values["id"]
     values = values["values"]
-    taxid = get_taxid_from_sequence(values[2])
+    taxid = int(get_taxid_from_sequence(values[2]))
 
     organism_result = get_taxonomy_from_taxid(taxid)
 
@@ -252,19 +254,22 @@ def get_taxonomy_from_taxid(taxid):
 
 
 def get_rank_from_taxid(taxid):
-    query = {
-        "tax_id": taxid
-    }
+    with MongoClient() as client:
+        db = client.biovis
+        db_taxonomy = db.taxonomy 
+           
+        query = {
+            "tax_id": taxid
+        }
 
-    node = db_taxonomy.find_one(query)
-    log.datetime_log("{} {} {}".format("*"*30, taxid, node))
+        node = db_taxonomy.find_one(query)
 
-    if node is not None:
-    # if (node is not None 
-    # and saved["name"] is not None 
-    # and saved["rank"] is not None 
-    # and saved["parent_tax_id"] is not None):
-        return saved["rank"].strip(" \t\n\r").upper(), saved["name"], int(saved["parent_tax_id"])
+        if node is not None:
+        # if (node is not None 
+        # and saved["name"] is not None 
+        # and saved["rank"] is not None 
+        # and saved["parent_tax_id"] is not None):
+            return node["rank"].strip(" \t\n\r").upper(), node["name"], int(node["parent_tax_id"])
 
 
 def get_taxid_from_sequence(sequence_id):
