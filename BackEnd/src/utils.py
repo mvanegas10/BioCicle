@@ -23,6 +23,7 @@ MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
 client = MongoClient()
 db = client.biovis
 db_models = db.models
+db_taxonomy = db.taxonomy
 
 
 class FileExists(Exception):
@@ -82,7 +83,8 @@ def compare_sequence(sequence, **kargs):
         'gapalign': None, 
         'seqrange': None, 
         'sequence': sequence, 
-        'email': 'm.vanegas10@uniandes.edu.co', 
+        'email': 'vanegas@rhrk.uni-kl.de', 
+        # 'email': 'm.vanegas10@uniandes.edu.co', 
         'title': None, 
         'outfile': None, 
         'outformat': None, 
@@ -250,22 +252,19 @@ def get_taxonomy_from_taxid(taxid):
 
 
 def get_rank_from_taxid(taxid):
-    with open(NODES_FILE, 'r') as nodes:
-        for node in nodes:
-            node_values = node.split("|")
-            if int(node_values[0]) == int(taxid):
-                rank = node_values[2].strip(" \t\n\r").upper()
-                parent_taxid = int(node_values[1])
-                break
+    query = {
+        "tax_id": taxid
+    }
 
-    with open(NAMES_FILE, 'r') as names:
-        for name in names:
-            name_values = name.split("|")
-            if int(name_values[0]) == int(taxid):
-                tax_name = name_values[1].strip(" \t\n\r")
-                break
+    node = db_taxonomy.find_one(query)
+    log.datetime_log("{} {} {}".format("*"*30, taxid, node))
 
-    return rank, tax_name, parent_taxid
+    if node is not None:
+    # if (node is not None 
+    # and saved["name"] is not None 
+    # and saved["rank"] is not None 
+    # and saved["parent_tax_id"] is not None):
+        return saved["rank"].strip(" \t\n\r").upper(), saved["name"], int(saved["parent_tax_id"])
 
 
 def get_taxid_from_sequence(sequence_id):
