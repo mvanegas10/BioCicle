@@ -20,7 +20,7 @@ from xmltramp2 import xmltramp
 import urllib.request as urllib2
 import utils
 
-def get_comparison(options):
+def get_comparison(options, folder):
     baseUrl = 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast'
     # Set interval for checking status
     checkInterval = 10
@@ -308,7 +308,7 @@ def get_comparison(options):
         for resultType in resultTypes:
             if str(resultType['identifier']) == "out":
                 # Derive the filename for the result
-                filename = utils.TMP_FOLDER
+                filename = folder
                 if options.outfile:
                     filename += options.outfile + '.' + str(resultType['identifier']) + '.' + str(resultType['fileSuffix'])
                 else:

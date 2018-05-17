@@ -41,7 +41,7 @@ def compare_sequence(sequence, TMP_FOLDER):
     }
 
     return utils.compare_sequence(
-        sequence, options=options, TMP_FOLDER=TMP_FOLDER)
+        sequence, options=options, CUSTOM_FOLDER=TMP_FOLDER)
 
 
 def parse_sequences(TMP_FOLDER, filename, **kargs):

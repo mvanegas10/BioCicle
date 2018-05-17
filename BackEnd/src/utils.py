@@ -101,11 +101,11 @@ def compare_sequence(sequence, **kargs):
 
     if "options" in kargs:
         options = kargs["options"]
-
+    folder = TMP_FOLDER
     if "TMP_FOLDER" in kargs:
-        TMP_FOLDER = kargs["TMP_FOLDER"]
+        folder = kargs["CUSTOM_FOLDER"]
 
-    path = os.path.join(TMP_FOLDER, blast.get_comparison(options))
+    path = os.path.join(folder, blast.get_comparison(options, folder))
     return path
 
 
