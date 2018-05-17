@@ -53,24 +53,19 @@ def get_unsaved_sequences(sequences):
     return saved_list, nonsaved_list
 
 
-def save_file(file, filename):
-    file_path = "{}{}".format(TMP_FOLDER, filename)
+def save_file(file, file_path):
     path = Path(file_path)
 
-    try:
-        path.resolve()
+    if path.is_file():
+        raise FileExists(file_path)
 
-    except FileNotFoundError:
+    else:
         with open(file_path, "wb") as file_writer:
             file_writer.write(base64.decodebytes(file.encode('ascii')))
         return file_path 
     
-    else:
-        raise FileExists(file_path)
 
-
-
-def compare_sequence(sequence):
+def compare_sequence(sequence, **kargs):
     options = {
         'program': 'blastp', 
         'database': 'uniprotkb_swissprot', 
@@ -104,6 +99,12 @@ def compare_sequence(sequence):
         'debugLevel': 0
     }
 
+    if "options" in kargs:
+        options = kargs["options"]
+
+    if "TMP_FOLDER" in kargs:
+        TMP_FOLDER = kargs["TMP_FOLDER"]
+
     path = os.path.join(TMP_FOLDER, blast.get_comparison(options))
     return path
 
@@ -121,10 +122,13 @@ def get_sequence_id(filename):
 
 
 def try_to_save_file(file, filename, **kargs):
+
     if "modifier" in kargs:
         filename = "{}-{}".format(kargs["modifier"], filename)
 
-    return save_file(file, filename)
+    file_path = "{}{}".format(TMP_FOLDER, filename)
+
+    return save_file(file, file_path)
 
 
 def process_batch(sequences, file_batch, tree):
@@ -139,7 +143,7 @@ def process_batch(sequences, file_batch, tree):
         
         tmp_tree, tmp_hierarchy = get_hierarchy_from_dict(
                 sequences[i], comparisons)
-
+        
         tree = get_hierarchy_from_dict(
                 sequences[i], 
                 comparisons,
@@ -171,12 +175,13 @@ def extract_comparisons_from_file(filename):
         data = f.readlines()
         sequences = []
         for row in data:
-            if row[:6] == "lcl|SP":
+            if row[:4] == "lcl|":
                 sequences.append({
                     "id":total, 
                     "values":[value.strip() for value in row.split(" ")]
                 })
                 total += 1
+
 
         log.datetime_log("Starting process for filename {}".format(filename))
 
@@ -314,9 +319,10 @@ def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
         tree = {'name':'', 'children': {}, 'SCORE': []}
     else:
         tree = kargs['target']
-
+    
     for i, sequence in enumerate(comparisons):
         children = tree['children']
+
         for rank in MINIMUM_RANKS:
             if not sequence[rank] in children.keys():
                 children[sequence[rank]] = {

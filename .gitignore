@@ -1,6 +1,7 @@
 # BackEnd
 BackEnd/tmp
 BackEnd/src/components/taxdmp/*.dmp
+BackEnd/src/static/
 
 # Virtual environment
 biovis

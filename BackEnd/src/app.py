@@ -205,7 +205,11 @@ def upload_file():
                             [parsed_filename], [file_path], merged_tree)
 
             # Prepare output
+            print("merged_tree")
+            print(merged_tree)
             hierarchy, aggregated_score = utils.form_hierarchy(merged_tree)
+            print("hierarchy")
+            print(hierarchy)
             output["merged_tree"] = hierarchy['children'][0]
 
             output["taxonomies_batch"] = taxonomy   
@@ -218,4 +222,4 @@ def upload_file():
 
         
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=80,debug=True)
+    app.run(host="0.0.0.0",port=8080,debug=True)
