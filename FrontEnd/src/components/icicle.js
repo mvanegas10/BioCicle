@@ -89,16 +89,18 @@ export class Icicle {
           }
 
           else {
-            var parentColor;
-            var count = 0;
-            var parent = d.parent;
-            while (parent.parent) {
-              count ++;
-              parentColor = this.colorDict[parent.data.name];
-              parent = parent.parent;
+            let c = d3.rgb(this.colorDict[d.parent.data.name]);
+            let children = d.parent.children.map((d) => d.data.name);
+            let ini = children.length / 2;
+            let colorRange = [];
+            for (let i = 0; i < children.length; i++) {
+              const color = `rgb(${c.r+(ini+i)*10},${c.g+(ini+i)*10},${c.b+(ini+i)*10})`
+              colorRange.push(d3.color(color))
             }
-            this.colorDict[d.data.name] = d3.rgb(parentColor).brighter(
-                0.3 + (0.3 * count));
+            let colorScale = d3.scaleOrdinal()
+              .domain(children)
+              .range(colorRange);
+            this.colorDict[d.data.name] = colorScale(d.data.name)
             return this.colorDict[d.data.name];
           }
         }

@@ -18,6 +18,7 @@ COMPONENTS_FOLDER = os.path.join(SRC_FOLDER, "components/")
 TAXDUMP_FOLDER = os.path.join(COMPONENTS_FOLDER, "taxdmp/")
 NODES_FILE = os.path.join(TAXDUMP_FOLDER, "nodes.dmp")
 NAMES_FILE = os.path.join(TAXDUMP_FOLDER, "names.dmp")
+NUCLEOTIDE_FILE = os.path.join(PROJECT_DIR, "tmp/nucl_gb.accession2taxid")
 MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
 
 class FileExists(Exception):
@@ -274,17 +275,27 @@ def get_rank_from_taxid(taxid):
 
 
 def get_taxid_from_sequence(sequence_id):
-    query = "{}{}.txt".format(UNI_PROT_URL,sequence_id)
-    response = requests.get(query).text
-    lines = response.split("\n")
 
-    for line in lines:
-        line_id = line[:2]
-        if line_id == "OX":
-            string = line.split("=")
-            string = string[len(string)-1].replace(";","").split(" ")
-            return int(string[0].strip(" \t\n\r"))
+    if "uniprot" in kargs:
+        query = "{}{}.txt".format(UNI_PROT_URL,sequence_id)
+        response = requests.get(query).text
+        lines = response.split("\n")
 
+        for line in lines:
+            line_id = line[:2]
+            if line_id == "OX":
+                string = line.split("=")
+                string = string[len(string)-1].replace(";","").split(" ")
+                return int(string[0].strip(" \t\n\r"))
+
+    else:
+        with open(NUCLEOTIDE_FILE, 'r') as nucleotides:
+            for nucleotide in nucleotides:
+                nucleotide_values = nucleotide.split("\t")
+                print(nucleotide_values)
+                if str(nucleotide_values[1]) == str(sequence_id):
+                    print("{}{}".format("*"*30, nucleotide_values[2]))
+                    return int(nucleotide_values[2].strip(" \t\n\r"))
 
 def form_hierarchy(node):
     if not len(node['children']) == 0:
