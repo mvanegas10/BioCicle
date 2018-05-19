@@ -17,6 +17,14 @@ TMP_FOLDER = os.path.join(PROJECT_DIR, "tmp/")
 TAXIDS_FILE = os.path.join(TMP_FOLDER, "taxids.txt")
 NUCLEOTIDE_FILE = os.path.join(TMP_FOLDER, "nucl_gb.accession2taxid")
 MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
+NONE_RANK = {
+    "PHYLUM":"undefined",
+    "CLASS":"undefined",
+    "ORDER":"undefined",
+    "FAMILY":"undefined",
+    "GENUS":"undefined",
+    "SPECIES":"undefined"
+    }
 
 def process_files(folder, tree, **kargs):
     with MongoClient() as client:
@@ -117,27 +125,31 @@ def get_relevant_data(values, total):
 
 
 def get_taxonomy_from_taxid(taxid):
-    taxonomy_dict = {}
-    rank, tax_name, parent_taxid = get_rank_from_taxid(taxid)
-    while parent_taxid != 1:
-        if rank != "NO RANK":
-            taxonomy_dict[rank] = tax_name
+    taxonomy_dict = NONE_RANK
+    try:
+        rank, tax_name, parent_taxid = get_rank_from_taxid(taxid)
+        while parent_taxid != 1:
+            if rank != "NO RANK":
+                taxonomy_dict[rank] = tax_name
 
-        rank, tax_name, parent_taxid = get_rank_from_taxid(parent_taxid)
+            rank, tax_name, parent_taxid = get_rank_from_taxid(parent_taxid)
 
-    # Check if it has the minimum rankings
-    for min_rank in MINIMUM_RANKS:
-        if not min_rank in taxonomy_dict.keys():
-            possible_ranks = [rank for rank in taxonomy_dict.keys() 
-                if min_rank in rank]
+        # Check if it has the minimum rankings
+        for min_rank in MINIMUM_RANKS:
+            if not min_rank in taxonomy_dict.keys():
+                possible_ranks = [rank for rank in taxonomy_dict.keys() 
+                    if min_rank in rank]
 
-            if len(possible_ranks) > 0:
-                taxonomy_dict[min_rank] = taxonomy_dict[possible_ranks[0]]
+                if len(possible_ranks) > 0:
+                    taxonomy_dict[min_rank] = taxonomy_dict[possible_ranks[0]]
 
-            else:
-                taxonomy_dict[min_rank] = "undefined"
+                else:
+                    taxonomy_dict[min_rank] = "undefined"
 
-    return taxonomy_dict
+        return taxonomy_dict
+    except:
+        log.datetime_log("Not able to find rank of taxid {}".format(taxid))
+        return NONE_RANK
 
 
 def get_rank_from_taxid(taxid):
