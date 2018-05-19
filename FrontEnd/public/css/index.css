@@ -78,7 +78,7 @@ div.vis-form {
 div.modal {
     z-index: 4000 !important;
 }
-div.vis-body {
+div.vis-body * {
     display: inline;
 }
 div.margin {

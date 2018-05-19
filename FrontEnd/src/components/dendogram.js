@@ -69,7 +69,7 @@ export class Dendogram {
         .attr("transform", (d) => {
           return "translate(" + source.y0 + "," + source.x0 + ")";
       })
-      .on('click', (d) => {this.click(this, d, nodeEnter);});
+      .on('click', (d) => {this.click(this, d);});
 
     // Add Circle for the nodes
     nodeEnter.append('circle')

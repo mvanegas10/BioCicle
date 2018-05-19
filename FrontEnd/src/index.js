@@ -41,7 +41,7 @@ class Form extends React.Component {
       rootDict: {},
       mergedTree: {},
       icicle: new Icicle(),
-      dendogram: new Dendogram(1500, this.handleDendogramClick),
+      dendogram: new Dendogram(1700, this.handleDendogramClick),
       interval: undefined,
       nothingToShow: 'disabled'
     };
@@ -158,7 +158,7 @@ class Form extends React.Component {
     rootDict = this.iterateOverIcicles(
         rootDict, tmpSequences);
 
-    drawSparklines(rootDict, this.selectIcicle);
+    drawSparklines(rootDict, this.selectIcicle, this.state.icicle);
 
     this.setState({rootDict: rootDict});   
   }
@@ -195,11 +195,12 @@ class Form extends React.Component {
 
 
   handleDendogramClick(dendogram, d) {
-    if (d.children) {
-      let sequences = Object.keys(d.data.SCORE);
+    console.log(d)
+    
+    let sequences = Object.keys(d.data.SCORE);
+    console.log(sequences)
 
-      this.iterateOverIcicles(this.state.rootDict, sequences);
-    }
+    this.iterateOverIcicles(this.state.rootDict, sequences);
   }
 
 
@@ -482,8 +483,10 @@ class Body extends React.Component {
         <Grid>
           <Row>
             <Col md={5} className='dendogram margin'></Col>
-            <Col md={1} className='sparklines margin'></Col>
-            <Col md={6} className='icicle margin'></Col>
+            <Col md={7} className='margin'>
+              <Col md={12} className='sparklines'></Col>
+              <Col md={12} className='icicle'></Col>
+            </Col>
           </Row>
         </Grid>
       </div>

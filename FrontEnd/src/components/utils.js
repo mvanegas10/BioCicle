@@ -95,31 +95,30 @@ export function post(path, data) {
 }
 
 
-export function drawSparklines(models, selectIcicle) {
+export function drawSparklines(models, selectIcicle, icicle) {
 
   models = Object.values(models)
 
   let parent = d3.select('.sparklines').html('');
+  console.log(parent)
   let width = parent.node().getBoundingClientRect().width;
 
   let parentNode = parent.selectAll('div')
     .data(models).enter()
     .append('div');
 
-    parentNode.append('p')
-      .attr("x", (d) => { return 0; })
-      .attr("y", (i, d) => { return (i+1) * width/2; })
-      .text((d) => {return d.sequence_id;});
+    // parentNode.append('p')
+    //   .attr("x", (d) => { return 0; })
+    //   .attr("y", (i, d) => { return (i+1) * width/2; })
+    //   .text((d) => {return d.sequence_id;});
 
     parentNode.append('svg')
-      .attr('width', width)
-      .attr('height', width)
+      .attr('width', width/20)
+      .attr('height', width/20)
       .attr('class', 'sparkline')
       .attr('id', (d) => {return d.sequence_id.replace(':','');});
 
   for (let model of models) {
-
-    let icicle = new Icicle();
 
     icicle.draw(
         `#${model.sequence_id.replace(':','')}`, 
@@ -202,3 +201,4 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
   });
 
 }
+
