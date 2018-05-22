@@ -113,13 +113,13 @@ export function post(path, data) {
 }
 
 
-export function drawSparklines(models, selectIcicle) {
+export function drawSparklines(models, selectIcicle, colorDict) {
 
   models = Object.values(models)
 
   let parent = d3.select('.sparklines').html('');
   let width = parent.node().getBoundingClientRect().width;
-  let icicle = new Icicle();
+  let icicle = new Icicle(colorDict);
 
   let parentNode = parent.selectAll('div')
     .data(models).enter()
@@ -131,8 +131,8 @@ export function drawSparklines(models, selectIcicle) {
     //   .text((d) => {return d.sequence_id;});
 
     parentNode.append('svg')
-      .attr('width', width/20)
-      .attr('height', width/20)
+      .attr('width', width/50)
+      .attr('height', width/50)
       .attr('class', 'sparkline')
       .attr('id', (d) => {return d.sequence_id.replace(':','');});
 
@@ -142,6 +142,7 @@ export function drawSparklines(models, selectIcicle) {
         model.hierarchy, 
         model.sequence_id,
         model.total,
+        4,
         selectIcicle);
   }
 

@@ -1,28 +1,39 @@
 import * as d3 from 'd3';
 
-const COLOR_PALETTE = [
-  '#797979',
-  '#68687F',
-  '#7C8993',
-  '#A6BE98',
-  '#C7B671',
-  '#C17A6E',
-  '#AB6C62',
-  '#75604F',
-  '#BFBEBD'
-];
+// const COLOR_PALETTE = [
+//   '#797979',
+//   '#68687F',
+//   '#7C8993',
+//   '#A6BE98',
+//   '#C7B671',
+//   '#C17A6E',
+//   '#AB6C62',
+//   '#75604F',
+//   '#BFBEBD'
+// ];
+
+const COLOR_PALETTE = ['#F3C300', '#875692', '#A1CAF1', '#8DB600', '#F38400', '#BE0032', '#C2B280', '#848482', '#008856', '#E68FAC', '#0067A5', '#F99379', '#604E97', '#F6A600', '#B3446C', '#DCD300', '#882D17', '#654522', '#E25822', '#2B3D26', '#F2F3F4', '#222222', "#771155", "#AA4488", "#CC99BB", "#114477", "#4477AA", "#77AADD", "#117777", "#44AAAA", "#77CCCC", "#117744", "#44AA77", "#88CCAA", "#777711", "#AAAA44", "#DDDD77", "#774411", "#AA7744", "#DDAA77", "#771122", "#AA4455", "#DD7788"]
+
 
 export class Icicle {
 
-  constructor() {
+  constructor(colorDict) {
     this.colorDict = {};
+    if (colorDict)
+      this.colorDict = colorDict;
   }
 
-  draw(parentNode, root, sequence, aggregatedValue, selectIcicle) {
+  getColorDict() {
+    return this.colorDict;
+  }
+
+  draw(parentNode, root, sequence, aggregatedValue, levelColor, selectIcicle) {
 
     var parent = d3.select(`#${parentNode}`).html('');
     this.width = parent.node().getBoundingClientRect().width * 0.9;
     this.height = this.width;
+
+    this.levelColor = levelColor;
 
     this.svg = d3.select(`#${parentNode}`).append("svg")
       .attr("width", this.width)
@@ -87,7 +98,7 @@ export class Icicle {
 
         else if(d.parent) {
 
-          if(!d.parent.parent || undefined_parent) {
+          if(d.height === this.levelColor || undefined_parent) {
             this.colorDict[d.data.name] = this.color(d.data.name);
             return this.colorDict[d.data.name];
           }
@@ -98,7 +109,8 @@ export class Icicle {
             let ini = children.length / 2;
             let colorRange = [];
             for (let i = 0; i < children.length; i++) {
-              const color = `rgb(${c.r+(ini+i)*10},${c.g+(ini+i)*10},${c.b+(ini+i)*10})`
+              let change = parseInt(50/children.length);
+              const color = `rgb(${c.r+(ini+i)*change},${c.g+(ini+i)*change},${c.b+(ini+i)*change})`
               colorRange.push(d3.color(color))
             }
             let colorScale = d3.scaleOrdinal()
@@ -110,7 +122,7 @@ export class Icicle {
         }
 
         else {
-          this.colorDict[d.data.name] = this.color(d.data.name);
+          this.colorDict[d.data.name] = 'rgb(204,204,204)';
           return this.colorDict[d.data.name];
         }
       })
@@ -135,7 +147,9 @@ export class Icicle {
           var score = this.getScore(d, sequence);
           return d.data.name + "(" + Math.round(
             score * 100) + "%)" 
-        });
+        })
+        .on("mouseover", this.handleMouseOver)
+        .on("mouseout", this.handleMouseOut);        
     }
 
   }
@@ -170,5 +184,17 @@ export class Icicle {
       .attr("y", (d) => { return this.x(d.x0 + (d.x1 - d.x0)/2); });
 
   }
+
+
+  handleMouseOver(d, i) { 
+    d3.select(this)
+      .attr('class', 'hovered-text');
+  }
+
+  handleMouseOut(d, i) {
+    d3.select(this)
+      .attr('class', '');
+
+  }  
 
 }

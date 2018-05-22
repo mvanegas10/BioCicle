@@ -8,10 +8,15 @@
 #rangeHighlightsSlider .slider-rangeHighlight {
     background: #f70616;
 }
-text.node-text {
+text {
     cursor: pointer;
+}
+text.node-text {
     text-decoration: underline;
     fill: steelblue;
+}
+text.hovered-text {
+    font: 25px sans-serif !important;     
 }
 textarea { 
     width:100%;
@@ -61,11 +66,13 @@ div.title {
     position: fixed;
     background: rgb(204,204,204);
     z-index: 2000;
+    cursor: pointer;
+}
+div.section {
     font-family: 'Concert One', cursive;
     text-align: left;
     padding: 0% 3%;
     color: #008080;
-    cursor: pointer;
 }
 div.container {
     width: 100%;
@@ -86,13 +93,11 @@ div.modal {
 div.vis-body * {
     display: inline;
 }
-div.margin {
+.margin {
     margin-top: 6.7cm;
 }
-div.modal-content {
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    color: #a94442;
+.container {
+    
 }
 svg.sparkline {
     margin: 0px;

@@ -7,6 +7,7 @@ import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 import { Grid, Row, Col, Modal, Button } from 'react-bootstrap';
 
+
 const TIME_ITERATION = 1000;
 
 
@@ -19,9 +20,11 @@ class Form extends React.Component {
   constructor(props) {
     super(props);
 
+    this.hideMsg = this.hideMsg.bind(this);
     this.iterateOverIcicles = this.iterateOverIcicles.bind(this);
     this.selectIcicle = this.selectIcicle.bind(this);
     this.handleIcicleAndDendogramRendering = this.handleIcicleAndDendogramRendering.bind(this);
+    this.handleLevelColorChange = this.handleLevelColorChange.bind(this);
     this.handleFileUpload = this.handleFileUpload.bind(this);
     this.handleDendogramClick = this.handleDendogramClick.bind(this);
     this.handleAttrChange = this.handleAttrChange.bind(this);
@@ -32,7 +35,8 @@ class Form extends React.Component {
     this.handleSequenceClick = this.handleSequenceClick.bind(this);
 
     this.state = {
-      colorDict: '',
+      msgInfo: {},
+      levelColor: 4,
       error: '',
       sequence: '',
       countAttr: 'NAME',
@@ -49,6 +53,9 @@ class Form extends React.Component {
 
   }
 
+  hideMsg() {
+    this.setState({msgInfo:{}});
+  }
 
   selectIcicle(sequence_id) {
     console.log('Selecting sequence ', sequence_id)
@@ -61,7 +68,15 @@ class Form extends React.Component {
           'icicle', 
           this.state.rootDict[sequence_id].hierarchy, 
           sequence_id, 
-          this.state.rootDict[sequence_id].total);
+          this.state.rootDict[sequence_id].total,
+          this.state.levelColor
+          );
+
+    const msgInfo = {
+      title: 'Selection',
+      msg:`You selected sequence ${sequence_id}`
+    }
+    this.setState({msgInfo:msgInfo});
   }
 
 
@@ -76,7 +91,8 @@ class Form extends React.Component {
         'icicle', 
         treeDict[idList[0]].hierarchy, 
         idList[0],
-        treeDict[idList[0]].total);
+        treeDict[idList[0]].total,
+        this.state.levelColor);
       
     }
 
@@ -89,7 +105,11 @@ class Form extends React.Component {
         let root = treeDict[idList[i]].hierarchy;
 
         this.state.icicle.draw(
-          'icicle', root, idList[i], treeDict[idList[i]].total);
+          'icicle', 
+          root, 
+          idList[i], 
+          treeDict[idList[i]].total,
+          this.state.levelColor);
 
         this.setState({currentRoot: idList[i]});
 
@@ -161,9 +181,16 @@ class Form extends React.Component {
         rootDict, tmpSequences);
 
     drawSparklines(
-        rootDict, this.selectIcicle, this.colorDict);
+        rootDict, this.selectIcicle, this.state.icicle.getColorDict());
 
     this.setState({rootDict: rootDict});   
+  }
+
+
+  handleLevelColorChange(event) {
+    this.setState({levelColor: event.target.value});
+    this.iterateOverIcicles(
+        this.state.rootDict, Object.keys(this.state.rootDict));
   }
 
 
@@ -199,9 +226,22 @@ class Form extends React.Component {
 
   handleDendogramClick(dendogram, d) {
     let sequences = Object.keys(d.data.SCORE);
-    console.log(sequences)
+    let originalSequences = Object.keys(this.state.rootDict);
+    let msgInfo = {}; 
+    if (sequences.length !== originalSequences.length) {
+      console.log('Filtering ', sequences)
 
-    this.iterateOverIcicles(this.state.rootDict, sequences);
+      this.iterateOverIcicles(this.state.rootDict, sequences);
+      msgInfo.title = 'Filtering';
+      msgInfo.msg = `You filtered the results, now displaying ${sequences.length} sequences out of ${Object.keys(this.state.rootDict).length}.`;
+      
+    }
+    else {
+      msgInfo.title = 'Try again';
+      msgInfo.msg = `Your selection did not produce any filter over the results.`;      
+    }
+
+    this.setState({msgInfo:msgInfo});
   }
 
 
@@ -241,8 +281,6 @@ class Form extends React.Component {
         var tempTree = Object.assign({}, this.state.mergedTree);
         tempTree.children = tempTree._children;
         this.setState({mergedTree: tempTree});
-
-        console.log(this.state.mergedTree)
 
         filter(
             this.state.threshold, 
@@ -293,6 +331,9 @@ class Form extends React.Component {
         this.setState({rootDict: {}});        
 
         post('post_compare_sequence', params).then((output) => {
+
+          d3.select('#small-multiples').text('Small Multiples');
+          d3.select('#overview').text('Overview');
 
           this.handleIcicleAndDendogramRendering(output);
 
@@ -349,16 +390,18 @@ class Form extends React.Component {
       <div>
         <Col md={4}>
           <h4 className='section-title' >Score Threshold: {this.state.threshold} </h4>
-          <Col md={11}>
-          <ReactBootstrapSlider
-            value={this.state.threshold} 
-            slideStop={this.handleThresholdChange}
-            disabled={this.nothingToShow}
-            step={1}
-            max={101}
-            min={-1} />
-          </Col>  
-          <Col md={1}></Col>
+          <Row>
+            <Col md={11}>
+              <ReactBootstrapSlider
+                value={this.state.threshold} 
+                slideStop={this.handleThresholdChange}
+                disabled={this.nothingToShow}
+                step={1}
+                max={101}
+                min={-1} />
+            </Col>  
+            <Col md={1}></Col>
+          </Row>
         </Col>
       </div>
 
@@ -366,6 +409,22 @@ class Form extends React.Component {
 
   }
 
+          // <Row>
+          //   <Col md={4}>
+          //     <h4>Level for Color Diversification</h4>
+          //   </Col>  
+          //   <Col md={7}>
+          //     <select value={this.state.levelColor} onChange={this.handleLevelColorChange}>
+          //       <option value={5}>PHYLUM</option>
+          //       <option value={4}>CLASS</option>
+          //       <option value={3}>ORDER</option>
+          //       <option value={2}>FAMILY</option>
+          //       <option value={1}>GENUS</option>
+          //       <option value={0}>SPECIES</option>
+          //     </select>
+          //   </Col>  
+          //   <Col md={1}></Col>
+          // </Row>
 
   renderResume(){
 
@@ -422,6 +481,34 @@ class Form extends React.Component {
   }
 
 
+  renderMessageInfo(){
+
+    return (
+
+      <div>
+
+        <Modal
+          show={true}
+          onHide={() => {this.hideMsg()}}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-lg">
+              {this.state.msgInfo.title}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>{this.state.msgInfo.msg}</p>
+          </Modal.Body>
+          <Modal.Footer></Modal.Footer>
+        </Modal>
+
+      </div>
+
+    );
+
+  }
+
+
   renderAlert(){
 
     return (
@@ -462,7 +549,7 @@ class Form extends React.Component {
         <Grid>
           <Row>
             {this.renderSequence()}
-            {this.renderScore()}
+            {Object.keys(this.state.rootDict).length > 0 && this.renderScore()}
           </Row>
         </Grid>
         <Row>
@@ -470,6 +557,7 @@ class Form extends React.Component {
         </Row>
         <Row>
           {this.state.error && this.renderAlert()}
+          {this.state.msgInfo.msg && this.renderMessageInfo()}
         </Row>
       </div>
     );
@@ -484,12 +572,16 @@ class Body extends React.Component {
     return (
       <div>
         <Grid>
-          <Row>
-            <Col md={5} className='dendogram margin'></Col>
-            <Col md={7} className='margin'>
-              <Col md={12} className='sparklines'></Col>
-              <Col md={12} id='icicle' className='icicle'></Col>
+          <Row className='container'>
+            <Col md={12} className='section margin'>
+              <h3 id='small-multiples'></h3>
             </Col>
+            <Col md={12} className='sparklines'></Col>
+          </Row>
+          <Row className='container'>
+            <Col md={12} className='section'><h3 id='overview'></h3></Col>
+            <Col md={5} className='dendogram'></Col>
+            <Col md={7} id='icicle' className='icicle'></Col>
           </Row>
         </Grid>
       </div>
@@ -506,14 +598,14 @@ class Vis extends React.Component {
 
     return (
       <div className='vis'>
-        <div className='title'>
+        <div className='title section'>
           <h2 onClick={() => reload()}>BioCicle <img src={require('./assets/img/reload.png')} alt='' width={20} height={20}/> </h2>
         </div>
         <div className='vis-form'>
           <Form />
         </div>
         <div className='vis-body'>
-          <Body />
+          <Body/>
         </div>
       </div>
     );

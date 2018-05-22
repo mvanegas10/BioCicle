@@ -24,7 +24,7 @@ def remove_files(folder, processed_file):
                     os.remove(existing_path)
 
         log.datetime_log("Removed {} files out of {} saved models".format(
-                existing_filename, len(existing_files.readlines())))
+                count_removed, len(existing_files.readlines())))
 
 if __name__ == "__main__":
     remove_files(MAIN_FOLDER, PROCESSED_FILE)    
