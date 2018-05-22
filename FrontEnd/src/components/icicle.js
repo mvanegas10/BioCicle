@@ -78,12 +78,16 @@ export class Icicle {
       .attr("class", (d) => { return (this.getScore(d, sequence) === 0)? "invisible": ""; })
       .attr("fill", (d) => { 
 
+        const undefined_parent = (d.parent && d.parent.data.name === "undefined")? true: false;
+
+        if (d.data.name === "undefined") return "#eee";
+
         if(this.colorDict.hasOwnProperty(d.data.name)) 
           return this.colorDict[d.data.name];
 
         else if(d.parent) {
 
-          if(!d.parent.parent) {
+          if(!d.parent.parent || undefined_parent) {
             this.colorDict[d.data.name] = this.color(d.data.name);
             return this.colorDict[d.data.name];
           }
