@@ -32,6 +32,7 @@ class Form extends React.Component {
     this.handleSequenceClick = this.handleSequenceClick.bind(this);
 
     this.state = {
+      colorDict: '',
       error: '',
       sequence: '',
       countAttr: 'NAME',
@@ -50,32 +51,33 @@ class Form extends React.Component {
 
 
   selectIcicle(sequence_id) {
+    console.log('Selecting sequence ', sequence_id)
     if(this.state.interval)
       this.state.interval.stop();
 
     this.setState({interval: undefined});
 
     this.state.icicle.draw(
-        '.icicle', 
-        this.state.rootDict[sequence_id].hierarchy, 
-        sequence_id,
-        this.state.rootDict[sequence_id].total);
+          'icicle', 
+          this.state.rootDict[sequence_id].hierarchy, 
+          sequence_id, 
+          this.state.rootDict[sequence_id].total);
   }
 
 
   iterateOverIcicles(treeDict, idList) {
-    
+
     if(this.state.interval)
       this.state.interval.stop();
 
     if (idList.length === 1) {
 
       this.state.icicle.draw(
-        '.icicle', 
+        'icicle', 
         treeDict[idList[0]].hierarchy, 
         idList[0],
         treeDict[idList[0]].total);
-    
+      
     }
 
     else {
@@ -86,8 +88,8 @@ class Form extends React.Component {
 
         let root = treeDict[idList[i]].hierarchy;
 
-        treeDict[idList[i]]['svg'] = this.state.icicle.draw(
-            '.icicle', root, idList[i], treeDict[idList[i]].total);
+        this.state.icicle.draw(
+          'icicle', root, idList[i], treeDict[idList[i]].total);
 
         this.setState({currentRoot: idList[i]});
 
@@ -156,7 +158,8 @@ class Form extends React.Component {
     rootDict = this.iterateOverIcicles(
         rootDict, tmpSequences);
 
-    drawSparklines(rootDict, this.state.icicle, this.selectIcicle);
+    drawSparklines(
+        rootDict, this.selectIcicle, this.colorDict);
 
     this.setState({rootDict: rootDict});   
   }
@@ -481,7 +484,7 @@ class Body extends React.Component {
             <Col md={5} className='dendogram margin'></Col>
             <Col md={7} className='margin'>
               <Col md={12} className='sparklines'></Col>
-              <Col md={12} className='icicle'></Col>
+              <Col md={12} id='icicle' className='icicle'></Col>
             </Col>
           </Row>
         </Grid>

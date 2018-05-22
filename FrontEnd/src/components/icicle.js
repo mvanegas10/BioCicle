@@ -20,11 +20,11 @@ export class Icicle {
 
   draw(parentNode, root, sequence, aggregatedValue, selectIcicle) {
 
-    var parent = d3.select(parentNode).html('');
+    var parent = d3.select(`#${parentNode}`).html('');
     this.width = parent.node().getBoundingClientRect().width * 0.9;
     this.height = this.width;
 
-    this.svg = d3.select(parentNode).append("svg")
+    this.svg = d3.select(`#${parentNode}`).append("svg")
       .attr("width", this.width)
       .attr("height", this.height);
     this.x = d3.scaleLinear()
@@ -45,7 +45,7 @@ export class Icicle {
 
     this.update(root, sequence);
 
-    return this.svg;
+    return this.colorDict;
 
   }
 

@@ -114,13 +114,14 @@ export function post(path, data) {
 }
 
 
-export function drawSparklines(models, icicle, selectIcicle) {
+export function drawSparklines(models, selectIcicle) {
 
   models = Object.values(models)
 
   let parent = d3.select('.sparklines').html('');
   console.log(parent)
   let width = parent.node().getBoundingClientRect().width;
+  let icicle = new Icicle();
 
   let parentNode = parent.selectAll('div')
     .data(models).enter()
@@ -138,14 +139,12 @@ export function drawSparklines(models, icicle, selectIcicle) {
       .attr('id', (d) => {return d.sequence_id.replace(':','');});
 
   for (let model of models) {
-
     icicle.draw(
-        `#${model.sequence_id.replace(':','')}`, 
+        model.sequence_id.replace(':',''), 
         model.hierarchy, 
         model.sequence_id,
         model.total,
         selectIcicle);
-    
   }
 
 
