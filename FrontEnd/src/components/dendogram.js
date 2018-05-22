@@ -34,7 +34,7 @@ export class Dendogram {
       this.root.y0 = 0;
 
       // Collapse after the second level
-      // this.root.children.forEach((d) => {this.collapse(d)});
+      this.collapse(this.root);
 
       this.update(this.root);
 
@@ -48,7 +48,7 @@ export class Dendogram {
         duration = 750;
 
     // Assigns the x and y position for the nodes
-    var treeData = this.treemap(this.root);
+    var treeData = this.treemap(source);
 
     // Compute the new tree layout.
     var nodes = treeData.descendants(),
@@ -68,8 +68,7 @@ export class Dendogram {
         .attr('class', 'node')
         .attr("transform", (d) => {
           return "translate(" + source.y0 + "," + source.x0 + ")";
-      })
-      .on('click', (d) => {this.click(this, d);});
+      });      
 
     // Add Circle for the nodes
     nodeEnter.append('circle')
@@ -77,10 +76,13 @@ export class Dendogram {
         .attr('r', 1e-8)
         .style("fill", (d) => {
             return d._children ? "lightsteelblue" : "#fff";
-        });
+        }).on('click', (d) => {
+        return this.clickCircle(d);
+      });
 
     // Add labels for the nodes
     nodeEnter.append('text')
+        .attr('class','node-text')
         .attr("dy", ".35em")
         .attr("x", (d) => {
             return d.children || d._children ? -13 : 13;
@@ -88,7 +90,10 @@ export class Dendogram {
         .attr("text-anchor", (d) => {
             return d.children || d._children ? "end" : "start";
         })
-        .text((d) => { return d.data.name; });
+        .text((d) => { return d.data.name; })
+        .on('click', (d) => {
+        return this.click(this, d);
+      });
 
     // UPDATE
 
@@ -164,10 +169,14 @@ export class Dendogram {
 
   // Collapse the node and all it's children
   collapse(d) {
-    if(d.children) {
-      d._children = d.children
-      d._children.forEach((d) => {this.collapse(d)})
-      d.children = null
+    if (d.children) {
+      if (d.children.length > 10) {
+        d._children = d.children;
+        d._children.forEach((d) => {this.collapse(d)});
+        d.children = null;      
+      }
+      else
+        d.children.forEach((d) => {this.collapse(d)});
     }
   }
 
@@ -179,6 +188,19 @@ export class Dendogram {
               ${d.y} ${d.x}`
 
     return path
+  }
+
+
+  // Toggle children on click.
+  clickCircle(d) {
+    if (d.children) {
+        d._children = d.children;
+        d.children = null;
+      } else {
+        d.children = d._children;
+        d._children = null;
+      }
+    this.update(this.root);
   }
 
 }

@@ -4,6 +4,25 @@ import { Icicle } from './icicle';
 var CONFIG = require('../assets/config/config.json');
 
 
+export function collapseNodes(node) {
+  if (node.children) {
+    node._children = node.children.slice();
+    if (node.children.length > 10)
+      node.children = null;
+
+    else {
+      let collapsedChildren = [];
+      for (let child of node.children) {
+        console.log(child)
+        collapsedChildren.push(collapseNodes(child));
+      }
+      node.children = collapsedChildren;
+    }
+  }
+  return node;
+}
+
+
 function prune(node) {
 
   const leaves = node.copy().leaves().slice();
@@ -95,7 +114,7 @@ export function post(path, data) {
 }
 
 
-export function drawSparklines(models, selectIcicle, icicle) {
+export function drawSparklines(models, icicle, selectIcicle) {
 
   models = Object.values(models)
 

@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
 import * as d3 from 'd3';
-import { post, drawSparklines, filter } from './components/utils';
+import { post, collapseNodes, drawSparklines, filter } from './components/utils';
 import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 import { Grid, Row, Col, Modal, Button } from 'react-bootstrap';
 
-const TIME_ITERATION = 500;
+const TIME_ITERATION = 100;
 
 
 function reload() {
@@ -64,6 +64,9 @@ class Form extends React.Component {
 
 
   iterateOverIcicles(treeDict, idList) {
+    
+    if(this.state.interval)
+      this.state.interval.stop();
 
     if (idList.length === 1) {
 
@@ -76,9 +79,6 @@ class Form extends React.Component {
     }
 
     else {
-
-      if(this.state.interval)
-        this.state.interval.stop();
 
       var i = 0;
 
@@ -144,11 +144,9 @@ class Form extends React.Component {
 
     }
     
-    mergedTree._children = mergedTree.children;
-
     let hierarchy = d3.hierarchy(mergedTree)
       .sum(function(d) { return d.children; });
-
+    
     this.setState({mergedTree: mergedTree});
 
     this.state.dendogram.draw(hierarchy);
@@ -158,7 +156,7 @@ class Form extends React.Component {
     rootDict = this.iterateOverIcicles(
         rootDict, tmpSequences);
 
-    drawSparklines(rootDict, this.selectIcicle, this.state.icicle);
+    drawSparklines(rootDict, this.state.icicle, this.selectIcicle);
 
     this.setState({rootDict: rootDict});   
   }
@@ -195,8 +193,6 @@ class Form extends React.Component {
 
 
   handleDendogramClick(dendogram, d) {
-    console.log(d)
-    
     let sequences = Object.keys(d.data.SCORE);
     console.log(sequences)
 

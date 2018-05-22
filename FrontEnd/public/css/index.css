@@ -8,6 +8,11 @@
 #rangeHighlightsSlider .slider-rangeHighlight {
     background: #f70616;
 }
+text.node-text {
+    cursor: pointer;
+    text-decoration: underline;
+    fill: steelblue;
+}
 textarea { 
     width:100%;
     font-size: 12px; 
