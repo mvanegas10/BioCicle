@@ -7,7 +7,7 @@ import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 import { Grid, Row, Col, Modal, Button } from 'react-bootstrap';
 
-const TIME_ITERATION = 100;
+const TIME_ITERATION = 1000;
 
 
 function reload() {
@@ -148,6 +148,8 @@ class Form extends React.Component {
     
     let hierarchy = d3.hierarchy(mergedTree)
       .sum(function(d) { return d.children; });
+
+    mergedTree._children = mergedTree.children.slice();
     
     this.setState({mergedTree: mergedTree});
 
@@ -239,6 +241,8 @@ class Form extends React.Component {
         var tempTree = Object.assign({}, this.state.mergedTree);
         tempTree.children = tempTree._children;
         this.setState({mergedTree: tempTree});
+
+        console.log(this.state.mergedTree)
 
         filter(
             this.state.threshold, 

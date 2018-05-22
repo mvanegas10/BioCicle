@@ -13,7 +13,6 @@ export function collapseNodes(node) {
     else {
       let collapsedChildren = [];
       for (let child of node.children) {
-        console.log(child)
         collapsedChildren.push(collapseNodes(child));
       }
       node.children = collapsedChildren;
@@ -65,10 +64,10 @@ function pruneLeaves(node, threshold, total) {
   for (let leave of leaves) {
 
     let count = 0;
-    let sequences = Object.keys(leave.data.value);
+    let sequences = Object.keys(leave.data.SCORE);
 
     for (let sequence_id of sequences) {
-      let currentValue = (leave.data.value[sequence_id]/total[sequence_id]) * 100;
+      let currentValue = (leave.data.SCORE[sequence_id]/total[sequence_id]) * 100;
       if (currentValue > threshold) count ++;
 
     }
@@ -119,7 +118,6 @@ export function drawSparklines(models, selectIcicle) {
   models = Object.values(models)
 
   let parent = d3.select('.sparklines').html('');
-  console.log(parent)
   let width = parent.node().getBoundingClientRect().width;
   let icicle = new Icicle();
 
@@ -173,6 +171,7 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
         max: hierarchyNode[sequence_id].max
       };
 
+
       let tmpTotal = {};
       tmpTotal[sequence_id] = totals[sequence_id];
 
@@ -196,7 +195,6 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
 
         output.hierarchies[sequence_id] = tmpOutput;
         output.prunedSequences.push(sequence_id);
-
       }
       
     }
@@ -210,10 +208,10 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
       totals
     ));
 
-    prunedMerge._children = root.children.slice().map(a => Object.assign({}, a));
-
     dendogram.draw(prunedMerge);
 
+    prunedMerge._children = (root.children)? root.children.slice().map(a => Object.assign({}, a)): undefined;
+    
     resolve(output);        
 
   });
