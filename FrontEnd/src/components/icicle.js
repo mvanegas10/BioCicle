@@ -129,6 +129,7 @@ export class Icicle {
       .style("stroke", "#FFF")
       .style("stroke-width", 2)
       .on("click", (d) => {
+        console.log(this.selectIcicle)
         if (!this.selectIcicle)
           return this.clicked(d)
         else

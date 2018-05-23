@@ -34,7 +34,11 @@ export class Dendogram {
       this.root.y0 = 0;
 
       // Collapse after the second level
-      this.collapse(this.root);
+      if (this.root.children.length > 10) 
+        this.root.children.forEach((d) => {this.collapse(d)});
+
+      else 
+        this.collapseBigOnes(this.root);
 
       this.update(this.root);
 
@@ -90,10 +94,12 @@ export class Dendogram {
         .attr("text-anchor", (d) => {
             return d.children || d._children ? "end" : "start";
         })
-        .text((d) => { return d.data.name; })
+        .text((d) => { return `${d.data.name} (${Object.keys(d.data.SCORE).length})`; })
         .on('click', (d) => {
-        return this.click(this, d);
-      });
+          return this.click(this, d);
+        })
+        .on("mouseover", this.handleMouseOver)
+        .on("mouseout", this.handleMouseOut);      
 
     // UPDATE
 
@@ -168,17 +174,27 @@ export class Dendogram {
   }
 
   // Collapse the node and all it's children
-  collapse(d) {
+  collapseBigOnes(d) {
     if (d.children) {
       if (d.children.length > 10) {
         d._children = d.children;
-        d._children.forEach((d) => {this.collapse(d)});
+        d._children.forEach((d) => {this.collapseBigOnes(d)});
         d.children = null;      
       }
       else
-        d.children.forEach((d) => {this.collapse(d)});
+        d.children.forEach((d) => {this.collapseBigOnes(d)});
     }
   }
+
+  // Collapse the node and all it's children
+  collapse(d) {
+    if(d.children) {
+      d._children = d.children;
+      d._children.forEach((d) => {this.collapseBigOnes(d)});
+      d.children = null;
+    }
+  }
+
 
   // Creates a curved (diagonal) path from parent to the child nodes
   diagonal(s, d) {
@@ -202,5 +218,17 @@ export class Dendogram {
       }
     this.update(this.root);
   }
+
+
+  handleMouseOver(d, i) { 
+    d3.select(this)
+      .attr('class', 'node-text hovered-text');
+  }
+
+  handleMouseOut(d, i) {
+    d3.select(this)
+      .attr('class', 'node-text');
+
+  }    
 
 }

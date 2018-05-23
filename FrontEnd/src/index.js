@@ -16,6 +16,21 @@ function reload() {
 }
 
 
+function sortDescending(d) {
+  if(d.children) {
+    d.children = d.children.sort((a, b) => { 
+      if (b.SCORE && b.SCORE){
+        return Object.keys(b.SCORE).length - Object.keys(a.SCORE).length;
+      }
+      else
+        return 0;
+    });
+    d.children = d.children.map((d) => {return sortDescending(d)});
+  }
+  return d;
+}
+
+
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -132,8 +147,10 @@ class Form extends React.Component {
 
     console.log(output)
 
+
+
     let taxonomiesBatch = output['taxonomies_batch'];
-    var mergedTree = output['merged_tree'];
+    var mergedTree = sortDescending(output['merged_tree']);
 
     for (let i = 0; i < taxonomiesBatch.length; i++) {
       let sequence = taxonomiesBatch[i]['sequence_id'];
@@ -181,7 +198,10 @@ class Form extends React.Component {
         rootDict, tmpSequences);
 
     drawSparklines(
-        rootDict, this.selectIcicle, this.state.icicle.getColorDict());
+        rootDict, 
+        tmpSequences,
+        this.selectIcicle, 
+        this.state.icicle.getColorDict());
 
     this.setState({rootDict: rootDict});   
   }
@@ -232,6 +252,12 @@ class Form extends React.Component {
       console.log('Filtering ', sequences)
 
       this.iterateOverIcicles(this.state.rootDict, sequences);
+      drawSparklines(
+          this.state.rootDict, 
+          sequences, 
+          this.selectIcicle, 
+          this.state.icicle.getColorDict());
+
       msgInfo.title = 'Filtering';
       msgInfo.msg = `You filtered the results, now displaying ${sequences.length} sequences out of ${Object.keys(this.state.rootDict).length}.`;
       
