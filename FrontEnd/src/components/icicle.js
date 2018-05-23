@@ -12,7 +12,15 @@ import * as d3 from 'd3';
 //   '#BFBEBD'
 // ];
 
-const COLOR_PALETTE = ['#F3C300', '#875692', '#A1CAF1', '#8DB600', '#F38400', '#BE0032', '#C2B280', '#848482', '#008856', '#E68FAC', '#0067A5', '#F99379', '#604E97', '#F6A600', '#B3446C', '#DCD300', '#882D17', '#654522', '#E25822', '#2B3D26', '#F2F3F4', '#222222', "#771155", "#AA4488", "#CC99BB", "#114477", "#4477AA", "#77AADD", "#117777", "#44AAAA", "#77CCCC", "#117744", "#44AA77", "#88CCAA", "#777711", "#AAAA44", "#DDDD77", "#774411", "#AA7744", "#DDAA77", "#771122", "#AA4455", "#DD7788"]
+const COLOR_PALETTE = ['#F3C300', '#875692', '#A1CAF1', '#8DB600', '#F38400', '#BE0032', '#C2B280', '#848482', '#008856', '#E68FAC', '#0067A5', '#F99379', '#604E97', '#F6A600', '#B3446C'];
+
+const COLOR_3 = ['#DCD300', '#882D17', '#654522', '#E25822', '#2B3D26', '#F2F3F4', '#222222', "#771155", "#AA4488", "#CC99BB", "#114477", "#4477AA", "#77AADD", "#117777", "#44AAAA"];
+
+const COLOR_2 = ["#77CCCC", "#117744", "#44AA77", "#88CCAA", "#777711", "#AAAA44", "#DDDD77", "#774411", "#AA7744", "#DDAA77", "#771122", "#AA4455", "#DD7788"];
+
+const COLOR_1 = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99'];
+
+const COLOR_0 = ['#8dd3c7','#ffffb3','#bebada','#fb8072','#80b1d3','#fdb462','#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5']
 
 
 export class Icicle {
@@ -21,6 +29,13 @@ export class Icicle {
     this.colorDict = {};
     if (colorDict)
       this.colorDict = colorDict;
+    
+    this.color = [];
+    this.color.push(d3.scaleOrdinal(COLOR_0));
+    this.color.push(d3.scaleOrdinal(COLOR_1));
+    this.color.push(d3.scaleOrdinal(COLOR_2));
+    this.color.push(d3.scaleOrdinal(COLOR_3));
+    this.color.push(d3.scaleOrdinal(COLOR_PALETTE));
   }
 
   getColorDict() {
@@ -43,7 +58,6 @@ export class Icicle {
     this.y = d3.scaleLinear()
       .range([0, this.height]);
     
-    this.color = d3.scaleOrdinal(COLOR_PALETTE);
 
     this.partition = d3.partition()
       .size([this.width, this.height])
@@ -91,34 +105,35 @@ export class Icicle {
 
         const undefined_parent = (d.parent && d.parent.data.name === "undefined")? true: false;
 
+        if (d.data.name.includes("uncultured")) return "#eee";
+
         if (d.data.name === "undefined") return "#eee";
 
         if(this.colorDict.hasOwnProperty(d.data.name)) 
           return this.colorDict[d.data.name];
 
-        else if(d.parent) {
+        if(d.height === this.levelColor || undefined_parent) {
+          this.colorDict[d.data.name] = this.color[d.height](d.data.name);
+          return this.colorDict[d.data.name];
+        }
 
-          if(d.height === this.levelColor || undefined_parent) {
-            this.colorDict[d.data.name] = this.color(d.data.name);
-            return this.colorDict[d.data.name];
-          }
+        if(d.parent) {
 
-          else {
-            let c = d3.rgb(this.colorDict[d.parent.data.name]);
-            let children = d.parent.children.map((d) => d.data.name);
-            let ini = children.length / 2;
-            let colorRange = [];
-            for (let i = 0; i < children.length; i++) {
-              let change = parseInt(50/children.length);
-              const color = `rgb(${c.r+(ini+i)*change},${c.g+(ini+i)*change},${c.b+(ini+i)*change})`
-              colorRange.push(d3.color(color))
-            }
-            let colorScale = d3.scaleOrdinal()
-              .domain(children)
-              .range(colorRange);
-            this.colorDict[d.data.name] = colorScale(d.data.name)
-            return this.colorDict[d.data.name];
+          let c = d3.rgb(this.colorDict[d.parent.data.name]);
+          let children = d.parent.children.map((d) => d.data.name);
+          let ini = children.length / 2;
+          let colorRange = [];
+          for (let i = 0; i < children.length; i++) {
+            let change = parseInt(50/children.length);
+            const color = `rgb(${c.r+(ini+i)*change},${c.g+(ini+i)*change},${c.b+(ini+i)*change})`
+            colorRange.push(d3.color(color))
           }
+          let colorScale = d3.scaleOrdinal()
+            .domain(children)
+            .range(colorRange);
+          this.colorDict[d.data.name] = colorScale(d.data.name)
+          return this.colorDict[d.data.name];
+
         }
 
         else {
@@ -129,7 +144,6 @@ export class Icicle {
       .style("stroke", "#FFF")
       .style("stroke-width", 2)
       .on("click", (d) => {
-        console.log(this.selectIcicle)
         if (!this.selectIcicle)
           return this.clicked(d)
         else

@@ -248,7 +248,7 @@ def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
 
     if not 'target' in kargs:
         hierarchy, aggregated_score = form_hierarchy(tree)
-        return tree, hierarchy['children'][0]
+        return tree, hierarchy
     else:
         return tree
 

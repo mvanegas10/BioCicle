@@ -135,7 +135,6 @@ export function drawSparklines(models, idList, selectIcicle, colorDict) {
       .attr('id', (d) => {return d.replace(':','');});
 
   for (let sequence_id of idList) {
-    console.log(models[sequence_id])
     icicle.draw(
         sequence_id.replace(':',''), 
         models[sequence_id].hierarchy, 

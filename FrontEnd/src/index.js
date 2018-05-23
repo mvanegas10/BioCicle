@@ -60,6 +60,7 @@ class Form extends React.Component {
       currentRoot: '',
       rootDict: {},
       mergedTree: {},
+      filteredSequences: [],
       icicle: new Icicle(),
       dendogram: new Dendogram(1700, this.handleDendogramClick),
       interval: undefined,
@@ -146,8 +147,6 @@ class Form extends React.Component {
     var rootDict = {};
 
     console.log(output)
-
-
 
     let taxonomiesBatch = output['taxonomies_batch'];
     var mergedTree = sortDescending(output['merged_tree']);
@@ -248,9 +247,12 @@ class Form extends React.Component {
     let sequences = Object.keys(d.data.SCORE);
     let originalSequences = Object.keys(this.state.rootDict);
     let msgInfo = {}; 
-    if (sequences.length !== originalSequences.length) {
-      console.log('Filtering ', sequences)
-
+    if (sequences.length !== this.state.filteredSequences.length) {
+      if (sequences.length === originalSequences.length)
+        this.setState({filteredSequences: []});
+      else
+        this.setState({filteredSequences: sequences});
+      console.log(`Filtering ${this.state.filteredSequences.length} out of ${originalSequences.length}`);
       this.iterateOverIcicles(this.state.rootDict, sequences);
       drawSparklines(
           this.state.rootDict, 
@@ -486,6 +488,27 @@ class Form extends React.Component {
   }
 
 
+  renderFilteredInfo() {
+    
+    return (
+      
+      <div>
+        <Col md={3}>
+          <h4>Filtered: Displaying {this.state.filteredSequences.length} out of {Object.keys(this.state.rootDict).length} sequences.     {'\n'} Current sequence: </h4>
+        </Col>
+        <Col md={2} className='to-left'> <h4> {this.state.currentRoot}</h4></Col> 
+        <Col md={2}> 
+          <h4><a download={this.state.currentRoot + ".txt"} target='_blank' href={'/tmp/' + this.state.rootDict[this.state.currentRoot].filename}>Download comparison file</a></h4>
+        </Col> 
+        {Object.keys(this.state.rootDict).length > 1 && this.renderResume() }
+        <Col></Col>
+      </div>
+
+    );
+
+  }
+
+
   renderInfo() {
     
     return (
@@ -579,7 +602,8 @@ class Form extends React.Component {
           </Row>
         </Grid>
         <Row>
-          {Object.keys(this.state.rootDict).length > 0 && this.renderInfo()}
+          {this.state.filteredSequences.length > 0 && this.renderFilteredInfo()}
+          {(Object.keys(this.state.rootDict).length > 0 && this.state.filteredSequences.length === 0) && this.renderInfo()}
         </Row>
         <Row>
           {this.state.error && this.renderAlert()}

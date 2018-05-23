@@ -41,6 +41,8 @@ def get_unsaved_sequences(sequences):
 
             saved = db_models.find_one(search)
 
+            log.datetime_log("saved {}".format(saved))
+
             if (saved is not None 
             and saved["comparisons"] is not None 
             and saved["hierarchy"] is not None):
@@ -349,7 +351,7 @@ def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
 
     if not 'target' in kargs:
         hierarchy, aggregated_score = form_hierarchy(tree)
-        return tree, hierarchy['children'][0]
+        return tree, hierarchy
     else:
         return tree
 
