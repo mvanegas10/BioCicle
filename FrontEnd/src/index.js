@@ -151,6 +151,7 @@ class Form extends React.Component {
     let taxonomiesBatch = output['taxonomies_batch'];
     var mergedTree = sortDescending(output['merged_tree']);
 
+
     for (let i = 0; i < taxonomiesBatch.length; i++) {
       let sequence = taxonomiesBatch[i]['sequence_id'];
       
@@ -203,6 +204,9 @@ class Form extends React.Component {
         this.state.icicle.getColorDict());
 
     this.setState({rootDict: rootDict});   
+
+    d3.select('#small-multiples').text(`${Object.keys(this.state.rootDict).length} RESULTANT MODELS`);
+    d3.select('#overview').text('TAXONOMIC PROFILING');    
   }
 
 
@@ -360,9 +364,6 @@ class Form extends React.Component {
 
         post('post_compare_sequence', params).then((output) => {
 
-          d3.select('#small-multiples').text('Small Multiples');
-          d3.select('#overview').text('Overview');
-
           this.handleIcicleAndDendogramRendering(output);
 
         })  
@@ -385,28 +386,40 @@ class Form extends React.Component {
   }
 
 
+  renderDownloadButton() {
+    return (
+      <button className='btn btn-secondary' >
+        <a className='no-style' download={this.state.currentRoot + ".txt"} target='_blank' href={'/tmp/' + this.state.rootDict[this.state.currentRoot].filename}>Download comparison file
+        </a>
+      </button>
+    )
+  }
+
+
   renderSequence() {
     return (
-      <Col md={8}>
-        <h4 className='section-title' >Sequence alignment</h4>
-        <Col md={8}>
+      <div>
+        <Col md={5}>
+          <h4 className='section-title' >Sequence alignment</h4>
           <textarea 
             value={this.state.sequence} 
             rows='4'
             placeholder='Insert a sequence or sequence id. For example, try with sp:wap_rat.' 
             onChange={this.handleSequenceChange}
           ></textarea>
+
         </Col>
         <Col md={1}></Col>
-        <Col md={3}>
+        <Col md={2}>
+          <input className='btn btn-secondary' type="file" onChange={ (e) => this.handleFileUpload(e.target.files) }/>
           <button 
               className='btn btn-secondary' 
               onClick={this.handleSequenceClick}>
             Align Sequence
           </button>
-          <input className='btn btn-secondary' type="file" onChange={ (e) => this.handleFileUpload(e.target.files) }/>
+          { Object.keys(this.state.rootDict).length > 0 && this.renderDownloadButton()}
         </Col>
-      </Col>
+      </div>
     );
   } 
 
@@ -430,6 +443,13 @@ class Form extends React.Component {
             </Col>  
             <Col md={1}></Col>
           </Row>
+          <Row>
+            <Col md={4}></Col>
+            <Col md={4}>
+              {Object.keys(this.state.rootDict).length > 1 && this.renderResume() }
+            </Col>
+            <Col md={4}></Col>
+          </Row>
         </Col>
       </div>
 
@@ -437,30 +457,12 @@ class Form extends React.Component {
 
   }
 
-          // <Row>
-          //   <Col md={4}>
-          //     <h4>Level for Color Diversification</h4>
-          //   </Col>  
-          //   <Col md={7}>
-          //     <select value={this.state.levelColor} onChange={this.handleLevelColorChange}>
-          //       <option value={5}>PHYLUM</option>
-          //       <option value={4}>CLASS</option>
-          //       <option value={3}>ORDER</option>
-          //       <option value={2}>FAMILY</option>
-          //       <option value={1}>GENUS</option>
-          //       <option value={0}>SPECIES</option>
-          //     </select>
-          //   </Col>  
-          //   <Col md={1}></Col>
-          // </Row>
 
   renderResume(){
 
     return (
 
       <div>
-        <Col md={2}></Col>   
-        <Col md={1}>
           <Button 
             className='img-frame'
             onClick={() => { this.iterateOverIcicles(
@@ -478,8 +480,6 @@ class Form extends React.Component {
             >
             <img src={require('./assets/img/pause.png')} alt='' width={30} height={30}/>
           </Button>
-        </Col>   
-        <Col md={2}></Col>
 
       </div>
 
@@ -493,15 +493,12 @@ class Form extends React.Component {
     return (
       
       <div>
-        <Col md={3}>
-          <h4>Filtered: Displaying {this.state.filteredSequences.length} out of {Object.keys(this.state.rootDict).length} sequences.     {'\n'} Current sequence: </h4>
+        <Col md={1}></Col>
+        <Col md={10} className='to-left'>
+          <h4><b>Filtered:</b> Displaying {this.state.filteredSequences.length} out of {Object.keys(this.state.rootDict).length} sequences.     {'\n'} Current sequence: </h4>
+          <h4> {this.state.currentRoot}</h4>
         </Col>
-        <Col md={2} className='to-left'> <h4> {this.state.currentRoot}</h4></Col> 
-        <Col md={2}> 
-          <h4><a download={this.state.currentRoot + ".txt"} target='_blank' href={'/tmp/' + this.state.rootDict[this.state.currentRoot].filename}>Download comparison file</a></h4>
-        </Col> 
-        {Object.keys(this.state.rootDict).length > 1 && this.renderResume() }
-        <Col></Col>
+        <Col md={1}></Col>
       </div>
 
     );
@@ -512,19 +509,16 @@ class Form extends React.Component {
   renderInfo() {
     
     return (
-      
-      <div>
-        <Col md={3}>
-          <h4>Displaying {Object.keys(this.state.rootDict).length} sequences.     {'\n'} Current sequence: </h4>
-        </Col>
-        <Col md={2} className='to-left'> <h4> {this.state.currentRoot}</h4></Col> 
-        <Col md={2}> 
-          <h4><a download={this.state.currentRoot + ".txt"} target='_blank' href={'/tmp/' + this.state.rootDict[this.state.currentRoot].filename}>Download comparison file</a></h4>
-        </Col> 
-        {Object.keys(this.state.rootDict).length > 1 && this.renderResume() }
-        <Col></Col>
-      </div>
 
+      <div>
+        <Col md={1}></Col>
+        <Col md={10} className='to-left'>
+          <h4>Displaying {Object.keys(this.state.rootDict).length} sequences.     {'\n'} Current sequence: </h4>
+          <h4> {this.state.currentRoot}</h4>
+        </Col>
+        <Col md={1}></Col>
+      </div>      
+      
     );
 
   }
@@ -601,7 +595,7 @@ class Form extends React.Component {
             {Object.keys(this.state.rootDict).length > 0 && this.renderScore()}
           </Row>
         </Grid>
-        <Row>
+        <Row className="info-container">
           {this.state.filteredSequences.length > 0 && this.renderFilteredInfo()}
           {(Object.keys(this.state.rootDict).length > 0 && this.state.filteredSequences.length === 0) && this.renderInfo()}
         </Row>
@@ -622,14 +616,14 @@ class Body extends React.Component {
     return (
       <div>
         <Grid>
-          <Row className='container'>
-            <Col md={12} className='section margin'>
+          <Row className='row-container'>
+            <Col md={12} className='subtitle margin'>
               <h3 id='small-multiples'></h3>
             </Col>
             <Col md={12} className='sparklines'></Col>
           </Row>
-          <Row className='container'>
-            <Col md={12} className='section'><h3 id='overview'></h3></Col>
+          <Row className='row-container'>
+            <Col md={12} className='subtitle'><h3 id='overview'></h3></Col>
             <Col md={5} className='dendogram'></Col>
             <Col md={7} id='icicle' className='icicle'></Col>
           </Row>

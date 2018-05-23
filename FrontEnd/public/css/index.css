@@ -40,6 +40,14 @@ h4.section-title {
     text-align: left;
     padding: 0% 3%;
 }
+a.no-style {
+    color: black;
+    text-decoration: none;
+}
+a.no-style:hover {
+    color: black;
+    text-decoration: none;
+}
 div.slider-handle {
     background-image: linear-gradient(to bottom,#008080 0,#008080 100%);
 }
@@ -74,9 +82,21 @@ div.section {
     padding: 0% 3%;
     color: #008080;
 }
+div.subtitle {
+    text-align: left;
+    padding: 0% 3%;
+    color: #008080;
+}
+div.inlineblock {
+    display: inline-block;
+}
 div.container {
     width: 100%;
     margin: 0%;
+}
+div.row-container {
+    border: 2px #eee solid;
+    margin: 20px 10px;
 }
 div.vis-form {
     width: 100%;
@@ -90,11 +110,12 @@ div.vis-form {
 div.modal {
     z-index: 4000 !important;
 }
-div.vis-body * {
-    display: inline;
+div.vis-body > * {
+    display: inline-block;
+    width: 100%;
 }
 .margin {
-    margin-top: 6.7cm;
+    margin-top: 6.5cm !important;
 }
 .container {
     
@@ -102,8 +123,9 @@ div.vis-body * {
 svg.sparkline {
     margin: 0px;
 }
-div.to-left {
+div.to-left * {
     text-align: left;
+    display: inline;
 }
 div.slider {
     width: 100% !important;
@@ -116,4 +138,7 @@ rect {
 }
 div.displayed {
     background-color: black; 
+}
+div.info-container {
+    margin-top: 20px;
 }

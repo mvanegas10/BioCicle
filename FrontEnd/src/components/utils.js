@@ -121,12 +121,8 @@ export function drawSparklines(models, idList, selectIcicle, colorDict) {
 
   let parentNode = parent.selectAll('div')
     .data(idList).enter()
-    .append('div');
-
-    // parentNode.append('p')
-    //   .attr("x", (d) => { return 0; })
-    //   .attr("y", (i, d) => { return (i+1) * width/2; })
-    //   .text((d) => {return d.sequence_id;});
+    .append('div')
+    .attr('class','inlineblock');
 
     parentNode.append('svg')
       .attr('width', width/50)
