@@ -205,7 +205,7 @@ class Form extends React.Component {
 
     this.setState({rootDict: rootDict});   
 
-    d3.select('#small-multiples').text(`${Object.keys(this.state.rootDict).length} RESULTANT MODELS`);
+    d3.select('#small-multiples').text(`RESULTANT MODELS`);
     d3.select('#overview').text('TAXONOMIC PROFILING');    
   }
 
