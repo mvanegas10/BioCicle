@@ -14,9 +14,9 @@ import * as d3 from 'd3';
 
 const COLOR_PALETTE = ['#F3C300', '#875692', '#A1CAF1', '#8DB600', '#F38400', '#BE0032', '#C2B280', '#848482', '#008856', '#E68FAC', '#0067A5', '#F99379', '#604E97', '#F6A600', '#B3446C'];
 
-const COLOR_3 = ['#DCD300', '#882D17', '#654522', '#E25822', '#2B3D26', '#F2F3F4', '#222222', "#771155", "#AA4488", "#CC99BB", "#114477", "#4477AA", "#77AADD", "#117777", "#44AAAA"];
+const COLOR_3 = ['#DCD300', '#882D17', '#E25822', '#F2F3F4', "#AA4488", "#CC99BB", "#4477AA", "#77AADD", "#117777", "#44AAAA"];
 
-const COLOR_2 = ["#77CCCC", "#117744", "#44AA77", "#88CCAA", "#777711", "#AAAA44", "#DDDD77", "#774411", "#AA7744", "#DDAA77", "#771122", "#AA4455", "#DD7788"];
+const COLOR_2 = ["#77CCCC", "#117744", "#44AA77", "#88CCAA", "#AAAA44", "#DDDD77", "#AA7744", "#DDAA77", "#771122", "#AA4455", "#DD7788"];
 
 const COLOR_1 = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f','#ff7f00','#cab2d6','#6a3d9a','#ffff99'];
 
@@ -103,21 +103,38 @@ export class Icicle {
       .attr("class", (d) => { return (this.getScore(d, sequence) === 0)? "invisible": ""; })
       .attr("fill", (d) => { 
 
+        let assignedColor;
+
         const undefined_parent = (d.parent && d.parent.data.name === "undefined")? true: false;
 
-        if (d.data.name.includes("uncultured")) return "#eee";
+        if (d.data.name.includes("uncultured")) assignedColor = "#eee";
 
-        if (d.data.name === "undefined") return "#eee";
+        else if (d.data.name === "undefined") assignedColor = "#eee";
 
-        if(this.colorDict.hasOwnProperty(d.data.name)) 
-          return this.colorDict[d.data.name];
+        else if(this.colorDict.hasOwnProperty(d.data.name)) 
+          assignedColor = this.colorDict[d.data.name];
 
-        if(d.height === this.levelColor || undefined_parent) {
+        else if(d.height === this.levelColor) {
+          let newColor = (this.color[d.height](d.data.name))
           this.colorDict[d.data.name] = this.color[d.height](d.data.name);
-          return this.colorDict[d.data.name];
+          assignedColor = this.colorDict[d.data.name];
         }
 
-        if(d.parent) {
+        else if (undefined_parent) {
+          let tmpParent = d;
+          for (let i = d.height; i < 4; i++) {
+            if (tmpParent.parent){ 
+              tmpParent = tmpParent.parent;
+              if (tmpParent.data.name !== "undefined") {
+                let tmpColor = d3.rgb(this.colorDict[tmpParent.data.name]);
+                assignedColor = tmpColor.brighter();
+              }
+            }
+            else break;
+          }
+        }
+
+        else if(d.parent) {
 
           let c = d3.rgb(this.colorDict[d.parent.data.name]);
           let children = d.parent.children.map((d) => d.data.name);
@@ -132,14 +149,19 @@ export class Icicle {
             .domain(children)
             .range(colorRange);
           this.colorDict[d.data.name] = colorScale(d.data.name)
-          return this.colorDict[d.data.name];
+          assignedColor = this.colorDict[d.data.name];
 
         }
 
         else {
-          this.colorDict[d.data.name] = 'rgb(204,204,204)';
-          return this.colorDict[d.data.name];
+          this.colorDict[d.data.name] = '#CCCCCC';
+          assignedColor = this.colorDict[d.data.name];
         }
+
+        if (! assignedColor)
+          return '#F2F3F4';
+        else
+          return assignedColor;
       })
       .style("stroke", "#FFF")
       .style("stroke-width", 2)

@@ -67,7 +67,7 @@ function pruneLeaves(node, threshold, total) {
     let sequences = Object.keys(leave.data.SCORE);
 
     for (let sequence_id of sequences) {
-      let currentValue = (leave.data.SCORE[sequence_id]/total[sequence_id]) * 100;
+      let currentValue = leave.data.SCORE[sequence_id];
       if (currentValue > threshold) count ++;
 
     }
@@ -174,7 +174,7 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
 
       var prunedHierarchy = pruneLeaves(
           hierarchyCopy,
-          threshold,
+          hierarchyNode[sequence_id].max * (threshold / 100),
           tmpTotal);
 
       if (prunedHierarchy !== undefined) {
@@ -193,19 +193,6 @@ export function filter(threshold, hierarchyNode, idList, root, dendogram) {
       }
       
     }
-
-    let rootHierarchy = d3.hierarchy(root)
-        .sum(function(d) { return d.children; });
-
-    let prunedMerge = prune(pruneLeaves(
-      rootHierarchy,
-      threshold,
-      totals
-    ));
-
-    dendogram.draw(prunedMerge);
-
-    prunedMerge._children = (root.children)? root.children.slice().map(a => Object.assign({}, a)): undefined;
     
     resolve(output);        
 

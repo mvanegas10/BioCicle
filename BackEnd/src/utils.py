@@ -41,8 +41,6 @@ def get_unsaved_sequences(sequences):
 
             saved = db_models.find_one(search)
 
-            log.datetime_log("saved {}".format(saved))
-
             if (saved is not None 
             and saved["comparisons"] is not None 
             and saved["hierarchy"] is not None):

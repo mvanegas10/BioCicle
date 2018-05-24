@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 export class Dendogram {
 
   constructor(height, click) {
-    this.margin = {top: 20, right: 90, bottom: 30, left: 90};
+    this.margin = {top: 20, right: 90, bottom: 30, left: 200};
     this.height = height - this.margin.top - this.margin.bottom;
     this.click = click;
   }

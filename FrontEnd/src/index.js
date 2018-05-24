@@ -62,7 +62,7 @@ class Form extends React.Component {
       mergedTree: {},
       filteredSequences: [],
       icicle: new Icicle(),
-      dendogram: new Dendogram(1700, this.handleDendogramClick),
+      dendogram: new Dendogram(900, this.handleDendogramClick),
       interval: undefined,
       nothingToShow: 'disabled'
     };
@@ -185,6 +185,8 @@ class Form extends React.Component {
     
     let hierarchy = d3.hierarchy(mergedTree)
       .sum(function(d) { return d.children; });
+
+    console.log('Leaves ', hierarchy.leaves());
 
     mergedTree._children = mergedTree.children.slice();
     
@@ -320,19 +322,28 @@ class Form extends React.Component {
             tmpSequences.slice(),
             Object.assign({}, this.state.mergedTree), 
             this.state.dendogram
-        ).then((output) => {    
+        ).then((output) => {
+          let originalSeq = Object.keys(this.state.rootDict);
+          if (output.prunedSequences.length !== this.state.filteredSequences.length) {
+            let msgInfo = {}; 
+            if (output.prunedSequences.length === originalSeq.length)
+              this.setState({filteredSequences: []});
+            else
+              this.setState({filteredSequences: output.prunedSequences});
+            console.log(`Filtering ${this.state.filteredSequences.length} out of ${originalSeq.length}`);
 
-          var tempHier = output.hierarchies;
-          for(var sequence in this.state.rootDict) {
-            if(!tempHier[sequence]) 
-              tempHier[sequence] = {};
-            tempHier[sequence].hierarchy._children = this.state.rootDict[sequence].hierarchy.children.slice();
-            tempHier[sequence]._total = this.state.rootDict[sequence].total;
-          }
+            msgInfo.title = 'Filtering';
+            msgInfo.msg = `You filtered the results, now displaying ${output.prunedSequences.length} sequences out of ${originalSeq.length}.`;
+          }       
+          this.iterateOverIcicles(
+              Object.assign({}, output.hierarchies), 
+              output.prunedSequences.slice());
 
-          this.setState({rootDict: tempHier});
-          this.iterateOverIcicles(output.hierarchies, output.prunedSequences);
-
+          drawSparklines(
+              Object.assign({}, output.hierarchies), 
+              output.prunedSequences, 
+              this.selectIcicle, 
+              this.state.icicle.getColorDict());            
         });
       }
 
@@ -430,7 +441,7 @@ class Form extends React.Component {
 
       <div>
         <Col md={4}>
-          <h4 className='section-title' >Score Threshold: {this.state.threshold} </h4>
+          <h4 className='section-title' >Score Threshold: {this.state.threshold}% of the maximum score</h4>
           <Row>
             <Col md={11}>
               <ReactBootstrapSlider
