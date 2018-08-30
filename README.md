@@ -21,16 +21,16 @@ cd BioCicle
 
 # Install dependencies
 cd BackEnd
-pip install -r requirements.txt
+pip install pymongo xmltramp2 requests flask
 
-cd FrontEnd
+cd ../FrontEnd
 npm install
 
 # Run the app
-cd BackEnd
+cd ../BackEnd
 python src/app.py
 
-cd FrontEnd
+cd ../FrontEnd
 npm start
 ```
 
