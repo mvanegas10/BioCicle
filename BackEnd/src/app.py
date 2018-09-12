@@ -145,6 +145,90 @@ def post_prune_trees():
         return jsonify(output)
 
 
+@app.route("/api/upload_xml", methods=["POST"])
+def upload_xml():
+    
+    output = {}
+
+    try:
+        data = request.get_json()
+        file_path = ""
+
+        if data["file"] is not None and data["filename"] is not None:
+
+            file_path = utils.save_file_with_modifier(
+                        data["file"], data["filename"])    
+
+            blast = utils.parseXML(file_path)
+
+            taxids = [result for result in blast]
+
+            # taxonomy = []
+            # parsed_filename = data["filename"].split(".")[0]
+            # merged_tree = {'name':'', 'children': {}, 'SCORE': []}
+
+            # try:
+            #     file_path = utils.try_to_save_file(
+            #             data["file"], data["filename"])
+
+            #     log.datetime_log("Succeded saving file.")
+    
+            #     merged_tree, taxonomy = utils.process_batch(
+            #             [parsed_filename], [file_path], merged_tree)
+
+            # except utils.FileExists as e:
+            #     taxonomy, tmp_sequences = utils.get_unsaved_sequences(
+            #         [parsed_filename])
+                
+            #     if len(taxonomy) == 0:
+            #         sequence_id = utils.get_sequence_id(data["filename"])
+            #         if sequence_id is not None:
+            #             log.datetime_log("File existed and sequence {} parsed succesfully.".format(sequence_id))
+            #             taxonomy, tmp_sequences = utils.get_unsaved_sequences(
+            #                 [sequence_id])
+
+            #     if len(taxonomy) > 0:
+            #         utils.get_hierarchy_from_dict(
+            #             taxonomy[0]['sequence_id'],
+            #             taxonomy[0]['comparisons'],
+            #             target=merged_tree)
+
+            #     else:
+            #         log.datetime_log("File existed but sequence not parsed: trying to write a new file.")
+            #         file_path = ""
+            #         cont = 0
+            #         while len(file_path) == 0 and cont < 50:
+            #             try:
+            #                 file_path = utils.try_to_save_file(
+            #                         data["file"], 
+            #                         data["filename"], 
+            #                         modifier=cont)
+                            
+            #             except utils.FileExists as e:
+            #                 cont += 1
+                    
+            #         log.datetime_log("File succesfully saved at {}.".format(file_path))
+    
+            #         merged_tree, taxonomy = utils.process_batch(
+            #                 [parsed_filename], [file_path], merged_tree)
+
+            # # Prepare output
+            # print("merged_tree")
+            # print(merged_tree)
+            # hierarchy, aggregated_score = utils.form_hierarchy(merged_tree)
+            # print("hierarchy")
+            # print(hierarchy)
+            # output["merged_tree"] = hierarchy['children'][0]
+
+            # output["taxonomies_batch"] = taxonomy   
+            return jsonify(output)    
+
+    except Exception as e:
+        output["Error"] = str(e)
+        log.datetime_log("Error: {}".format(e))
+        return jsonify(output)
+
+
 @app.route("/api/upload_file", methods=["POST"])
 def upload_file():
     

@@ -41,6 +41,7 @@ class Form extends React.Component {
     this.handleIcicleAndDendogramRendering = this.handleIcicleAndDendogramRendering.bind(this);
     this.handleLevelColorChange = this.handleLevelColorChange.bind(this);
     this.handleFileUpload = this.handleFileUpload.bind(this);
+    this.handleXMLUpload = this.handleXMLUpload.bind(this);
     this.handleDendogramClick = this.handleDendogramClick.bind(this);
     this.handleAttrChange = this.handleAttrChange.bind(this);
     this.handleFuncChange = this.handleFuncChange.bind(this);
@@ -216,6 +217,36 @@ class Form extends React.Component {
     this.setState({levelColor: event.target.value});
     this.iterateOverIcicles(
         this.state.rootDict, Object.keys(this.state.rootDict));
+  }
+
+  handleXMLUpload(selectorFiles: FileList) {
+
+    const reader = new FileReader();
+    reader.readAsDataURL(selectorFiles[0]);
+
+    reader.onload = () => {
+
+      const fileList = reader.result.split(',');
+
+      const params = {
+        file: fileList[1],
+        filename: selectorFiles[0].name
+      };
+      post('upload_xml', params).then((output) => {
+
+        console.log(output)
+        this.handleIcicleAndDendogramRendering(output);
+
+      })
+      .catch((error) => {
+
+        this.setState({error: error});
+        console.error(error);
+
+      });   
+
+    };
+
   }
 
 
@@ -422,7 +453,7 @@ class Form extends React.Component {
         </Col>
         <Col md={1}></Col>
         <Col md={2}>
-          <input className='btn btn-secondary' type="file" onChange={ (e) => this.handleFileUpload(e.target.files) }/>
+          <input className='btn btn-secondary' type="file" onChange={ (e) => this.handleXMLUpload(e.target.files) }/>
           <button 
               className='btn btn-secondary' 
               onClick={this.handleSequenceClick}>

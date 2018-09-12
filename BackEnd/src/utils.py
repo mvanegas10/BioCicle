@@ -3,6 +3,10 @@ import requests
 import base64
 import json
 import pymongo
+import string
+import random
+from Bio.Blast import NCBIXML
+from Bio.Blast import NCBIWWW
 from pathlib import Path
 import components.log as log
 from pymongo import MongoClient
@@ -23,6 +27,14 @@ MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
 
 class FileExists(Exception):
     pass
+
+
+def parseXML(file):
+    print(file)
+    results = []
+    with open(file) as handler:
+        results.extend(list(NCBIXML.parse(handler)))
+    return results
 
 
 def get_unsaved_sequences(sequences):
@@ -51,6 +63,11 @@ def get_unsaved_sequences(sequences):
                 saved_list.append(saved)
 
     return saved_list, nonsaved_list
+
+
+def get_result_from_blast(blast_result):
+    for alignment in blast_record.alignments:
+        return alignment.hsps
 
 
 def save_file(file, file_path):
@@ -120,6 +137,16 @@ def get_sequence_id(filename):
         if row[:6] == "Query=":
             sequence_id = row.split("|")[2].split(" ")[0]
             return "sp:{}".format(sequence_id)
+
+
+def save_file_with_modifier(file, filename):
+    tmp_filename = filename.split(".")
+    format = tmp_filename[len(tmp_filename)-1]
+    new_name = "".join(random.choice(
+            string.ascii_uppercase + string.digits) for _ in range(30))
+
+    file_path = "{}{}.{}".format(TMP_FOLDER, new_name, format)
+    return save_file(file, file_path)
 
 
 def try_to_save_file(file, filename, **kargs):

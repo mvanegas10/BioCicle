@@ -1,0 +1,144 @@
+#main .react-native-slider {
+    width: 200px;
+}
+.demoWrapper {
+    width: 400px;
+    display: inline-block;
+}
+#rangeHighlightsSlider .slider-rangeHighlight {
+    background: #f70616;
+}
+text {
+    cursor: pointer;
+}
+text.node-text {
+    text-decoration: underline;
+    fill: steelblue;
+}
+text.hovered-text {
+    font: 25px sans-serif !important;     
+}
+textarea { 
+    width:100%;
+    font-size: 12px; 
+    resize: none;
+}
+div.wrapper {
+    background-color: #E0E0E0;
+    padding: 20px;
+    width: 300px;
+}
+.btn-secondary {
+    margin: 0px 0px 5px 0px;
+    width:100%;
+    background: #eee;
+}
+.btn-secondary:hover {
+    background: #fff;
+}
+h4.section-title {
+    text-align: left;
+    padding: 0% 3%;
+}
+a.no-style {
+    color: black;
+    text-decoration: none;
+}
+a.no-style:hover {
+    color: black;
+    text-decoration: none;
+}
+div.slider-handle {
+    background-image: linear-gradient(to bottom,#008080 0,#008080 100%);
+}
+.exit {
+    opacity: 0.5;
+}
+.node circle {
+    fill: #fff;
+    stroke: #008080;
+    stroke-width: 1px;
+}
+
+.node text {
+    font: 10px sans-serif;
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+}
+div.title {
+    width: 100%;
+    position: fixed;
+    background: rgb(204,204,204);
+    z-index: 2000;
+    cursor: pointer;
+}
+div.section {
+    font-family: 'Concert One', cursive;
+    text-align: left;
+    padding: 0% 3%;
+    color: #008080;
+}
+div.subtitle {
+    text-align: left;
+    padding: 0% 3%;
+    color: #008080;
+}
+div.inlineblock {
+    display: inline-block;
+}
+div.container {
+    width: 100%;
+    margin: 0%;
+}
+div.row-container {
+    border: 2px #eee solid;
+    margin: 20px 10px;
+}
+div.vis-form {
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 2cm;
+    background: rgb(204,204,204);
+    box-shadow: 0 8px 6px -6px #ccc;
+    padding-bottom: 0.5cm;
+}
+div.modal {
+    z-index: 4000 !important;
+}
+div.vis-body > * {
+    display: inline-block;
+    width: 100%;
+}
+.margin {
+    margin-top: 6.5cm !important;
+}
+.container {
+    
+}
+svg.sparkline {
+    margin: 0px;
+}
+div.to-left * {
+    text-align: left;
+    display: inline;
+}
+div.slider {
+    width: 100% !important;
+}
+.img-frame {
+    background-color: #eee;
+}
+rect {
+    cursor: pointer;
+}
+div.displayed {
+    background-color: black; 
+}
+div.info-container {
+    margin-top: 20px;
+}
