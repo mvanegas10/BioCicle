@@ -5,8 +5,9 @@ import json
 import pymongo
 import string
 import random
+import sqlite3
 from Bio.Blast import NCBIXML
-from Bio.Blast import NCBIWWW
+from ete3 import NCBITaxa
 from pathlib import Path
 import components.log as log
 from pymongo import MongoClient
@@ -14,10 +15,14 @@ import components.ncbi_blast.client as blast
 from multiprocessing.pool import Pool
 from functools import partial,reduce
 
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
 UNI_PROT_URL = "https://www.uniprot.org/uniprot/"
+UPI_FOR_ACCESSION = "http://www.ebi.ac.uk/Tools/picr/rest/getUPIForAccession"
+EBI_DATABASE = "EMBLWGS"
 SRC_FOLDER = os.path.join(PROJECT_DIR, "src/")
 TMP_FOLDER = os.path.join(SRC_FOLDER, "static/tmp/")
+SQLITE_DB = os.path.join(PROJECT_DIR, "tmp/accession2taxid.sqlite")
 COMPONENTS_FOLDER = os.path.join(SRC_FOLDER, "components/")
 TAXDUMP_FOLDER = os.path.join(COMPONENTS_FOLDER, "taxdmp/")
 NODES_FILE = os.path.join(TAXDUMP_FOLDER, "nodes.dmp")
@@ -25,16 +30,32 @@ NAMES_FILE = os.path.join(TAXDUMP_FOLDER, "names.dmp")
 NUCLEOTIDE_FILE = os.path.join(PROJECT_DIR, "tmp/nucl_gb.accession2taxid")
 MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
 
+
 class FileExists(Exception):
     pass
 
 
+def get_tax_id_from_accession_id(accession_id):
+    with sqlite3.connect(SQLITE_DB) as conn:
+        c = conn.cursor()
+        c.execute("SELECT taxid FROM prot WHERE accession=?",(accession_id,))
+        try: 
+            taxid = c.fetchone()[0]
+            return int(taxid)
+        except:
+            return None
+
+
+def get_taxonomy_from_id(taxid):
+    if taxid is not None:
+        ncbi = NCBITaxa()
+        lineage = ncbi.get_lineage(taxid)
+        return ncbi.get_taxid_translator(lineage)
+
+
 def parseXML(file):
-    print(file)
-    results = []
     with open(file) as handler:
-        results.extend(list(NCBIXML.parse(handler)))
-    return results
+        return list(NCBIXML.parse(handler))
 
 
 def get_unsaved_sequences(sequences):

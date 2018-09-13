@@ -159,9 +159,27 @@ def upload_xml():
             file_path = utils.save_file_with_modifier(
                         data["file"], data["filename"])    
 
-            blast = utils.parseXML(file_path)
+            blast_records = utils.parseXML(file_path)
+            total = 0
+            cont = 0
 
-            taxids = [result for result in blast]
+            for record in blast_records: 
+                for description in record.descriptions:
+                    accession = str(description.title.split("|")[3])
+
+                    if "." in accession:
+                        accession = accession[:len(accession)-2]
+                    
+                    taxid = utils.get_tax_id_from_accession_id(accession)
+                    if taxid is not None:
+                        cont += 1
+                        taxonomy = utils.get_taxonomy_from_id(taxid)
+                        setattr(description, "taxid", taxid)
+                        setattr(description, "taxonomy", taxonomy)
+
+                total +=len(record.descriptions)
+
+            print("total:{} vs done:{}".format(total, cont))
 
             # taxonomy = []
             # parsed_filename = data["filename"].split(".")[0]
