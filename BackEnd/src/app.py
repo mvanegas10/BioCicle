@@ -1,6 +1,7 @@
 #!flask/bin/python
 import json
 import random
+import copy
 import utils as utils
 import components.log as log
 from flask import request, Flask, jsonify
@@ -159,15 +160,19 @@ def upload_xml():
 
             file_path = utils.save_file_with_modifier(
                         data["file"], data["filename"])    
+                        
+            file_name = file_path.split("/")
+            file_name = file_name[len(file_name)-1]
 
             blast_records = utils.parseXML(file_path)
 
             merged_tree = {'name':'', 'children': {}, 'SCORE': []}
 
             for i, record in enumerate(blast_records): 
-                record_taxonomy = {'name':'', 'children': {}, 'SCORE': []}
+                record_taxonomy = {'name':'', 'children': {}, 'SCORE': {}}
+                scores = []
+                alignments = []
                 for description in record.descriptions:
-                    score = description.score
                     accession = str(description.title.split("|")[3])
 
                     if "." in accession:
@@ -176,16 +181,29 @@ def upload_xml():
                     taxid = utils.get_tax_id_from_accession_id(accession)
                     
                     if taxid is not None:
+                        scores.append(float(description.score))
                         taxonomy = utils.get_taxonomy_from_id(taxid)
-                        setattr(description, "taxid", taxid)
-                        setattr(description, "taxonomy", taxonomy)
-                        record_taxonomy = utils.get_hierarchy_from_list( record_taxonomy, taxonomy, score, i )
+                        taxonomy["SCORE"] = float(description.score)
+                        alignments.append(taxonomy)
 
-                batch.append(record_taxonomy)
-                setattr(record, "tree", record_taxonomy)
+                if len(scores) > 0:
+                    tmp_tree, tmp_hierarchy = utils.get_hierarchy_from_dict( "sequence_{}".format(i), alignments )
+                    maximum, total = 0, 0
+                    merged_tree = utils.get_hierarchy_from_dict( "sequence_{}".format(i), alignments, target=merged_tree )
+                    maximum, total = max(scores), sum(scores)
+                    tmp_object = {
+                        "sequence_id": "sequence{}".format(i),
+                        "hierarchy": tmp_hierarchy,
+                        "tree": tmp_tree,
+                        "max": maximum,
+                        "total": total,
+                        "filename": file_name,
+                        "comparisons": alignments
+                    }
+                    batch.append(tmp_object)
 
             # Prepare output
-            hierarchy, aggregated_score = utils.form_hierarchy(record_taxonomy)
+            hierarchy, aggregated_score = utils.form_hierarchy(merged_tree)
             output["merged_tree"] = hierarchy['children'][0]
 
             output["taxonomies_batch"] = batch   
@@ -257,11 +275,7 @@ def upload_file():
                             [parsed_filename], [file_path], merged_tree)
 
             # Prepare output
-            print("merged_tree")
-            print(merged_tree)
             hierarchy, aggregated_score = utils.form_hierarchy(merged_tree)
-            print("hierarchy")
-            print(hierarchy)
             output["merged_tree"] = hierarchy['children'][0]
 
             output["taxonomies_batch"] = taxonomy   

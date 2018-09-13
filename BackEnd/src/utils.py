@@ -48,9 +48,19 @@ def get_tax_id_from_accession_id(accession_id):
 
 def get_taxonomy_from_id(taxid):
     if taxid is not None:
+        output = {}
         ncbi = NCBITaxa()
+        
         lineage = ncbi.get_lineage(taxid)
-        return ncbi.get_taxid_translator(lineage)
+        ranks = ncbi.get_rank(lineage)
+        taxonomy = ncbi.get_taxid_translator(lineage)
+        
+        for rank in lineage:
+            output[ranks[rank].upper()] = taxonomy[rank]
+
+        output = check_minimum_ranks(output)
+        
+        return output
 
 
 def parseXML(file):
@@ -213,8 +223,6 @@ def process_batch(sequences, file_batch, tree):
 
             db_models.insert_one(processed_sequence.copy())
 
-            print(processed_sequence["max"])
-
             processed_batch.extend([processed_sequence])        
 
     return tree, processed_batch
@@ -278,6 +286,21 @@ def get_relevant_data(values, total):
     return organism_result
 
 
+def check_minimum_ranks(taxonomy):
+    for min_rank in MINIMUM_RANKS:
+        if not min_rank in taxonomy.keys():
+            possible_ranks = [rank for rank in taxonomy.keys() 
+                if min_rank in rank]
+
+            if len(possible_ranks) > 0:
+                taxonomy[min_rank] = taxonomy[possible_ranks[0]]
+
+            else:
+                taxonomy[min_rank] = "undefined"
+
+    return taxonomy
+
+
 def get_taxonomy_from_taxid(taxid):
     taxonomy_dict = {}
     rank, tax_name, parent_taxid = get_rank_from_taxid(taxid)
@@ -287,17 +310,7 @@ def get_taxonomy_from_taxid(taxid):
 
         rank, tax_name, parent_taxid = get_rank_from_taxid(parent_taxid)
 
-    # Check if it has the minimum rankings
-    for min_rank in MINIMUM_RANKS:
-        if not min_rank in taxonomy_dict.keys():
-            possible_ranks = [rank for rank in taxonomy_dict.keys() 
-                if min_rank in rank]
-
-            if len(possible_ranks) > 0:
-                taxonomy_dict[min_rank] = taxonomy_dict[possible_ranks[0]]
-
-            else:
-                taxonomy_dict[min_rank] = "undefined"
+    taxonomy_dict = check_minimum_ranks(taxonomy_dict)
 
     return taxonomy_dict
 
@@ -368,14 +381,13 @@ def form_hierarchy(node):
         return node, node['SCORE']
 
 
-def get_hierarchy_from_list(tree, list, score, sequence_id):
+def get_hierarchy_from_list(tree, tax_list, score, sequence_id):
 
-    list.pop('1', None)
     children = tree['children']
 
-    for i, key in enumerate(list.keys()):
+    for i, key in enumerate(tax_list.keys()):
 
-        value = list[key]
+        value = tax_list[key]
         if not value in children.keys():
             children[value] = {
                 'name':value, 
@@ -387,7 +399,7 @@ def get_hierarchy_from_list(tree, list, score, sequence_id):
             children[value]['SCORE'][sequence_id] = 0.0
 
         current_score = children[value]['SCORE'][sequence_id]
-        if i == len(list.keys())-1 and current_score < score:
+        if i == len(tax_list.keys())-1 and current_score < score:
             children[value]['SCORE'][sequence_id] = score
         
         children = children[value]['children']

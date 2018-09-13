@@ -165,6 +165,7 @@ class Form extends React.Component {
           return d.value? d.value[Object.keys(d.value)[0]]: undefined;
         });
 
+
       let values = singleHierarchy.leaves().map((leave) => leave.value);
 
       let total = values.reduce((accum, val) => accum + val);
@@ -200,6 +201,8 @@ class Form extends React.Component {
     rootDict = this.iterateOverIcicles(
         rootDict, tmpSequences);
 
+    console.log(rootDict)
+    console.log(tmpSequences)
     drawSparklines(
         rootDict, 
         tmpSequences,
