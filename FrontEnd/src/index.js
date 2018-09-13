@@ -294,6 +294,7 @@ class Form extends React.Component {
         this.setState({filteredSequences: sequences});
       console.log(`Filtering ${this.state.filteredSequences.length} out of ${originalSequences.length}`);
       this.iterateOverIcicles(this.state.rootDict, sequences);
+      console.log(this.state.rootDict)
       drawSparklines(
           this.state.rootDict, 
           sequences, 

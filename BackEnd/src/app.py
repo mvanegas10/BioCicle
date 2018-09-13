@@ -192,7 +192,7 @@ def upload_xml():
                     merged_tree = utils.get_hierarchy_from_dict( "sequence_{}".format(i), alignments, target=merged_tree )
                     maximum, total = max(scores), sum(scores)
                     tmp_object = {
-                        "sequence_id": "sequence{}".format(i),
+                        "sequence_id": "sequence_{}".format(i),
                         "hierarchy": tmp_hierarchy,
                         "tree": tmp_tree,
                         "max": maximum,
