@@ -368,6 +368,33 @@ def form_hierarchy(node):
         return node, node['SCORE']
 
 
+def get_hierarchy_from_list(tree, list, score, sequence_id):
+
+    list.pop('1', None)
+    children = tree['children']
+
+    for i, key in enumerate(list.keys()):
+
+        value = list[key]
+        if not value in children.keys():
+            children[value] = {
+                'name':value, 
+                'children': {}, 
+                'SCORE': {}
+            }
+
+        if not sequence_id in children[value]['SCORE'].keys():
+            children[value]['SCORE'][sequence_id] = 0.0
+
+        current_score = children[value]['SCORE'][sequence_id]
+        if i == len(list.keys())-1 and current_score < score:
+            children[value]['SCORE'][sequence_id] = score
+        
+        children = children[value]['children']
+
+    return tree
+
+
 def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
 
     if not 'target' in kargs:
