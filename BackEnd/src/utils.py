@@ -50,7 +50,7 @@ def get_taxonomy_from_id(taxid):
     if taxid is not None:
         output = {}
         ncbi = NCBITaxa()
-        
+
         lineage = ncbi.get_lineage(taxid)
         ranks = ncbi.get_rank(lineage)
         taxonomy = ncbi.get_taxid_translator(lineage)
@@ -379,32 +379,6 @@ def form_hierarchy(node):
             node['value'][sequence] = node['SCORE'][sequence]
 
         return node, node['SCORE']
-
-
-def get_hierarchy_from_list(tree, tax_list, score, sequence_id):
-
-    children = tree['children']
-
-    for i, key in enumerate(tax_list.keys()):
-
-        value = tax_list[key]
-        if not value in children.keys():
-            children[value] = {
-                'name':value, 
-                'children': {}, 
-                'SCORE': {}
-            }
-
-        if not sequence_id in children[value]['SCORE'].keys():
-            children[value]['SCORE'][sequence_id] = 0.0
-
-        current_score = children[value]['SCORE'][sequence_id]
-        if i == len(tax_list.keys())-1 and current_score < score:
-            children[value]['SCORE'][sequence_id] = score
-        
-        children = children[value]['children']
-
-    return tree
 
 
 def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):

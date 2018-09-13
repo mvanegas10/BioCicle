@@ -204,7 +204,7 @@ def upload_xml():
 
             # Prepare output
             hierarchy, aggregated_score = utils.form_hierarchy(merged_tree)
-            output["merged_tree"] = hierarchy['children'][0]
+            output["merged_tree"] = hierarchy
 
             output["taxonomies_batch"] = batch   
             return jsonify(output)    
