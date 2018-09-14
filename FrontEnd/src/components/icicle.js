@@ -176,17 +176,15 @@ export class Icicle {
     if (!this.selectIcicle) {
       this.text = this.barsEnter.append("text")
         .attr("x", (d) => { return d.y0; })
-        .attr("dx", ".35em")
+        .attr("dx", ".15em")
         .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
-        .attr("dy", ".35em")
-        .attr("class", (d) => { return (this.getScore(d, sequence) === 0)? "invisible": ""; })
+        .attr("dy", ".15em")
+        .attr("class", (d) => { return (this.getScore(d, sequence) === 0)? "invisible": "icicle-node"; })
         .text((d) => {
           var score = this.getScore(d, sequence);
           return d.data.name + "(" + Math.round(
             score * 100) + "%)" 
-        })
-        .on("mouseover", this.handleMouseOver)
-        .on("mouseout", this.handleMouseOut);        
+        });        
     }
 
   }
@@ -218,20 +216,7 @@ export class Icicle {
     this.text.transition()
       .duration(750)
       .attr("x", (d) => { return this.y(d.y0); })
-      .attr("y", (d) => { return this.x(d.x0 + (d.x1 - d.x0)/2); });
+      .attr("y", (d) => { return this.x(d.x0 + (d.x1 - d.x0)/2); });      
 
   }
-
-
-  handleMouseOver(d, i) { 
-    d3.select(this)
-      .attr('class', 'hovered-text');
-  }
-
-  handleMouseOut(d, i) {
-    d3.select(this)
-      .attr('class', '');
-
-  }  
-
 }

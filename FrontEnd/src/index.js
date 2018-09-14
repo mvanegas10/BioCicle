@@ -663,7 +663,7 @@ class Body extends React.Component {
       <div>
         <Grid>
           <Row className='row-container'>
-            <Col md={12} className='subtitle margin'>
+            <Col md={12} className='subtitle'>
               <h3 id='small-multiples'></h3>
             </Col>
             <Col md={12} className='sparklines'></Col>
