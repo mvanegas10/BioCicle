@@ -100,7 +100,7 @@ export class Icicle {
       .attr("y", (d) => { return d.x0; })
       .attr("width", (d) => { return d.y1 - d.y0; })
       .attr("height", (d) => { return d.x1 - d.x0; })
-      .attr("class", (d) => { return (this.getScore(d, sequence) === 0)? "invisible": ""; })
+      .attr("class", (d) => { return (this.getRelScore(d, sequence) === 0)? "invisible": ""; })
       .attr("fill", (d) => { 
 
         let assignedColor;
@@ -179,14 +179,39 @@ export class Icicle {
         .attr("dx", ".15em")
         .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
         .attr("dy", ".15em")
-        .attr("class", (d) => { return (this.getScore(d, sequence) === 0)? "invisible": "icicle-node"; })
-        .text((d) => {
-          var score = this.getScore(d, sequence);
-          return d.data.name + "(" + Math.round(
-            score * 100) + "%)" 
-        });        
+        .attr("class", (d) => { return (this.getRelScore(d, sequence) === 0)? "invisible": "icicle-node"; });
+
+      this.tspan = this.text.selectAll("tspan")
+        .data((d) => {
+          let description = d.data.name.split(' ');
+          const score = Math.round(this.getScore(d, sequence) * 100)/100;
+          const relScore = Math.round(this.getRelScore(d, sequence) * 100)/100;
+          description.push(`${score} (${relScore})`);
+          return description;
+        });
+
+      this.tspan.enter()
+        .append("tspan")
+        .attr("dy", (d, i) => { return `${i*1}em`; })
+        .attr("dx", (d, i) => { 
+          if (i > 0)
+            return "-4em"; })
+        .text((d) => d); 
+    
     }
 
+  }
+
+  getRelScore(d, sequence) {
+    if (d.children) {
+      var tmpScore = 0.0;
+      for (let child of d.children) {
+        tmpScore += this.getRelScore(child);
+      }
+      return tmpScore;
+    }
+    else 
+      return d.value/this.aggregatedValue;
   }
 
   getScore(d, sequence) {
@@ -198,7 +223,7 @@ export class Icicle {
       return tmpScore;
     }
     else 
-      return d.value/this.aggregatedValue;
+      return d.value;
   }
 
   clicked(d) {

@@ -1,4 +1,5 @@
 import os
+import re
 import requests
 import base64
 import json
@@ -31,43 +32,54 @@ NUCLEOTIDE_FILE = os.path.join(PROJECT_DIR, "tmp/nucl_gb.accession2taxid")
 MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
 
 
-class FileExists(Exception):
-    pass
-
-
-def get_tax_id_from_accession_id(accession_id):
-    with sqlite3.connect(SQLITE_DB) as conn:
-        c = conn.cursor()
-        c.execute("SELECT taxid FROM prot WHERE accession=?",(accession_id,))
-        try: 
-            taxid = c.fetchone()[0]
-            return int(taxid)
-        except:
-            return None
-
-
-def get_taxonomy_from_id(taxid):
-    if taxid is not None:
-        output = {}
-        ncbi = NCBITaxa()
-
-        lineage = ncbi.get_lineage(taxid)
-        ranks = ncbi.get_rank(lineage)
-        taxonomy = ncbi.get_taxid_translator(lineage)
-        
-        for rank in lineage:
-            output[ranks[rank].upper()] = taxonomy[rank]
-
-        output = check_minimum_ranks(output)
-        
-        return output
-
-
+# Parses a XML file using BioPython NCBIXML
 def parseXML(file):
     with open(file) as handler:
         return list(NCBIXML.parse(handler))
 
 
+# Exception: File Exists
+class FileExists(Exception):
+    pass
+
+
+# Saves base 64 file in provided path
+def save_file(file, file_path):
+    path = Path(file_path)
+
+    if path.is_file():
+        raise FileExists(file_path)
+
+    else:
+        with open(file_path, "wb") as file_writer:
+            file_writer.write(base64.decodebytes(file.encode('ascii')))
+        return file_path 
+
+
+# Saves file using a random name. Returns file's path
+def save_file_with_modifier(file, filename):
+    tmp_filename = filename.split(".")
+    format = tmp_filename[len(tmp_filename)-1]
+    new_name = "".join(random.choice(
+            string.ascii_uppercase + string.digits) for _ in range(30))
+
+    file_path = "{}{}.{}".format(TMP_FOLDER, new_name, format)
+    return save_file(file, file_path)
+
+
+# Saves file with incoming name and modifier
+def try_to_save_file(file, filename, **kargs):
+
+    if "modifier" in kargs:
+        filename = "{}-{}".format(kargs["modifier"], filename)
+
+    file_path = "{}{}".format(TMP_FOLDER, filename)
+
+    return save_file(file, file_path)  
+
+
+# Searches sequences in cache. Returns a list of saved sequences and a list
+# of unsaved sequences  
 def get_unsaved_sequences(sequences):
     with MongoClient() as client:
         db = client.biovis
@@ -96,23 +108,9 @@ def get_unsaved_sequences(sequences):
     return saved_list, nonsaved_list
 
 
-def get_result_from_blast(blast_result):
-    for alignment in blast_record.alignments:
-        return alignment.hsps
 
-
-def save_file(file, file_path):
-    path = Path(file_path)
-
-    if path.is_file():
-        raise FileExists(file_path)
-
-    else:
-        with open(file_path, "wb") as file_writer:
-            file_writer.write(base64.decodebytes(file.encode('ascii')))
-        return file_path 
-    
-
+# Compares sequence using the EBI/NCBI API. Returns the path of the resultant
+# File 
 def compare_sequence(sequence, **kargs):
     options = {
         'program': 'blastp', 
@@ -158,6 +156,7 @@ def compare_sequence(sequence, **kargs):
     return path
 
 
+# Gets the sequence id from a BLAST resultant file
 def get_sequence_id(filename):
     path = "{}{}".format(TMP_FOLDER, filename)
 
@@ -170,26 +169,8 @@ def get_sequence_id(filename):
             return "sp:{}".format(sequence_id)
 
 
-def save_file_with_modifier(file, filename):
-    tmp_filename = filename.split(".")
-    format = tmp_filename[len(tmp_filename)-1]
-    new_name = "".join(random.choice(
-            string.ascii_uppercase + string.digits) for _ in range(30))
-
-    file_path = "{}{}.{}".format(TMP_FOLDER, new_name, format)
-    return save_file(file, file_path)
-
-
-def try_to_save_file(file, filename, **kargs):
-
-    if "modifier" in kargs:
-        filename = "{}-{}".format(kargs["modifier"], filename)
-
-    file_path = "{}{}".format(TMP_FOLDER, filename)
-
-    return save_file(file, file_path)
-
-
+# Creates a sequence object and saves it in cache. Returns a merged tree
+# for the entire sequences and a list of processed sequences
 def process_batch(sequences, file_batch, tree):
     with MongoClient() as client:
         db = client.biovis
@@ -228,6 +209,42 @@ def process_batch(sequences, file_batch, tree):
     return tree, processed_batch
 
 
+# Extracts relevant information out of a BLAST record
+def extract_information_from_blast_record(record, merged_tree):
+    tmp_object = {}
+    sequence_id = re.sub( r'[^\w]', ' ', record.query ).replace(' ','')
+    num_alignments = len(record.descriptions)
+
+    details = [extract_alignment_detail(
+            record.descriptions[i], record.alignments[i]) 
+            for i in range(0, num_alignments)]
+
+    alignments = [extract_taxonomy_from_aligment(description)
+            for description in record.descriptions]
+    alignments = [alig for alig in alignments if alig is not None]
+    
+    scores = [float(description.score) for description in record.descriptions]
+
+    if len(scores) > 0:
+
+        tmp_tree, tmp_hierarchy = get_hierarchy_from_dict( sequence_id, alignments )
+
+        merged_tree = get_hierarchy_from_dict( sequence_id, alignments, target=merged_tree )
+
+        maximum, total = max(scores), sum(scores)
+
+        tmp_object["sequence_id"] = sequence_id
+        tmp_object["hierarchy"] = tmp_hierarchy
+        tmp_object["tree"] = tmp_tree
+        tmp_object["max"] = maximum
+        tmp_object["total"] = total
+        tmp_object["comparisons"] = alignments
+        tmp_object["description"] = details
+
+    return tmp_object
+
+
+# Extracts alignment's relevant information out of a BLAST result file. 
 def extract_comparisons_from_file(filename):
     comparisons = []
     total = 0
@@ -255,6 +272,32 @@ def extract_comparisons_from_file(filename):
     return comparisons
 
 
+# Extract taxonomy and details from alignment
+def extract_taxonomy_from_aligment(description):
+    accession = description.title.split("|")[3]
+    accession = accession[:len(accession)-2] if "." in accession else accession
+
+    taxid = get_tax_id_from_accession_id(accession) 
+    
+    if taxid is not None:
+        taxonomy = get_taxonomy_from_taxid(taxid)
+        taxonomy["SCORE"] = description.score
+
+        return taxonomy
+
+
+# Extract's alignment's details from a BLAST record object
+def extract_alignment_detail(description, alignment):
+    detail = {}
+    detail["title"] = description.title
+    detail["score"] = description.score
+    detail["e"] = description.e
+    detail["num_alignments"] = description.num_alignments
+    detail["length"] = alignment.length
+    return detail
+
+
+# Extracts alignment's relevant information out of a given sequence id
 def get_relevant_data(values, total):
     count = values["id"]
     values = values["values"]
@@ -286,6 +329,8 @@ def get_relevant_data(values, total):
     return organism_result
 
 
+# Checks if a taxonomy dictionary contains information of the minimum ranks.
+# If not, populates the dictionary with "undefined" values
 def check_minimum_ranks(taxonomy):
     for min_rank in MINIMUM_RANKS:
         if not min_rank in taxonomy.keys():
@@ -301,40 +346,38 @@ def check_minimum_ranks(taxonomy):
     return taxonomy
 
 
+# Gets tax id from accession id (PROTEIN) using 
+# ftp://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz
+def get_tax_id_from_accession_id(accession_id):
+    with sqlite3.connect(SQLITE_DB) as conn:
+        c = conn.cursor()
+        c.execute("SELECT taxid FROM prot WHERE accession=?",(accession_id,))
+        try: 
+            taxid = c.fetchone()[0]
+            return int(taxid)
+        except:
+            return None
+
+
+# Gets taxonomy from tax id. Returns a dictionary using the ETE library
 def get_taxonomy_from_taxid(taxid):
-    taxonomy_dict = {}
-    rank, tax_name, parent_taxid = get_rank_from_taxid(taxid)
-    while parent_taxid != 1:
-        if rank != "NO RANK":
-            taxonomy_dict[rank] = tax_name
+    if taxid is not None:
+        output = {}
+        ncbi = NCBITaxa()
 
-        rank, tax_name, parent_taxid = get_rank_from_taxid(parent_taxid)
+        lineage = ncbi.get_lineage(taxid)
+        ranks = ncbi.get_rank(lineage)
+        taxonomy = ncbi.get_taxid_translator(lineage)
+        
+        for rank in lineage:
+            output[ranks[rank].upper()] = taxonomy[rank]
 
-    taxonomy_dict = check_minimum_ranks(taxonomy_dict)
-
-    return taxonomy_dict
-
-
-def get_rank_from_taxid(taxid):
-    with MongoClient() as client:
-        db = client.biovis
-        db_taxonomy = db.taxonomy 
-           
-        query = {
-            "tax_id": taxid
-        }
-
-        node = db_taxonomy.find_one(query)
-
-        if (node is not None 
-        and "name" in node 
-        and "rank" in node
-        and "parent_tax_id" in node):
-            return node["rank"].strip(" \t\n\r").upper(), node["name"], int(node["parent_tax_id"])
-        else:
-            return node["rank"].strip(" \t\n\r").upper(), "undefined", int(node["parent_tax_id"])
+        output = check_minimum_ranks(output)
+        
+        return output
 
 
+# Gets tax id from string sequence from a BLAST result
 def get_taxid_from_sequence(sequence_id):
 
     query = "{}{}.txt".format(UNI_PROT_URL,sequence_id)
@@ -349,6 +392,8 @@ def get_taxid_from_sequence(sequence_id):
             return int(string[0].strip(" \t\n\r"))
 
 
+# Changes children's object to lists from a tree object starting by the root
+# node
 def form_hierarchy(node):
     if not len(node['children']) == 0:
         children_list = []
@@ -381,16 +426,17 @@ def form_hierarchy(node):
         return node, node['SCORE']
 
 
+# Forms a hierarchy object from a list of comparisons
 def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
 
     if not 'target' in kargs:
         tree = {'name':'', 'children': {}, 'SCORE': []}
     else:
         tree = kargs['target']
-    
+
     for i, sequence in enumerate(comparisons):
         children = tree['children']
-
+        
         for rank in MINIMUM_RANKS:
             if not sequence[rank] in children.keys():
                 children[sequence[rank]] = {
@@ -415,6 +461,7 @@ def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
         return tree
 
 
+# Prunes a tree by a score threshold
 def prune_tree(threshold, node):
 
     pruned_node = node.copy()

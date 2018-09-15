@@ -237,7 +237,6 @@ class Form extends React.Component {
       };
       post('upload_xml', params).then((output) => {
 
-        console.log(output)
         this.handleIcicleAndDendogramRendering(output);
 
       })

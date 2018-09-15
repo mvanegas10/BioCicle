@@ -2,7 +2,6 @@
 import json
 import random
 import copy
-import re
 import utils as utils
 import components.log as log
 from flask import request, Flask, jsonify
@@ -151,14 +150,13 @@ def post_prune_trees():
 def upload_xml():
     
     output = {}
-    batch = []
 
     try:
         data = request.get_json()
-        file_path = ""
 
         if data["file"] is not None and data["filename"] is not None:
 
+            merged_tree = {'name':'', 'children': {}, 'SCORE': []}
             file_path = utils.save_file_with_modifier(
                         data["file"], data["filename"])    
                         
@@ -167,61 +165,9 @@ def upload_xml():
 
             blast_records = utils.parseXML(file_path)
 
-            merged_tree = {'name':'', 'children': {}, 'SCORE': []}
+            batch = [utils.extract_information_from_blast_record(record, merged_tree) for record in blast_records]
 
-            for i, record in enumerate(blast_records): 
-                sequence_id = re.sub(
-                        r'[^\w]', ' ', 
-                        record.query)
-                sequence_id = sequence_id.replace(' ','')
-                record_taxonomy = {'name':'', 'children': {}, 'SCORE': {}}
-                scores = []
-                labels = []
-                alignments = []
-                for i in range(0, len(record.descriptions)-1):
-                    description = record.descriptions[i]
-                    alignment = record.alignments[i]
-
-                    
-                    label = {}
-                    label["title"] = description.title
-                    label["score"] = description.score
-                    label["e"] = description.e
-                    label["num_alignments"] = description.num_alignments
-                    label["length"] = alignment.length
-
-                    labels.append(label)
-
-                    accession = str(description.title.split("|")[3])
-
-                    if "." in accession:
-                        accession = accession[:len(accession)-2]
-                    
-                    taxid = utils.get_tax_id_from_accession_id(accession)
-                    
-                    if taxid is not None:
-                        scores.append(float(description.score))
-                        taxonomy = utils.get_taxonomy_from_id(taxid)
-                        taxonomy["SCORE"] = float(description.score)
-                        taxonomy["DESCRIPTION"] = label
-                        alignments.append(taxonomy)
-
-                if len(scores) > 0:
-                    tmp_tree, tmp_hierarchy = utils.get_hierarchy_from_dict( sequence_id, alignments )
-                    maximum, total = 0, 0
-                    merged_tree = utils.get_hierarchy_from_dict( sequence_id, alignments, target=merged_tree )
-                    maximum, total = max(scores), sum(scores)
-                    tmp_object = {
-                        "sequence_id": sequence_id,
-                        "hierarchy": tmp_hierarchy,
-                        "tree": tmp_tree,
-                        "max": maximum,
-                        "total": total,
-                        "filename": file_name,
-                        "comparisons": alignments,
-                        "description": labels
-                    }
-                    batch.append(tmp_object)
+            batch = [register for register in batch if register]
 
             # Prepare output
             hierarchy, aggregated_score = utils.form_hierarchy(merged_tree)
@@ -278,17 +224,12 @@ def upload_file():
 
                 else:
                     log.datetime_log("File existed but sequence not parsed: trying to write a new file.")
-                    file_path = ""
-                    cont = 0
-                    while len(file_path) == 0 and cont < 50:
-                        try:
-                            file_path = utils.try_to_save_file(
-                                    data["file"], 
-                                    data["filename"], 
-                                    modifier=cont)
-                            
-                        except utils.FileExists as e:
-                            cont += 1
+
+                    file_path = utils.save_file_with_modifier(
+                        data["file"], data["filename"])    
+                        
+                    file_name = file_path.split("/")
+                    file_name = file_name[len(file_name)-1]
                     
                     log.datetime_log("File succesfully saved at {}.".format(file_path))
     
