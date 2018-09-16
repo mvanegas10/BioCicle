@@ -148,6 +148,33 @@ export function drawSparklines(models, idList, selectIcicle, colorDict) {
 }
 
 
+export function filterHierarchiesByName(hierarchies, nameList) {
+
+  return Object.keys(hierarchies)
+    .filter(key => nameList.includes(key))
+    .reduce((obj, key) => {
+      obj[key] = hierarchies[key];
+      return obj;
+    }, {});
+
+}
+
+
+export function showQueryTable(trees) {
+
+  let parent = d3.select('.table').html('');
+  let width = parent.node().getBoundingClientRect().width;
+
+  let parentNode = parent.selectAll('p')
+    .data(Object.keys(trees)).enter()
+    .append('div');
+
+  parentNode.append('p')
+    .text(d => d);
+
+}
+
+
 export function filter(threshold, hierarchyNode, idList, root, dendogram) {
 
   console.log('Changing threshold ', threshold);

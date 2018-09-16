@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
 import * as d3 from 'd3';
-import { post, collapseNodes, drawSparklines, filter } from './components/utils';
+import { post, collapseNodes, drawSparklines, filter, showQueryTable,filterHierarchiesByName } from './components/utils';
 import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 import { Grid, Row, Col, Modal, Button } from 'react-bootstrap';
@@ -199,7 +199,7 @@ class Form extends React.Component {
     this.setState({rootDict: rootDict});   
 
     d3.select('#small-multiples').text(`RESULTANT MODELS`);
-    d3.select('#overview').text('TAXONOMIC PROFILING');    
+    d3.select('#overview').text('TAXONOMIC PROFILING');
   }
 
 
@@ -278,9 +278,12 @@ class Form extends React.Component {
         this.setState({filteredSequences: []});
       else
         this.setState({filteredSequences: sequences});
+      
       console.log(`Filtering ${this.state.filteredSequences.length} out of ${originalSequences.length}`);
+      
       this.iterateOverIcicles(this.state.rootDict, sequences);
       console.log(this.state.rootDict)
+      
       drawSparklines(
           this.state.rootDict, 
           sequences, 
@@ -289,6 +292,13 @@ class Form extends React.Component {
 
       msgInfo.title = 'Filtering';
       msgInfo.msg = `You filtered the results, now displaying ${sequences.length} sequences out of ${Object.keys(this.state.rootDict).length}.`;
+
+      d3.select('#iteration-query').text('QUERY DETAILS');
+
+      let filteredTrees = filterHierarchiesByName(this.state.rootDict, 
+          sequences);
+
+      showQueryTable(filteredTrees);
       
     }
     else {
@@ -658,6 +668,12 @@ class Body extends React.Component {
             <Col md={12} className='subtitle'><h3 id='overview'></h3></Col>
             <Col md={5} className='dendogram'></Col>
             <Col md={7} id='icicle' className='icicle'></Col>
+          </Row>
+          <Row className='row-container'>
+            <Col md={12} className='subtitle'>
+              <h3 id='iteration-query'></h3>
+            </Col>
+            <Col md={12} className='table'></Col>
           </Row>
         </Grid>
       </div>
