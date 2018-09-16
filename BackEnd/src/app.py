@@ -166,14 +166,13 @@ def upload_xml():
             blast_records = utils.parseXML(file_path)
 
             batch = [utils.extract_information_from_blast_record(record, merged_tree) for record in blast_records]
-
             batch = [register for register in batch if register]
 
             # Prepare output
             hierarchy, aggregated_score = utils.form_hierarchy(merged_tree)
             output["merged_tree"] = hierarchy
 
-            output["taxonomies_batch"] = batch   
+            output["taxonomies_batch"] = dict( ( element["sequence_id"], element ) for element in batch )
             return jsonify(output)    
 
     except Exception as e:

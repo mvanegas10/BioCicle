@@ -153,38 +153,25 @@ class Form extends React.Component {
     var mergedTree = sortDescending(output['merged_tree']);
 
 
-    for (let i = 0; i < taxonomiesBatch.length; i++) {
-      let sequence = taxonomiesBatch[i]['sequence_id'];
+    for (var key in taxonomiesBatch) {
       
-      this.setState({currentRoot: sequence});
-
-      let tree = taxonomiesBatch[i]['hierarchy'];
+      const tree = taxonomiesBatch[key].hierarchy;
       
-      var singleHierarchy = d3.hierarchy(tree)
+      let singleHierarchy = d3.hierarchy(tree)
         .sum(function(d) { 
           return d.value? d.value[Object.keys(d.value)[0]]: undefined;
         });
 
-
-      let values = singleHierarchy.leaves().map((leave) => leave.value);
-
-      let total = values.reduce((accum, val) => accum + val);
-
-      let tmpObject = {
-        'sequence_id': sequence,
-        'hierarchy': singleHierarchy.copy(),
-        'max': taxonomiesBatch[i].max,
-        'total': total,
-        'filename': taxonomiesBatch[i].filename
-      };
-
-      tmpObject.hierarchy._children = singleHierarchy.children.slice();
-      tmpObject._total = tmpObject.total;
-
-      rootDict[sequence] = tmpObject;
+      taxonomiesBatch[key].hierarchy = singleHierarchy;
+      taxonomiesBatch[key]._children = singleHierarchy.children.slice();
+      taxonomiesBatch[key]._total = taxonomiesBatch[key].total;
+      
+      this.setState({currentRoot: key});
 
     }
     
+    rootDict = taxonomiesBatch;
+
     let hierarchy = d3.hierarchy(mergedTree)
       .sum(function(d) { return d.children; });
 
