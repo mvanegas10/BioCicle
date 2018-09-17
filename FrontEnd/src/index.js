@@ -59,6 +59,7 @@ class Form extends React.Component {
       countFunction: 'splitWords',
       threshold: 0,
       currentRoot: '',
+      filename: '',
       rootDict: {},
       mergedTree: {},
       filteredSequences: [],
@@ -188,8 +189,6 @@ class Form extends React.Component {
     rootDict = this.iterateOverIcicles(
         rootDict, tmpSequences);
 
-    console.log(rootDict)
-    console.log(tmpSequences)
     drawSparklines(
         rootDict, 
         tmpSequences,
@@ -200,6 +199,7 @@ class Form extends React.Component {
 
     d3.select('#small-multiples').text(`RESULTANT MODELS`);
     d3.select('#overview').text('TAXONOMIC PROFILING');
+    d3.select('#description-icicle').text('INFORMATION');
   }
 
 
@@ -208,6 +208,29 @@ class Form extends React.Component {
     this.iterateOverIcicles(
         this.state.rootDict, Object.keys(this.state.rootDict));
   }
+
+
+  handleXMLDownload(sequences) {
+
+    const params = {
+      filename: this.state.filename,
+      queries: JSON.stringify(sequences)
+    };
+
+    post('filter_xml', params).then((output) => {
+
+      console.log(output);
+
+    })
+    .catch((error) => {
+
+      this.setState({error: error});
+      console.error(error);
+
+    });   
+
+  }
+
 
   handleXMLUpload(selectorFiles: FileList) {
 
@@ -223,6 +246,8 @@ class Form extends React.Component {
         filename: selectorFiles[0].name
       };
       post('upload_xml', params).then((output) => {
+
+        this.setState({filename: output.file_name});
 
         this.handleIcicleAndDendogramRendering(output);
 
@@ -298,7 +323,9 @@ class Form extends React.Component {
       let filteredTrees = filterHierarchiesByName(this.state.rootDict, 
           sequences);
 
-      showQueryTable(filteredTrees);
+      const infoKeys = Object.keys(this.state.rootDict[sequences[0]]);
+
+      showQueryTable(filteredTrees, infoKeys);
       
     }
     else {
@@ -459,7 +486,7 @@ class Form extends React.Component {
               onClick={this.handleSequenceClick}>
             Align Sequence
           </button>
-          { Object.keys(this.state.rootDict).length > 0 && this.renderDownloadButton()}
+          { this.state.filteredSequences.length > 0 && this.renderDownloadXMLButton()}
         </Col>
       </div>
     );
@@ -496,6 +523,17 @@ class Form extends React.Component {
       </div>
 
     );
+
+  }
+
+
+  renderDownloadXMLButton() {
+
+    return (
+      <button className='btn btn-secondary' onClick={this.handleXMLDownload(this.state.filteredSequences)}>
+        Download Filtered Sequences
+      </button>
+    )
 
   }
 
@@ -667,7 +705,10 @@ class Body extends React.Component {
           <Row className='row-container'>
             <Col md={12} className='subtitle'><h3 id='overview'></h3></Col>
             <Col md={5} className='dendogram'></Col>
-            <Col md={7} id='icicle' className='icicle'></Col>
+            <Col md={7}>
+              <Col md={12} id='description-icicle'></Col>
+              <Col md={12} id='icicle' className='icicle'></Col>
+            </Col>
           </Row>
           <Row className='row-container'>
             <Col md={12} className='subtitle'>

@@ -184,9 +184,9 @@ export class Icicle {
       this.tspan = this.text.selectAll("tspan")
         .data((d) => {
           let description = d.data.name.split(' ');
-          const score = Math.round(this.getScore(d, sequence) * 100)/100;
-          const relScore = Math.round(this.getRelScore(d, sequence) * 100)/100;
-          description.push(`${score} (${relScore})`);
+          const score = this.getScore(d, sequence);
+          const relScore = Math.round(this.getRelScore(d, sequence) * 1000)/1000;
+          description.push(`${score} (${relScore}%)`);
           return description;
         });
 

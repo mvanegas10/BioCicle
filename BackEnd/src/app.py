@@ -173,12 +173,32 @@ def upload_xml():
             output["merged_tree"] = hierarchy
 
             output["taxonomies_batch"] = dict( ( element["sequence_id"], element ) for element in batch )
+            
+            output["file_name"] = file_name
+
             return jsonify(output)    
 
     except Exception as e:
         output["Error"] = str(e)
         log.datetime_log("Error: {}".format(e))
         return jsonify(output)
+
+
+@app.route("/api/filter_xml", methods=["POST"])
+def filter_xml():
+    
+    try:
+        data = request.get_json()
+
+        if data["filename"] is not None and data["queries"] is not None:
+            new_file = utils.filter_xml(
+                    data["filename"], data["queries"])
+
+            return jsonify(new_file)
+
+    except Exception as e:
+        log.datetime_log("Error: {}".format(e))
+        return jsonify({})
 
 
 @app.route("/api/upload_file", methods=["POST"])

@@ -131,10 +131,6 @@ export function drawSparklines(models, idList, selectIcicle, colorDict) {
       .attr('id', (d) => {return d.replace(':','');});
 
   for (let sequence_id of idList) {
-    console.log(sequence_id)
-    console.log(models[sequence_id].hierarchy)
-    console.log(models[sequence_id].sequence_id)
-    console.log(models[sequence_id].total)
     icicle.draw(
         sequence_id.replace(':',''), 
         models[sequence_id].hierarchy, 
@@ -160,17 +156,21 @@ export function filterHierarchiesByName(hierarchies, nameList) {
 }
 
 
-export function showQueryTable(trees) {
+export function showQueryTable(trees, values) {
 
   let parent = d3.select('.table').html('');
   let width = parent.node().getBoundingClientRect().width;
 
-  let parentNode = parent.selectAll('p')
+  let parentNode = parent.selectAll('g')
     .data(Object.keys(trees)).enter()
-    .append('div');
+    .append('g');
 
-  parentNode.append('p')
-    .text(d => d);
+  values.forEach( value => {
+    parentNode
+      .append('p')
+        .text(d => trees[d][value])
+
+  });
 
 }
 

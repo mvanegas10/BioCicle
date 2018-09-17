@@ -8,6 +8,7 @@ import string
 import random
 import sqlite3
 from Bio.Blast import NCBIXML
+import xml.etree.ElementTree as ET
 from ete3 import NCBITaxa
 from pathlib import Path
 import components.log as log
@@ -56,14 +57,20 @@ def save_file(file, file_path):
         return file_path 
 
 
+# Generates a random string 
+def generate_random_string(limit):
+    return "".join(random.choice(
+            string.ascii_uppercase + string.digits) for _ in range(limit))
+
+
 # Saves file using a random name. Returns file's path
 def save_file_with_modifier(file, filename):
     tmp_filename = filename.split(".")
     format = tmp_filename[len(tmp_filename)-1]
-    new_name = "".join(random.choice(
-            string.ascii_uppercase + string.digits) for _ in range(30))
 
-    file_path = "{}{}.{}".format(TMP_FOLDER, new_name, format)
+    file_path = "{}{}.{}".format(
+            TMP_FOLDER, generate_random_string(30), format)
+
     return save_file(file, file_path)
 
 
@@ -76,6 +83,24 @@ def try_to_save_file(file, filename, **kargs):
     file_path = "{}{}".format(TMP_FOLDER, filename)
 
     return save_file(file, file_path)  
+
+
+# Filters XML for a given list of queries
+def filter_xml(file_name, queries):
+    file_path = "{}{}".format(TMP_FOLDER, file_name)
+    with ET.parse(file_path) as tree:
+        root = tree.getroot()
+        output = root.find('BlastOutput_iterations')
+        for iteration in output.findall('Iteration'):
+            sequence_id = re.sub( 
+                r'[^\w]', ' ', iteration[2].text ).replace(' ','')
+            if sequence_id not in queries:
+                output.remove(iteration)
+
+        new_file = "{}{}.xml".format(
+                TMP_FOLDER, generate_random_string(30))
+        tree.write(new_file)
+        return new_file
 
 
 # Searches sequences in cache. Returns a list of saved sequences and a list
@@ -106,7 +131,6 @@ def get_unsaved_sequences(sequences):
                 saved_list.append(saved)
 
     return saved_list, nonsaved_list
-
 
 
 # Compares sequence using the EBI/NCBI API. Returns the path of the resultant
