@@ -186,19 +186,20 @@ def upload_xml():
 
 @app.route("/api/filter_xml", methods=["POST"])
 def filter_xml():
-    
+    output = {}
     try:
         data = request.get_json()
 
         if data["filename"] is not None and data["queries"] is not None:
-            new_file = utils.filter_xml(
+            encoded = utils.filter_xml(
                     data["filename"], data["queries"])
 
-            return jsonify(new_file)
+            output["file"] = encoded.decode('utf-8')
+            return jsonify(output)
 
     except Exception as e:
         log.datetime_log("Error: {}".format(e))
-        return jsonify({})
+        return jsonify(output)
 
 
 @app.route("/api/upload_file", methods=["POST"])

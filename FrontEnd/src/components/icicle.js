@@ -38,6 +38,10 @@ export class Icicle {
     this.color.push(d3.scaleOrdinal(COLOR_PALETTE));
   }
 
+  setInformationDict(dictionary) {
+    this.information = dictionary;
+  }
+
   getColorDict() {
     return this.colorDict;
   }
@@ -53,11 +57,11 @@ export class Icicle {
     this.svg = d3.select(`#${parentNode}`).append("svg")
       .attr("width", this.width)
       .attr("height", this.height);
+
     this.x = d3.scaleLinear()
       .range([0, this.width]);
     this.y = d3.scaleLinear()
       .range([0, this.height]);
-    
 
     this.partition = d3.partition()
       .size([this.width, this.height])
@@ -115,7 +119,6 @@ export class Icicle {
           assignedColor = this.colorDict[d.data.name];
 
         else if(d.height === this.levelColor) {
-          let newColor = (this.color[d.height](d.data.name))
           this.colorDict[d.data.name] = this.color[d.height](d.data.name);
           assignedColor = this.colorDict[d.data.name];
         }
@@ -170,6 +173,13 @@ export class Icicle {
           return this.clicked(d)
         else
           return this.selectIcicle(Object.keys(d.data.SCORE)[0]);
+      })
+      .on("mouseover", (d) => { 
+        if (!this.selectIcicle && d.data && (d.data.SCORE || d.data.value))
+          this.getInformation(d);        
+      })
+      .on("mouseout", (d) => { 
+          d3.select('#description-icicle').html('');       
       });
       
       
@@ -179,26 +189,42 @@ export class Icicle {
         .attr("dx", ".15em")
         .attr("y", (d) => { return d.x0 + (d.x1 - d.x0)/2; })
         .attr("dy", ".15em")
-        .attr("class", (d) => { return (this.getRelScore(d, sequence) === 0)? "invisible": "icicle-node"; });
-
-      this.tspan = this.text.selectAll("tspan")
-        .data((d) => {
-          let description = d.data.name.split(' ');
-          const score = this.getScore(d, sequence);
-          const relScore = Math.round(this.getRelScore(d, sequence) * 1000)/1000;
-          description.push(`${score} (${relScore}%)`);
-          return description;
+        .attr("class", (d) => { return (this.getRelScore(d, sequence) === 0)? "invisible": "icicle-node"; })
+        .text((d) => {
+          if ( (d.x1 - d.x0) > 50 )
+            return d.data.name;
+          else
+            return '';
         });
 
-      this.tspan.enter()
-        .append("tspan")
-        .attr("dy", (d, i) => { return `${i*1}em`; })
-        .attr("dx", (d, i) => { 
-          if (i > 0)
-            return "-4em"; })
-        .text((d) => d); 
-    
     }
+
+  }
+
+  getInformation(d) {
+
+    const sequence_id = (d.data.SCORE)? Object.keys(d.data.SCORE)[0]: Object.keys(d.data.value)[0];
+
+    if (this.information[sequence_id]) {
+
+      let informationGroup = d3.select('#description-icicle').html('');
+
+      informationGroup.append('h3')
+        .text('INFORMATION');
+
+      const maxDescription = this.information[sequence_id].description[0];
+
+      for (let key in maxDescription) {
+  
+        informationGroup.append('p')    
+          .text(() => {
+            return `${key}: ${maxDescription[key]}`;
+          });
+        
+      }
+      
+    }
+
 
   }
 
@@ -241,7 +267,13 @@ export class Icicle {
     this.text.transition()
       .duration(750)
       .attr("x", (d) => { return this.y(d.y0); })
-      .attr("y", (d) => { return this.x(d.x0 + (d.x1 - d.x0)/2); });      
+      .attr("y", (d) => { return this.x(d.x0 + (d.x1 - d.x0)/2); })
+      .text((d) => {
+          if ( this.x(d.x1) - this.x(d.x0) > 50 )
+            return d.data.name;
+          else
+            return '';
+        });    
 
   }
 }

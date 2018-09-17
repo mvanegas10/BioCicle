@@ -11,6 +11,7 @@
     "react-bootstrap": "^0.32.1",
     "react-bootstrap-slider": "^2.1.5",
     "react-dom": "^16.3.2",
+    "react-file-base64": "^1.0.3",
     "react-scripts": "1.1.1"
   },
   "scripts": {

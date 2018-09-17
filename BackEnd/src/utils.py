@@ -88,19 +88,22 @@ def try_to_save_file(file, filename, **kargs):
 # Filters XML for a given list of queries
 def filter_xml(file_name, queries):
     file_path = "{}{}".format(TMP_FOLDER, file_name)
-    with ET.parse(file_path) as tree:
-        root = tree.getroot()
+    print(file_path)
+    with open(file_path) as f:
+        root = ET.fromstring(f.read())
         output = root.find('BlastOutput_iterations')
         for iteration in output.findall('Iteration'):
             sequence_id = re.sub( 
                 r'[^\w]', ' ', iteration[2].text ).replace(' ','')
             if sequence_id not in queries:
+                print(sequence_id)
                 output.remove(iteration)
 
-        new_file = "{}{}.xml".format(
-                TMP_FOLDER, generate_random_string(30))
-        tree.write(new_file)
-        return new_file
+        xml_string = ET.tostring(root)
+        print(xml_string)
+        encoded = base64.encodestring(xml_string)
+        print(encoded)
+        return encoded
 
 
 # Searches sequences in cache. Returns a list of saved sequences and a list

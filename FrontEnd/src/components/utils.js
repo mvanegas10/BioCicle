@@ -22,28 +22,6 @@ export function collapseNodes(node) {
 }
 
 
-function prune(node) {
-
-  const leaves = node.copy().leaves().slice();
-  let currentNode = undefined;
-
-  for (const leave of leaves) {
-    currentNode = leave;
-
-    while (currentNode.data.name !== node.data.name) {
-
-      if (currentNode.depth !== 5 && (currentNode.children === undefined || currentNode.children.length === 0))
-        currentNode.parent.children = remove(currentNode, currentNode.parent.children);
-      
-      currentNode = currentNode.parent;
-
-    }   
-    
-  }
-  return currentNode;
-}
-
-
 function remove(element, array) {
 
   const index = array.indexOf(element);
@@ -152,25 +130,6 @@ export function filterHierarchiesByName(hierarchies, nameList) {
       obj[key] = hierarchies[key];
       return obj;
     }, {});
-
-}
-
-
-export function showQueryTable(trees, values) {
-
-  let parent = d3.select('.table').html('');
-  let width = parent.node().getBoundingClientRect().width;
-
-  let parentNode = parent.selectAll('g')
-    .data(Object.keys(trees)).enter()
-    .append('g');
-
-  values.forEach( value => {
-    parentNode
-      .append('p')
-        .text(d => trees[d][value])
-
-  });
 
 }
 

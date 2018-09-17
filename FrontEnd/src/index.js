@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
 import * as d3 from 'd3';
-import { post, collapseNodes, drawSparklines, filter, showQueryTable,filterHierarchiesByName } from './components/utils';
+import { post, drawSparklines, filter } from './components/utils';
 import { Icicle } from './components/icicle';
 import { Dendogram } from './components/dendogram';
 import { Grid, Row, Col, Modal, Button } from 'react-bootstrap';
@@ -63,6 +63,7 @@ class Form extends React.Component {
       rootDict: {},
       mergedTree: {},
       filteredSequences: [],
+      filteredRank: '',
       icicle: new Icicle(),
       dendogram: new Dendogram(900, this.handleDendogramClick),
       interval: undefined,
@@ -173,6 +174,8 @@ class Form extends React.Component {
     
     rootDict = taxonomiesBatch;
 
+    this.state.icicle.setInformationDict(rootDict);
+
     let hierarchy = d3.hierarchy(mergedTree)
       .sum(function(d) { return d.children; });
 
@@ -198,8 +201,7 @@ class Form extends React.Component {
     this.setState({rootDict: rootDict});   
 
     d3.select('#small-multiples').text(`RESULTANT MODELS`);
-    d3.select('#overview').text('TAXONOMIC PROFILING');
-    d3.select('#description-icicle').text('INFORMATION');
+    d3.select('#overview').text('TAXONOMIC PROFILING');    
   }
 
 
@@ -212,22 +214,41 @@ class Form extends React.Component {
 
   handleXMLDownload(sequences) {
 
-    const params = {
-      filename: this.state.filename,
-      queries: JSON.stringify(sequences)
-    };
+    if (sequences.length > 0) {
 
-    post('filter_xml', params).then((output) => {
+      console.log(sequences)
 
-      console.log(output);
+      const params = {
+        filename: this.state.filename,
+        queries: JSON.stringify(sequences)
+      };
 
-    })
-    .catch((error) => {
+      post('filter_xml', params).then((output) => {
+        const date = new Date();
+        const filename =  `${this.state.filteredRank.split(' ').join('_')}-${date.toISOString().substring(0,10)}`;
 
-      this.setState({error: error});
-      console.error(error);
+        let buffer = new Buffer(output['file'], 'base64').toString("ascii");
 
-    });   
+        buffer = '<?xml version="1.0"?>\n' + buffer;
+
+        const blob = new Blob([buffer], {type: 'text/xml'});
+        const csvURL = window.URL.createObjectURL(blob);
+        let tempLink = document.createElement('a');
+        tempLink.href = csvURL;
+
+        tempLink.setAttribute('download', `filtered-${filename}.xml`);
+        tempLink.click();
+
+
+      })
+      .catch((error) => {
+
+        this.setState({error: error});
+        console.error(error);
+
+      });   
+      
+    }
 
   }
 
@@ -295,6 +316,7 @@ class Form extends React.Component {
 
 
   handleDendogramClick(dendogram, d) {
+    this.setState({filteredRank: d.data.name});
     let sequences = Object.keys(d.data.SCORE);
     let originalSequences = Object.keys(this.state.rootDict);
     let msgInfo = {}; 
@@ -318,15 +340,6 @@ class Form extends React.Component {
       msgInfo.title = 'Filtering';
       msgInfo.msg = `You filtered the results, now displaying ${sequences.length} sequences out of ${Object.keys(this.state.rootDict).length}.`;
 
-      d3.select('#iteration-query').text('QUERY DETAILS');
-
-      let filteredTrees = filterHierarchiesByName(this.state.rootDict, 
-          sequences);
-
-      const infoKeys = Object.keys(this.state.rootDict[sequences[0]]);
-
-      showQueryTable(filteredTrees, infoKeys);
-      
     }
     else {
       msgInfo.title = 'Try again';
@@ -530,7 +543,7 @@ class Form extends React.Component {
   renderDownloadXMLButton() {
 
     return (
-      <button className='btn btn-secondary' onClick={this.handleXMLDownload(this.state.filteredSequences)}>
+      <button className='btn btn-secondary' onClick={() => { this.handleXMLDownload(this.state.filteredSequences)}}>
         Download Filtered Sequences
       </button>
     )
@@ -709,12 +722,6 @@ class Body extends React.Component {
               <Col md={12} id='description-icicle'></Col>
               <Col md={12} id='icicle' className='icicle'></Col>
             </Col>
-          </Row>
-          <Row className='row-container'>
-            <Col md={12} className='subtitle'>
-              <h3 id='iteration-query'></h3>
-            </Col>
-            <Col md={12} className='table'></Col>
           </Row>
         </Grid>
       </div>
