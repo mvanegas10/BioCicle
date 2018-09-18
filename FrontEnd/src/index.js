@@ -77,6 +77,9 @@ class Form extends React.Component {
   }
 
   selectIcicle(sequence_id) {
+
+    console.log(this.state.rootDict[sequence_id].hierarchy)
+
     console.log('Selecting sequence ', sequence_id)
     if(this.state.interval)
       this.state.interval.stop();
@@ -104,16 +107,8 @@ class Form extends React.Component {
     if(this.state.interval)
       this.state.interval.stop();
 
-    if (idList.length === 1) {
-
-      this.state.icicle.draw(
-        'icicle', 
-        treeDict[idList[0]].hierarchy, 
-        idList[0],
-        treeDict[idList[0]].total,
-        this.state.levelColor);
-      
-    }
+    if (idList.length === 1) 
+      this.selectIcicle(idList[0]);
 
     else {
 
@@ -139,8 +134,6 @@ class Form extends React.Component {
       this.setState({interval:interval});
 
     }
-
-    return treeDict;
 
   }
 
@@ -172,9 +165,9 @@ class Form extends React.Component {
 
     }
     
-    rootDict = taxonomiesBatch;
+    this.setState({rootDict: taxonomiesBatch});   
 
-    this.state.icicle.setInformationDict(rootDict);
+    this.state.icicle.setInformationDict(this.state.rootDict);
 
     let hierarchy = d3.hierarchy(mergedTree)
       .sum(function(d) { return d.children; });
@@ -187,21 +180,20 @@ class Form extends React.Component {
 
     this.state.dendogram.draw(hierarchy);
 
-    let tmpSequences = Object.keys(rootDict);
-
-    rootDict = this.iterateOverIcicles(
-        rootDict, tmpSequences);
+    let tmpSequences = Object.keys(this.state.rootDict);
 
     drawSparklines(
-        rootDict, 
+        this.state.rootDict, 
         tmpSequences,
         this.selectIcicle, 
         this.state.icicle.getColorDict());
 
-    this.setState({rootDict: rootDict});   
-
+    this.iterateOverIcicles(
+        this.state.rootDict, tmpSequences);
+    
     d3.select('#small-multiples').text(`RESULTANT MODELS`);
-    d3.select('#overview').text('TAXONOMIC PROFILING');    
+    d3.select('#overview').text('TAXONOMIC PROFILING'); 
+
   }
 
 
@@ -719,10 +711,13 @@ class Body extends React.Component {
             <Col md={12} className='subtitle'><h3 id='overview'></h3></Col>
             <Col md={5} className='dendogram'></Col>
             <Col md={7}>
-              <Col md={12} id='description-icicle'></Col>
               <Col md={12} id='icicle' className='icicle'></Col>
             </Col>
           </Row>
+            <Row className='row-container'>
+              <Col md={12} className='subtitle'><h3 id='description-title'></h3></Col>
+              <Col md={12} id='description-icicle'></Col>
+            </Row>
         </Grid>
       </div>
     );

@@ -1,17 +1,5 @@
 import * as d3 from 'd3';
 
-// const COLOR_PALETTE = [
-//   '#797979',
-//   '#68687F',
-//   '#7C8993',
-//   '#A6BE98',
-//   '#C7B671',
-//   '#C17A6E',
-//   '#AB6C62',
-//   '#75604F',
-//   '#BFBEBD'
-// ];
-
 const COLOR_PALETTE = ['#F3C300', '#875692', '#A1CAF1', '#8DB600', '#F38400', '#BE0032', '#C2B280', '#848482', '#008856', '#E68FAC', '#0067A5', '#F99379', '#604E97', '#F6A600', '#B3446C'];
 
 const COLOR_3 = ['#DCD300', '#882D17', '#E25822', '#F2F3F4', "#AA4488", "#CC99BB", "#4477AA", "#77AADD", "#117777", "#44AAAA"];
@@ -169,19 +157,14 @@ export class Icicle {
       .style("stroke", "#FFF")
       .style("stroke-width", 2)
       .on("click", (d) => {
-        if (!this.selectIcicle)
-          return this.clicked(d)
+        if (!this.selectIcicle) {
+          if (d.data && d.data.value)
+            return this.getInformation(d);
+          return this.clicked(d);
+        }
         else
-          return this.selectIcicle(Object.keys(d.data.SCORE)[0]);
-      })
-      .on("mouseover", (d) => { 
-        if (!this.selectIcicle && d.data && (d.data.SCORE || d.data.value))
-          this.getInformation(d);        
-      })
-      .on("mouseout", (d) => { 
-          d3.select('#description-icicle').html('');       
+          this.selectIcicle(Object.keys(d.data.SCORE)[0]);
       });
-      
       
     if (!this.selectIcicle) {
       this.text = this.barsEnter.append("text")
@@ -191,7 +174,7 @@ export class Icicle {
         .attr("dy", ".15em")
         .attr("class", (d) => { return (this.getRelScore(d, sequence) === 0)? "invisible": "icicle-node"; })
         .text((d) => {
-          if ( (d.x1 - d.x0) > 50 )
+          if ( (d.x1 - d.x0) >= 25 )
             return d.data.name;
           else
             return '';
@@ -203,25 +186,59 @@ export class Icicle {
 
   getInformation(d) {
 
-    const sequence_id = (d.data.SCORE)? Object.keys(d.data.SCORE)[0]: Object.keys(d.data.value)[0];
+    const sequence = (d.data.SCORE)? Object.keys(d.data.SCORE)[0]: Object.keys(d.data.value)[0];
 
-    if (this.information[sequence_id]) {
+    const rank = (d.data.name);
+
+    if (this.information[sequence]) {
+
+      d3.select('#description-title').html('')
+        .text('INFORMATION');
 
       let informationGroup = d3.select('#description-icicle').html('');
 
       informationGroup.append('h3')
-        .text('INFORMATION');
+        .text(rank);
 
-      const maxDescription = this.information[sequence_id].description[0];
+      const descriptions = this.information[sequence].description;
+      const comparisons = this.information[sequence].comparisons;
 
-      for (let key in maxDescription) {
-  
-        informationGroup.append('p')    
+      const filtered = descriptions.filter((d,i) => {
+
+        if (comparisons[i] && comparisons[i].SPECIES === rank) {
+          return d;
+        }
+
+      });
+
+      let table = informationGroup.append('table');
+
+      let titles = table.append('tr')
+
+      for (let key in filtered[0]) {
+    
+        titles.append('th')
           .text(() => {
-            return `${key}: ${maxDescription[key]}`;
+            return `${key.replace('title','description').toUpperCase()}`;
           });
         
       }
+
+      filtered.forEach( (record) => {
+        
+        let row = table.append('tr')
+
+        for (let key in record) {
+      
+          row.append('td')
+            .text(() => {
+              return `${record[key]}`;
+            });
+          
+        }
+
+      });
+
       
     }
 
@@ -257,6 +274,8 @@ export class Icicle {
     this.x.domain([d.x0, d.x1]);
     this.y.domain([d.y0, this.height]).range([d.depth ? 20 : 0, this.height]);
 
+    console.log(d)
+
     this.rect.transition()
       .duration(750)
       .attr("x", (d) => { return this.y(d.y0); })
@@ -269,7 +288,7 @@ export class Icicle {
       .attr("x", (d) => { return this.y(d.y0); })
       .attr("y", (d) => { return this.x(d.x0 + (d.x1 - d.x0)/2); })
       .text((d) => {
-          if ( this.x(d.x1) - this.x(d.x0) > 50 )
+          if ( this.x(d.x1) - this.x(d.x0) >= 25 )
             return d.data.name;
           else
             return '';
