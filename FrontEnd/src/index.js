@@ -162,7 +162,7 @@ class Form extends React.Component {
         });
 
       taxonomiesBatch[key].hierarchy = singleHierarchy;
-      taxonomiesBatch[key]._children = singleHierarchy.children.slice();
+      taxonomiesBatch[key].hierarchy._children = singleHierarchy.children.slice();
       taxonomiesBatch[key]._total = taxonomiesBatch[key].total;
       
       this.setState({currentRoot: key});
