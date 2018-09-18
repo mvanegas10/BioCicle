@@ -213,13 +213,13 @@ export class Icicle {
 
       let table = informationGroup.append('table');
 
-      let titles = table.append('tr')
+      let titles = table.append('tr');
 
-      for (let key in filtered[0]) {
+      for ( let key in filtered[0] ) {
     
         titles.append('th')
           .text(() => {
-            return `${key.replace('title','description').toUpperCase()}`;
+            return `${key.replace('title', 'description').toUpperCase()}`;
           });
         
       }
@@ -227,12 +227,11 @@ export class Icicle {
       filtered.forEach( (record) => {
         
         let row = table.append('tr')
-
-        for (let key in record) {
+        for ( let key in record ) {
       
           row.append('td')
             .text(() => {
-              return `${record[key]}`;
+              return String(record[key]).split('|').join(' ');
             });
           
         }
