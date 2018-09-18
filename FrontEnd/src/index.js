@@ -78,8 +78,6 @@ class Form extends React.Component {
 
   selectIcicle(sequence_id) {
 
-    console.log(this.state.rootDict[sequence_id].hierarchy)
-
     console.log('Selecting sequence ', sequence_id)
     if(this.state.interval)
       this.state.interval.stop();
@@ -107,8 +105,14 @@ class Form extends React.Component {
     if(this.state.interval)
       this.state.interval.stop();
 
-    if (idList.length === 1) 
-      this.selectIcicle(idList[0]);
+    if (idList.length === 1) {
+      this.state.icicle.draw(
+          'icicle', 
+          treeDict[idList[0]].hierarchy, 
+          idList[0], 
+          treeDict[idList[0]].total,
+          this.state.levelColor);
+    }
 
     else {
 
@@ -190,7 +194,7 @@ class Form extends React.Component {
 
     this.iterateOverIcicles(
         this.state.rootDict, tmpSequences);
-    
+
     d3.select('#small-multiples').text(`RESULTANT MODELS`);
     d3.select('#overview').text('TAXONOMIC PROFILING'); 
 
@@ -321,7 +325,6 @@ class Form extends React.Component {
       console.log(`Filtering ${this.state.filteredSequences.length} out of ${originalSequences.length}`);
       
       this.iterateOverIcicles(this.state.rootDict, sequences);
-      console.log(this.state.rootDict)
       
       drawSparklines(
           this.state.rootDict, 
