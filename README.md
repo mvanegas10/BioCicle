@@ -21,13 +21,15 @@ cd BioCicle
 
 # Install dependencies
 cd BackEnd
-pip install pymongo xmltramp2 requests flask
+conda create --name <env> --file ../requirements.txt
+pip install pymongo xmltramp2 requests flask biopython ete3 tqdm
 
 cd ../FrontEnd
 npm install
 
 # Run the app
 cd ../BackEnd
+mongod
 python src/app.py
 
 cd ../FrontEnd

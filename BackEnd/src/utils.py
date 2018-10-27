@@ -287,7 +287,7 @@ def extract_comparisons_from_file(filename):
         data = f.readlines()
         sequences = []
         for row in data:
-            if row[:3] == "SP:":
+            if row[:3] == "SP:" or row[:4] == "lcl|":
                 sequences.append({
                     "id":total,
                     "values":[value.strip() for value in row.split(" ")]
