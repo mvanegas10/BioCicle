@@ -1,7 +1,9 @@
 # BackEnd
-BackEnd/tmp
+BackEnd/tmp/*.accession2taxid
+BackEnd/tmp/*.gz
+BackEnd/tmp/*.sqlite
 BackEnd/src/components/taxdmp/*.dmp
-BackEnd/src/static/
+BackEnd/src/static/tmp/*
 
 # Virtual environment
 biovis
