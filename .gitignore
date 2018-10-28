@@ -3,7 +3,8 @@ BackEnd/tmp/*.accession2taxid
 BackEnd/tmp/*.gz
 BackEnd/tmp/*.sqlite
 BackEnd/src/components/taxdmp/*.dmp
-BackEnd/src/static/tmp/*
+BackEnd/src/static/tmp/*.out.txt
+BackEnd/src/static/tmp/*.xml
 
 # Virtual environment
 biovis
@@ -14,5 +15,4 @@ FrontEnd/node_modules
 FrontEnd/public/tmp
 
 # Static files
-static
 static.*
