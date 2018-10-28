@@ -414,17 +414,17 @@ def init_sqlite_db():
         log.datetime_log("Creating accession index for quicker search")
         c.execute("CREATE INDEX prot_accession ON prot (accession)")
         # import from existing file
-        log.datetime_log("importing 21.8GB from " + DB_TXT_FILE + ".\nThis may take a while.")
-        count = 0
+        log.datetime_log("importing 21.8GB from " + DB_TXT_FILE + " into SQLite.\nThis may take a while.\nRows to insert: 588936237 iterations(it)")
+        # count = 0
         with open(DB_TXT_FILE, 'r') as prot_table:
             # Skip header
             next(prot_table)
-            for line in prot_table:
-                count += 1
+            for line in tqdm(prot_table):
+                # count += 1
                 splitted = line.split("\t")
                 c.execute("INSERT INTO prot VALUES (?,?,?,?);", tuple(splitted))
-                if count % 10000000 == 0:
-                    log.datetime_log("completion: " + str(int(count / 10000000)) + " out of " + str(58) )
+                # if count % 10000000 == 0:
+                #     log.datetime_log("completion: " + str(int(count / 10000000)) + " out of " + str(58) )
             
         
         conn.commit()
