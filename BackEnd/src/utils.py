@@ -384,6 +384,9 @@ def check_minimum_ranks(taxonomy):
 # Creates the sqlite database from
 # ftp://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz
 def init_sqlite_db():
+    # From the file, initialize Database, if it doesn't exist
+    if os.path.isfile(SQLITE_DB):
+        return
     # Download text file from ftp server (check if it doesn't exist)
     if not os.path.isfile(DB_TXT_FILE):
         log.datetime_log("First execution. Downloading file with accession 2 taxid dictionary")
@@ -402,9 +405,6 @@ def init_sqlite_db():
         with gzip.open(DB_GZ_FILE, 'rb') as f_in:
             with open(DB_TXT_FILE, 'wb') as f_out:
                 shutil.copyfileobj(f_in, f_out)
-    # From the file, initialize Database, if it doesn't exist
-    if os.path.isfile(SQLITE_DB):
-        return
     with sqlite3.connect(SQLITE_DB) as conn:
         c = conn.cursor()
         log.datetime_log("First execution. Creating database schema")
