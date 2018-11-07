@@ -476,24 +476,11 @@ class Form extends React.Component {
   renderSequence() {
     return (
       <div>
-        <Col md={5}>
-          <h4 className='section-title' >Sequence alignment</h4>
-          <textarea 
-            value={this.state.sequence} 
-            rows='4'
-            placeholder='Insert a sequence or sequence id. For example, try with sp:wap_rat.' 
-            onChange={this.handleSequenceChange}
-          ></textarea>
-
+        <Col md={6}>
+          <h3 className='section-title' >Insert blast xml output file</h3>
         </Col>
-        <Col md={1}></Col>
-        <Col md={2}>
+        <Col md={6}>
           <input className='btn btn-secondary' type="file" onChange={ (e) => this.handleXMLUpload(e.target.files) }/>
-          <button 
-              className='btn btn-secondary' 
-              onClick={this.handleSequenceClick}>
-            Align Sequence
-          </button>
           { this.state.filteredSequences.length > 0 && this.renderDownloadXMLButton()}
         </Col>
       </div>
