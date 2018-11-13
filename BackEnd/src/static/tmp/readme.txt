@@ -1,0 +1,1 @@
+blast results recorded on this folder

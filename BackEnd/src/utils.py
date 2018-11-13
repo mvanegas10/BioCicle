@@ -3,6 +3,11 @@ import re
 import requests
 import base64
 import json
+import csv
+import math
+from tqdm import tqdm
+import gzip
+import shutil
 import pymongo
 import string
 import random
@@ -24,6 +29,9 @@ UPI_FOR_ACCESSION = "http://www.ebi.ac.uk/Tools/picr/rest/getUPIForAccession"
 EBI_DATABASE = "EMBLWGS"
 SRC_FOLDER = os.path.join(PROJECT_DIR, "src/")
 TMP_FOLDER = os.path.join(SRC_FOLDER, "static/tmp/")
+DB_FILE_URL = "https://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz"
+DB_GZ_FILE = os.path.join(PROJECT_DIR, "tmp/prot.accession2taxid.gz")
+DB_TXT_FILE = os.path.join(PROJECT_DIR, "tmp/prot.accession2taxid")
 SQLITE_DB = os.path.join(PROJECT_DIR, "tmp/accession2taxid.sqlite")
 COMPONENTS_FOLDER = os.path.join(SRC_FOLDER, "components/")
 TAXDUMP_FOLDER = os.path.join(COMPONENTS_FOLDER, "taxdmp/")
@@ -54,10 +62,10 @@ def save_file(file, file_path):
     else:
         with open(file_path, "wb") as file_writer:
             file_writer.write(base64.decodebytes(file.encode('ascii')))
-        return file_path 
+        return file_path
 
 
-# Generates a random string 
+# Generates a random string
 def generate_random_string(limit):
     return "".join(random.choice(
             string.ascii_uppercase + string.digits) for _ in range(limit))
@@ -93,7 +101,7 @@ def filter_xml(file_name, queries):
         root = ET.fromstring(f.read())
         output = root.find('BlastOutput_iterations')
         for iteration in output.findall('Iteration'):
-            sequence_id = re.sub( 
+            sequence_id = re.sub(
                 r'[^\w]', ' ', iteration[2].text ).replace(' ','')
             if sequence_id not in queries:
                 print(sequence_id)
@@ -124,8 +132,8 @@ def get_unsaved_sequences(sequences):
 
             saved = db_models.find_one(search)
 
-            if (saved is not None 
-            and saved["comparisons"] is not None 
+            if (saved is not None
+            and saved["comparisons"] is not None
             and saved["hierarchy"] is not None):
 
                 saved.pop("_id", None)
@@ -137,39 +145,39 @@ def get_unsaved_sequences(sequences):
 
 
 # Compares sequence using the EBI/NCBI API. Returns the path of the resultant
-# File 
+# File
 def compare_sequence(sequence, **kargs):
     options = {
-        'program': 'blastp', 
-        'database': 'uniprotkb_swissprot', 
-        'stype': 'protein', 
-        'matrix': None, 
-        'exp': None, 
-        'filter': None, 
-        'alignments': None, 
-        'scores': None, 
-        'dropoff': None, 
-        'match_score': None, 
-        'gapopen': None, 
-        'gapext': None, 
-        'gapalign': None, 
-        'seqrange': None, 
-        'sequence': sequence, 
-        'email': 'vanegas@rhrk.uni-kl.de', 
-        # 'email': 'm.vanegas10@uniandes.edu.co', 
-        'title': None, 
-        'outfile': None, 
-        'outformat': None, 
-        'async': None, 
-        'jobid': None, 
-        'polljob': None, 
-        'status': None, 
-        'resultTypes': None, 
-        'params': None, 
-        'paramDetail': None, 
-        'quiet': None, 
-        'verbose': None, 
-        'baseURL': 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast', 
+        'program': 'blastp',
+        'database': 'uniprotkb_swissprot',
+        'stype': 'protein',
+        'matrix': None,
+        'exp': None,
+        'filter': None,
+        'alignments': None,
+        'scores': None,
+        'dropoff': None,
+        'match_score': None,
+        'gapopen': None,
+        'gapext': None,
+        'gapalign': None,
+        'seqrange': None,
+        'sequence': sequence,
+        'email': 'vanegas@rhrk.uni-kl.de',
+        # 'email': 'm.vanegas10@uniandes.edu.co',
+        'title': None,
+        'outfile': None,
+        'outformat': None,
+        'async': None,
+        'jobid': None,
+        'polljob': None,
+        'status': None,
+        'resultTypes': None,
+        'params': None,
+        'paramDetail': None,
+        'quiet': None,
+        'verbose': None,
+        'baseURL': 'http://www.ebi.ac.uk/Tools/services/rest/ncbiblast',
         'debugLevel': 0
     }
 
@@ -211,12 +219,10 @@ def process_batch(sequences, file_batch, tree):
             filename = file_list[len(file_list) - 1]
 
             comparisons = extract_comparisons_from_file(file)
-            
             tmp_tree, tmp_hierarchy = get_hierarchy_from_dict(
                     sequences[i], comparisons)
-            
             tree = get_hierarchy_from_dict(
-                    sequences[i], 
+                    sequences[i],
                     comparisons,
                     target=tree)
 
@@ -241,10 +247,11 @@ def extract_information_from_blast_record(record, merged_tree):
     tmp_object = {}
     sequence_id = re.sub( r'[^\w]', ' ', record.query ).replace(' ','')
     num_alignments = len(record.descriptions)
-
     details = [extract_alignment_detail(
-            record.descriptions[i], record.alignments[i]) 
+            record.descriptions[i], record.alignments[i])
             for i in range(0, num_alignments)]
+    #Ensure the DB accession2taxid and table prot exist before extracting taxonomy
+    init_sqlite_db()
 
     alignments = [extract_taxonomy_from_aligment(description)
             for description in record.descriptions]
@@ -271,7 +278,7 @@ def extract_information_from_blast_record(record, merged_tree):
     return tmp_object
 
 
-# Extracts alignment's relevant information out of a BLAST result file. 
+# Extracts alignment's relevant information out of a BLAST result file.
 def extract_comparisons_from_file(filename):
     comparisons = []
     total = 0
@@ -280,9 +287,9 @@ def extract_comparisons_from_file(filename):
         data = f.readlines()
         sequences = []
         for row in data:
-            if row[:4] == "lcl|":
+            if row[:3] == "SP:" or row[:4] == "lcl|":
                 sequences.append({
-                    "id":total, 
+                    "id":total,
                     "values":[value.strip() for value in row.split(" ")]
                 })
                 total += 1
@@ -290,9 +297,10 @@ def extract_comparisons_from_file(filename):
 
         log.datetime_log("Starting process for filename {}".format(filename))
 
-        with Pool(processes=10) as pool: 
+        with Pool(processes=10) as pool:
             comparisons = pool.map(
                     partial(get_relevant_data, total=total), sequences)
+
 
         log.datetime_log("Finishing process for filename {}".format(filename))
 
@@ -304,7 +312,7 @@ def extract_taxonomy_from_aligment(description):
     accession = description.title.split("|")[3]
     accession = accession[:len(accession)-2] if "." in accession else accession
 
-    taxid = get_tax_id_from_accession_id(accession) 
+    taxid = get_tax_id_from_accession_id(accession)
     
     if taxid is not None:
         taxonomy = get_taxonomy_from_taxid(taxid)
@@ -344,7 +352,7 @@ def get_relevant_data(values, total):
                 break
         except ValueError:
             pass
-        i -= 1 
+        i -= 1
     
     count += 1
     
@@ -361,7 +369,7 @@ def get_relevant_data(values, total):
 def check_minimum_ranks(taxonomy):
     for min_rank in MINIMUM_RANKS:
         if not min_rank in taxonomy.keys():
-            possible_ranks = [rank for rank in taxonomy.keys() 
+            possible_ranks = [rank for rank in taxonomy.keys()
                 if min_rank in rank]
 
             if len(possible_ranks) > 0:
@@ -373,13 +381,64 @@ def check_minimum_ranks(taxonomy):
     return taxonomy
 
 
-# Gets tax id from accession id (PROTEIN) using 
+# Creates the sqlite database from
+# ftp://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz
+def init_sqlite_db():
+    # From the file, initialize Database, if it doesn't exist
+    if os.path.isfile(SQLITE_DB):
+        return
+    # Download text file from ftp server (check if it doesn't exist)
+    if not os.path.isfile(DB_TXT_FILE):
+        log.datetime_log("First execution. Downloading file with accession 2 taxid dictionary")
+        r = requests.get(DB_FILE_URL, stream=True)
+        total_size = int(r.headers.get('content-length', 0))
+        block_size = 1024
+        wrote = 0
+        log.datetime_log("Writing .gz file. Please wait")
+        with open(DB_GZ_FILE, "wb") as compressedFile:
+            for data in tqdm(r.iter_content(block_size), total=math.ceil(total_size//block_size) , unit='KB', unit_scale=True):
+                wrote = wrote + len(data)
+                compressedFile.write(data)
+        if total_size != 0 and wrote != total_size:
+            log.datetime_log("ERROR, something went wrong")
+        log.datetime_log("Decompressing into plain text file")
+        with gzip.open(DB_GZ_FILE, 'rb') as f_in:
+            with open(DB_TXT_FILE, 'wb') as f_out:
+                shutil.copyfileobj(f_in, f_out)
+    with sqlite3.connect(SQLITE_DB) as conn:
+        c = conn.cursor()
+        log.datetime_log("First execution. Creating database schema")
+        # Create schema
+        c.execute("CREATE TABLE IF NOT EXISTS prot (accession text, accession_version text, taxid int, gi int)")
+        # Create index for quicker search
+        log.datetime_log("Creating accession index for quicker search")
+        c.execute("CREATE INDEX prot_accession ON prot (accession)")
+        # import from existing file
+        log.datetime_log("importing 21.8GB from " + DB_TXT_FILE + " into SQLite.\nThis may take a while.\nRows to insert: 588936237 iterations(it)")
+        # count = 0
+        with open(DB_TXT_FILE, 'r') as prot_table:
+            # Skip header
+            next(prot_table)
+            for line in tqdm(prot_table):
+                # count += 1
+                splitted = line.split("\t")
+                c.execute("INSERT INTO prot VALUES (?,?,?,?);", tuple(splitted))
+                # if count % 10000000 == 0:
+                #     log.datetime_log("completion: " + str(int(count / 10000000)) + " out of " + str(58) )
+            
+        
+        conn.commit()
+
+
+
+
+# Gets tax id from accession id (PROTEIN) using
 # ftp://ftp.ncbi.nih.gov/pub/taxonomy/accession2taxid/prot.accession2taxid.gz
 def get_tax_id_from_accession_id(accession_id):
     with sqlite3.connect(SQLITE_DB) as conn:
         c = conn.cursor()
-        c.execute("SELECT taxid FROM prot WHERE accession=?",(accession_id,))
-        try: 
+        c.execute("SELECT taxid FROM prot WHERE accession=? LIMIT 1",(accession_id,))
+        try:
             taxid = c.fetchone()[0]
             return int(taxid)
         except:
@@ -460,18 +519,15 @@ def get_hierarchy_from_dict(sequence_id, comparisons, **kargs):
         tree = {'name':'', 'children': {}, 'SCORE': []}
     else:
         tree = kargs['target']
-
     for i, sequence in enumerate(comparisons):
         children = tree['children']
-        
         for rank in MINIMUM_RANKS:
             if not sequence[rank] in children.keys():
                 children[sequence[rank]] = {
-                    'name':sequence[rank], 
-                    'children': {}, 
+                    'name':sequence[rank],
+                    'children': {},
                     'SCORE': {}
                 }
-
             if not sequence_id in children[sequence[rank]]['SCORE'].keys():
                 children[sequence[rank]]['SCORE'][sequence_id] = 0.0
 
