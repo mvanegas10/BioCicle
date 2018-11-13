@@ -1,4 +1,4 @@
 {
-	"BACKEND_URL": "http://localhost:8080/api/",
-	"BACKEND_URL_TMP": "http://157.253.104.255:80/api/"
+	"BACKEND_URL_TMP": "http://localhost:8080/api/",
+	"BACKEND_URL": "http://biocicle.johnguerra.co:80/api/"
 }

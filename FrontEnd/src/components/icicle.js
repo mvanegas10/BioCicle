@@ -10,6 +10,8 @@ const COLOR_1 = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#f
 
 const COLOR_0 = ['#8dd3c7','#ffffb3','#bebada','#fb8072','#80b1d3','#fdb462','#b3de69','#fccde5','#d9d9d9','#bc80bd','#ccebc5']
 
+const MINIMUM_RANKS = ["PHYLUM","CLASS","ORDER","FAMILY","GENUS","SPECIES"]
+
 
 export class Icicle {
 
@@ -132,7 +134,7 @@ export class Icicle {
           let ini = children.length / 2;
           let colorRange = [];
           for (let i = 0; i < children.length; i++) {
-            let change = parseInt(50/children.length);
+            let change = parseInt(50/children.length, 10);
             const color = `rgb(${c.r+(ini+i)*change},${c.g+(ini+i)*change},${c.b+(ini+i)*change})`
             colorRange.push(d3.color(color))
           }
@@ -158,9 +160,9 @@ export class Icicle {
       .style("stroke-width", 2)
       .on("click", (d) => {
         if (!this.selectIcicle) {
-          if (d.data && d.data.value)
-            return this.getInformation(d);
-          return this.clicked(d);
+          if (d.data && !d.data.value)
+            this.clicked(d);
+          return this.getInformation(d);
         }
         else
           this.selectIcicle(Object.keys(d.data.SCORE)[0]);
@@ -186,6 +188,8 @@ export class Icicle {
 
   getInformation(d) {
 
+    const depth = MINIMUM_RANKS[d.depth - 1]
+
     const sequence = (d.data.SCORE)? Object.keys(d.data.SCORE)[0]: Object.keys(d.data.value)[0];
 
     const rank = (d.data.name);
@@ -203,11 +207,10 @@ export class Icicle {
       const descriptions = this.information[sequence].description;
       const comparisons = this.information[sequence].comparisons;
 
-      const filtered = descriptions.filter((d,i) => {
+      const filtered = descriptions.filter(function(d,i) {
 
-        if (comparisons[i] && comparisons[i].SPECIES === rank) {
+        if (comparisons[i] && comparisons[i][depth] === rank)
           return d;
-        }
 
       });
 

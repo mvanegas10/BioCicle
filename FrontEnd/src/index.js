@@ -144,8 +144,6 @@ class Form extends React.Component {
 
   handleIcicleAndDendogramRendering(output) {
 
-    var rootDict = {};
-
     console.log(output)
 
     let taxonomiesBatch = output['taxonomies_batch'];
