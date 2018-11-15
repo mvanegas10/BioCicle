@@ -228,6 +228,7 @@ class Form extends React.Component {
         const blob = new Blob([buffer], {type: 'text/xml'});
         const csvURL = window.URL.createObjectURL(blob);
         let tempLink = document.createElement('a');
+        document.body.appendChild(tempLink);
         tempLink.href = csvURL;
 
         tempLink.setAttribute('download', `filtered-${filename}.xml`);
@@ -474,12 +475,14 @@ class Form extends React.Component {
   renderSequence() {
     return (
       <div>
-        <Col md={6}>
+        <Col md={4}>
           <h3 className='section-title' >Insert blast xml output file</h3>
         </Col>
-        <Col md={6}>
+        <Col md={4}>
           <input className='btn btn-secondary' type="file" onChange={ (e) => this.handleXMLUpload(e.target.files) }/>
           { this.state.filteredSequences.length > 0 && this.renderDownloadXMLButton()}
+        </Col>
+        <Col md={4}>
         </Col>
       </div>
     );
