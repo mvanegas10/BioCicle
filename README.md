@@ -1,48 +1,165 @@
-# BioCicle
-## A Tool for Summarizing and Comparing Taxonomic Reports for Biological Sequence Alignment Results
 
-![BioCicleTeaser](https://mvanegas10.github.io/BioCicle/BioCicleTeaser.png "BioCicleTeaser")
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for build-url, contributors-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Build Status][build-shield]][build-url]
+[![Contributors][contributors-shield]][contributors-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-This is a tool that supports taxonomic report analysis for single and multiple query displays. Our preeminent contributions are mostly in the visual design for taxonomic reports, the ease interaction and manipulation for taxonomic profiles analysis and the format support for input files.
 
-### Implementation
 
-We propose an open source prototype that connects directly with the NCBI API to compute the comparisons and visualize its results. The implementation consists in a Python-based BackEnd and a React Application as interface.
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/mvanegas10/BioCicle">
+    <img src="docs/icon.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">BioCicle</h3>
+
+  <p align="center">
+    A Tool for Summarizing and Comparing Taxonomic Reports for Biological Sequence Alignment Results
+    <br />
+    <a href="https://github.com/mvanegas10/BioCicle"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="http://18.206.25.144/">View Demo</a>
+    ·
+    <a href="https://github.com/mvanegas10/BioCicle/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/mvanegas10/BioCicle/issues">Request Feature</a>
+  </p>
+</p>
+
+
+
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
+
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [License](#license)
+* [Contact](#contact)
+* [Acknowledgements](#acknowledgements)
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+
+[![BioCicle Screen Shot][product-screenshot]](https://mvanegas10.github.io/BioCicle/BioCicleTeaser.png)
+
+Biological sequence comparison is a crucial step towards the process of identifying and cataloging new sequences. To achieve this, computational biologists must compare a new sequence to the permanently-growing biological databases. This comparison produces a myriad of results, from where extracting useful information is highly cost-intensive given the lack of tools providing an overview of the results. Moreover, it is possible to mistakenly catalog new sequences due to poor comparison analysis.
+
+BioCicle is a web-based and open-source to summarize and compare single and multiple taxonomic reports out of biological sequence comparisons. This proposal focuses in taxonomic reports but, contrary to previous work, applies visual analytics principles from its inception. Furthermore, BioCicle supports accession ids and FASTA formats to directly generate the comparisons using the NCBI/EBI's and UniProt APIs or uploading a pregenerated comparison in the usual TXT output file.
+
+### Built With
+This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+* [Flask](https://palletsprojects.com/p/flask/)
+* [EBI NCBI API](https://www.ebi.ac.uk/seqdb/confluence/display/JDSAT/Job+Dispatcher+Sequence+Analysis+Tools+Home)
+* [ReactJS](https://reactjs.org/)
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
 In order to deploy the application, you need to install the prerequisites listen in the BackEnd/requirements.txt and FrontEnd/package.json file. Do the following:
-```bash
-# Clone this repository
+* python (>= 3.6.7 required)
+* node (>= 8.16.0 required)
+* npm (>= 0.0.0 required)
+* mongo (>= 3.6.13 required)
+
+### Installation
+
+1. Clone the repo
+```sh
 git clone https://github.com/mvanegas10/BioCicle.git
-
-# Go into the repository
-cd BioCicle
-
-# Install dependencies
-cd BackEnd
-conda create --name <env> --file ../requirements.txt
-pip install pymongo xmltramp2 requests flask biopython ete3 tqdm
-
-cd ../FrontEnd
+```
+2. Install PIP packages
+```sh
+conda create --name <env> --file requirements.txt
+conda activate <env>
+cd BioCicle/
+pip install -r requirements.txt
+```
+3. Install NPM packages
+```sh
 npm install
-
-# Run the app
-cd ../BackEnd
-mongod
-python src/app.py
-
-cd ../FrontEnd
-npm start
 ```
 
-## Built With
+<!-- USAGE EXAMPLES -->
+## Usage
 
-* Flask
-* EBI NCBI API
-* ReactJS
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-## Author
-<!-- Contributors table START -->
-| [![Meili Vanegas](https://avatars.githubusercontent.com/mvanegas10?s=100)<br /><sub>Meili Vanegas</sub>](https:///mvanegas10.github.io)<br /> |
-| :---: |
+_For more examples, please refer to the [Documentation](https://example.com)_
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+See the [open issues](https://github.com/mvanegas10/BioCicle/issues) for a list of proposed features (and known issues).
+
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+
+<!-- CONTACT -->
+## Contact
+| [![Meili Vanegas-Hernandez](https://avatars.githubusercontent.com/mvanegas10?s=100)<br /><sub>Meili Vanegas-Hernandez</sub>](https://mvanegas10.github.io/)<br /> |[![Fabio Andrés López Corredor](https://avatars.githubusercontent.com/falopez10?s=100)<br /><sub>Fabio Andrés López Corredor</sub>](https://falopez10.github.io/)<br /> |
+| :---: | :---: |
+
+
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+* [John Alexis Guerra Gómez](http://johnguerra.co/)
+* [José Tiberio Hernández](https://profesores.virtual.uniandes.edu.co/jhernand/en/inicio-en/)
+* [Alejandro Reyes](https://cienciasbiologicas.uniandes.edu.co/index.php/es/personas/profesoresdcb?id=72)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[build-shield]: https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat-square
+[build-url]: #
+[contributors-shield]: https://img.shields.io/badge/contributors-1-orange.svg?style=flat-square
+[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[license-shield]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
+[license-url]: https://choosealicense.com/licenses/mit
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/othneildrew
+[product-screenshot]: https://raw.githubusercontent.com/othneildrew/Best-README-Template/master/screenshot.png
+
