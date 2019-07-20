@@ -10,8 +10,6 @@
 [![Build Status][build-shield]][build-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
 
 
 <!-- PROJECT LOGO -->
@@ -26,7 +24,7 @@
   <p align="center">
     A Tool for Summarizing and Comparing Taxonomic Reports for Biological Sequence Alignment Results
     <br />
-    <a href="https://github.com/mvanegas10/BioCicle"><strong>Explore the docs »</strong></a>
+    <a href="http://johnguerra.co/students/2018MeiliVanegasBioCicle/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="http://18.206.25.144/">View Demo</a>
@@ -59,7 +57,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![BioCicle Screen Shot][product-screenshot]](https://mvanegas10.github.io/BioCicle/BioCicleTeaser.png)
+[![BioCicle Screen Shot][product-screenshot]](https://github.com/mvanegas10/BioCicle)
 
 Biological sequence comparison is a crucial step towards the process of identifying and cataloging new sequences. To achieve this, computational biologists must compare a new sequence to the permanently-growing biological databases. This comparison produces a myriad of results, from where extracting useful information is highly cost-intensive given the lack of tools providing an overview of the results. Moreover, it is possible to mistakenly catalog new sequences due to poor comparison analysis.
 
@@ -106,9 +104,7 @@ npm install
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples, please refer to the [Documentation](http://johnguerra.co/students/2018MeiliVanegasBioCicle/)_
 
 
 
@@ -155,11 +151,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [build-shield]: https://img.shields.io/badge/build-passing-brightgreen.svg?style=flat-square
 [build-url]: #
-[contributors-shield]: https://img.shields.io/badge/contributors-1-orange.svg?style=flat-square
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[contributors-shield]: https://img.shields.io/badge/contributors-2-orange.svg?style=flat-square
+[contributors-url]: https://github.com/mvanegas10/BioCicle/graphs/contributors
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 [license-url]: https://choosealicense.com/licenses/mit
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: https://raw.githubusercontent.com/othneildrew/Best-README-Template/master/screenshot.png
+[product-screenshot]: icons/biocicleOverview.png
 
