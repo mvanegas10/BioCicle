@@ -104,7 +104,7 @@ npm install
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-_For more examples, please refer to the [Documentation](http://johnguerra.co/students/2018MeiliVanegasBioCicle/)_
+_For more examples, please refer to the [Documentation](http://johnguerra.co/students/2018MeiliVanegasBioCicle/)._
 
 
 
@@ -155,5 +155,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [contributors-url]: https://github.com/mvanegas10/BioCicle/graphs/contributors
 [license-shield]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 [license-url]: https://choosealicense.com/licenses/mit
-[product-screenshot]: icons/biocicleOverview.png
+[product-screenshot]: docs/biocicleOverview.png
 
