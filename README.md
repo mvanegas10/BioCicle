@@ -63,14 +63,12 @@
 
 Biological sequence comparison is a crucial step towards the process of identifying and cataloging new sequences. To achieve this, computational biologists must compare a new sequence to the permanently-growing biological databases. This comparison produces a myriad of results, from where extracting useful information is highly cost-intensive given the lack of tools providing an overview of the results. Moreover, it is possible to mistakenly catalog new sequences due to poor comparison analysis.
 
-BioCicle is a web-based and open-source to summarize and compare single and multiple taxonomic reports out of biological sequence comparisons. This proposal focuses in taxonomic reports but, contrary to previous work, applies visual analytics principles from its inception. Furthermore, BioCicle supports accession ids and FASTA formats to directly generate the comparisons using the NCBI/EBI's and UniProt APIs or uploading a pregenerated comparison in the usual TXT output file.
+BioCicle is a web-based and open-source application that summarizes and compares single and multiple taxonomic reports out of biological sequence comparisons. This proposal focuses in taxonomic reports but, contrary to previous work, applies visual analytics principles from its inception. Furthermore, BioCicle supports accession ids and FASTA formats to directly generate the comparisons using the NCBI/EBI's and UniProt APIs or uploading a pregenerated comparison in the usual TXT output file.
 
 ### Built With
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 * [Flask](https://palletsprojects.com/p/flask/)
 * [EBI NCBI API](https://www.ebi.ac.uk/seqdb/confluence/display/JDSAT/Job+Dispatcher+Sequence+Analysis+Tools+Home)
 * [ReactJS](https://reactjs.org/)
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -106,16 +104,12 @@ npm install
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-_For more examples, please refer to the [Documentation](http://johnguerra.co/students/2018MeiliVanegasBioCicle/)._
-
-
+Please refer to the [video](https://youtu.be/K_nUJ5exn1A) which explains how to use the application.
 
 <!-- ROADMAP -->
 ## Roadmap
 
 See the [open issues](https://github.com/mvanegas10/BioCicle/issues) for a list of proposed features (and known issues).
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -134,8 +128,6 @@ Contributions are what make the open source community such an amazing place to b
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-
 
 <!-- CONTACT -->
 ## Contact
