@@ -27,6 +27,8 @@
     <a href="http://johnguerra.co/students/2018MeiliVanegasBioCicle/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
+    <a href="http://www.youtube.com/watch?feature=player_embedded&v=K_nUJ5exn1A" target="_blank">View Video</a>  
+    ·  
     <a href="http://18.206.25.144/">View Demo</a>
     ·
     <a href="https://github.com/mvanegas10/BioCicle/issues">Report Bug</a>
